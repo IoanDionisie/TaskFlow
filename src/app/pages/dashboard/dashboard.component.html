@@ -1,0 +1,39 @@
+<div class="centered-content">
+    <div class="task-manager-container">
+        <div class="sidebar">
+            <h1 class="title has-text-primary">
+                Lists
+            </h1>
+
+            <div class="lists-container">
+                <div *ngFor="let list of lists" class="list">
+
+                </div>
+            </div>
+
+            <div class="add-list">
+                <button (click)="createNewList()">
+                    Add list
+                </button>
+            </div>
+        </div>
+        
+        <div class="task-list-container">
+            <h1 class="title has-text-primary">
+                Tasks
+            </h1>
+
+            <div class="tasks-container">
+                <div *ngFor="let task of tasks" class="task">
+                    {{task.title}}
+                </div>
+            </div>
+
+            <div class="add-task">
+                <button (click)="addTaskToList()">
+                    Add task
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+.task-manager-container {
+    display: flex;
+    width: 100%;
+    max-width: 1000px;
+    max-height: 680px;
+    height: 100%;
+    background: white;
+    padding: 20px;
+}
+
+.sidebar {
+    width: 30%;
+
+    .title {
+        height: 10%;
+    }
+
+    .add-list {
+        height: auto;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .lists-container {
+        height: 80%;
+    }
+}
+
+.task-list-container {
+    width: 70%;
+
+    .title {
+        height: 10%;
+    }
+
+    .tasks-container {
+        height: 80%;
+    }
+
+    .add-task {
+        height: auto;
+        display: flex;
+        justify-content: flex-end;
+    }
+}
