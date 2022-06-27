@@ -7,7 +7,7 @@
 
             <div class="lists-container">
                 <div *ngFor="let list of lists" class="list">
-
+                    {{ list.title }}
                 </div>
             </div>
 
@@ -30,7 +30,7 @@
             </div>
 
             <div class="add-task">
-                <button (click)="addTaskToList()">
+                <button (click)="createNewTask()">
                     Add task
                 </button>
             </div>
