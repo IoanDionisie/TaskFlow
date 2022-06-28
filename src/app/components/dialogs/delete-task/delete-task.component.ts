@@ -1,5 +1,6 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-delete-task',
@@ -9,6 +10,17 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export class DeleteTaskComponent  {
 
-  constructor(public dialogRef: MatDialogRef<DeleteTaskComponent>) {}
+  @Output() removeConfirmation: EventEmitter<any> = new EventEmitter();
 
+  constructor(private modal: NgbActiveModal) {}
+  
+  removeTask(remove: boolean) {
+    this.removeConfirmation.emit(remove);
+    this.closeModal();
+  }
+
+  closeModal() {
+    this.modal.close();
+  }
+  
 }
