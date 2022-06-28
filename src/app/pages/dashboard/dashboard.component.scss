@@ -12,18 +12,55 @@
     width: 30%;
 
     .title {
-        height: 10%;
+        height: 15%;
     }
 
     .add-list {
-        height: auto;
+        height: 20%;
         display: flex;
         justify-content: flex-end;
+        align-items: flex-end;
+    }
+
+    .add-list button {
+        font-size: 20px;
+        background: aquamarine;
+        color: white;
+        border: none;
+        opacity: 0.8;
+        height: 2.5rem;
+    }
+
+    .add-list button:hover {
+        opacity: 1;
+        cursor: pointer;
     }
 
     .lists-container {
-        height: 80%;
+        height: 60%;
         overflow-y: auto;
+        padding: 10px;
+    }
+
+    .lists-container .list:not(:first-child) {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        font-size: 20px;
+    }
+
+    .lists-container .list:first-child {
+        padding-bottom: 8px;
+        font-size: 20px;
+    }
+
+
+    .lists-container .list:hover {
+        cursor: pointer;
+        color: #44ddd0;
+    }
+
+    .lists-container .selected {
+        color: #44ddd0;
     }
 }
 
@@ -31,16 +68,80 @@
     width: 70%;
 
     .title {
-        height: 10%;
+        height: 15%;
     }
 
     .tasks-container {
-        height: 80%;
+        height: 60%;
+        overflow-y: auto;
+        padding: 10px;
+    }
+
+    .tasks-container .task:not(:first-child) {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        font-size: 17px;
+        font-weight: 500;
+    }
+
+    .tasks-container .task:first-child {
+        padding-bottom: 8px;
+        font-size: 17px;
+        font-weight: 500;
+    }
+
+    .tasks-container .task:hover {
+        cursor: pointer;
+        color: #44ddd0;
     }
 
     .add-task {
-        height: auto;
+        height: 20%;
         display: flex;
         justify-content: flex-end;
+        align-items: flex-end;
+    }
+
+    .add-task button {
+        height: 2.5rem;
+    }
+
+    .create-task {
+        border-radius: 40px;
+        font-size: 30px;
+        border: none;
+        background: aquamarine;
+        color: white;
+        opacity: 0.8;
+        transition: transform .7s ease-in-out;
+    }
+
+    .create-task:hover {
+        opacity: 1;
+        cursor: pointer;
+        transform: rotate(360deg);
     }
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    cursor:pointer;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #44ddd0; 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: aquamarine; 
+  }

@@ -1,12 +1,13 @@
 <div class="centered-content">
     <div class="task-manager-container">
+        
         <div class="sidebar">
             <h1 class="title has-text-primary">
                 Lists
             </h1>
 
             <div class="lists-container">
-                <div *ngFor="let list of lists" class="list">
+                <div *ngFor="let list of lists" class="list" [ngClass]="selectedList._id == list._id ? 'selected' : ''" (click)="selectList(list)">
                     {{ list.title }}
                 </div>
             </div>
@@ -30,8 +31,8 @@
             </div>
 
             <div class="add-task">
-                <button (click)="createNewTask()">
-                    Add task
+                <button class="create-task" (click)="createNewTask()">
+                    <i class="fa-solid fa-plus"></i>
                 </button>
             </div>
         </div>

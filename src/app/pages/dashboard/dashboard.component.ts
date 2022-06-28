@@ -1,5 +1,6 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Model } from 'mongoose';
 import { TaskService } from 'src/app/task.service';
 
@@ -15,7 +16,7 @@ export class DashboardComponent implements OnInit {
   
   selectedList: any;
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.getAllLists();
@@ -48,6 +49,11 @@ export class DashboardComponent implements OnInit {
     this.taskService.createTask(this.selectedList._id, task).subscribe((response: any) => {
       this.tasks.push(response);
     })
+  }
+
+  selectList(list: any) {
+    this.selectedList = list;
+    this.getAllTasks(list._id);
   }
 
 }
