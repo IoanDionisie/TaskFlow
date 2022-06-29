@@ -9,9 +9,9 @@ export class TaskService {
 
   constructor(private webReqService: WebRequestService) { }
 
-  createList(title: string) {
+  createList(payload: any) {
     // We want to send a web request to create a list
-    return this.webReqService.post('lists', {title});
+    return this.webReqService.post('lists', payload);
   }
 
   getLists() {
@@ -26,5 +26,10 @@ export class TaskService {
   createTask(listId: any, task: Object) {
     let link = 'lists/' + listId + '/tasks';
     return this.webReqService.post(link, task);
+  }
+
+  deleteTask(listId: any, taskId: any) {
+    let link = 'lists/' + listId + '/tasks/' + taskId;
+    return this.webReqService.delete(link);
   }
 }

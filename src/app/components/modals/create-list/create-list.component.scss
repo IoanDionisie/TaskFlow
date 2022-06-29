@@ -1,0 +1,15 @@
+
+
+.modal-text {
+    display: flex;
+    padding: 10px;
+
+    label {
+        padding-right: 20px;
+    }
+
+    textarea, input {
+        width: 100%;
+        padding: 5px;
+    }
+}

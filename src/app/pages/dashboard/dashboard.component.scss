@@ -29,6 +29,14 @@
         border: none;
         opacity: 0.8;
         height: 2.5rem;
+        border-radius: 10px;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        outline: none;
+        box-shadow: none;
+        text-decoration: none;
     }
 
     .add-list button:hover {
@@ -66,6 +74,7 @@
 
 .task-list-container {
     width: 70%;
+    padding-left: 30px;
 
     .title {
         height: 15%;
@@ -75,6 +84,11 @@
         height: 60%;
         overflow-y: auto;
         padding: 10px;
+    }
+
+    .tasks-container .task {
+        display: flex;
+        justify-content: space-between;
     }
 
     .tasks-container .task:not(:first-child) {
@@ -95,6 +109,20 @@
         color: #44ddd0;
     }
 
+    .tasks-container .delete-task {
+        border: none;
+        background: none;
+        outline: none;
+        box-shadow: none;
+        text-decoration: none;
+        color: rgb(255,69,0);
+        :hover {
+           cursor: pointer;
+        }
+    }
+
+
+
     .add-task {
         height: 20%;
         display: flex;
@@ -104,16 +132,23 @@
 
     .add-task button {
         height: 2.5rem;
+        outline: none;
+        box-shadow: none;
+        text-decoration: none;
     }
 
     .create-task {
         border-radius: 40px;
-        font-size: 30px;
+        display: flex;
+        font-size: 35px;
         border: none;
         background: aquamarine;
         color: white;
         opacity: 0.8;
-        transition: transform .7s ease-in-out;
+        transition: transform 0.7s ease-in-out;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
     }
 
     .create-task:hover {
@@ -127,21 +162,21 @@
 ::-webkit-scrollbar {
     width: 10px;
     cursor:pointer;
-  }
+}
 
-  /* Track */
-  ::-webkit-scrollbar-track {
+/* Track */
+::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px grey; 
     border-radius: 10px;
-  }
+}
    
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
+/* Handle */
+::-webkit-scrollbar-thumb {
     background: #44ddd0; 
     border-radius: 10px;
-  }
+}
   
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
     background: aquamarine; 
-  }
+}

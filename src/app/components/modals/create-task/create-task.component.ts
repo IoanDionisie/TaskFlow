@@ -10,12 +10,22 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class CreateTaskComponent  {
 
   @Output() createTaskConfirmation: EventEmitter<any> = new EventEmitter();
+
+  name: any;
+  description: any;
   
   constructor(private modal: NgbActiveModal) {}
   
   confirm() {
-    this.createTaskConfirmation.emit(true);
+    let obj = {
+      confirmation: true, 
+      title: this.name,
+      description: this.description
+    }
+
+    this.createTaskConfirmation.emit(obj);
     this.closeModal();
+
   }
 
   closeModal() {

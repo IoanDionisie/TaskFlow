@@ -27,6 +27,9 @@
             <div class="tasks-container">
                 <div *ngFor="let task of tasks" class="task">
                     {{task.title}}
+                    <button class="delete-task" (click)="deleteThisTask(task)">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
                 </div>
             </div>
 

@@ -26,4 +26,9 @@ html {
 
 html, body {
     height: 100%;
+    background: $turquoise;
+}
+
+.modal {
+    z-index: 100000;
 }

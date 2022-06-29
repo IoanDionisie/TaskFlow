@@ -2,10 +2,18 @@
     <h4 class="modal-title" id="modal-title">Add Task</h4>
 </div>
 <div class="modal-body">
-
+    <div class="name modal-text">
+        <label for="name">Name</label>
+        <input type="text" id="name" [(ngModel)]="name" minlength="2">
+    </div>
+  
+    <div class="description modal-text">
+        <label for="description">Description</label>
+        <textarea id="description" [(ngModel)]="description"></textarea>
+    </div>
 
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn" (click)="closeModal()">Cancel</button>
-    <button type="button" class="btn btn-danger" (click)="confirm()">Confirm</button>
+    <button type="button" class="btn btn-danger" (click)="closeModal()">Cancel</button>
+    <button type="button" class="btn btn-success" (click)="confirm()">Confirm</button>
 </div>

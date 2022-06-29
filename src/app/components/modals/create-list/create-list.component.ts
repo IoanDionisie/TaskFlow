@@ -10,10 +10,20 @@ export class CreateListComponent  {
 
   @Output() createListConfirmation: EventEmitter<any> = new EventEmitter();
   
+  name: string | undefined;
+  description: string | undefined;
+
+  
   constructor(private modal: NgbActiveModal) {}
   
   confirm() {
-    this.createListConfirmation.emit(true);
+    let obj = {
+      confirmation: true, 
+      title: this.name,
+      description: this.description
+    }
+
+    this.createListConfirmation.emit(obj);
     this.closeModal();
   }
 
