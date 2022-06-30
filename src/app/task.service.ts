@@ -32,4 +32,9 @@ export class TaskService {
     let link = 'lists/' + listId + '/tasks/' + taskId;
     return this.webReqService.delete(link);
   }
+
+  deleteList(listId: any) {
+    let link = 'lists/' + listId;
+    return this.webReqService.delete(link);
+  }
 }

@@ -1,43 +1,70 @@
-<div class="centered-content">
-    <div class="task-manager-container">
-        
-        <div class="sidebar">
+<div class="container task-manager-container ">
+    <div class="row title-row">
+        <div class="col-4">
             <h1 class="title has-text-primary">
-                Lists
+                Lists <i class="fa-solid fa-tree"></i>
             </h1>
-
-            <div class="lists-container">
-                <div *ngFor="let list of lists" class="list" [ngClass]="selectedList._id == list._id ? 'selected' : ''" (click)="selectList(list)">
-                    {{ list.title }}
-                </div>
-            </div>
-
-            <div class="add-list">
-                <button (click)="createNewList()">
-                    Add list
-                </button>
-            </div>
         </div>
-        
-        <div class="task-list-container">
+        <div class="col-8">
             <h1 class="title has-text-primary">
-                Tasks
+                Tasks <i class="fa-brands fa-pagelines"></i>
             </h1>
+        </div>
+    </div>
+    <div class="row sidebar">
+        <div class="lists-container col-4">
+            <div *ngFor="let list of lists" class="list list-color" [ngClass]="selectedList._id == list._id ? 'selected' : ''" (click)="selectList(list)">
+                {{ list.title }}
 
-            <div class="tasks-container">
-                <div *ngFor="let task of tasks" class="task">
-                    {{task.title}}
-                    <button class="delete-task" (click)="deleteThisTask(task)">
+                <div class="actions">
+                    <button *ngIf="list._id == selectedList._id" class="complete" (click)="completeThisList(list)" title="Complete List">
+                        <i class="fa-solid fa-check"></i>
+                    </button>
+
+                    <button class="modify" (click)="modifyThisList(list)" title="Modify List">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+    
+                    <button class="delete" (click)="deleteThisList(list)" title="Delete List">
                         <i class="fa-solid fa-trash"></i>
                     </button>
                 </div>
             </div>
-
-            <div class="add-task">
-                <button class="create-task" (click)="createNewTask()">
-                    <i class="fa-solid fa-plus"></i>
-                </button>
+        </div>
+        
+        <div class="task-list-container col-8">
+            <div *ngFor="let task of tasks" class="task task-color">
+                {{task.title}}
+                <div class="actions">
+                    <button class="complete" (click)="completeThisTask(task)" title="Complete Task">
+                        <i class="fa-solid fa-check"></i>
+                    </button>
+                   
+                    <button class="modify" (click)="modifyThisTask(task)" title="Modify Task">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+    
+                    <button class="delete" (click)="deleteThisTask(task)" title="Delete Task">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
             </div>
+        </div>
+    </div>
+    <div class="row bottom-row">
+        <div class="add-list">
+            <button class="list-background" (click)="createNewList()">
+                Add list
+            </button>
+        </div>
+
+        <div class="add-task">
+            <div *ngIf="tasks.length == 0" class="add-task-reminder">
+                Start adding tasks for your list "{{selectedList.title}}" !
+            </div>
+            <button [ngClass]="tasks.length == 0 ? 'button-pulse-effect': ''" class="create-task task-background" (click)="createNewTask()">
+                <i class="fa-solid fa-plus"></i>
+            </button>
         </div>
     </div>
 </div>

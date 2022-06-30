@@ -8,27 +8,25 @@
     height: 100%;
 }
 
-$turquoise: #44ddd0;
-$green: #27d7a1;
-$light-green: #45f69e;
-$dark-green: rgb(0, 100, 80);
-
-$primary: $green;
-$link: $light-green;
-
-$control-border-width: 2px;
-$input-border-color: transparent;
-$input-shadow: none;
-
-html {
-    background: $turquoise;
-}
-
 html, body {
     height: 100%;
-    background: $turquoise;
+    background: url(assets/images/enchanted-forest.jpg) no-repeat center fixed;
+    background-size: cover;
+}
+
+.center-component {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+    align-items: center;
 }
 
 .modal {
     z-index: 100000;
+}
+
+$prussianBlue: #122E42;
+
+h1 {
+    color: $prussianBlue;
 }

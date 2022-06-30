@@ -1,5 +1,5 @@
 import { ThisReceiver } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Model } from 'mongoose';
 import { TaskService } from 'src/app/task.service';
@@ -20,6 +20,8 @@ export class DashboardComponent implements OnInit {
   
   selectedList: any;
 
+  @HostBinding('class') class = 'center-component';
+
   constructor(private taskService: TaskService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
@@ -29,6 +31,7 @@ export class DashboardComponent implements OnInit {
   getAllLists() {
     this.taskService.getLists().subscribe((response: any) => {
       this.lists = response;
+      console.log(response);
       this.selectedList = this.lists[0];
       this.getAllTasks(this.selectedList._id);
     });
@@ -64,7 +67,7 @@ export class DashboardComponent implements OnInit {
 
   deleteThisTask(task : any) {
     const modalRef = this.modalService.open(DeleteTaskComponent);
-    
+    modalRef.componentInstance.elementName = "Task";
     modalRef.componentInstance.removeConfirmation.subscribe((receivedData: any) => {
       if (receivedData === true) {
         this.taskService.deleteTask(this.selectedList._id, task._id).subscribe((response: any) =>  {
@@ -72,6 +75,35 @@ export class DashboardComponent implements OnInit {
         })
       }
     })
+  }
+
+  deleteThisList(list: any) {
+    const modalRef = this.modalService.open(DeleteTaskComponent);
+    modalRef.componentInstance.elementName = "List";
+    modalRef.componentInstance.removeConfirmation.subscribe((receivedData: any) => {
+      if (receivedData === true) {
+        this.taskService.deleteList(list._id).subscribe((response: any) => {
+          console.log(response);
+          this.getAllLists();
+        })
+      }
+    })
+  }
+
+  modifyThisTask(task: any) {
+
+  }
+
+  modifyThisList(list: any) {
+
+  }
+
+  completeThisTask(list: any) {
+
+  }
+
+  completeThisList(list: any) {
+    
   }
 
   selectList(list: any) {

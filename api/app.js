@@ -145,8 +145,8 @@ app.delete('/lists/:listId/tasks/:taskId', (req, res) => {
 })
 
 /** 
- * DELETE /lists/:listId/tasks/:taskId
- * Purpose: Delete an existing task
+ * GET /lists/:listId/tasks/:taskId
+ * Purpose: Get an existing task
  */
 app.get('/lists/:listId/tasks/:taskId', (req, res) => {
     Task.findOne({
