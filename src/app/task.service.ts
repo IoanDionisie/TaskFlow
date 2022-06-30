@@ -37,4 +37,9 @@ export class TaskService {
     let link = 'lists/' + listId;
     return this.webReqService.delete(link);
   }
+
+  modifyTask(listId: any, taskId: any, task: Object) {
+    let link = 'lists/' + listId + '/tasks/' + taskId;
+    return this.webReqService.patch(link, task);
+  }
 }

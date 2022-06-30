@@ -105,7 +105,8 @@ app.post('/lists/:id/tasks', (req, res) => {
     //  We want to create a new task in the specified list
     let task = new Task({
         title: req.body.title,
-        _listId:  req.params.id
+        _listId:  req.params.id,
+        status: req.body.status
     })
 
     task.save().then((taskDoc) => {
@@ -125,7 +126,7 @@ app.patch('/lists/:listId/tasks/:taskId', (req, res) => {
     }, {
         $set: req.body
     }).then(() => {
-        res.send(200);
+        res.sendStatus(200);
     })
 })
 

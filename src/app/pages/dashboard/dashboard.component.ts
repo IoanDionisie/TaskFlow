@@ -6,7 +6,6 @@ import { TaskService } from 'src/app/task.service';
 import { DeleteTaskComponent } from 'src/app/components/dialogs/delete-task/delete-task.component';
 import { CreateListComponent } from 'src/app/components/modals/create-list/create-list.component';
 import { CreateTaskComponent } from 'src/app/components/modals/create-task/create-task.component';
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -16,7 +15,11 @@ import { CreateTaskComponent } from 'src/app/components/modals/create-task/creat
 export class DashboardComponent implements OnInit {
 
   lists: any[] = [];
+
+  inProgressTasks: any = [];
+  completedTasks: any = [];
   tasks: any;
+  displayInProgress: boolean = true;
   
   selectedList: any;
 
@@ -31,16 +34,27 @@ export class DashboardComponent implements OnInit {
   getAllLists() {
     this.taskService.getLists().subscribe((response: any) => {
       this.lists = response;
-      console.log(response);
       this.selectedList = this.lists[0];
       this.getAllTasks(this.selectedList._id);
     });
   }
 
   getAllTasks(listId: any) {
+    this.inProgressTasks = [];
+    this.completedTasks = [];
+
     this.taskService.getTasks(listId).subscribe((response: any) => {
-      this.tasks = response;
+      this.sortTasks(response);
     });
+    this.displayInProgress = true;
+  }
+
+  sortTasks(tasks: any) {
+    this.tasks = tasks;
+    for (let i = 0; i < this.tasks.length; ++i) {
+      tasks[i].status == "In Progress" ? this.inProgressTasks.push(tasks[i]) : this.completedTasks.push(tasks[i]);
+    }
+      
   }
 
   createNewList() {
@@ -59,7 +73,7 @@ export class DashboardComponent implements OnInit {
     modalRef.componentInstance.createTaskConfirmation.subscribe((response: any) => {
       if (response.confirmation === true) {
         this.taskService.createTask(this.selectedList._id, response).subscribe((response: any) => {
-          this.tasks.push(response);
+          this.getAllTasks(this.selectedList._id);
         })
       }
     });
@@ -83,7 +97,6 @@ export class DashboardComponent implements OnInit {
     modalRef.componentInstance.removeConfirmation.subscribe((receivedData: any) => {
       if (receivedData === true) {
         this.taskService.deleteList(list._id).subscribe((response: any) => {
-          console.log(response);
           this.getAllLists();
         })
       }
@@ -98,17 +111,24 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  completeThisTask(list: any) {
-
+  completeThisTask(task: any) {
+    task.status = "Completed";
+    this.taskService.modifyTask(this.selectedList._id, task._id, task).subscribe((response: any) => {
+      this.getAllTasks(this.selectedList._id);
+    })
   }
 
   completeThisList(list: any) {
-    
+
   }
 
   selectList(list: any) {
     this.selectedList = list;
     this.getAllTasks(list._id);
+  }
+
+  changeTasksDisplayed() {
+    this.displayInProgress = !this.displayInProgress;
   }
 
 }

@@ -17,10 +17,6 @@
                 {{ list.title }}
 
                 <div class="actions">
-                    <button *ngIf="list._id == selectedList._id" class="complete" (click)="completeThisList(list)" title="Complete List">
-                        <i class="fa-solid fa-check"></i>
-                    </button>
-
                     <button class="modify" (click)="modifyThisList(list)" title="Modify List">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </button>
@@ -33,22 +29,56 @@
         </div>
         
         <div class="task-list-container col-8">
-            <div *ngFor="let task of tasks" class="task task-color">
-                {{task.title}}
-                <div class="actions">
-                    <button class="complete" (click)="completeThisTask(task)" title="Complete Task">
-                        <i class="fa-solid fa-check"></i>
-                    </button>
-                   
-                    <button class="modify" (click)="modifyThisTask(task)" title="Modify Task">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </button>
-    
-                    <button class="delete" (click)="deleteThisTask(task)" title="Delete Task">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                </div>
-            </div>
+            <mat-tab-group mat-align-tabs="start">
+                <mat-tab label="In Progress">
+                    <div class="inprogress-tasks">
+                        <div *ngFor="let task of inProgressTasks" class="task task-color">
+                            <div class="checkbox-and-title">
+                                <div class="circle" (click)="completeThisTask(task)">
+                                    <div class="checkmark"></div>
+                                </div>
+                                <div class="task-title">
+                                    {{task.title}}
+                                </div>
+                            </div>
+                          
+                            <div class="actions">
+                                <button class="modify" (click)="modifyThisTask(task)" title="Modify Task">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+                
+                                <button class="delete" (click)="deleteThisTask(task)" title="Delete Task">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Completed">
+                    <div class="completed-tasks">
+                        <div *ngFor="let task of completedTasks" class="task task-color">
+                            <div class="checkbox-and-title">
+                                <div class="circle-completed">
+                                    <div class="checkmark"></div>
+                                </div>
+                                <div class="task-title">
+                                    {{task.title}}
+                                </div>
+                            </div>
+                          
+                            <div class="actions">
+                                <button class="modify" (click)="modifyThisTask(task)" title="Modify Task">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+                
+                                <button class="delete" (click)="deleteThisTask(task)" title="Delete Task">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
         </div>
     </div>
     <div class="row bottom-row">

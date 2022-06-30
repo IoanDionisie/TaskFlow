@@ -20,7 +20,8 @@ export class CreateTaskComponent  {
     let obj = {
       confirmation: true, 
       title: this.name,
-      description: this.description
+      description: this.description,
+      status: "In Progress"
     }
 
     this.createTaskConfirmation.emit(obj);

@@ -18,11 +18,12 @@ export class WebRequestService {
   }
 
   post(uri: string, payload: Object) {
+    console.log(payload);
     return this.http.post(`${this.ROOT_URL}/${uri}`, payload);
   }
 
   patch(uri: string, payload: Object) {
-    return this.http.patch(`${this.ROOT_URL}/${uri}`, payload);
+    return this.http.patch(`${this.ROOT_URL}/${uri}`, payload, { responseType: 'text' });
   }
 
   delete(uri: string) {

@@ -51,8 +51,8 @@ $prussianBlue: #122E42;
 
 .task-manager-container {
     width: 100%;
-    max-width: 60%;
-    max-height: 70%;
+    max-width: 70%;
+    max-height: 80%;
     height: 100%;
     background: white;
     padding: 20px;
@@ -70,6 +70,8 @@ $prussianBlue: #122E42;
 }
 
 .add-list button {
+    font-weight: 500;
+    padding: 20px;
     border-radius: 0 30px 0 30px;
     font-size: 20px;
     border: none;
@@ -93,7 +95,6 @@ $prussianBlue: #122E42;
     height: 100%;
     overflow-y: auto;
     padding: 20px;
-    border-right: 1px dashed $darkSpringGreen;
 }
 
 .lists-container .list {
@@ -114,16 +115,41 @@ $prussianBlue: #122E42;
     color: $taskColor;
 }
 
+.actions {
+    display: flex;
+}
 
 .task-list-container {
 
     height: 100%;
-    overflow-y: auto;
+
+    .inprogress-tasks,
+    .completed-tasks {
+        height: 100%;
+        padding-right: 10px;
+        overflow-y: auto;
+    }
+    
+    .padding-right {
+        padding-right: 10px;
+    }
+
+    .select-tasks {
+        cursor: pointer;
+    }
+
+    .display-none {
+        display: none;
+    }
 
     .task {
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+
+    .task-title {
+        padding-left: 10px;
     }
 
     .task:not(:last-child) {
@@ -251,6 +277,8 @@ $prussianBlue: #122E42;
 }
 
 
+
+
 @keyframes pulse-black {
     0% {
         transform: scale(0.85);
@@ -266,4 +294,56 @@ $prussianBlue: #122E42;
         transform: scale(0.85);
         box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
     }
+}
+
+
+/* Rounded checkboxes */
+
+.checkbox-and-title {
+    display: flex;
+    align-items: center;
+}
+
+.circle,
+.circle-completed {
+    position: relative;
+    border: 1px solid $taskColor;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+  }
+
+  .circle {
+    background: white;
+  }
+
+  .circle-completed {
+    background: $taskColor;
+  }
+
+.circle-completed .checkmark {
+    border-bottom: 3px solid white;
+    border-right: 3px solid white;
+    display: initial;
+    z-index: 99;
+}
+
+.checkmark {
+    display: none;
+    position: absolute;
+    transform: rotate(45deg) translate(-50%, -50%);
+    left: 30%;
+    top: 45%;
+    height: 14px;
+    width: 7px;
+    border-bottom: 3px solid $listColor;
+    border-right: 3px solid $listColor;
+}
+  
+.circle:hover .checkmark {
+    display:initial!important;
+}
+
+.mat-tab-group {
+    height: 100%;
 }
