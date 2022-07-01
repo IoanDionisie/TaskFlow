@@ -3,12 +3,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-delete-task',
-  templateUrl: './delete-task.component.html',
-  styleUrls: ['./delete-task.component.scss']
+  selector: 'app-delete-item',
+  templateUrl: './delete-item.component.html',
+  styleUrls: ['./delete-item.component.scss']
 })
 
-export class DeleteTaskComponent  {
+export class DeleteItemComponent  {
 
 
   @Input() public elementName: any;
@@ -16,7 +16,7 @@ export class DeleteTaskComponent  {
 
   constructor(private modal: NgbActiveModal) {}
   
-  removeTask(remove: boolean) {
+  removeItem(remove: boolean) {
     this.removeConfirmation.emit(remove);
     this.closeModal();
   }

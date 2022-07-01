@@ -2,7 +2,7 @@ import { ThisReceiver } from '@angular/compiler';
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TaskService } from 'src/app/task.service';
-import { DeleteTaskComponent } from 'src/app/components/dialogs/delete-task/delete-task.component';
+import { DeleteItemComponent } from 'src/app/components/dialogs/delete-item/delete-item.component';
 import { CreateListComponent } from 'src/app/components/modals/create-list/create-list.component';
 import { CreateTaskComponent } from 'src/app/components/modals/create-task/create-task.component';
 import {
@@ -36,20 +36,10 @@ export class DashboardComponent implements OnInit {
     this.getAllLists();
   }
 
-  movies = [
-    'Episode I - The Phantom Menace',
-    'Episode II - Attack of the Clones',
-    'Episode III - Revenge of the Sith',
-    'Episode IV - A New Hope',
-    'Episode V - The Empire Strikes Back',
-    'Episode VI - Return of the Jedi',
-    'Episode VII - The Force Awakens',
-    'Episode VIII - The Last Jedi',
-    'Episode IX – The Rise of Skywalker',
-  ];
-
   drop(event: CdkDragDrop<Object[]>, tasks: any) {
     moveItemInArray(tasks, event.previousIndex, event.currentIndex);
+
+    console.log(tasks);
   }
 
   getAllLists() {
@@ -101,7 +91,7 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteThisTask(task : any) {
-    const modalRef = this.modalService.open(DeleteTaskComponent);
+    const modalRef = this.modalService.open(DeleteItemComponent);
     modalRef.componentInstance.elementName = "Task";
     modalRef.componentInstance.removeConfirmation.subscribe((receivedData: any) => {
       if (receivedData === true) {
@@ -113,7 +103,7 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteThisList(list: any) {
-    const modalRef = this.modalService.open(DeleteTaskComponent);
+    const modalRef = this.modalService.open(DeleteItemComponent);
     modalRef.componentInstance.elementName = "List";
     modalRef.componentInstance.removeConfirmation.subscribe((receivedData: any) => {
       if (receivedData === true) {

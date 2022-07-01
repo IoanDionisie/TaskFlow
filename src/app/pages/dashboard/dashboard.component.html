@@ -55,6 +55,7 @@
                         </div>
                     </div>
                 </mat-tab>
+                
                 <mat-tab label="Completed">
                     <div cdkDropList class="completed-tasks" (cdkDropListDropped)="drop($event, completedTasks)">
                         <div *ngFor="let task of completedTasks" class="task task-color" cdkDrag>
