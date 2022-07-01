@@ -14,6 +14,7 @@ import { CreateTaskComponent } from './components/modals/create-task/create-task
 import { CreateListComponent } from './components/modals/create-list/create-list.component'; 
 import { FormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatDialogModule,
     BrowserAnimationsModule,
     FormsModule,
-    MatTabsModule
+    MatTabsModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]

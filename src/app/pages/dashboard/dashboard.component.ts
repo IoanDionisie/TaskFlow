@@ -1,11 +1,16 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Model } from 'mongoose';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TaskService } from 'src/app/task.service';
 import { DeleteTaskComponent } from 'src/app/components/dialogs/delete-task/delete-task.component';
 import { CreateListComponent } from 'src/app/components/modals/create-list/create-list.component';
 import { CreateTaskComponent } from 'src/app/components/modals/create-task/create-task.component';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem
+} from '@angular/cdk/drag-drop';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -29,6 +34,22 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllLists();
+  }
+
+  movies = [
+    'Episode I - The Phantom Menace',
+    'Episode II - Attack of the Clones',
+    'Episode III - Revenge of the Sith',
+    'Episode IV - A New Hope',
+    'Episode V - The Empire Strikes Back',
+    'Episode VI - Return of the Jedi',
+    'Episode VII - The Force Awakens',
+    'Episode VIII - The Last Jedi',
+    'Episode IX – The Rise of Skywalker',
+  ];
+
+  drop(event: CdkDragDrop<Object[]>, tasks: any) {
+    moveItemInArray(tasks, event.previousIndex, event.currentIndex);
   }
 
   getAllLists() {
