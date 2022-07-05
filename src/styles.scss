@@ -55,6 +55,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     vertical-align: middle;
 }
 
+.modal .modal-body {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
 .title-container {
     display: flex;
     align-items: center;

@@ -31,9 +31,9 @@
             </div>
         </div>
         
-        <div *ngIf="tasks.length > 0" class="task-list-container col-8">
-            <mat-tab-group mat-align-tabs="start">
-                <mat-tab label="In Progress">
+        <div class="task-list-container col-8">
+            <mat-tab-group *ngIf="tasks.length > 0" mat-align-tabs="start">
+                <mat-tab *ngIf="inProgressTasks.length > 0" label="In Progress">
                     <div  cdkDropList class="inprogress-tasks" (cdkDropListDropped)="drop($event, inProgressTasks)">
                         <div *ngFor="let task of inProgressTasks" class="task task-color" cdkDrag>
                             <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
@@ -59,7 +59,7 @@
                     </div>
                 </mat-tab>
                 
-                <mat-tab label="Completed">
+                <mat-tab label="Completed" *ngIf="completedTasks.length > 0">
                     <div class="completed-tasks">
                         <div *ngFor="let task of completedTasks" class="task task-color">
                             <div class="checkbox-and-title">
@@ -94,10 +94,10 @@
         </div>
 
         <div class="add-task">
-            <div *ngIf="tasks.length == 0" class="add-task-reminder">
+            <div *ngIf="inProgressTasks.length == 0" class="add-task-reminder">
                 Start adding tasks for your list "{{selectedList.title}}" !
             </div>
-            <button [ngClass]="tasks.length == 0 ? 'button-pulse-effect': ''" class="create-task" (click)="createNewTask()">
+            <button [ngClass]="inProgressTasks.length == 0 ? 'button-pulse-effect': ''" class="create-task" (click)="createNewTask()">
                 <i class="fa-solid fa-plus"></i>
             </button>
         </div>

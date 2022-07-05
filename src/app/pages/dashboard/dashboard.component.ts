@@ -66,6 +66,7 @@ export class DashboardComponent implements OnInit {
 
   sortTasks(tasks: any) {
     this.tasks = tasks;
+
     for (let i = 0; i < this.tasks.length; ++i) {
       tasks[i].status == "In Progress" ? this.inProgressTasks.push(tasks[i]) : this.completedTasks.push(tasks[i]);
     }
