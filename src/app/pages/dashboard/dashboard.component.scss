@@ -368,7 +368,6 @@ $prussianBlue: #122E42;
     border: none;
 }
   
-.completed-tasks.cdk-drop-list-dragging .task:not(.cdk-drag-placeholder),
 .inprogress-tasks.cdk-drop-list-dragging .task:not(.cdk-drag-placeholder) {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }

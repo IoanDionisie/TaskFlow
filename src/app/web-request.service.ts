@@ -22,7 +22,6 @@ export class WebRequestService {
   }
 
   patch(uri: string, payload: Object) {
-    console.log(payload);
     return this.http.patch(`${this.ROOT_URL}/${uri}`, payload);
   }
 

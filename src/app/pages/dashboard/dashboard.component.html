@@ -57,9 +57,8 @@
                 </mat-tab>
                 
                 <mat-tab label="Completed">
-                    <div cdkDropList class="completed-tasks" (cdkDropListDropped)="drop($event, completedTasks)">
-                        <div *ngFor="let task of completedTasks" class="task task-color" cdkDrag>
-                            <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+                    <div class="completed-tasks">
+                        <div *ngFor="let task of completedTasks" class="task task-color">
                             <div class="checkbox-and-title">
                                 <div class="circle-completed">
                                     <div class="checkmark"></div>

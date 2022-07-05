@@ -102,8 +102,6 @@ app.get('/lists/:id/tasks', (req, res) => {
 app.post('/lists/:id/tasks', async (req, res) => {
     //  We want to create a new task in the specified list
     let lastTask = await Task.findOne().sort({"order": -1});
-    
-    console.log("Task Order ", lastTask.order);
     let task = new Task({
         title: req.body.title,
         _listId:  req.params.id,
@@ -159,15 +157,12 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
 
 /** 
  * PATCH /lists/:id/tasks
- * Purpose: Modifies a list of tasks
+ * Purpose: Modifies a list of tasks (reorder)
  */
  app.patch('/lists/:listId/reorderTasks', async (req, res) => {
     let tasks = req.body.ids;
     let counter = tasks.length * 50;
-
-    console.log("Calling ", tasks);
     for (let i = 0; i < tasks.length; i++) {
-        console.log(tasks[i])
         counter -= 50;
         await Task.findByIdAndUpdate(tasks[i], {
             order: counter
