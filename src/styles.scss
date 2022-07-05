@@ -1,6 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
+
+$listColor:  rgb(153,50,204);// hwb(195 22% 15%);
+$taskColor: #98C540;
+
+$darkSpringGreen: #2E6B48;
+$darkJungleGreen: #12261D;
+$prussianBlue: #122E42;
+
 .centered-content {
     display: flex;
     justify-content: center;
@@ -69,9 +77,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     }
 
     input {
-        padding-left: 5px;
         margin-left: 15px;
         width: 100%;
+        padding: 10px;
+        border: 1px solid $taskColor;
+        border-radius: 20px;
+        box-shadow: 0 8px 10px -10px $taskColor;
     }
 }
 
@@ -85,7 +96,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     }
 
     textarea {
-        padding-left: 5px;
         width: 100%;
+        padding: 10px;
+        border: 1px solid $taskColor;
+        border-radius: 20px;
+        box-shadow: 0 8px 10px -10px $taskColor;
     }
 }

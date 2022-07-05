@@ -4,11 +4,7 @@ import { TaskService } from 'src/app/task.service';
 import { DeleteItemComponent } from 'src/app/components/dialogs/delete-item/delete-item.component';
 import { CreateListComponent } from 'src/app/components/modals/create-list/create-list.component';
 import { CreateTaskComponent } from 'src/app/components/modals/create-task/create-task.component';
-import {
-  CdkDragDrop,
-  moveItemInArray,
-  transferArrayItem
-} from '@angular/cdk/drag-drop';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { ModifyItemComponent } from 'src/app/components/modals/modify-item/modify-item.component';
 
 @Component({
@@ -20,12 +16,10 @@ import { ModifyItemComponent } from 'src/app/components/modals/modify-item/modif
 export class DashboardComponent implements OnInit {
 
   lists: any[] = [];
-
   inProgressTasks: any = [];
   completedTasks: any = [];
   tasks: any;
   displayInProgress: boolean = true;
-  
   selectedList: any;
 
   @HostBinding('class') class = 'center-component';
@@ -88,7 +82,8 @@ export class DashboardComponent implements OnInit {
     modalRef.componentInstance.createTaskConfirmation.subscribe((response: any) => {
       if (response.confirmation === true) {
         this.taskService.createTask(this.selectedList._id, response).subscribe((response: any) => {
-          this.getAllTasks(this.selectedList._id);
+          this.inProgressTasks.unshift(response);
+          this.tasks.unshift(response);
         })
       }
     });
@@ -156,4 +151,7 @@ export class DashboardComponent implements OnInit {
     this.displayInProgress = !this.displayInProgress;
   }
 
+  showSettings() {
+
+  }
 }

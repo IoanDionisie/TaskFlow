@@ -16,6 +16,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ModifyItemComponent } from './components/modals/modify-item/modify-item.component';
 import {AutosizeDirective, AutosizeModule} from '@techiediaries/ngx-textarea-autosize';
+import {MatTree, MatTreeModule} from '@angular/material/tree';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import {AutosizeDirective, AutosizeModule} from '@techiediaries/ngx-textarea-aut
     FormsModule,
     MatTabsModule,
     DragDropModule,
-    AutosizeModule
+    AutosizeModule,
+    MatTreeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
