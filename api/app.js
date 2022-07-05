@@ -72,13 +72,19 @@ app.patch('/lists/:id', (req, res) => {
  * DELETE /lists/:id
  * Purpose: Delete a list
  */
-app.delete('/lists/:id', (req, res) => {
+app.delete('/lists/:id', async (req, res) => {
     // We want to delete the specified list 
     let id = req.params.id;
-
-    List.findOneAndDelete( {_id: id}).then(() => {
-        res.sendStatus(200);
+    
+    await Task.deleteMany({
+        _listId: id
     })
+
+    await List.findOneAndDelete({
+        _id: id
+    });
+   
+    res.status(200).send({});
 })
 
 /** 
