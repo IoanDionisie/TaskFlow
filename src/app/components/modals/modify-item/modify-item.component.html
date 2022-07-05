@@ -1,15 +1,15 @@
 <div class="modal-header">
-    <h4 class="modal-title" id="modal-title">Add Task</h4>
+    <h4 class="modal-title" id="modal-title">Modify {{elementName}}</h4>
 </div>
 <div class="modal-body">
     <div class="name modal-text title-container">
         <label for="title">Title</label>
-        <input type="text" id="title" [(ngModel)]="title" minlength="2">
+        <input  id="title" type="text" [value]="this.title" [(ngModel)]="this.title" minlength="2">
     </div>
   
     <div class="description modal-text description-container">
         <label for="description">Description</label>
-        <textarea id="description" [(ngModel)]="description"></textarea>
+        <textarea id="description" [value]="this.description" [(ngModel)]="this.description"></textarea>
     </div>
 </div>
 <div class="modal-footer">

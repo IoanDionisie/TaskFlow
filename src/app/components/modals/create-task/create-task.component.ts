@@ -11,7 +11,7 @@ export class CreateTaskComponent  {
 
   @Output() createTaskConfirmation: EventEmitter<any> = new EventEmitter();
 
-  name: any;
+  title: any;
   description: any;
   
   constructor(private modal: NgbActiveModal) {}
@@ -19,7 +19,7 @@ export class CreateTaskComponent  {
   confirm() {
     let obj = {
       confirmation: true, 
-      title: this.name,
+      title: this.title,
       description: this.description,
       status: "In Progress"
     }
