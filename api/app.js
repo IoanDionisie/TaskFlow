@@ -60,7 +60,6 @@ app.patch('/lists/:id', (req, res) => {
     // We want to update the specified list with the new values specified in the JSON body of the request
     let title = req.body.title;
     let id = req.params.id;
-    console.log(id, title);
 
     List.findOneAndUpdate( {_id: id}, {
         $set: req.body
@@ -91,43 +90,30 @@ app.get('/lists/:id/tasks', (req, res) => {
 
     Task.find({
         _listId: id
-    }).then((tasks) => {
+    }).sort({order: "desc"}).then((tasks) => {
         res.send(tasks);
     });
 })
-
 
 /** 
  * POST /lists/:id/tasks
  * Purpose: Add a new task in the specified list
  */
-app.post('/lists/:id/tasks', (req, res) => {
+app.post('/lists/:id/tasks', async (req, res) => {
     //  We want to create a new task in the specified list
+    let lastTask = await Task.findOne().sort({"order": -1});
+    
+    console.log("Task Order ", lastTask.order);
     let task = new Task({
         title: req.body.title,
         _listId:  req.params.id,
-        status: req.body.status
+        status: req.body.status,
+        order: lastTask.order + 50
     })
 
     task.save().then((taskDoc) => {
         res.send(taskDoc);
     })    
-})
-
-/** 
- * PATCH /lists/:id/tasks
- * Purpose: Updates an existing task
- */
-app.patch('/lists/:listId/tasks/:taskId', (req, res) => {
-    // We want to update an existing task speficied by taskId 
-    Task.findOneAndUpdate({
-        _id: req.params.taskId,
-        _listId: req.params.listId
-    }, {
-        $set: req.body
-    }).then(() => {
-        res.sendStatus(200);
-    })
 })
 
 /** 
@@ -158,6 +144,39 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
     })
 })
 
+/** 
+ * PATCH /lists/:id/tasks
+ * Purpose: Updates an existing task
+ */
+ app.patch('/lists/:listId/tasks/:taskId', async (req, res) => {
+    // We want to update an existing task speficied by taskId 
+    await Task.findByIdAndUpdate(
+        req.params.taskId, {
+        $set: req.body
+    })
+    res.status(200).send({});
+})
+
+/** 
+ * PATCH /lists/:id/tasks
+ * Purpose: Modifies a list of tasks
+ */
+ app.patch('/lists/:listId/reorderTasks', async (req, res) => {
+    let tasks = req.body.ids;
+    let counter = tasks.length * 50;
+
+    console.log("Calling ", tasks);
+    for (let i = 0; i < tasks.length; i++) {
+        console.log(tasks[i])
+        counter -= 50;
+        await Task.findByIdAndUpdate(tasks[i], {
+            order: counter
+        });
+    }   
+    res.status(200).send({});
+})
+
 app.listen(3000, () => {
     console.log("App listening on port 3000");
 });
+

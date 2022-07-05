@@ -42,4 +42,11 @@ export class TaskService {
     let link = 'lists/' + listId + '/tasks/' + taskId;
     return this.webReqService.patch(link, task);
   }
+
+  modifyTasks(listId: string, ids: string) {
+    let link = 'lists/' + listId + '/reorderTasks';
+    return this.webReqService.patch(link, {ids: ids});
+  }
+
+
 }

@@ -16,6 +16,9 @@ const TaskSchema = new mongoose.Schema({
         type: String,
         minlength: 1,
         trim: true
+    },
+    order: {
+        type: Number
     }
 })
 

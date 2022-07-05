@@ -13,5 +13,4 @@ mongoose.connect('mongodb://localhost:27017/TasksManager', {useNewUrlParser: tru
     else console.log("db error", err);
 });
 
-
 module.exports = { mongoose };

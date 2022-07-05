@@ -1,4 +1,3 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TaskService } from 'src/app/task.service';
@@ -37,9 +36,16 @@ export class DashboardComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<Object[]>, tasks: any) {
+    // console.log(tasks[event.previousIndex], tasks[event.currentIndex]);
     moveItemInArray(tasks, event.previousIndex, event.currentIndex);
+    this.changeArrayOrder(this.inProgressTasks);
+    console.log(this.inProgressTasks);
+  }
 
-    console.log(tasks);
+  changeArrayOrder(tasks: any) {
+    this.taskService.modifyTasks(this.selectedList._id, tasks.map((task: any) =>  task._id)).subscribe((response: any) => {
+      console.log(response);
+    });
   }
 
   getAllLists() {
@@ -65,7 +71,8 @@ export class DashboardComponent implements OnInit {
     for (let i = 0; i < this.tasks.length; ++i) {
       tasks[i].status == "In Progress" ? this.inProgressTasks.push(tasks[i]) : this.completedTasks.push(tasks[i]);
     }
-      
+
+    console.log(this.inProgressTasks);
   }
 
   createNewList() {

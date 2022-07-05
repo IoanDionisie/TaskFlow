@@ -28,7 +28,7 @@
             </div>
         </div>
         
-        <div class="task-list-container col-8">
+        <div *ngIf="tasks.length > 0" class="task-list-container col-8">
             <mat-tab-group mat-align-tabs="start">
                 <mat-tab label="In Progress">
                     <div  cdkDropList class="inprogress-tasks" (cdkDropListDropped)="drop($event, inProgressTasks)">
