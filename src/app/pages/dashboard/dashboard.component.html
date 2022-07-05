@@ -1,4 +1,7 @@
 <div class="container task-manager-container ">
+    <button class="settings">
+        <i class="fa-solid fa-gear settings-icon"></i>
+    </button>
     <div class="row title-row">
         <div class="col-4">
             <h1 class="title has-text-primary">
@@ -94,7 +97,7 @@
             <div *ngIf="tasks.length == 0" class="add-task-reminder">
                 Start adding tasks for your list "{{selectedList.title}}" !
             </div>
-            <button [ngClass]="tasks.length == 0 ? 'button-pulse-effect': ''" class="create-task task-background" (click)="createNewTask()">
+            <button [ngClass]="tasks.length == 0 ? 'button-pulse-effect': ''" class="create-task" (click)="createNewTask()">
                 <i class="fa-solid fa-plus"></i>
             </button>
         </div>

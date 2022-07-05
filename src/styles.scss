@@ -34,3 +34,53 @@ h1 {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.modal {
+    text-align: center;
+}
+  
+@media screen and (min-width: 768px) { 
+    .modal:before {
+      display: inline-block;
+      vertical-align: middle;
+      content: " ";
+      height: 100%;
+    }
+}
+  
+.modal-dialog {
+    width: 100%;
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.title-container {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    label {
+        margin-bottom: 0;
+    }
+
+    input {
+        padding-left: 5px;
+        margin-left: 15px;
+        width: 100%;
+    }
+}
+
+.description-container {
+    font-size: 1.1rem;
+    margin-top: 20px;
+
+    label {
+        padding-bottom: 10px;
+        margin-bottom: 0;
+    }
+
+    textarea {
+        padding-left: 5px;
+        width: 100%;
+    }
+}

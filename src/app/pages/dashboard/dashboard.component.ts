@@ -9,6 +9,7 @@ import {
   moveItemInArray,
   transferArrayItem
 } from '@angular/cdk/drag-drop';
+import { ModifyItemComponent } from 'src/app/components/modals/modify-item/modify-item.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -36,15 +37,12 @@ export class DashboardComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<Object[]>, tasks: any) {
-    // console.log(tasks[event.previousIndex], tasks[event.currentIndex]);
     moveItemInArray(tasks, event.previousIndex, event.currentIndex);
     this.changeArrayOrder(this.inProgressTasks);
-    console.log(this.inProgressTasks);
   }
 
   changeArrayOrder(tasks: any) {
     this.taskService.modifyTasks(this.selectedList._id, tasks.map((task: any) =>  task._id)).subscribe((response: any) => {
-      console.log(response);
     });
   }
 
@@ -71,8 +69,6 @@ export class DashboardComponent implements OnInit {
     for (let i = 0; i < this.tasks.length; ++i) {
       tasks[i].status == "In Progress" ? this.inProgressTasks.push(tasks[i]) : this.completedTasks.push(tasks[i]);
     }
-
-    console.log(this.inProgressTasks);
   }
 
   createNewList() {
@@ -122,7 +118,17 @@ export class DashboardComponent implements OnInit {
   }
 
   modifyThisTask(task: any) {
-
+    const modalRef = this.modalService.open(ModifyItemComponent);
+    modalRef.componentInstance.elementName = "Task";
+    modalRef.componentInstance.title = task.title;
+    modalRef.componentInstance.description = task.description;
+    modalRef.componentInstance.modifyItemConfirmation.subscribe((receivedData: any) => {
+      if (receivedData.confirmation === true) {
+        this.taskService.modifyTask(this.selectedList._id, task._id, receivedData).subscribe((response: any) => {
+          this.getAllTasks(this.selectedList._id);
+        })
+      }
+    })
   }
 
   modifyThisList(list: any) {

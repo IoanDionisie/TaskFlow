@@ -15,6 +15,7 @@ import { CreateListComponent } from './components/modals/create-list/create-list
 import { FormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ModifyItemComponent } from './components/modals/modify-item/modify-item.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     DashboardComponent,
     DeleteItemComponent,
     CreateTaskComponent,
-    CreateListComponent
+    CreateListComponent,
+    ModifyItemComponent
   ],
   imports: [
     BrowserModule,

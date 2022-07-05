@@ -21,12 +21,12 @@ $prussianBlue: #122E42;
 
 .list-background {
     background: $listColor;
-    color: white;
+    color: whitesmoke;
 }
 
 .task-background {
     background: $taskColor;
-    color: white;
+    color: whitesmoke;
 }
 
 .title .fa-tree, 
@@ -229,6 +229,8 @@ $prussianBlue: #122E42;
     justify-content: center;
     align-items: center;
     padding: 5px;
+    background: $darkSpringGreen;
+    color: whitesmoke;
 }
 
 .create-task:hover {
@@ -379,3 +381,34 @@ $prussianBlue: #122E42;
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
   
+.settings {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: none;
+    background: $darkSpringGreen;
+    border-radius: 0 30px 0 30px;
+    padding: 8px;
+
+    .settings-icon {
+        color: whitesmoke;
+        font-size: 1.5rem;
+        padding: 2px;
+        transition: transform 0.7s ease-in-out;
+    }
+}
+
+.settings:hover {
+    cursor: pointer;
+    .settings-icon {
+        cursor: pointer;
+        transform: rotate(360deg);
+    }
+}
+
+.settings:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+

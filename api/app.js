@@ -112,6 +112,7 @@ app.post('/lists/:id/tasks', async (req, res) => {
         title: req.body.title,
         _listId:  req.params.id,
         status: req.body.status,
+        description: req.body.description,
         order: lastTask.order + 50
     })
 
