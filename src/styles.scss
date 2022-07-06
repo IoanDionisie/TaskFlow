@@ -1,13 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-
-
-$listColor:  rgb(153,50,204);// hwb(195 22% 15%);
-$taskColor: #98C540;
-
-$darkSpringGreen: #2E6B48;
-$darkJungleGreen: #12261D;
-$prussianBlue: #122E42;
+@import "styles/variables.scss";
 
 .centered-content {
     display: flex;

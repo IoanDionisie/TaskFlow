@@ -1,14 +1,4 @@
-$listColor:  rgb(153,50,204);// hwb(195 22% 15%);
-$taskColor: #98C540;
-
-$darkSpringGreen: #2E6B48;
-$darkJungleGreen: #12261D;
-$prussianBlue: #122E42;
-
-$control-border-width: 2px;
-$input-border-color: transparent;
-$input-shadow: none;
-
+@import "../../../styles/variables.scss";
 
 .list {
     display: flex;

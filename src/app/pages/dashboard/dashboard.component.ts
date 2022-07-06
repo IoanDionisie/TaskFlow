@@ -111,7 +111,8 @@ export class DashboardComponent implements OnInit {
     modalRef.componentInstance.modifyItemConfirmation.subscribe((receivedData: any) => {
       if (receivedData.confirmation === true) {
         this.taskService.modifyTask(this.selectedList._id, task._id, receivedData).subscribe((response: any) => {
-          this.getAllTasks(this.selectedList._id);
+          task.title = receivedData.title;
+          task.description = receivedData.description;
         })
       }
     })
@@ -142,7 +143,7 @@ export class DashboardComponent implements OnInit {
     if (event.listEvent == ListActions.selectList) {
       this.getAllTasks(event.list._id);
     } else if (event.listEvent == ListActions.modifyList) {
-
+      
     } else if (event.listEvent == ListActions.deleteList) {
       this.getAllLists();
     }
