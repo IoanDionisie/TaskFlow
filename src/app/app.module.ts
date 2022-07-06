@@ -18,8 +18,8 @@ import { ModifyItemComponent } from './components/modals/modify-item/modify-item
 import {AutosizeDirective, AutosizeModule} from '@techiediaries/ngx-textarea-autosize';
 import {MatTree, MatTreeModule} from '@angular/material/tree';
 import { ListsComponent } from './components/lists/lists.component';
-
-
+import { NgCircleProgressModule } from 'ng-circle-progress';
+ 
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +42,20 @@ import { ListsComponent } from './components/lists/lists.component';
     MatTabsModule,
     DragDropModule,
     AutosizeModule,
-    MatTreeModule
+    MatTreeModule,
+
+    NgCircleProgressModule.forRoot({
+      // set defaults here
+      radius: 25,
+      outerStrokeWidth: 20,
+      innerStrokeWidth: 8,
+      outerStrokeColor: "#78C000",
+      showInnerStroke: false,
+      animationDuration: 300,
+      showSubtitle: false,
+      titleFontSize: "16",
+      unitsFontSize: "14"
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

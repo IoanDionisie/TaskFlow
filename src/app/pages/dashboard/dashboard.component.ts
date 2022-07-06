@@ -23,6 +23,8 @@ export class DashboardComponent implements OnInit {
   displayInProgress: boolean = true;
   selectedList: any;
 
+  percentCompleted: number | undefined;
+
   @HostBinding('class') class = 'center-component';
 
   constructor(private taskService: TaskService, private modalService: NgbModal) { }
@@ -55,7 +57,12 @@ export class DashboardComponent implements OnInit {
 
     this.taskService.getTasks(listId).subscribe((response: any) => {
       this.sortTasks(response);
+      this.calculatePercentCompleted();
     });
+  }
+
+  calculatePercentCompleted() {
+    this.selectedList.percentCompleted = this.completedTasks.length / this.tasks.length * 100;
   }
 
   sortTasks(tasks: any) {
@@ -65,7 +72,7 @@ export class DashboardComponent implements OnInit {
       tasks[i].status == "In Progress" ? this.inProgressTasks.push(tasks[i]) : this.completedTasks.push(tasks[i]);
     }
 
-    this.completedTasks.sort((objA:any, objB:any) => Number(objB.date) - Number(objA.date))
+    this.completedTasks.sort((objA:any, objB:any) => Number(objB.date) - Number(objA.date));
   }
 
   createNewList() {
@@ -86,6 +93,7 @@ export class DashboardComponent implements OnInit {
         this.taskService.createTask(this.selectedList._id, response).subscribe((response: any) => {
           this.inProgressTasks.unshift(response);
           this.tasks.unshift(response);
+          this.calculatePercentCompleted();
         })
       }
     });
@@ -99,8 +107,12 @@ export class DashboardComponent implements OnInit {
         this.taskService.deleteTask(this.selectedList._id, task._id).subscribe((response: any) =>  {
           if (type == "completed") {
             this.completedTasks.splice(index, 1);
+            this.tasks.length--;
+            this.calculatePercentCompleted();
           } else if (type == "progress") {
             this.inProgressTasks.splice(index, 1);
+            this.tasks.length--;
+            this.calculatePercentCompleted();
           }
         })
       }
@@ -128,6 +140,7 @@ export class DashboardComponent implements OnInit {
     this.taskService.modifyTask(this.selectedList._id, task._id, task).subscribe((response: any) => {
       this.inProgressTasks.splice(index, 1);
       this.completedTasks.unshift(task);
+      this.calculatePercentCompleted();
     })
   }
 

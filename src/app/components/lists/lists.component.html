@@ -5,6 +5,16 @@
     </div>
 
     <div class="actions">
+
+        <circle-progress *ngIf="selectedList._id == list._id"
+            [percent]="list.percentCompleted"
+            [radius]="22"
+            [outerStrokeWidth]="5"
+            [outerStrokeColor]="'#78C000'"
+            [animation]="true"
+            [titleColor]="'#12261D'"
+            [animationDuration]="300"></circle-progress>
+
         <button class="modify" (click)="modifyThisList(list)" title="Modify List">
             <i class="fa-solid fa-pen-to-square"></i>
         </button>

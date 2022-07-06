@@ -30,6 +30,7 @@
     "bulma": "^0.9.4",
     "compass-mixins": "^0.12.12",
     "mongoose": "^6.3.5",
+    "ng-circle-progress": "^1.6.0",
     "ng2-dragula": "^2.1.1",
     "ngx-sortable": "^1.0.3",
     "rxjs": "~7.5.0",
