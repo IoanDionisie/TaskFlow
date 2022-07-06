@@ -65,6 +65,8 @@ export class DashboardComponent implements OnInit {
       tasks[i].status == "In Progress" ? this.inProgressTasks.push(tasks[i]) : this.completedTasks.push(tasks[i]);
     }
 
+    console.log(this.inProgressTasks.map((elem:any) => elem.order));
+
     this.completedTasks.sort((objA:any, objB:any) => Number(objB.date) - Number(objA.date))
   }
 
@@ -141,9 +143,10 @@ export class DashboardComponent implements OnInit {
 
   listEvent(event:any) {
     if (event.listEvent == ListActions.selectList) {
+      this.selectedList = event.list;
       this.getAllTasks(event.list._id);
     } else if (event.listEvent == ListActions.modifyList) {
-      
+
     } else if (event.listEvent == ListActions.deleteList) {
       this.getAllLists();
     }

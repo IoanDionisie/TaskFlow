@@ -115,7 +115,7 @@ app.post('/lists/:id/tasks', async (req, res) => {
         status: req.body.status,
         description: req.body.description,
         dateCreated: req.body.dateCreated,
-        order: lastTask.order + 50
+        order: lastTask.order + 1
     })
 
     task.save().then((taskDoc) => {
@@ -170,9 +170,9 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
  */
  app.patch('/lists/:listId/reorderTasks', async (req, res) => {
     let tasks = req.body.ids;
-    let counter = tasks.length * 50;
+    let counter = tasks.length;
     for (let i = 0; i < tasks.length; i++) {
-        counter -= 50;
+        counter -= 1;
         await Task.findByIdAndUpdate(tasks[i], {
             order: counter
         });
