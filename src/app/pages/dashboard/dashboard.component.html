@@ -25,7 +25,7 @@
             <mat-tab-group *ngIf="tasks.length > 0" mat-align-tabs="start">
                 <mat-tab *ngIf="inProgressTasks.length > 0" label="In Progress">
                     <div  cdkDropList class="inprogress-tasks" (cdkDropListDropped)="drop($event, inProgressTasks)">
-                        <div *ngFor="let task of inProgressTasks" class="task task-color" cdkDrag>
+                        <div *ngFor="let task of inProgressTasks;let indexOfElement=index;" class="task task-color" cdkDrag>
                             <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
                             <div class="checkbox-and-title">
                                 <div class="circle" (click)="completeThisTask(task)">
@@ -41,7 +41,7 @@
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
                 
-                                <button class="delete" (click)="deleteThisTask(task)" title="Delete Task">
+                                <button class="delete" (click)="deleteThisTask(task, indexOfElement, 'progress')" title="Delete Task">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </div>
@@ -51,7 +51,7 @@
                 
                 <mat-tab label="Completed" *ngIf="completedTasks.length > 0">
                     <div class="completed-tasks">
-                        <div *ngFor="let task of completedTasks" class="task task-color">
+                        <div *ngFor="let task of completedTasks; let indexOfElement=index;" class="task task-color">
                             <div class="checkbox-and-title">
                                 <div class="circle-completed">
                                     <div class="checkmark"></div>
@@ -66,7 +66,7 @@
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
                 
-                                <button class="delete" (click)="deleteThisTask(task)" title="Delete Task">
+                                <button class="delete" (click)="deleteThisTask(task, indexOfElement, 'completed')" title="Delete Task">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </div>

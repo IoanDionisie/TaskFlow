@@ -93,13 +93,17 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  deleteThisTask(task : any) {
+  deleteThisTask(task : any, index:number, type: string) {
     const modalRef = this.modalService.open(DeleteItemComponent);
     modalRef.componentInstance.elementName = "Task";
     modalRef.componentInstance.removeConfirmation.subscribe((receivedData: any) => {
       if (receivedData === true) {
         this.taskService.deleteTask(this.selectedList._id, task._id).subscribe((response: any) =>  {
-          this.getAllTasks(this.selectedList._id);
+          if (type == "completed") {
+            this.completedTasks.splice(index, 1);
+          } else if (type == "progress") {
+            this.inProgressTasks.splice(index, 1);
+          }
         })
       }
     })
