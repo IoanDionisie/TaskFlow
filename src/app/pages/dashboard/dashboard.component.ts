@@ -6,6 +6,7 @@ import { CreateListComponent } from 'src/app/components/modals/create-list/creat
 import { CreateTaskComponent } from 'src/app/components/modals/create-task/create-task.component';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { ModifyItemComponent } from 'src/app/components/modals/modify-item/modify-item.component';
+import { ListActions } from 'src/app/enums/list-actions.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -55,7 +56,6 @@ export class DashboardComponent implements OnInit {
     this.taskService.getTasks(listId).subscribe((response: any) => {
       this.sortTasks(response);
     });
-    this.displayInProgress = true;
   }
 
   sortTasks(tasks: any) {
@@ -64,6 +64,8 @@ export class DashboardComponent implements OnInit {
     for (let i = 0; i < this.tasks.length; ++i) {
       tasks[i].status == "In Progress" ? this.inProgressTasks.push(tasks[i]) : this.completedTasks.push(tasks[i]);
     }
+
+    this.completedTasks.sort((objA:any, objB:any) => Number(objB.date) - Number(objA.date))
   }
 
   createNewList() {
@@ -95,19 +97,7 @@ export class DashboardComponent implements OnInit {
     modalRef.componentInstance.removeConfirmation.subscribe((receivedData: any) => {
       if (receivedData === true) {
         this.taskService.deleteTask(this.selectedList._id, task._id).subscribe((response: any) =>  {
-          this.getAllTasks(this.selectedList._id)
-        })
-      }
-    })
-  }
-
-  deleteThisList(list: any) {
-    const modalRef = this.modalService.open(DeleteItemComponent);
-    modalRef.componentInstance.elementName = "List";
-    modalRef.componentInstance.removeConfirmation.subscribe((receivedData: any) => {
-      if (receivedData === true) {
-        this.taskService.deleteList(list._id).subscribe((response: any) => {
-          this.getAllLists();
+          this.getAllTasks(this.selectedList._id);
         })
       }
     })
@@ -127,19 +117,12 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  modifyThisList(list: any) {
-
-  }
-
   completeThisTask(task: any) {
     task.status = "Completed";
+    task.dateCompleted = new Date();
     this.taskService.modifyTask(this.selectedList._id, task._id, task).subscribe((response: any) => {
       this.getAllTasks(this.selectedList._id);
     })
-  }
-
-  completeThisList(list: any) {
-
   }
 
   selectList(list: any) {
@@ -153,5 +136,15 @@ export class DashboardComponent implements OnInit {
 
   showSettings() {
 
+  }
+
+  listEvent(event:any) {
+    if (event.listEvent == ListActions.selectList) {
+      this.getAllTasks(event.list._id);
+    } else if (event.listEvent == ListActions.modifyList) {
+
+    } else if (event.listEvent == ListActions.deleteList) {
+      this.getAllLists();
+    }
   }
 }

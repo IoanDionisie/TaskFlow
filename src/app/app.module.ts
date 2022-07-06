@@ -17,6 +17,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ModifyItemComponent } from './components/modals/modify-item/modify-item.component';
 import {AutosizeDirective, AutosizeModule} from '@techiediaries/ngx-textarea-autosize';
 import {MatTree, MatTreeModule} from '@angular/material/tree';
+import { ListsComponent } from './components/lists/lists.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import {MatTree, MatTreeModule} from '@angular/material/tree';
     DeleteItemComponent,
     CreateTaskComponent,
     CreateListComponent,
-    ModifyItemComponent
+    ModifyItemComponent,
+    ListsComponent
   ],
   imports: [
     BrowserModule,

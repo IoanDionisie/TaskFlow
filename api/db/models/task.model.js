@@ -23,6 +23,12 @@ const TaskSchema = new mongoose.Schema({
     },
     order: {
         type: Number
+    },
+    dateCreated: {
+        type: Date
+    },
+    dateCompleted: {
+        type: Date
     }
 })
 

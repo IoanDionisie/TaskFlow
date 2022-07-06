@@ -21,6 +21,7 @@ export class CreateTaskComponent  {
       confirmation: true, 
       title: this.title,
       description: this.description,
+      dateCreated: new Date(),
       status: "In Progress"
     }
 

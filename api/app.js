@@ -13,7 +13,8 @@ const mongoose  = require('./db/mongoose');
 const bodyParser = require('body-parser');
 
 // Load in the mongoose models
-const { List, Task } = require('./db/models');
+const { List } = require('./db/models/list.model');
+const { Task } = require('./db/models/task.model');
 
 // Load middleware
 app.use(bodyParser.json());
@@ -113,6 +114,7 @@ app.post('/lists/:id/tasks', async (req, res) => {
         _listId:  req.params.id,
         status: req.body.status,
         description: req.body.description,
+        dateCreated: req.body.dateCreated,
         order: lastTask.order + 50
     })
 
