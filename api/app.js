@@ -159,8 +159,11 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
     // We want to update an existing task speficied by taskId 
     await Task.findByIdAndUpdate(
         req.params.taskId, {
-        $set: req.body
-    })
+            title: req.body.title,
+            description: req.body.description,
+            dateCompleted: req.body.dateCompleted,
+            status: req.body.status
+        })
     res.status(200).send({});
 })
 

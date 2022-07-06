@@ -85,7 +85,7 @@
 
         <div class="add-task">
             <div *ngIf="inProgressTasks.length == 0" class="add-task-reminder">
-                Start adding tasks for your list "{{selectedList.title}}" !
+                Add new tasks for your list "{{selectedList.title}}" !
             </div>
             <button [ngClass]="inProgressTasks.length == 0 ? 'button-pulse-effect': ''" class="create-task" (click)="createNewTask()">
                 <i class="fa-solid fa-plus"></i>

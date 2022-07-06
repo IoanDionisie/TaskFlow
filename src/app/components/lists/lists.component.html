@@ -1,26 +1,25 @@
 <div *ngFor="let list of lists" class="list list-color" [ngClass]="selectedList._id == list._id ? 'selected' : ''">
-    
     <div class="list-title" (click)="selectList(list)">
         {{ list.title }}
     </div>
 
-    <div class="actions">
+    
+    <div class="actions" *ngIf="selectedList._id == list._id">
+    <circle-progress *ngIf="selectedList._id == list._id" [percent]="list.percentCompleted"></circle-progress>
 
-        <circle-progress *ngIf="selectedList._id == list._id"
-            [percent]="list.percentCompleted"
-            [radius]="22"
-            [outerStrokeWidth]="5"
-            [outerStrokeColor]="'#78C000'"
-            [animation]="true"
-            [titleColor]="'#12261D'"
-            [animationDuration]="300"></circle-progress>
-
-        <button class="modify" (click)="modifyThisList(list)" title="Modify List">
-            <i class="fa-solid fa-pen-to-square"></i>
-        </button>
-
-        <button class="delete" (click)="deleteThisList(list)" title="Delete List">
-            <i class="fa-solid fa-trash"></i>
-        </button>
+        <div ngbDropdown>
+            <i class="fa-solid fa-circle-chevron-down dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle></i>
+      
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button class="modify" (click)="modifyThisList(list)" title="Modify List">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+        
+                <button class="delete" (click)="deleteThisList(list)" title="Delete List">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </div>
+        </div>
+       
     </div>
 </div>
