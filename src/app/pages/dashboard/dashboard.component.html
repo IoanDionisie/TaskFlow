@@ -28,7 +28,7 @@
                         <div *ngFor="let task of inProgressTasks;let indexOfElement=index;" class="task task-color" cdkDrag>
                             <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
                             <div class="checkbox-and-title">
-                                <div class="circle" (click)="completeThisTask(task)">
+                                <div class="circle" (click)="completeThisTask(task, indexOfElement)">
                                     <div class="checkmark"></div>
                                 </div>
                                 <div class="task-title">

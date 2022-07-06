@@ -65,8 +65,6 @@ export class DashboardComponent implements OnInit {
       tasks[i].status == "In Progress" ? this.inProgressTasks.push(tasks[i]) : this.completedTasks.push(tasks[i]);
     }
 
-    console.log(this.inProgressTasks.map((elem:any) => elem.order));
-
     this.completedTasks.sort((objA:any, objB:any) => Number(objB.date) - Number(objA.date))
   }
 
@@ -124,17 +122,13 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  completeThisTask(task: any) {
+  completeThisTask(task: any, index: number) {
     task.status = "Completed";
     task.dateCompleted = new Date();
     this.taskService.modifyTask(this.selectedList._id, task._id, task).subscribe((response: any) => {
-      this.getAllTasks(this.selectedList._id);
+      this.inProgressTasks.splice(index, 1);
+      this.completedTasks.unshift(task);
     })
-  }
-
-  selectList(list: any) {
-    this.selectedList = list;
-    this.getAllTasks(list._id);
   }
 
   changeTasksDisplayed() {
@@ -147,8 +141,10 @@ export class DashboardComponent implements OnInit {
 
   listEvent(event:any) {
     if (event.listEvent == ListActions.selectList) {
-      this.selectedList = event.list;
-      this.getAllTasks(event.list._id);
+      if  (this.selectedList._id != event.list._id) {
+        this.selectedList = event.list;
+        this.getAllTasks(event.list._id);
+      }
     } else if (event.listEvent == ListActions.modifyList) {
 
     } else if (event.listEvent == ListActions.deleteList) {
