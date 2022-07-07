@@ -9,8 +9,10 @@
             </h1>
         </div>
     </div>
+    <div class="row">
+        <app-success-message [eventData]="successEventData"></app-success-message>
+    </div>
     <div class="row sidebar">
-
         <app-lists class="lists-container col-4"
             [lists]="lists" [selectedList]="selectedList"
             (listEvent)="listEvent($event)">

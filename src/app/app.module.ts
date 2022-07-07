@@ -19,6 +19,7 @@ import {AutosizeDirective, AutosizeModule} from '@techiediaries/ngx-textarea-aut
 import {MatTree, MatTreeModule} from '@angular/material/tree';
 import { ListsComponent } from './components/lists/lists.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { SuccessMessageComponent } from './components/dialogs/success-message/success-message.component';
  
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     CreateTaskComponent,
     CreateListComponent,
     ModifyItemComponent,
-    ListsComponent
+    ListsComponent,
+    SuccessMessageComponent
   ],
   imports: [
     BrowserModule,

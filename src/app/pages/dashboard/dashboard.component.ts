@@ -7,8 +7,10 @@ import { CreateTaskComponent } from 'src/app/components/modals/create-task/creat
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { ModifyItemComponent } from 'src/app/components/modals/modify-item/modify-item.component';
 import { ListActions } from 'src/app/enums/list-actions.model';
+import { Actions } from 'src/app/enums/actions';
 
 @Component({
+  animations: [],
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
@@ -24,6 +26,9 @@ export class DashboardComponent implements OnInit {
   selectedList: any;
 
   percentCompleted: number | undefined;
+
+  successEventData: Object | undefined;
+  dummyCounter:number = 0;
 
   @HostBinding('class') class = 'center-component';
 
@@ -86,6 +91,7 @@ export class DashboardComponent implements OnInit {
       if (response.confirmation === true) {
         this.taskService.createList(response).subscribe((response: any) => {
           this.lists.push(response);
+          this.showSuccessMessage(Actions.addList, response.title);
         }); 
       }
     })
@@ -99,6 +105,7 @@ export class DashboardComponent implements OnInit {
           this.inProgressTasks.unshift(response);
           this.tasks.unshift(response);
           this.calculatePercentCompleted();
+          this.showSuccessMessage(Actions.addTask, response.title);
         })
       }
     });
@@ -119,6 +126,8 @@ export class DashboardComponent implements OnInit {
             this.tasks.length--;
             this.calculatePercentCompleted();
           }
+
+          this.showSuccessMessage(Actions.deleteTask, task.title);
         })
       }
     })
@@ -134,6 +143,7 @@ export class DashboardComponent implements OnInit {
         this.taskService.modifyTask(this.selectedList._id, task._id, receivedData).subscribe((response: any) => {
           task.title = receivedData.title;
           task.description = receivedData.description;
+          this.showSuccessMessage(Actions.modifyTask, task.title);
         })
       }
     })
@@ -167,6 +177,16 @@ export class DashboardComponent implements OnInit {
 
     } else if (event.listEvent == ListActions.deleteList) {
       this.getAllLists();
+      this.showSuccessMessage(Actions.deleteList, event.list.title);
     }
   }
+
+  showSuccessMessage(event: any, title: any) {
+    this.successEventData = {
+      counter: this.dummyCounter++,
+      eventType: event,
+      elementName: title
+    }
+  }
+
 }
