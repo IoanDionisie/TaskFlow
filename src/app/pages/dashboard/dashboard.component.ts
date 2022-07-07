@@ -61,6 +61,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  /* Calculates the percent of tasks that have been completed, from a specific list */
   calculatePercentCompleted() {
     if (this.tasks.length == 0)
       this.selectedList.percentCompleted = 0;
@@ -68,6 +69,7 @@ export class DashboardComponent implements OnInit {
       this.selectedList.percentCompleted = Math.floor(this.completedTasks.length / this.tasks.length * 100);
   }
 
+  /* Splits the task list in 2 lists, 'In Progress' and 'Completed', and then sorts the completed tasks by Date */
   sortTasks(tasks: any) {
     this.tasks = tasks;
 
