@@ -46,7 +46,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 
     NgCircleProgressModule.forRoot({
       // set defaults here
-      radius: 22,
+      radius: 17,
       outerStrokeWidth: 5,
       outerStrokeColor: "#78C000",
       showInnerStroke: false,
@@ -55,8 +55,8 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
       titleFontSize: "14",
       unitsFontSize: "14",
       animation: true,
-      titleColor:"#12261D",
-      unitsColor:"#12261D"
+      showTitle:false,
+      showUnits: false
     })
   ],
   providers: [],

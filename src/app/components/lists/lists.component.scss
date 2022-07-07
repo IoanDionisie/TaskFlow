@@ -8,6 +8,7 @@
     font-size: 20px;
     font-weight: 500;
     min-height: 72px;
+    border-bottom: 1px dotted lightgray;
 }
 
 .list:hover {
@@ -22,7 +23,39 @@
 .actions {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     flex-wrap: nowrap;
+    width: 30%;
+    
+    position: relative;
+
+    .progress-bar-container {
+        width: 66%;
+        background: transparent;
+
+        .progress-bar-text {
+            position: absolute;
+            top: -8px;
+            font-size: 15px;
+            left: 0;
+            color: $prussianBlue;
+        }
+
+        .progress {
+            width: 100%;
+            height: 8px;
+            font-size: 15px;
+            border: none;
+            border-radius: 30px;
+            background: lightgrey;
+        }
+    }
+
+    .dropdown-toggle {
+        font-size: 22px;
+        color: $darkSpringGreen;
+        margin-top: 5px;
+    }
 
     .dropdown-toggle::after {
         display: none;
@@ -33,11 +66,20 @@
     color: $listColor;
 }
 
+.dropdown .show {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px 0 100px 50px;
+}
+
 
 
 .delete, 
 .modify, 
-.complete {
+.complete,
+.markCompleted {
     border: none;
     background: none;
     outline: none;
@@ -61,4 +103,13 @@
 
 .complete {
     color: $darkSpringGreen;
+}
+
+.markCompleted {
+    color: $taskColor;
+}
+
+.circle-progress {
+    position: absolute;
+    right: 0;
 }

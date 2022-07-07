@@ -62,7 +62,10 @@ export class DashboardComponent implements OnInit {
   }
 
   calculatePercentCompleted() {
-    this.selectedList.percentCompleted = this.completedTasks.length / this.tasks.length * 100;
+    if (this.tasks.length == 0)
+      this.selectedList.percentCompleted = 0;
+    else
+      this.selectedList.percentCompleted = Math.floor(this.completedTasks.length / this.tasks.length * 100);
   }
 
   sortTasks(tasks: any) {
