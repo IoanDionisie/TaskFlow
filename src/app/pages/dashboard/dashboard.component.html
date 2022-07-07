@@ -28,7 +28,7 @@
                                 <div class="circle" (click)="completeThisTask(task, indexOfElement)">
                                     <div class="checkmark"></div>
                                 </div>
-                                <div class="task-title">
+                                <div class="task-title" (click)="openTaskModal(task)">
                                     {{task.title}}
                                 </div>
                             </div>

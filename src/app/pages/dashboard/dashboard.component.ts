@@ -8,6 +8,7 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { ModifyItemComponent } from 'src/app/components/modals/modify-item/modify-item.component';
 import { ListActions } from 'src/app/enums/list-actions.model';
 import { Actions } from 'src/app/enums/actions';
+import { ViewTaskComponent } from 'src/app/components/modals/view-task/view-task.component';
 
 @Component({
   animations: [],
@@ -160,6 +161,11 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  openTaskModal(task: any) {
+    const modalRef = this.modalService.open(ViewTaskComponent);
+    modalRef.componentInstance.task = task;
+  }
+
   changeTasksDisplayed() {
     this.displayInProgress = !this.displayInProgress;
   }
@@ -189,5 +195,4 @@ export class DashboardComponent implements OnInit {
       elementName: title
     }
   }
-
 }

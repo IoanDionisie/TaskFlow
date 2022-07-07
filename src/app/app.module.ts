@@ -20,6 +20,7 @@ import {MatTree, MatTreeModule} from '@angular/material/tree';
 import { ListsComponent } from './components/lists/lists.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { SuccessMessageComponent } from './components/dialogs/success-message/success-message.component';
+import { ViewTaskComponent } from './components/modals/view-task/view-task.component';
  
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { SuccessMessageComponent } from './components/dialogs/success-message/su
     CreateListComponent,
     ModifyItemComponent,
     ListsComponent,
-    SuccessMessageComponent
+    SuccessMessageComponent,
+    ViewTaskComponent
   ],
   imports: [
     BrowserModule,
