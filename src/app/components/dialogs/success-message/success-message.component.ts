@@ -37,6 +37,8 @@ export class SuccessMessageComponent implements OnInit {
         this.successMessage += MESSAGES['deleteItem'];
       } else  if (this.eventType == Actions.modifyList || this.eventType == Actions.modifyTask) {
         this.successMessage += MESSAGES['modifyItem'];
+      } else if (this.eventType == Actions.completeList || this.eventType == Actions.completeTask) {
+        this.successMessage += MESSAGES['completeItem'];
       }
 
       this.setTimer();

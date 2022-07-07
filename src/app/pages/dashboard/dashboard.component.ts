@@ -156,6 +156,7 @@ export class DashboardComponent implements OnInit {
       this.inProgressTasks.splice(index, 1);
       this.completedTasks.unshift(task);
       this.calculatePercentCompleted();
+      this.showSuccessMessage(Actions.completeTask, task.title);
     })
   }
 
