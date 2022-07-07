@@ -14,5 +14,5 @@
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-danger" (click)="closeModal()">Cancel</button>
-    <button type="button" class="btn btn-success" (click)="confirm()">Confirm</button>
+    <button type="button" class="btn btn-success" (keyup.enter)="confirm()"  (click)="confirm()">Confirm</button>
 </div>
