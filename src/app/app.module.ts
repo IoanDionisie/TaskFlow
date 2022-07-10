@@ -21,6 +21,8 @@ import { ListsComponent } from './components/lists/lists.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { SuccessMessageComponent } from './components/dialogs/success-message/success-message.component';
 import { ViewTaskComponent } from './components/modals/view-task/view-task.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
  
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { ViewTaskComponent } from './components/modals/view-task/view-task.compo
     DragDropModule,
     AutosizeModule,
     MatTreeModule,
+    MatButtonModule,
+    MatIconModule,
 
     NgCircleProgressModule.forRoot({
       // set defaults here

@@ -117,3 +117,27 @@
     position: absolute;
     right: 0;
 }
+
+.inprogress-dropdown-toggle,
+.completed-dropdown-toggle {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 500;
+    min-height: 72px;
+    color: $listColor;
+
+    :hover {
+        cursor: pointer;
+        color: $taskColor;
+
+    }
+
+    .list-title i {
+        padding-right: 10px;
+    }
+}
+
+.hide {
+    display: none;
+}

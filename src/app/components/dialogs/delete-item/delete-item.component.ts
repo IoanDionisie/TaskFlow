@@ -8,7 +8,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./delete-item.component.scss']
 })
 
-export class DeleteItemComponent  {
+export class DeleteItemComponent  { 
 
 
   @Input() public elementName: any;
@@ -17,7 +17,7 @@ export class DeleteItemComponent  {
   constructor(private modal: NgbActiveModal) {}
   
   removeItem(remove: boolean) {
-    this.removeConfirmation.emit(remove);
+    this.removeConfirmation.emit(remove);   
     this.closeModal();
   }
 

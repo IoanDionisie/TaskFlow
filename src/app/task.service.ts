@@ -48,5 +48,10 @@ export class TaskService {
     return this.webReqService.patch(link, {ids: ids});
   }
 
+  modifyList(listId: any, list: Object) {
+    let link = 'lists/' + listId;
+    return this.webReqService.patch(link, list);
+  }
+
 
 }

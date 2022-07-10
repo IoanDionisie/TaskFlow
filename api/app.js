@@ -44,7 +44,9 @@ app.post('/lists', (req, res) => {
     let title = req.body.title;
 
     let newList = new List({
-        title
+        title: req.body.title,
+        description: req.body.description,
+        status: "InProgress"
     });
 
     newList.save().then((listDoc) => {
@@ -57,16 +59,16 @@ app.post('/lists', (req, res) => {
  * PATCH /lists/:id
  * Purpose: Update a specified list
  */
-app.patch('/lists/:id', (req, res) => {
+app.patch('/lists/:id', async (req, res) => {
     // We want to update the specified list with the new values specified in the JSON body of the request
-    let title = req.body.title;
     let id = req.params.id;
 
-    List.findOneAndUpdate( {_id: id}, {
-        $set: req.body
-    }).then(() => {  
-        res.sendStatus(200)
-    });
+    await List.findByIdAndUpdate(id, {
+        title: req.body.title,
+        description: req.body.description,
+        status: req.body.status
+    });  
+    res.status(200).send({});
 })
 
 /** 

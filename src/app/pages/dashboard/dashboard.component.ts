@@ -18,7 +18,6 @@ import { ViewTaskComponent } from 'src/app/components/modals/view-task/view-task
 })
 
 export class DashboardComponent implements OnInit {
-
   lists: any[] = [];
   inProgressTasks: any = [];
   completedTasks: any = [];
@@ -82,8 +81,7 @@ export class DashboardComponent implements OnInit {
     for (let i = 0; i < this.tasks.length; ++i) {
       tasks[i].status == "In Progress" ? this.inProgressTasks.push(tasks[i]) : this.completedTasks.push(tasks[i]);
     }
-
-    this.completedTasks.sort((objA:any, objB:any) => Number(objB.date) - Number(objA.date));
+    this.completedTasks.sort((objA:any, objB:any) => Number(objB.dateCompleted) - Number(objA.dateCompleted));
   }
 
   createNewList() {
@@ -181,7 +179,7 @@ export class DashboardComponent implements OnInit {
         this.getAllTasks(event.list._id);
       }
     } else if (event.listEvent == ListActions.modifyList) {
-
+      this.showSuccessMessage(Actions.modifyList, event.list.title)
     } else if (event.listEvent == ListActions.deleteList) {
       this.getAllLists();
       this.showSuccessMessage(Actions.deleteList, event.list.title);
