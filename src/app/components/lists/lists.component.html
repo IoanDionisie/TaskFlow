@@ -1,11 +1,10 @@
 
 
 <div class="inprogress-dropdown">
-
     <div class="inprogress-dropdown-toggle" (click)="toggleInProgress()">
         <div class="list-title">
-            <i class="fa-solid fa-caret-right"></i>
-            In Progress
+            <i class="fa-solid" [ngClass]="showInProgress == true ? 'fa-caret-down' : 'fa-caret-right'"></i>
+            In Progress ({{inProgressLists.length}})
         </div>
     </div>
     <div class="inprogress-dropdown-area" [ngClass]="showInProgress == false ? 'hide' : ''">
@@ -42,11 +41,10 @@
 
 
 <div class="completed-dropdown">
-
     <div class="completed-dropdown-toggle" (click)="toggleCompleted()">
         <div class="list-title">
-            <i class="fa-solid fa-caret-right"></i>
-            Completed
+            <i class="fa-solid" [ngClass]="showCompleted== true ? 'fa-caret-down' : 'fa-caret-right'"></i>
+            Completed ({{completedLists.length}})
         </div>
     </div>
     <div class="completed-dropdown-area" [ngClass]="showCompleted == false ? 'hide' : ''">

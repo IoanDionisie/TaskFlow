@@ -124,7 +124,7 @@
     align-items: center;
     font-size: 20px;
     font-weight: 500;
-    min-height: 72px;
+    min-height: 59px;
     color: $listColor;
 
     :hover {
@@ -135,6 +135,16 @@
 
     .list-title i {
         padding-right: 10px;
+    }
+}
+
+.inprogress-dropdown-area,
+.completed-dropdown-area {
+    padding-left: 25px;
+
+    .list-title {
+        font-size: 17px;
+        font-weight: 500;
     }
 }
 

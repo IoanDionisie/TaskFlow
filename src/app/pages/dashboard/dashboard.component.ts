@@ -21,6 +21,8 @@ export class DashboardComponent implements OnInit {
   lists: any[] = [];
   inProgressTasks: any = [];
   completedTasks: any = [];
+  inProgressLists: any = [];
+  completedLists: any = [];
   tasks: any;
   displayInProgress: boolean = true;
   selectedList: any;
@@ -38,6 +40,19 @@ export class DashboardComponent implements OnInit {
     this.getAllLists();
   }
 
+  groupLists() {
+    this.inProgressLists = [];
+    this.completedLists = [];
+
+    for (let i = 0; i < this.lists.length; ++i) {
+      if (this.lists[i].status == "Completed") {
+        this.completedLists.push(this.lists[i]);
+      } else if (this.lists[i].status == "InProgress") {
+        this.inProgressLists.push(this.lists[i]);
+      }
+    }
+  }
+
   drop(event: CdkDragDrop<Object[]>, tasks: any) {
     moveItemInArray(tasks, event.previousIndex, event.currentIndex);
     this.changeArrayOrder(this.inProgressTasks);
@@ -52,6 +67,7 @@ export class DashboardComponent implements OnInit {
     this.taskService.getLists().subscribe((response: any) => {
       this.lists = response;
       this.selectedList = this.lists[0];
+      this.groupLists();
       this.getAllTasks(this.selectedList._id);
     });
   }
@@ -90,6 +106,7 @@ export class DashboardComponent implements OnInit {
       if (response.confirmation === true) {
         this.taskService.createList(response).subscribe((response: any) => {
           this.lists.push(response);
+          this.groupLists();
           this.showSuccessMessage(Actions.addList, response.title);
         }); 
       }
@@ -182,7 +199,12 @@ export class DashboardComponent implements OnInit {
       this.showSuccessMessage(Actions.modifyList, event.list.title)
     } else if (event.listEvent == ListActions.deleteList) {
       this.getAllLists();
+      this.groupLists();
       this.showSuccessMessage(Actions.deleteList, event.list.title);
+    } else if (event.listEvent == ListActions.completeList) {
+      this.getAllLists();
+      this.groupLists();
+      this.showSuccessMessage(Actions.completeList, event.list.title);
     }
   }
 

@@ -14,7 +14,7 @@
     </div>
     <div class="row sidebar">
         <app-lists class="lists-container col-4"
-            [lists]="lists" [selectedList]="selectedList"
+            [inProgressLists]="inProgressLists" [completedLists]="completedLists" [selectedList]="selectedList"
             (listEvent)="listEvent($event)">
         </app-lists>
         

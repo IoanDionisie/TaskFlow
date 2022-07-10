@@ -12,12 +12,10 @@ import { ModifyItemComponent } from '../modals/modify-item/modify-item.component
 })
 
 export class ListsComponent implements OnInit {
-  @Input() lists:any;
+  @Input() inProgressLists:any;
+  @Input() completedLists: any;
   @Input() selectedList:any;
   @Output() listEvent: EventEmitter<any> = new EventEmitter();
-
-  inProgressLists: any;
-  completedLists: any;
 
   showInProgress: boolean | undefined;
   showCompleted: boolean | undefined;
@@ -26,18 +24,8 @@ export class ListsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.showInProgress = true;
+    this.showInProgress = false;
     this.showCompleted = false;
-  }
-
-  groupLists() {
-    for (let i = 0; i < this.lists.length; ++i) {
-      if (this.lists[i].status == "Completed") {
-        this.completedLists.push(this.lists[i]);
-      } else if (this.lists[i].status == "InProgress") {
-        this.inProgressLists.push(this.lists[i]);
-      }
-    }
   }
 
   toggleInProgress() {
@@ -51,10 +39,8 @@ export class ListsComponent implements OnInit {
 
   ngOnChanges(): void {
     if (this.selectedList == null) {
-      this.selectedList = this.lists[0];
+      this.selectedList = this.inProgressLists[0];
     }
-
-    this.groupLists();
   }
   
   modifyThisList(list: any) {
@@ -88,8 +74,8 @@ export class ListsComponent implements OnInit {
   markAsCompleted(list: any) {
     list.status = list.status == "Completed" ? "InProgress" : "Completed";
     this.taskService.modifyList(list._id, list).subscribe((response: any) => {
-      console.log(list + " modified");
-      this.pickListEvent(ListActions.modifyList, list);
+      console.log("list: completing");
+      this.pickListEvent(ListActions.completeList, list);
     })
   }
 

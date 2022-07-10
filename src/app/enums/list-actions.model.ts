@@ -1,5 +1,6 @@
 export enum ListActions {
     deleteList,
     modifyList,
-    selectList
+    selectList,
+    completeList
 }
