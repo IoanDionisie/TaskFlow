@@ -2,14 +2,14 @@
     <h4 class="modal-title" id="modal-title">Add List</h4>
 </div>
 <div class="modal-body">
-    <div class="name modal-text">
+    <div class="title-container modal-text">
         <label for="name">Name</label>
         <input type="text" id="name" [(ngModel)]="name" minlength="2">
     </div>
   
-    <div class="description modal-text">
+    <div class="description-container modal-text">
         <label for="description">Description</label>
-        <textarea id="description" [(ngModel)]="description"></textarea>
+        <textarea autosize id="description" [(ngModel)]="description"></textarea>
     </div>
    
 </div>
