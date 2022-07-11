@@ -9,7 +9,6 @@ app.use(function(req, res, next) {
 });
 
 const mongoose  = require('./db/mongoose');
-
 const bodyParser = require('body-parser');
 
 // Load in the mongoose models
@@ -46,7 +45,7 @@ app.post('/lists', (req, res) => {
     let newList = new List({
         title: req.body.title,
         description: req.body.description,
-        status: "InProgress"
+        status: "In Progress"
     });
 
     newList.save().then((listDoc) => {

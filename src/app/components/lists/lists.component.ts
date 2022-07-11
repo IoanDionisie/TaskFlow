@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChange } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ITEM_STATUS } from 'src/app/constants/item-status';
+import { ITEM_TYPE } from 'src/app/constants/item-types';
 import { ListActions } from 'src/app/enums/list-actions.model';
 import { TaskService } from 'src/app/task.service';
 import { DeleteItemComponent } from '../dialogs/delete-item/delete-item.component';
@@ -22,7 +24,6 @@ export class ListsComponent implements OnInit {
 
   constructor(private taskService: TaskService, private modalService: NgbModal) {}
 
-
   ngOnInit(): void {
     this.showInProgress = false;
     this.showCompleted = false;
@@ -36,7 +37,6 @@ export class ListsComponent implements OnInit {
     this.showCompleted = !this.showCompleted;
   }
   
-
   ngOnChanges(): void {
     if (this.selectedList == null) {
       this.selectedList = this.inProgressLists[0];
@@ -45,7 +45,7 @@ export class ListsComponent implements OnInit {
   
   modifyThisList(list: any) {
     const modalRef = this.modalService.open(ModifyItemComponent);
-    modalRef.componentInstance.elementName = "List";
+    modalRef.componentInstance.elementName = ITEM_TYPE.list;
     modalRef.componentInstance.title = list.title;
     modalRef.componentInstance.description = list.description;
     modalRef.componentInstance.modifyItemConfirmation.subscribe((receivedData: any) => {
@@ -61,7 +61,7 @@ export class ListsComponent implements OnInit {
 
   deleteThisList(list: any) {
     const modalRef = this.modalService.open(DeleteItemComponent);
-    modalRef.componentInstance.elementName = "List";
+    modalRef.componentInstance.elementName = ITEM_TYPE.list;
     modalRef.componentInstance.removeConfirmation.subscribe((receivedData: any) => {
       if (receivedData === true) {
         this.taskService.deleteList(list._id).subscribe((response: any) => {
@@ -72,9 +72,8 @@ export class ListsComponent implements OnInit {
   }
 
   markAsCompleted(list: any) {
-    list.status = list.status == "Completed" ? "InProgress" : "Completed";
+    list.status = list.status == ITEM_STATUS.inProgress ? ITEM_STATUS.inProgress : ITEM_STATUS.completed;
     this.taskService.modifyList(list._id, list).subscribe((response: any) => {
-      console.log("list: completing");
       this.pickListEvent(ListActions.completeList, list);
     })
   }

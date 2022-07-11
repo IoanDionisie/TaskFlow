@@ -38,7 +38,7 @@
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
                 
-                                <button class="delete" (click)="deleteThisTask(task, indexOfElement, 'progress')" title="Delete Task">
+                                <button class="delete" (click)="deleteThisTask(task, indexOfElement, ITEM_STATUS.inProgress)" title="Delete Task">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </div>
@@ -57,13 +57,12 @@
                                     {{task.title}}
                                 </div>
                             </div>
-                          
                             <div class="actions">
                                 <button class="modify" (click)="modifyThisTask(task)" title="Modify Task">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
                 
-                                <button class="delete" (click)="deleteThisTask(task, indexOfElement, 'completed')" title="Delete Task">
+                                <button class="delete" (click)="deleteThisTask(task, indexOfElement, ITEM_STATUS.completed)" title="Delete Task">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </div>

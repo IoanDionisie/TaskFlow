@@ -9,6 +9,8 @@ import { ModifyItemComponent } from 'src/app/components/modals/modify-item/modif
 import { ListActions } from 'src/app/enums/list-actions.model';
 import { Actions } from 'src/app/enums/actions';
 import { ViewTaskComponent } from 'src/app/components/modals/view-task/view-task.component';
+import { ITEM_TYPE } from 'src/app/constants/item-types';
+import { ITEM_STATUS } from 'src/app/constants/item-status';
 
 @Component({
   animations: [],
@@ -32,6 +34,9 @@ export class DashboardComponent implements OnInit {
   successEventData: Object | undefined;
   dummyCounter:number = 0;
 
+  readonly ITEM_TYPE = ITEM_TYPE;
+  readonly ITEM_STATUS = ITEM_STATUS;
+
   @HostBinding('class') class = 'center-component';
 
   constructor(private taskService: TaskService, private modalService: NgbModal) { }
@@ -45,11 +50,12 @@ export class DashboardComponent implements OnInit {
     this.completedLists = [];
 
     for (let i = 0; i < this.lists.length; ++i) {
-      if (this.lists[i].status == "Completed") {
-        this.completedLists.push(this.lists[i]);
-      } else if (this.lists[i].status == "InProgress") {
-        this.inProgressLists.push(this.lists[i]);
-      }
+        console.log(this.lists[i].status)
+        if (this.lists[i].status == ITEM_STATUS.completed) {
+          this.completedLists.push(this.lists[i]);
+        } else if (this.lists[i].status == ITEM_STATUS.inProgress) {
+          this.inProgressLists.push(this.lists[i]);
+        }
     }
   }
 
@@ -95,7 +101,7 @@ export class DashboardComponent implements OnInit {
     this.tasks = tasks;
 
     for (let i = 0; i < this.tasks.length; ++i) {
-      tasks[i].status == "In Progress" ? this.inProgressTasks.push(tasks[i]) : this.completedTasks.push(tasks[i]);
+      tasks[i].status == ITEM_STATUS.inProgress ? this.inProgressTasks.push(tasks[i]) : this.completedTasks.push(tasks[i]);
     }
     this.completedTasks.sort((objA:any, objB:any) => Number(objB.dateCompleted) - Number(objA.dateCompleted));
   }
@@ -129,15 +135,15 @@ export class DashboardComponent implements OnInit {
 
   deleteThisTask(task : any, index:number, type: string) {
     const modalRef = this.modalService.open(DeleteItemComponent);
-    modalRef.componentInstance.elementName = "Task";
+    modalRef.componentInstance.elementName = ITEM_TYPE.task;
     modalRef.componentInstance.removeConfirmation.subscribe((receivedData: any) => {
       if (receivedData === true) {
         this.taskService.deleteTask(this.selectedList._id, task._id).subscribe((response: any) =>  {
-          if (type == "completed") {
+          if (type == ITEM_STATUS.completed) {
             this.completedTasks.splice(index, 1);
             this.tasks.length--;
             this.calculatePercentCompleted();
-          } else if (type == "progress") {
+          } else if (type == ITEM_STATUS.inProgress) {
             this.inProgressTasks.splice(index, 1);
             this.tasks.length--;
             this.calculatePercentCompleted();
@@ -151,7 +157,7 @@ export class DashboardComponent implements OnInit {
 
   modifyThisTask(task: any) {
     const modalRef = this.modalService.open(ModifyItemComponent);
-    modalRef.componentInstance.elementName = "Task";
+    modalRef.componentInstance.elementName = ITEM_TYPE.task;
     modalRef.componentInstance.title = task.title;
     modalRef.componentInstance.description = task.description;
     modalRef.componentInstance.modifyItemConfirmation.subscribe((receivedData: any) => {
@@ -166,7 +172,7 @@ export class DashboardComponent implements OnInit {
   }
 
   completeThisTask(task: any, index: number) {
-    task.status = "Completed";
+    task.status = ITEM_STATUS.completed;
     task.dateCompleted = new Date();
     this.taskService.modifyTask(this.selectedList._id, task._id, task).subscribe((response: any) => {
       this.inProgressTasks.splice(index, 1);
