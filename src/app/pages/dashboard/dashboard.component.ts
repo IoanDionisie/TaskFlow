@@ -160,11 +160,14 @@ export class DashboardComponent implements OnInit {
     modalRef.componentInstance.elementName = ITEM_TYPE.task;
     modalRef.componentInstance.title = task.title;
     modalRef.componentInstance.description = task.description;
+    modalRef.componentInstance.status = task.status;
+    modalRef.componentInstance.observations = task.observations;
     modalRef.componentInstance.modifyItemConfirmation.subscribe((receivedData: any) => {
       if (receivedData.confirmation === true) {
         this.taskService.modifyTask(this.selectedList._id, task._id, receivedData).subscribe((response: any) => {
           task.title = receivedData.title;
           task.description = receivedData.description;
+          task.observations = receivedData.observations;
           this.showSuccessMessage(Actions.modifyTask, task.title);
         })
       }

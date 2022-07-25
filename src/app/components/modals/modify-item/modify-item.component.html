@@ -4,13 +4,19 @@
 <div class="modal-body">
     <div class="name modal-text title-container">
         <label for="title">Title</label>
-        <input  id="title" type="text" [value]="this.title" [(ngModel)]="this.title" minlength="2">
+        <input [disabled]="this.status == ITEM_STATUS.completed"  id="title" type="text" [value]="this.title" [(ngModel)]="this.title" minlength="2">
     </div>
   
     <div class="description modal-text description-container">
         <label for="description">Description</label>
-        <textarea autosize id="description" [value]="this.description" [(ngModel)]="this.description"></textarea>
+        <textarea [disabled]="this.status == ITEM_STATUS.completed" autosize id="description" [value]="this.description" [(ngModel)]="this.description"></textarea>
     </div>
+
+    <div *ngIf="this.status == ITEM_STATUS.completed" class="observations modal-text description-container">
+         <label for="observation">Observations</label>
+        <textarea autosize id="observations" [value]="this.observations" [(ngModel)]="this.observations"></textarea>
+    </div>
+    
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-danger" (click)="closeModal()">Cancel</button>

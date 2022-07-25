@@ -163,7 +163,8 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
             title: req.body.title,
             description: req.body.description,
             dateCompleted: req.body.dateCompleted,
-            status: req.body.status
+            status: req.body.status,
+            observations: req.body.observations
         })
     res.status(200).send({});
 })

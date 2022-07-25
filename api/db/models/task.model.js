@@ -1,5 +1,6 @@
 
 const mongoose = require('mongoose');
+const { isStringLiteral } = require('typescript');
 
 const TaskSchema = new mongoose.Schema({
     title: {
@@ -29,6 +30,9 @@ const TaskSchema = new mongoose.Schema({
     },
     dateCompleted: {
         type: Date
+    },
+    observations: {
+        type: String
     }
 })
 
