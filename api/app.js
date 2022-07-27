@@ -1,5 +1,14 @@
 const express = require('express');
+const cors = require("cors");
 const app = express();
+
+var corsOptions = {
+    origin: "http://localhost:4200"
+};
+app.use(cors(corsOptions));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -14,11 +23,15 @@ const bodyParser = require('body-parser');
 // Load in the mongoose models
 const { List } = require('./db/models/list.model');
 const { Task } = require('./db/models/task.model');
+const { User } = require('./db/models/user.model');
 
 // Load middleware
 app.use(bodyParser.json());
 
+
 /* Route handlers */
+require('./routes/auth.routes')(app);
+require('./routes/user.routes')(app);
 
 /* List routes */
 
@@ -185,7 +198,7 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
     res.status(200).send({});
 })
 
-app.listen(3000, () => {
-    console.log("App listening on port 3000");
+app.listen(4200, () => {
+    console.log("App listening on port 4200");
 });
 
