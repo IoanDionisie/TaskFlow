@@ -2,10 +2,13 @@ const express = require('express');
 const cors = require("cors");
 const app = express();
 
+/*
+
 var corsOptions = {
-    origin: "http://localhost:4200"
+    origin: "http://localhost:3000"
 };
 app.use(cors(corsOptions));
+*/
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -198,7 +201,7 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
     res.status(200).send({});
 })
 
-app.listen(4200, () => {
-    console.log("App listening on port 4200");
+app.listen(3000, () => {
+    console.log("App listening on port 3000");
 });
 

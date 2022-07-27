@@ -6,11 +6,35 @@ import { ListActions } from 'src/app/enums/list-actions.model';
 import { TaskService } from 'src/app/task.service';
 import { DeleteItemComponent } from '../dialogs/delete-item/delete-item.component';
 import { ModifyItemComponent } from '../modals/modify-item/modify-item.component';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  // ...
+} from '@angular/animations';
 
 @Component({
   selector: 'app-lists',
   templateUrl: './lists.component.html',
-  styleUrls: ['./lists.component.scss']
+  styleUrls: ['./lists.component.scss'],
+  animations: [
+    trigger('incrementNumber', [
+      state('initial', style({
+        color: 'inherit'
+      })),
+      state('incrementing', style({
+        color: 'green'
+      })),
+      transition('initial => incrementing', [
+        animate('0.5s')
+      ]),
+      transition('incrementing => initial', [
+        animate('0.5s')
+      ])
+    ]),
+  ]
 })
 
 export class ListsComponent implements OnInit {
@@ -18,6 +42,7 @@ export class ListsComponent implements OnInit {
   @Input() completedLists: any;
   @Input() selectedList:any;
   @Output() listEvent: EventEmitter<any> = new EventEmitter();
+  @Input() incrementNumber: any;
 
   showInProgress: boolean | undefined;
   showCompleted: boolean | undefined;
@@ -69,6 +94,13 @@ export class ListsComponent implements OnInit {
         })
       }
     })
+  }
+
+  decrementListNumberAnimation() {
+    this.incrementNumber = true;
+    setTimeout(() =>{ 
+      this.incrementNumber = false;
+    }, 2000);
   }
 
   markAsCompleted(list: any) {

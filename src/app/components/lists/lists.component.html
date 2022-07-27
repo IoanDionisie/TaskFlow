@@ -2,7 +2,7 @@
 
 <div class="inprogress-dropdown">
     <div class="inprogress-dropdown-toggle" (click)="toggleInProgress()">
-        <div class="list-title">
+        <div [@incrementNumber]="incrementNumber == false ? 'initial' : 'incrementing'" class="list-title">
             <i class="fa-solid" [ngClass]="showInProgress == true ? 'fa-caret-down' : 'fa-caret-right'"></i>
             In Progress ({{inProgressLists.length}})
         </div>

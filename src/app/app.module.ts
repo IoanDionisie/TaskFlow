@@ -23,6 +23,8 @@ import { SuccessMessageComponent } from './components/dialogs/success-message/su
 import { ViewTaskComponent } from './components/modals/view-task/view-task.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import { RegisterComponent } from './pages/register/register.component';
+
  
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import {MatIconModule} from '@angular/material/icon';
     ModifyItemComponent,
     ListsComponent,
     SuccessMessageComponent,
-    ViewTaskComponent
+    ViewTaskComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

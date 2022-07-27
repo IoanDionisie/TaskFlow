@@ -11,9 +11,10 @@ import { Actions } from 'src/app/enums/actions';
 import { ViewTaskComponent } from 'src/app/components/modals/view-task/view-task.component';
 import { ITEM_TYPE } from 'src/app/constants/item-types';
 import { ITEM_STATUS } from 'src/app/constants/item-status';
+import { TokenStorageService } from 'src/app/token-storage.service';
+
 
 @Component({
-  animations: [],
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
@@ -34,12 +35,15 @@ export class DashboardComponent implements OnInit {
   successEventData: Object | undefined;
   dummyCounter:number = 0;
 
+  incrementNumber = false;
+
   readonly ITEM_TYPE = ITEM_TYPE;
   readonly ITEM_STATUS = ITEM_STATUS;
 
   @HostBinding('class') class = 'center-component';
 
-  constructor(private taskService: TaskService, private modalService: NgbModal) { }
+  constructor(private taskService: TaskService, private modalService: NgbModal,
+    private token: TokenStorageService) { }
 
   ngOnInit(): void {
     this.getAllLists();
@@ -50,7 +54,6 @@ export class DashboardComponent implements OnInit {
     this.completedLists = [];
 
     for (let i = 0; i < this.lists.length; ++i) {
-        console.log(this.lists[i].status)
         if (this.lists[i].status == ITEM_STATUS.completed) {
           this.completedLists.push(this.lists[i]);
         } else if (this.lists[i].status == ITEM_STATUS.inProgress) {
@@ -114,11 +117,19 @@ export class DashboardComponent implements OnInit {
           this.lists.push(response);
           this.groupLists();
           this.showSuccessMessage(Actions.addList, response.title);
+          this.incrementListNumberAnimation()
         }); 
       }
     })
   }
 
+  incrementListNumberAnimation() {
+    this.incrementNumber = true;
+    setTimeout(() =>{ 
+      this.incrementNumber = false;
+    }, 2000);
+  }
+  
   createNewTask() {
     const modalRef = this.modalService.open(CreateTaskComponent);
     modalRef.componentInstance.createTaskConfirmation.subscribe((response: any) => {
@@ -223,5 +234,10 @@ export class DashboardComponent implements OnInit {
       eventType: event,
       elementName: title
     }
+  }
+
+  // TESTING
+  logOut() {
+    this.token.signOut();
   }
 }

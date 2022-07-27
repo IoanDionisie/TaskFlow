@@ -1,4 +1,10 @@
 <div class="container task-manager-container ">
+
+    <!--
+        Testing!!!
+    -->
+    <button class="" (click)="logOut()"> Log out </button>
+
     <button class="settings" (click)="showSettings()">
         <i class="fa-solid fa-gear settings-icon"></i>
     </button>
@@ -15,7 +21,7 @@
     <div class="row sidebar">
         <app-lists class="lists-container col-4"
             [inProgressLists]="inProgressLists" [completedLists]="completedLists" [selectedList]="selectedList"
-            (listEvent)="listEvent($event)">
+            (listEvent)="listEvent($event)" [incrementNumber]="incrementNumber">
         </app-lists>
         
         <div class="task-list-container col-8">
