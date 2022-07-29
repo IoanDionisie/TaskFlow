@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
-      this.router.navigate(['dashboard'], {queryParams: { isLoggedIn: 'true', username: this.form.username} });
+      this.router.navigate(['dashboard']);
     }
   }
 
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         //this.reloadPage();
-        this.router.navigate(['dashboard'], {queryParams: { isLoggedIn: 'true', username: this.form.username} });
+        this.router.navigate(['dashboard']);
       },
       error: err => {
         this.errorMessage = err.error.message;

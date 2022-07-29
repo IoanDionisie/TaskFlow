@@ -34,7 +34,6 @@ export class DashboardComponent implements OnInit {
 
   successEventData: Object | undefined;
   dummyCounter:number = 0;
-
   incrementNumber = false;
 
   readonly ITEM_TYPE = ITEM_TYPE;

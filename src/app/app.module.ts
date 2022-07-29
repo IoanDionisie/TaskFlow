@@ -24,7 +24,7 @@ import { ViewTaskComponent } from './components/modals/view-task/view-task.compo
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { RegisterComponent } from './pages/register/register.component';
-
+import { authInterceptorProviders } from './helpers/auth.interceptor';
  
 @NgModule({
   declarations: [
@@ -70,7 +70,7 @@ import { RegisterComponent } from './pages/register/register.component';
       showUnits: false
     })
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
