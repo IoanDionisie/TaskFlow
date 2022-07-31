@@ -1,6 +1,6 @@
 
 
-<div class="inprogress-dropdown">
+<div *ngIf="inProgressLists" class="inprogress-dropdown">
     <div class="inprogress-dropdown-toggle" (click)="toggleInProgress()">
         <div [@incrementNumber]="incrementNumber == false ? 'initial' : 'incrementing'" class="list-title">
             <i class="fa-solid" [ngClass]="showInProgress == true ? 'fa-caret-down' : 'fa-caret-right'"></i>
@@ -40,7 +40,7 @@
 
 
 
-<div class="completed-dropdown">
+<div *ngIf="completedLists" class="completed-dropdown">
     <div class="completed-dropdown-toggle" (click)="toggleCompleted()">
         <div class="list-title">
             <i class="fa-solid" [ngClass]="showCompleted== true ? 'fa-caret-down' : 'fa-caret-right'"></i>
@@ -61,7 +61,7 @@
                 <div ngbDropdown>
                     <i class="fa-solid fa-angle-down dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle></i>
                     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                        <button class="markCompleted" title="Mark as Completed" (click)="markAsCompleted(list)">
+                        <button *ngIf="list.status == ITEM_STATUS.inProgress" class="markCompleted" title="Mark as Completed" (click)="markAsCompleted(list)">
                             <i class="fa-solid fa-check"></i>
                         </button>
                         <button class="modify" (click)="modifyThisList(list)" title="Modify List">

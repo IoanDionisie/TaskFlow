@@ -14,12 +14,25 @@ verifyToken = (req, res, next) => {
         return res.status(401).send({ message: "Unauthorized!" });
       }
       req.userId = decoded.id;
+      console.log(req.userId)
       next();
     });
 };
 
+getUserId = (req, res) => {
+  let token = req.headers["x-access-token"];
+    jwt.verify(token, config.secret, (err, decoded) => {
+      if (err) {
+        return res.status(401).send({ message: "Unauthorized!" });
+      }
+      req.userId = decoded.id;
+    });
+    
+    return req.userId;
+}
+
 const authJwt = {
-    verifyToken
+    verifyToken, getUserId
 };
 
 module.exports = authJwt;

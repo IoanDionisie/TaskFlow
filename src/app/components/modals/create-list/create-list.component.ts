@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TokenStorageService } from 'src/app/token-storage.service';
 
 @Component({
   selector: 'app-create-list',
@@ -14,16 +15,17 @@ export class CreateListComponent  {
   description: string | undefined;
 
   
-  constructor(private modal: NgbActiveModal) {}
+  constructor(private modal: NgbActiveModal, private token: TokenStorageService) {}
   
   confirm() {
-    let obj = {
+    let list = {
       confirmation: true, 
       title: this.name,
       description: this.description
     }
+    console.log(list);
 
-    this.createListConfirmation.emit(obj);
+    this.createListConfirmation.emit(list);
     this.closeModal();
   }
 

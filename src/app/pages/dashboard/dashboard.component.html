@@ -25,7 +25,7 @@
         </app-lists>
         
         <div class="task-list-container col-8">
-            <mat-tab-group *ngIf="tasks.length > 0" mat-align-tabs="start">
+            <mat-tab-group *ngIf="tasks" mat-align-tabs="start">
                 <mat-tab *ngIf="inProgressTasks.length > 0" [label]="'In Progress (' + inProgressTasks.length + ')'">
                     <div  cdkDropList class="inprogress-tasks" (cdkDropListDropped)="drop($event, inProgressTasks)">
                         <div *ngFor="let task of inProgressTasks;let indexOfElement=index;" class="task task-color" cdkDrag>
@@ -85,7 +85,7 @@
             </button>
         </div>
 
-        <div class="add-task">
+        <div class="add-task" *ngIf="selectedList">
             <div *ngIf="inProgressTasks.length == 0" class="add-task-reminder">
                 Add new tasks for your list "{{selectedList.title}}" !
             </div>

@@ -6,6 +6,7 @@ import { ListActions } from 'src/app/enums/list-actions.model';
 import { TaskService } from 'src/app/task.service';
 import { DeleteItemComponent } from '../dialogs/delete-item/delete-item.component';
 import { ModifyItemComponent } from '../modals/modify-item/modify-item.component';
+
 import {
   trigger,
   state,
@@ -14,6 +15,7 @@ import {
   transition,
   // ...
 } from '@angular/animations';
+import { TokenStorageService } from 'src/app/token-storage.service';
 
 @Component({
   selector: 'app-lists',
@@ -47,10 +49,12 @@ export class ListsComponent implements OnInit {
   showInProgress: boolean | undefined;
   showCompleted: boolean | undefined;
 
-  constructor(private taskService: TaskService, private modalService: NgbModal) {}
+  readonly ITEM_STATUS = ITEM_STATUS;
+
+  constructor(private taskService: TaskService, private modalService: NgbModal, private token: TokenStorageService) {}
 
   ngOnInit(): void {
-    this.showInProgress = false;
+    this.showInProgress = true;
     this.showCompleted = false;
   }
 
@@ -73,6 +77,8 @@ export class ListsComponent implements OnInit {
     modalRef.componentInstance.elementName = ITEM_TYPE.list;
     modalRef.componentInstance.title = list.title;
     modalRef.componentInstance.description = list.description;
+    modalRef.componentInstance.userId = this.token.getUser().id;
+    modalRef.componentInstance.status = list.status;
     modalRef.componentInstance.modifyItemConfirmation.subscribe((receivedData: any) => {
       if (receivedData.confirmation === true) {
         this.taskService.modifyList(list._id, receivedData).subscribe((response: any) => {
@@ -104,8 +110,8 @@ export class ListsComponent implements OnInit {
   }
 
   markAsCompleted(list: any) {
-    list.status = list.status == ITEM_STATUS.inProgress ? ITEM_STATUS.inProgress : ITEM_STATUS.completed;
-    this.taskService.modifyList(list._id, list).subscribe((response: any) => {
+    list.status = ITEM_STATUS.completed;
+    this.taskService.modifyList(list._id, {status: list.status}).subscribe((response: any) => {
       this.pickListEvent(ListActions.completeList, list);
     })
   }

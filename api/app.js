@@ -27,6 +27,7 @@ const bodyParser = require('body-parser');
 const { List } = require('./db/models/list.model');
 const { Task } = require('./db/models/task.model');
 const { User } = require('./db/models/user.model');
+const { authJwt } = require('./middleware');
 
 // Load middleware
 app.use(bodyParser.json());
@@ -43,24 +44,24 @@ require('./routes/user.routes')(app);
  * Purpose: Get all lists
  */
 app.get('/lists', (req, res) => {
-    // We want to return an array of all the lists in the database
-    List.find({}).then((lists) => {
-         res.send(lists);
+    let userId = authJwt.getUserId(req);
+
+    // We want to return an array of all the lists in the database for the logged in user
+    List.find({userId: userId}).then((lists) => {
+        res.send(lists);
     })
 })
-
 /** 
  * POST /lists
  * Purpose: Create a new list
  */
 app.post('/lists', (req, res) => {
-    // We want to create a new list and to return the new list document to the user
-    // The list information will be passed via JSON request body
-    let title = req.body.title;
+    let userId = authJwt.getUserId(req);
 
     let newList = new List({
         title: req.body.title,
         description: req.body.description,
+        userId: userId,
         status: "In Progress"
     });
 
@@ -77,7 +78,6 @@ app.post('/lists', (req, res) => {
 app.patch('/lists/:id', async (req, res) => {
     // We want to update the specified list with the new values specified in the JSON body of the request
     let id = req.params.id;
-
     await List.findByIdAndUpdate(id, {
         title: req.body.title,
         description: req.body.description,

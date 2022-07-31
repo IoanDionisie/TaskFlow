@@ -27,6 +27,12 @@ exports.signup = (req, res) => {
     });
 };
 
+exports.currentUser = (req, res) => {
+  var currUser = req.user;
+  console.log(currUser);
+  return currUser;
+}
+
 exports.signin = (req, res) => {
     User.findOne({
       username: req.body.username

@@ -73,10 +73,17 @@ export class DashboardComponent implements OnInit {
 
   getAllLists() {
     this.taskService.getLists().subscribe((response: any) => {
-      this.lists = response;
-      this.selectedList = this.lists[0];
-      this.groupLists();
-      this.getAllTasks(this.selectedList._id);
+      if (response.length > 0) {
+        this.lists = response;
+        this.selectedList = this.lists[0];
+        this.groupLists();
+        this.getAllTasks(this.selectedList._id);
+      }  else {
+        this.inProgressLists = [];
+        this.inProgressTasks = [];
+        this.completedLists = [];
+        this.completedTasks = [];
+      }
     });
   }
 
@@ -114,6 +121,9 @@ export class DashboardComponent implements OnInit {
       if (response.confirmation === true) {
         this.taskService.createList(response).subscribe((response: any) => {
           this.lists.push(response);
+          if (this.lists.length == 1) {
+            this.selectedList = response;
+          }
           this.groupLists();
           this.showSuccessMessage(Actions.addList, response.title);
           this.incrementListNumberAnimation()
@@ -135,7 +145,13 @@ export class DashboardComponent implements OnInit {
       if (response.confirmation === true) {
         this.taskService.createTask(this.selectedList._id, response).subscribe((response: any) => {
           this.inProgressTasks.unshift(response);
-          this.tasks.unshift(response);
+          if (typeof this.tasks !== 'undefined') {
+            this.tasks.unshift(response);
+          } else {
+            this.tasks = [];
+            this.tasks.push(response);
+          }
+
           this.calculatePercentCompleted();
           this.showSuccessMessage(Actions.addTask, response.title);
         })

@@ -14,6 +14,9 @@ const ListSchema = new mongoose.Schema({
         type: String,
         minlength: 1,
         trim: true
+    },
+    userId: {
+        type: String
     }
 })
 
