@@ -53,22 +53,7 @@ import { authInterceptorProviders } from './helpers/auth.interceptor';
     AutosizeModule,
     MatTreeModule,
     MatButtonModule,
-    MatIconModule,
-
-    NgCircleProgressModule.forRoot({
-      // set defaults here
-      radius: 17,
-      outerStrokeWidth: 5,
-      outerStrokeColor: "#78C000",
-      showInnerStroke: false,
-      animationDuration: 300,
-      showSubtitle: false,
-      titleFontSize: "14",
-      unitsFontSize: "14",
-      animation: true,
-      showTitle:false,
-      showUnits: false
-    })
+    MatIconModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

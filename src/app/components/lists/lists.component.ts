@@ -43,9 +43,10 @@ import { HelperService } from 'src/app/helper.service';
 export class ListsComponent implements OnInit {
   @Input() inProgressLists:any;
   @Input() completedLists: any;
-  @Input() selectedList:any;
+  @Input() selectedList: any;
   @Output() listEvent: EventEmitter<any> = new EventEmitter();
   @Input() incrementNumber: any;
+  @Input() progressBarColor: any;
 
   showInProgress: boolean | undefined;
   showCompleted: boolean | undefined;
@@ -77,7 +78,7 @@ export class ListsComponent implements OnInit {
   modifyThisList(list: any) {
     const modalRef = this.modalService.open(ModifyItemComponent);
     this.helperService.modalRefConfig(modalRef, ITEM_TYPE.list, list);
-    
+
     modalRef.componentInstance.modifyItemConfirmation.subscribe((receivedData: any) => {
       if (receivedData.confirmation === true) {
         this.taskService.modifyList(list._id, receivedData).subscribe((response: any) => {

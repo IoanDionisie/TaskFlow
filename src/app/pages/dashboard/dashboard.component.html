@@ -21,7 +21,7 @@
     <div class="row sidebar">
         <app-lists class="lists-container col-4"
             [inProgressLists]="inProgressLists" [completedLists]="completedLists" [selectedList]="selectedList"
-            (listEvent)="listEvent($event)" [incrementNumber]="incrementNumber">
+            (listEvent)="listEvent($event)" [incrementNumber]="incrementNumber"  [progressBarColor]="progressBarColor">
         </app-lists>
         
         <div class="task-list-container col-8">

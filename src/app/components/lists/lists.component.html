@@ -16,7 +16,7 @@
             <div class="actions" *ngIf="selectedList._id == list._id">
                 <div class="progress-bar-container">
                     <span  class="progress-bar-text">{{list.percentCompleted}} %</span>
-                    <ngb-progressbar [textType]="dark" [showValue]="false" type="success" [value]="list.percentCompleted"></ngb-progressbar>
+                    <ngb-progressbar [textType]="dark" [showValue]="false" [type]="progressBarColor" [value]="list.percentCompleted"></ngb-progressbar>
                 </div>
                 <div ngbDropdown>
                     <i class="fa-solid fa-angle-down dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle></i>

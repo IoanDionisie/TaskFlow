@@ -36,6 +36,8 @@ export class DashboardComponent implements OnInit {
   successEventData: Object | undefined;
   dummyCounter:number = 0;
   incrementNumber = false;
+  
+  progressBarColor: any;
 
   readonly ITEM_TYPE = ITEM_TYPE;
   readonly ITEM_STATUS = ITEM_STATUS;
@@ -96,6 +98,7 @@ export class DashboardComponent implements OnInit {
     this.taskService.getTasks(listId).subscribe((response: any) => {
       this.sortTasks(response);
       this.calculatePercentCompleted();
+      this.setProgressbarColor();
     });
   }
 
@@ -155,6 +158,7 @@ export class DashboardComponent implements OnInit {
           }
 
           this.calculatePercentCompleted();
+          this.setProgressbarColor();
           this.showSuccessMessage(Actions.addTask, response.title);
         })
       }
@@ -169,14 +173,13 @@ export class DashboardComponent implements OnInit {
         this.taskService.deleteTask(this.selectedList._id, task._id).subscribe((response: any) =>  {
           if (type == ITEM_STATUS.completed) {
             this.completedTasks.splice(index, 1);
-            this.tasks.length--;
-            this.calculatePercentCompleted();
           } else if (type == ITEM_STATUS.inProgress) {
             this.inProgressTasks.splice(index, 1);
-            this.tasks.length--;
-            this.calculatePercentCompleted();
           }
 
+          this.tasks.length--;
+          this.calculatePercentCompleted();
+          this.setProgressbarColor();
           this.showSuccessMessage(Actions.deleteTask, task.title);
         })
       }
@@ -207,6 +210,7 @@ export class DashboardComponent implements OnInit {
       this.inProgressTasks.splice(index, 1);
       this.completedTasks.unshift(task);
       this.calculatePercentCompleted();
+      this.setProgressbarColor();
       this.showSuccessMessage(Actions.completeTask, task.title);
     })
   }
@@ -222,6 +226,20 @@ export class DashboardComponent implements OnInit {
 
   showSettings() {
 
+  }
+
+  setProgressbarColor() {
+    let percentCompleted = this.selectedList.percentCompleted;
+
+    if (percentCompleted < 30) {
+      this.progressBarColor = "danger";
+    } else if (percentCompleted >=30 && percentCompleted < 70) {
+      this.progressBarColor = "warning";
+    } else if (percentCompleted >= 70) {
+      this.progressBarColor = "success"
+    }
+
+    console.log("color", this.progressBarColor);
   }
 
   listEvent(event:any) {
