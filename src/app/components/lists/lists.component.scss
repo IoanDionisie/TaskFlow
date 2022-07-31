@@ -150,3 +150,7 @@
 .hide {
     display: none;
 }
+
+.actions .dropdown-menu {
+    border: 2px solid $taskColor;
+}
