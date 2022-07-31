@@ -16,6 +16,7 @@ import {
   // ...
 } from '@angular/animations';
 import { TokenStorageService } from 'src/app/token-storage.service';
+import { HelperService } from 'src/app/helper.service';
 
 @Component({
   selector: 'app-lists',
@@ -51,7 +52,8 @@ export class ListsComponent implements OnInit {
 
   readonly ITEM_STATUS = ITEM_STATUS;
 
-  constructor(private taskService: TaskService, private modalService: NgbModal, private token: TokenStorageService) {}
+  constructor(private taskService: TaskService, private modalService: NgbModal, private token: TokenStorageService,
+    private helperService: HelperService) {}
 
   ngOnInit(): void {
     this.showInProgress = true;
@@ -74,11 +76,8 @@ export class ListsComponent implements OnInit {
   
   modifyThisList(list: any) {
     const modalRef = this.modalService.open(ModifyItemComponent);
-    modalRef.componentInstance.elementName = ITEM_TYPE.list;
-    modalRef.componentInstance.title = list.title;
-    modalRef.componentInstance.description = list.description;
-    modalRef.componentInstance.userId = this.token.getUser().id;
-    modalRef.componentInstance.status = list.status;
+    this.helperService.modalRefConfig(modalRef, ITEM_TYPE.list, list);
+    
     modalRef.componentInstance.modifyItemConfirmation.subscribe((receivedData: any) => {
       if (receivedData.confirmation === true) {
         this.taskService.modifyList(list._id, receivedData).subscribe((response: any) => {

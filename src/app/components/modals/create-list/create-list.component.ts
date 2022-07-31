@@ -23,8 +23,6 @@ export class CreateListComponent  {
       title: this.name,
       description: this.description
     }
-    console.log(list);
-
     this.createListConfirmation.emit(list);
     this.closeModal();
   }

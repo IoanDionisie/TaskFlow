@@ -12,6 +12,7 @@ import { ViewTaskComponent } from 'src/app/components/modals/view-task/view-task
 import { ITEM_TYPE } from 'src/app/constants/item-types';
 import { ITEM_STATUS } from 'src/app/constants/item-status';
 import { TokenStorageService } from 'src/app/token-storage.service';
+import { HelperService } from 'src/app/helper.service';
 
 
 @Component({
@@ -42,7 +43,7 @@ export class DashboardComponent implements OnInit {
   @HostBinding('class') class = 'center-component';
 
   constructor(private taskService: TaskService, private modalService: NgbModal,
-    private token: TokenStorageService) { }
+    private token: TokenStorageService, private helperService: HelperService) { }
 
   ngOnInit(): void {
     this.getAllLists();
@@ -59,6 +60,7 @@ export class DashboardComponent implements OnInit {
           this.inProgressLists.push(this.lists[i]);
         }
     }
+    console.log(this.lists);
   }
 
   drop(event: CdkDragDrop<Object[]>, tasks: any) {
@@ -181,13 +183,11 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+
   modifyThisTask(task: any) {
     const modalRef = this.modalService.open(ModifyItemComponent);
-    modalRef.componentInstance.elementName = ITEM_TYPE.task;
-    modalRef.componentInstance.title = task.title;
-    modalRef.componentInstance.description = task.description;
-    modalRef.componentInstance.status = task.status;
-    modalRef.componentInstance.observations = task.observations;
+    this.helperService.modalRefConfig(modalRef, ITEM_TYPE.task, task);
+
     modalRef.componentInstance.modifyItemConfirmation.subscribe((receivedData: any) => {
       if (receivedData.confirmation === true) {
         this.taskService.modifyTask(this.selectedList._id, task._id, receivedData).subscribe((response: any) => {

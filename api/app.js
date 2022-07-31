@@ -81,7 +81,8 @@ app.patch('/lists/:id', async (req, res) => {
     await List.findByIdAndUpdate(id, {
         title: req.body.title,
         description: req.body.description,
-        status: req.body.status
+        status: req.body.status,
+        observations: req.body.observations
     });  
     res.status(200).send({});
 })

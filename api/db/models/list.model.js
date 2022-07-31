@@ -17,6 +17,9 @@ const ListSchema = new mongoose.Schema({
     },
     userId: {
         type: String
+    },
+    observations: {
+        type: String
     }
 })
 
