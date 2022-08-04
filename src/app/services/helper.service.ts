@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ITEM_TYPE } from './constants/item-types';
+import { ITEM_TYPE } from '../constants/item-types';
 
 
 @Injectable({

@@ -3,9 +3,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ITEM_STATUS } from 'src/app/constants/item-status';
 import { ITEM_TYPE } from 'src/app/constants/item-types';
 import { ListActions } from 'src/app/enums/list-actions.model';
-import { TaskService } from 'src/app/task.service';
+import { TaskService } from 'src/app/services/task.service';
 import { DeleteItemComponent } from '../dialogs/delete-item/delete-item.component';
 import { ModifyItemComponent } from '../modals/modify-item/modify-item.component';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { HelperService } from 'src/app/services/helper.service';
 
 import {
   trigger,
@@ -15,8 +17,7 @@ import {
   transition,
   // ...
 } from '@angular/animations';
-import { TokenStorageService } from 'src/app/token-storage.service';
-import { HelperService } from 'src/app/helper.service';
+
 
 @Component({
   selector: 'app-lists',

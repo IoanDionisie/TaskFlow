@@ -1,6 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TaskService } from 'src/app/task.service';
+import { TaskService } from 'src/app/services/task.service';
 import { DeleteItemComponent } from 'src/app/components/dialogs/delete-item/delete-item.component';
 import { CreateListComponent } from 'src/app/components/modals/create-list/create-list.component';
 import { CreateTaskComponent } from 'src/app/components/modals/create-task/create-task.component';
@@ -11,8 +11,9 @@ import { Actions } from 'src/app/enums/actions';
 import { ViewTaskComponent } from 'src/app/components/modals/view-task/view-task.component';
 import { ITEM_TYPE } from 'src/app/constants/item-types';
 import { ITEM_STATUS } from 'src/app/constants/item-status';
-import { TokenStorageService } from 'src/app/token-storage.service';
-import { HelperService } from 'src/app/helper.service';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { HelperService } from 'src/app/services/helper.service';
+import { SettingsComponent } from 'src/app/components/modals/settings/settings.component';
 
 
 @Component({
@@ -225,7 +226,7 @@ export class DashboardComponent implements OnInit {
   }
 
   showSettings() {
-
+    const modalRef = this.modalService.open(SettingsComponent);
   }
 
   setProgressbarColor() {
