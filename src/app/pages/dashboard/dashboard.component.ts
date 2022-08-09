@@ -39,6 +39,8 @@ export class DashboardComponent implements OnInit {
   incrementNumber = false;
   
   progressBarColor: any;
+  
+  userName: string = "";
 
   readonly ITEM_TYPE = ITEM_TYPE;
   readonly ITEM_STATUS = ITEM_STATUS;
@@ -50,6 +52,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllLists();
+
+    this.userName = this.token.getUser().username;
   }
 
   groupLists() {

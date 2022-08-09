@@ -3,7 +3,15 @@
     <!--
         Testing!!!
     -->
-    <button class="" (click)="logOut()"> Log out </button>
+
+    <div ngbDropdown class="user-section" id="userSectionDropdown">
+        <div ngbDropdownToggle class="username" >
+            {{ userName }}
+        </div>
+        <div id="user-section-dropdown-content" ngbDropdownMenu aria-labelledby="userSectionDropdown">
+            <div class="user-dropdown-action" (click)="logOut()"> Log out </div>
+        </div>
+    </div>
 
     <button class="settings" (click)="showSettings()">
         <i class="fa-solid fa-gear settings-icon"></i>

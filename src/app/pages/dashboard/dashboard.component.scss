@@ -397,3 +397,35 @@
     outline: none;
     box-shadow: none;
 }
+
+
+.user-section {
+    position: absolute;
+    right: 70px;
+    top: 8px;
+    background: $listColor;
+    color: white;
+    padding: 5px 15px 5px 15px;
+    border-radius: 20px;
+
+    .username  {
+        font-size: 18px;
+    }
+
+    .username:hover {
+        cursor: pointer;
+    }
+
+    #user-section-dropdown-content {
+        transform: translate(-62px, 40px)!important;
+        padding: 5px 8px 5px 8px;
+
+        .user-dropdown-action {
+            color: $listColor;
+        }
+
+        .user-dropdown-action:hover {
+            cursor: pointer;
+        }
+    }
+}
