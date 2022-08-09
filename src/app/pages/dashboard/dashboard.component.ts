@@ -67,7 +67,6 @@ export class DashboardComponent implements OnInit {
           this.inProgressLists.push(this.lists[i]);
         }
     }
-    console.log(this.lists);
   }
 
   drop(event: CdkDragDrop<Object[]>, tasks: any) {
@@ -243,8 +242,6 @@ export class DashboardComponent implements OnInit {
     } else if (percentCompleted >= 70) {
       this.progressBarColor = "success"
     }
-
-    console.log("color", this.progressBarColor);
   }
 
   listEvent(event:any) {

@@ -29,7 +29,6 @@ exports.signup = (req, res) => {
 
 exports.currentUser = (req, res) => {
   var currUser = req.user;
-  console.log(currUser);
   return currUser;
 }
 

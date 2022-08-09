@@ -6,8 +6,8 @@ import { ListActions } from 'src/app/enums/list-actions.model';
 import { TaskService } from 'src/app/services/task.service';
 import { DeleteItemComponent } from '../dialogs/delete-item/delete-item.component';
 import { ModifyItemComponent } from '../modals/modify-item/modify-item.component';
-import { TokenStorageService } from 'src/app/services/token-storage.service';
-import { HelperService } from 'src/app/services/helper.service';
+import { TokenStorageService } from '../../services/token-storage.service';
+import { HelperService } from '../../services/helper.service';
 
 import {
   trigger,
