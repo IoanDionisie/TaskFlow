@@ -163,7 +163,8 @@
 
 .delete, 
 .modify, 
-.complete {
+.complete,
+.begin {
     border: none;
     background: none;
     outline: none;
@@ -186,6 +187,10 @@
 }
 
 .complete {
+    color: $darkSpringGreen;
+}
+
+.begin {
     color: $darkSpringGreen;
 }
 

@@ -33,6 +33,12 @@ const TaskSchema = new mongoose.Schema({
     },
     observations: {
         type: String
+    },
+    deadline: {
+        type: Date
+    },
+    isStarted: {
+        type: Boolean
     }
 })
 

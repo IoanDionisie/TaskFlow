@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ITEM_STATUS } from 'src/app/constants/item-status';
 
@@ -16,7 +16,8 @@ export class CreateTaskComponent  {
   description: any;
   readonly ITEM_STATUS = ITEM_STATUS;
 
-  constructor(private modal: NgbActiveModal) {}
+  constructor(private modal: NgbActiveModal) {
+  }
   
   confirm() {
     let obj = {
@@ -34,6 +35,10 @@ export class CreateTaskComponent  {
 
   closeModal() {
     this.modal.close();
+  }
+
+  myMethod(event: any) {
+    console.log(event);
   }
 
 }

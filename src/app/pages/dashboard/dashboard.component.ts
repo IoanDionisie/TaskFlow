@@ -271,8 +271,11 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  // TESTING
   logOut() {
     this.token.signOut();
+  }
+
+  beginTask(task: any) {
+
   }
 }

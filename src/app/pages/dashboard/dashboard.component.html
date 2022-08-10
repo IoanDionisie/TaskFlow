@@ -48,6 +48,9 @@
                             </div>
                           
                             <div class="actions">
+                                <button class="begin" (click)="beginTask(task)" title="Begin Task">
+                                    <i class="fa-solid fa-flag-checkered"></i>
+                                </button>
                                 <button class="modify" (click)="modifyThisTask(task)" title="Modify Task">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
@@ -93,7 +96,7 @@
             </button>
         </div>
 
-        <div class="add-task" *ngIf="selectedList">
+        <div class="add-task" *ngIf="selectedList && selectedList.status == ITEM_STATUS.inProgress">
             <div *ngIf="inProgressTasks.length == 0" class="add-task-reminder">
                 Add new tasks for your list "{{selectedList.title}}" !
             </div>
