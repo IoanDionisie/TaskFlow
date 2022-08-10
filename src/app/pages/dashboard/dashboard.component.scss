@@ -18,10 +18,19 @@
     color: whitesmoke;
 }
 
+.title {
+    display: flex;
+    align-items: center;
+}
+
 .title .fa-tree, 
 .title .fa-pagelines {
     font-size: 28px;
     color: $darkSpringGreen;
+}
+
+.title .fa-tree {
+    margin-left: 10px;
 }
 
 .title-row {
