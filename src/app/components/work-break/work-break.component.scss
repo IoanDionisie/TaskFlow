@@ -1,0 +1,51 @@
+@import "../../../styles/variables.scss";
+
+
+
+.work-break-content {
+
+    .break {
+        border-radius: 30px;
+        padding: 10px;
+        font-size: 18px;
+        background: orangered;
+        color: white;
+        border: none;
+        opacity: 0.8;
+        outline: none;
+    }
+
+    .break:hover {
+        opacity: 1;
+    }
+
+    .time-bubble {
+        color: white;
+        border-radius: 30px;
+        font-weight: 500;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: fit-content;
+        padding: 5px 10px 5px 10px;
+    }
+
+    .title {
+        padding: 5px;
+    }
+
+    .first {
+        background: $firstTimeBubble;
+    }
+
+    .second {
+        background: $secondTimeBubble;
+    }
+
+    .third {
+        background: $thirdTimeBubble;
+    }
+    
+    
+}
+

@@ -1,10 +1,10 @@
 <div class="container task-manager-container ">
 
-    <!--
-        Testing!!!
-    -->
+    <div class="work-break">
+        <app-work-break></app-work-break>    
+    </div>
 
-    <div ngbDropdown class="user-section" id="userSectionDropdown">
+    <div ngbDropdown class="user-section" id="userSectionDropdown" ngbTooltip="Account Info">
         <div ngbDropdownToggle class="username" >
             {{ userName }}
         </div>
@@ -13,16 +13,17 @@
         </div>
     </div>
 
-    <button class="settings" (click)="showSettings()">
+    <button class="settings" (click)="showSettings()" ngbTooltip="Settings">
         <i class="fa-solid fa-gear settings-icon"></i>
     </button>
     <div class="row title-row">
-        <div class="col-12">
+        <div class="col-4">
             <h1 class="title has-text-primary">
                 TaskFlow <i class="fa-solid fa-tree"></i>
             </h1>
         </div>
     </div>
+
     <div class="row">
         <app-success-message [eventData]="successEventData"></app-success-message>
     </div>
@@ -91,7 +92,7 @@
     </div>
     <div class="row bottom-row">
         <div class="add-list">
-            <button class="list-background" (click)="createNewList()">
+            <button class="list-background" (click)="createNewList()" ngbTooltip="Create a list">
                 Add list
             </button>
         </div>
@@ -100,7 +101,7 @@
             <div *ngIf="inProgressTasks.length == 0" class="add-task-reminder">
                 Add new tasks for your list "{{selectedList.title}}" !
             </div>
-            <button [ngClass]="inProgressTasks.length == 0 ? 'button-pulse-effect': ''" class="create-task" (click)="createNewTask()">
+            <button [ngClass]="inProgressTasks.length == 0 ? 'button-pulse-effect': ''" class="create-task" (click)="createNewTask()" ngbTooltip="Create a Task">
                 <i class="fa-solid fa-plus"></i>
             </button>
         </div>

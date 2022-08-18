@@ -24,6 +24,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { RegisterComponent } from './pages/register/register.component';
 import { authInterceptorProviders } from './helpers/auth.interceptor';
+import { WorkBreakComponent } from './components/work-break/work-break.component';
  
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { authInterceptorProviders } from './helpers/auth.interceptor';
     ListsComponent,
     SuccessMessageComponent,
     ViewTaskComponent,
-    RegisterComponent
+    RegisterComponent,
+    WorkBreakComponent
   ],
   imports: [
     BrowserModule,
