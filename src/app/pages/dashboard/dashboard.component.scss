@@ -459,5 +459,20 @@
     position: absolute;
     right: 15px;
     width: 50%;
-    top: 10px;
+    top: 8px;
+}
+
+.search-tasks input {
+    border: 1px solid $taskColor;
+}
+
+.search-tasks input:focus  {
+    outline: none;
+    border-color: initial;
+    border: 1px solid $listColor;
+    box-shadow: 0 0 2px 1px $listColor;
+}
+
+.task-manager-container {
+    background: #FFF url($topBackground) no-repeat center top /cover;
 }
