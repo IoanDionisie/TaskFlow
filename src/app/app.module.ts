@@ -25,6 +25,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { RegisterComponent } from './pages/register/register.component';
 import { authInterceptorProviders } from './helpers/auth.interceptor';
 import { WorkBreakComponent } from './components/work-break/work-break.component';
+import { SearchTaskFilterPipe } from './pipes/search-task-filter.pipe';
  
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { WorkBreakComponent } from './components/work-break/work-break.component
     SuccessMessageComponent,
     ViewTaskComponent,
     RegisterComponent,
-    WorkBreakComponent
+    WorkBreakComponent,
+    SearchTaskFilterPipe
   ],
   imports: [
     BrowserModule,

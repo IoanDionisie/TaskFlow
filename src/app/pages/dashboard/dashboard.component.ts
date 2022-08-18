@@ -45,6 +45,8 @@ export class DashboardComponent implements OnInit {
   readonly ITEM_TYPE = ITEM_TYPE;
   readonly ITEM_STATUS = ITEM_STATUS;
 
+  public searchFilter: any = "";
+
   @HostBinding('class') class = 'center-component';
 
   constructor(private taskService: TaskService, private modalService: NgbModal,

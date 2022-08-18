@@ -450,3 +450,14 @@
     right: 48%;
     margin: 0 auto;
 }
+
+::ng-deep .task-list-container .tasks-tabs .mat-tab-header {
+    width: fit-content!important;
+}
+
+.search-tasks {
+    position: absolute;
+    right: 15px;
+    width: 50%;
+    top: 10px;
+}
