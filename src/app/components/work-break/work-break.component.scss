@@ -46,6 +46,45 @@
         background: $thirdTimeBubble;
     }
     
-    
+    .break-container {
+        display: flex;
+        font-size: 18px;
+
+        .time-break {
+            padding: 0 15px 0 15px;
+        }
+    }
+
+    .pause-button, 
+    .exit-button,
+    .resume-button {
+        border: none;
+        color: white;
+        padding: 2px 10px 2px 10px;
+        outline: none;
+        opacity: 0.9;
+    }
+
+    .resume-button {
+        font-size: 16px;
+    }
+
+    .pause-button:hover,
+    .exit-button:hover,
+    .resume-button:hover {
+        opacity: 1;
+    }
+
+    .pause-button {
+        background: $tomatoRed;
+    }
+
+    .exit-button {
+        background: $crimsonRed;
+    }
+
+    .resume-button {
+        background: $taskColor;
+    }
 }
 
