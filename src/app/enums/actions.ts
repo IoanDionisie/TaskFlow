@@ -6,5 +6,6 @@ export enum Actions {
     deleteTask,
     modifyTask,
     completeTask, 
-    completeList
+    completeList,
+    beginTask
 }

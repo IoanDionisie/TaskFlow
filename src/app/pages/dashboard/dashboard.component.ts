@@ -54,7 +54,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllLists();
-
     this.userName = this.token.getUser().username;
   }
 
@@ -103,6 +102,7 @@ export class DashboardComponent implements OnInit {
 
     this.taskService.getTasks(listId).subscribe((response: any) => {
       this.sortTasks(response);
+      this.setTasksTimer(this.inProgressTasks);
       this.calculatePercentCompleted();
       this.setProgressbarColor();
     });
@@ -192,7 +192,6 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-
   modifyThisTask(task: any) {
     const modalRef = this.modalService.open(ModifyItemComponent);
     this.helperService.modalRefConfig(modalRef, ITEM_TYPE.task, task);
@@ -278,6 +277,61 @@ export class DashboardComponent implements OnInit {
   }
 
   beginTask(task: any) {
+    let date = new Date();
+    let data = {
+      dateStarted: date,
+      isStarted: true
+    }
 
+    this.taskService.modifyTask(this.selectedList._id, task._id, data).subscribe((response: any) => {
+      task.dateStarted = date;
+      task.isStarted = true;
+      this.incrementTaskWorkingTime(task);
+      this.showSuccessMessage(Actions.beginTask, task.title);
+    });
+  }
+
+  incrementTaskWorkingTime(task: any) {
+    let dateNow, dateStarted;
+    setInterval(() => {
+      dateStarted  = new Date(task.dateStarted);
+      dateNow = new Date();
+      task.workingTime =  this.secondsToHoursMinutesSeconds(this.getSecondsDiff(dateStarted, dateNow));
+    }, 1000);
+  }
+
+  getSecondsDiff(startDate: any, endDate: any) {
+    const msInSecond = 1000;
+    return Math.round(
+      Math.abs(endDate - startDate) / msInSecond
+    );
+  }
+
+
+  secondsToHoursMinutesSeconds (sec_num: any) {
+    let hours   = Math.floor(sec_num / 3600);
+    let minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    let seconds = sec_num - (hours * 3600) - (minutes * 60);
+    let strHours = hours.toString(), strMinutes = minutes.toString(), strSeconds = seconds.toString();
+
+    if (hours   < 10) {
+      strHours   = "0" + hours;
+    } 
+    if (minutes < 10) {
+      strMinutes = "0" + minutes;
+    }
+    if (seconds < 10) {
+      strSeconds = "0" + seconds;
+    }
+
+    return strHours+':'+strMinutes+':'+strSeconds;
+  }
+
+  setTasksTimer(tasks: any) {
+    for (let i = 0; i < tasks.length; ++i) {
+      if (tasks[i].isStarted) {
+        this.incrementTaskWorkingTime(tasks[i]);
+      }
+    }
   }
 }

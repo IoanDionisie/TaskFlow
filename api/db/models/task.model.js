@@ -28,9 +28,6 @@ const TaskSchema = new mongoose.Schema({
     dateCreated: {
         type: Date
     },
-    dateCompleted: {
-        type: Date
-    },
     observations: {
         type: String
     },
@@ -38,7 +35,14 @@ const TaskSchema = new mongoose.Schema({
         type: Date
     },
     isStarted: {
-        type: Boolean
+        type: Boolean,
+        default: false
+    },
+    dateStarted: {
+        type: Date
+    },
+    dateCompleted: {
+        type: Date
     }
 })
 

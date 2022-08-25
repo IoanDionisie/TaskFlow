@@ -39,6 +39,9 @@ export class SuccessMessageComponent implements OnInit {
         this.successMessage += MESSAGES['modifyItem'];
       } else if (this.eventType == Actions.completeList || this.eventType == Actions.completeTask) {
         this.successMessage += MESSAGES['completeItem'];
+      } else if (this.eventType == Actions.beginTask) {
+        this.successMessage = "";
+        this.successMessage += MESSAGES['beginTask'] + " " + this.elementName;
       }
 
       this.setTimer();

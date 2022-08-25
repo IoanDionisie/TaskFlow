@@ -52,5 +52,4 @@ export class TaskService {
     return this.webReqService.patch(link, list);
   }
 
-
 }

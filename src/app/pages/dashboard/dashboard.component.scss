@@ -305,6 +305,10 @@
     align-items: center;
 }
 
+.gray-circle {
+    background: lightgray!important;
+}
+
 .circle,
 .circle-completed {
     position: relative;
@@ -475,4 +479,13 @@
 
 .task-manager-container {
     background: #FFF url($topBackground) no-repeat center top /cover;
+}
+
+.task-duration {
+    display: flex;
+    align-items: center;
+}
+
+.disabled  {
+    background: gray;
 }

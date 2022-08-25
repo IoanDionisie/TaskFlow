@@ -43,16 +43,24 @@
                         <div *ngFor="let task of (inProgressTasks | searchTaskFilter : searchFilter);let indexOfElement=index;" class="task task-color" cdkDrag>
                             <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
                             <div class="checkbox-and-title">
-                                <div class="circle" (click)="completeThisTask(task, indexOfElement)">
+
+                                <div *ngIf="task.isStarted == true" class="circle" (click)="completeThisTask(task, indexOfElement)">
                                     <div class="checkmark"></div>
                                 </div>
+
+                                <div *ngIf="task.isStarted == false" class="circle gray-circle">
+                                    
+                                </div>
+
                                 <div class="task-title" (click)="openTaskModal(task)">
                                     {{task.title}}
                                 </div>
                             </div>
-                          
                             <div class="actions">
-                                <button class="begin" (click)="beginTask(task)" title="Begin Task">
+                                <div *ngIf="task.isStarted == true" class="task-duration">
+                                    {{task.workingTime}}
+                                </div>
+                                <button *ngIf="task.isStarted == false" class="begin" (click)="beginTask(task)" title="Begin Task">
                                     <i class="fa-solid fa-flag-checkered"></i>
                                 </button>
                                 <button class="modify" (click)="modifyThisTask(task)" title="Modify Task">

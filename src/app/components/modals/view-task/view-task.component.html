@@ -2,10 +2,30 @@
     <h4 class="modal-title" id="modal-title"> {{task.title}}</h4>
 </div>
 <div class="modal-body">
-  <p class="modal-body-text">
-    {{task.description}}
-  </p>
+  
+  <div class="modal-body-text">
+    Description:
+    <p>
+      {{task.description}}
+    </p>
+  </div>
+
+ 
+  <div class="modal-body-text">
+    Date Created:
+    <p>
+      {{task.dateCreated}}
+    </p>
+  </div>
+
+  <div class="modal-body-text">
+    Date Completed:
+    <p>
+      {{task.dateCompleted}}
+    </p>
+  </div>
 </div>
+
 <div class="modal-footer">
     <button type="button" class="btn btn-danger" (click)="closeModal()">Cancel</button>
 </div>
