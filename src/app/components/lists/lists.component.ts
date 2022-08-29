@@ -114,7 +114,8 @@ export class ListsComponent implements OnInit {
 
   markAsCompleted(list: any) {
     list.status = ITEM_STATUS.completed;
-    this.taskService.modifyList(list._id, {status: list.status}).subscribe((response: any) => {
+    list.dateCompleted = new Date();
+    this.taskService.modifyList(list._id, list).subscribe((response: any) => {
       this.pickListEvent(ListActions.completeList, list);
     })
   }

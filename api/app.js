@@ -83,7 +83,8 @@ app.patch('/lists/:id', async (req, res) => {
         title: req.body.title,
         description: req.body.description,
         status: req.body.status,
-        observations: req.body.observations
+        observations: req.body.observations,
+        dateCompleted: req.body.dateCompleted
     });  
     res.status(200).send({});
 })
@@ -128,7 +129,6 @@ app.get('/lists/:id/tasks', (req, res) => {
 app.post('/lists/:id/tasks', async (req, res) => {
     //  We want to create a new task in the specified list
     let lastTask = await Task.findOne().sort({"order": -1});
-    console.log("adding task with these ", req.body);
     let task = new Task({
         title: req.body.title,
         _listId:  req.params.id,
