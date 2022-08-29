@@ -43,7 +43,7 @@
     .title {
         border-radius: 0 100px 55px 125px;
         color: white;
-        background: orangered;
+        background: $listColor;
         padding: 5px 15px 5px 15px;
         width: fit-content;
     }
@@ -68,6 +68,8 @@
     border-radius: 0 30px 0 30px;
     position: relative;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    background: #FFF url($topBackground) no-repeat center top /cover;
+    background-position: unset;
 }
 
 .add-list {
@@ -160,7 +162,7 @@
     }
 
     .task-title {
-        padding-left: 10px;
+        padding-left: 5px;
     }
 
     .task:not(:first-child) {
@@ -489,10 +491,6 @@
     box-shadow: 0 0 2px 1px $listColor;
 }
 
-.task-manager-container {
-    background: #FFF url($topBackground) no-repeat center top /cover;
-}
-
 .task-duration {
     display: flex;
     align-items: center;
@@ -500,23 +498,4 @@
 
 .disabled  {
     background: gray;
-}
-
-.task-tags {
-    padding: 5px 0px 5px 5px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-
-    .tag {
-        padding: 2px 6px 2px 6px;
-        color: white;
-        border-radius: 30px;
-        background: mediumseagreen;
-    }
-
-    .tag:not(:last-child) {
-        margin-right: 5px;
-    }
 }

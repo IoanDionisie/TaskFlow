@@ -31,6 +31,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { ReactiveFormsModule } from "@angular/forms";
+import { DisplayTagsComponent } from './components/display-tags/display-tags.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { ReactiveFormsModule } from "@angular/forms";
     RegisterComponent,
     WorkBreakComponent,
     SearchTaskFilterPipe,
-    TagsComponent
+    TagsComponent,
+    DisplayTagsComponent
   ],
   imports: [
     BrowserModule,

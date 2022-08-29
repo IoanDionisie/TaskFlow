@@ -173,7 +173,7 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
 
 /** 
  * PATCH /lists/:id/tasks
- * Purpose: Updates an existing task
+ * Purpose: Modifies an existing task
  */
  app.patch('/lists/:listId/tasks/:taskId', async (req, res) => {
     // We want to update an existing task speficied by taskId 
@@ -185,6 +185,7 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
             status: req.body.status,
             observations: req.body.observations,
             dateStarted: req.body.dateStarted,
+            tags: req.body.tags,
             isStarted: req.body.isStarted
         })
     res.status(200).send({});
