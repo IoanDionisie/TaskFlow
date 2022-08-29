@@ -24,7 +24,7 @@ html, body {
 }
 
 .modal {
-    z-index: 100000;
+    z-index: 9999;
 }
 
 $prussianBlue: #122E42;
@@ -57,8 +57,20 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .modal .modal-body {
-    max-height: 300px;
+    max-height: 450px;
     overflow-y: auto;
+}
+
+.tag-container {
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+
+    label {
+        width: 100%;
+    }
 }
 
 .title-container {
@@ -111,9 +123,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     }
 
     .modal-header {
-        color: $listColor;
+        color: white;
         border-bottom: none;
-        background: linear-gradient(45deg, white, white, $taskColor);
+        background: $taskColor;
     }
 
     .modal-footer {

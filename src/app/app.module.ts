@@ -26,7 +26,12 @@ import { RegisterComponent } from './pages/register/register.component';
 import { authInterceptorProviders } from './helpers/auth.interceptor';
 import { WorkBreakComponent } from './components/work-break/work-break.component';
 import { SearchTaskFilterPipe } from './pipes/search-task-filter.pipe';
- 
+import { TagsComponent } from './components/tags/tags.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { ReactiveFormsModule } from "@angular/forms";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +46,8 @@ import { SearchTaskFilterPipe } from './pipes/search-task-filter.pipe';
     ViewTaskComponent,
     RegisterComponent,
     WorkBreakComponent,
-    SearchTaskFilterPipe
+    SearchTaskFilterPipe,
+    TagsComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +62,11 @@ import { SearchTaskFilterPipe } from './pipes/search-task-filter.pipe';
     AutosizeModule,
     MatTreeModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatFormFieldModule,
+    MatChipsModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

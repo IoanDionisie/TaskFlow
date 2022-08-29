@@ -4,25 +4,49 @@
 <div class="modal-body">
   
   <div class="modal-body-text">
-    Description:
+    <div class="title">
+      Description
+    </div>
     <p>
       {{task.description}}
+    </p>
+  </div>
+ 
+  <div *ngIf="task.status == ITEM_STATUS.completed" class="modal-body-text">
+    <div class="title">
+      Observations
+    </div>
+    <p>
+      {{task.observations}}
     </p>
   </div>
 
  
   <div class="modal-body-text">
-    Date Created:
+    <div class="title">
+    Date Created
+    </div>
     <p>
       {{task.dateCreated}}
     </p>
   </div>
 
-  <div class="modal-body-text">
-    Date Completed:
+  <div *ngIf="task.isCompleted == true" class="modal-body-text">
+    <div class="title">
+    Date Completed
+    </div>
     <p>
       {{task.dateCompleted}}
     </p>
+  </div>
+
+  <div class="modal-body-text">
+    <div class="title">
+      Tags
+    </div>
+    <div *ngFor="let tag of task.tags">
+      {{tag.title}}
+    </div>
   </div>
 </div>
 

@@ -1,6 +1,6 @@
-import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ITEM_STATUS } from 'src/app/constants/item-status';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-create-task',
@@ -14,6 +14,8 @@ export class CreateTaskComponent  {
 
   title: any;
   description: any;
+  tags: Object[]|undefined;
+
   readonly ITEM_STATUS = ITEM_STATUS;
 
   constructor(private modal: NgbActiveModal) {
@@ -25,7 +27,8 @@ export class CreateTaskComponent  {
       title: this.title,
       description: this.description,
       dateCreated: new Date(),
-      status: ITEM_STATUS.inProgress
+      status: ITEM_STATUS.inProgress,
+      tags: this.tags
     }
 
     this.createTaskConfirmation.emit(obj);
@@ -41,4 +44,13 @@ export class CreateTaskComponent  {
     console.log(event);
   }
 
+  tagsAddedHandler(tags: string[]) {
+    this.tags = [];
+
+    for (let i = 0; i < tags.length; ++i) {
+      this.tags?.push({title: tags[i]});
+    }
+
+    console.log(this.tags);
+  }
 }

@@ -1,4 +1,3 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TaskService } from 'src/app/services/task.service';
 import { DeleteItemComponent } from 'src/app/components/dialogs/delete-item/delete-item.component';
@@ -14,7 +13,7 @@ import { ITEM_STATUS } from 'src/app/constants/item-status';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { HelperService } from 'src/app/services/helper.service';
 import { SettingsComponent } from 'src/app/components/modals/settings/settings.component';
-
+import { Component, HostBinding, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',

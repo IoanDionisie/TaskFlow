@@ -52,7 +52,13 @@
                                     
                                 </div>
 
-                                <div class="task-title" (click)="openTaskModal(task)">
+                                <div class="task-tags">
+                                    <div *ngFor="let tag of task.tags" class="tag">
+                                        {{tag.title}}
+                                    </div>
+                                </div>
+
+                                <div [ngClass]="task.isStarted == false ? 'not-started-task-color' : ''" class="task-title" (click)="openTaskModal(task)">
                                     {{task.title}}
                                 </div>
                             </div>
@@ -81,6 +87,11 @@
                             <div class="checkbox-and-title">
                                 <div class="circle-completed">
                                     <div class="checkmark"></div>
+                                </div>
+                                <div class="task-tags">
+                                    <div *ngFor="let tag of task.tags" class="tag">
+                                        {{tag.title}}
+                                    </div>
                                 </div>
                                 <div class="task-title" (click)="openTaskModal(task)">
                                     {{task.title}}

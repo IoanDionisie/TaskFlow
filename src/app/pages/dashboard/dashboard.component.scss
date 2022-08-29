@@ -6,6 +6,10 @@
 
 .task-color {
     color: $taskColor;
+
+    .not-started-task-color {
+        color: $notStartedTask;
+    }
 }
 
 .list-background {
@@ -35,6 +39,14 @@
 
 .title-row {
     height: 20%;
+
+    .title {
+        border-radius: 0 100px 55px 125px;
+        color: white;
+        background: orangered;
+        padding: 5px 15px 5px 15px;
+        width: fit-content;
+    }
 }
 
 .sidebar {
@@ -488,4 +500,23 @@
 
 .disabled  {
     background: gray;
+}
+
+.task-tags {
+    padding: 5px 0px 5px 5px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+
+    .tag {
+        padding: 2px 6px 2px 6px;
+        color: white;
+        border-radius: 30px;
+        background: mediumseagreen;
+    }
+
+    .tag:not(:last-child) {
+        margin-right: 5px;
+    }
 }

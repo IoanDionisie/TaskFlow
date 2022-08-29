@@ -11,6 +11,11 @@
         <label for="description">Description</label>
         <textarea autosize id="description" [(ngModel)]="description"></textarea>
     </div>
+
+    <div class="name modal-text tag-container">
+        <label for="tags">Tags</label>
+       <app-tags (tagsAdded)="tagsAddedHandler($event)"></app-tags>
+    </div>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-danger" (click)="closeModal()">Cancel</button>

@@ -127,12 +127,14 @@ app.get('/lists/:id/tasks', (req, res) => {
 app.post('/lists/:id/tasks', async (req, res) => {
     //  We want to create a new task in the specified list
     let lastTask = await Task.findOne().sort({"order": -1});
+    console.log("adding task with these ", req.body);
     let task = new Task({
         title: req.body.title,
         _listId:  req.params.id,
         status: req.body.status,
         description: req.body.description,
         dateCreated: req.body.dateCreated,
+        tags: req.body.tags,
         order: lastTask.order + 1
     })
 
@@ -202,6 +204,17 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
         });
     }   
     res.status(200).send({});
+})
+
+
+/** 
+ * GET /users/
+ * Purpose: Get a list of all users
+ */
+ app.get('/users', (req, res) => {
+     User.find().then((users) => {
+        res.send(users)
+     })
 })
 
 app.listen(3000, () => {

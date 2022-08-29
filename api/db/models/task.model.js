@@ -2,6 +2,14 @@
 const mongoose = require('mongoose');
 const { isStringLiteral } = require('typescript');
 
+const TagSchema = new mongoose.Schema({
+    title: {
+        type: String, 
+        minlength: 1,
+        trim: true
+    }
+})
+
 const TaskSchema = new mongoose.Schema({
     title: {
         type: String, 
@@ -43,9 +51,13 @@ const TaskSchema = new mongoose.Schema({
     },
     dateCompleted: {
         type: Date
-    }
+    },
+    tags: [
+        TagSchema
+    ]
 })
 
 const Task = mongoose.model('task', TaskSchema);
+const Tag = mongoose.model('tag', TagSchema);
 
-module.exports = { Task }
+module.exports = { Task, Tag}
