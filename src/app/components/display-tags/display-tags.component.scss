@@ -1,0 +1,53 @@
+@import "../../../styles/variables.scss";
+
+.task-tags {
+    padding: 5px 0px 5px 5px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: left;
+
+    .tag {
+        padding: 2px 10px 2px 10px;
+        color: white;
+        border-radius: 25px 0 25px 0;
+        background: green;
+        font-weight: 400;
+        min-width: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .tag:not(:last-child) {
+        margin-right: 3px;
+    }
+
+    .codeRefactory {
+        background: $codeRefactoryTag;
+    }
+
+    .frontend {
+        background: $frontendTag;
+    }
+
+    .backend {
+        background: $backendTag;
+    }
+    
+    .git {
+        background: $gitTag;
+    }
+
+    .testing {
+        background: $testingTag;
+    }
+
+    .frontendBackend {
+        background: $frontendBackendTag;
+    }
+
+    .bug {
+        background: $bugTag;
+    }
+}

@@ -31,7 +31,7 @@
     </p>
   </div>
 
-  <div *ngIf="task.isCompleted == true" class="modal-body-text">
+  <div *ngIf="task.status == ITEM_STATUS.completed" class="modal-body-text">
     <div class="title">
     Date Completed
     </div>
@@ -44,9 +44,7 @@
     <div class="title">
       Tags
     </div>
-    <div *ngFor="let tag of task.tags">
-      {{tag.title}}
-    </div>
+      <app-display-tags [tags]="task.tags"></app-display-tags>
   </div>
 </div>
 

@@ -17,6 +17,10 @@
         <textarea autosize id="observations" [value]="this.observations" [(ngModel)]="this.observations"></textarea>
     </div>
     
+    <div *ngIf="elementName == ITEM_TYPE.task" class="observations modal-text description-container">
+        <label>Tags</label>
+        <app-tags [currentTags]="this.tags" (tagsAdded)="tagsAddedHandler($event)"></app-tags>
+    </div>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-danger" (click)="closeModal()">Cancel</button>

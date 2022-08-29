@@ -1,10 +1,11 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ViewChildren } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {COMMA, ENTER, M} from '@angular/cdk/keycodes';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs';
+import { tagsWithColors } from 'src/app/constants/tags-colors';
 
 @Component({
   selector: 'app-tags',
@@ -19,10 +20,15 @@ export class TagsComponent {
   
   separatorKeysCodes: number[] = [ENTER, COMMA];
   tagsControl = new FormControl('');
+ 
   filteredTags: Observable<string[]>|undefined;
   tags: string[] = [];
   allTags: string[] = [];
   auto: any;
+
+  tagsWithColors: any;
+
+  @Input() currentTags: any;
 
   @Output() tagsAdded: EventEmitter<string[]> = new EventEmitter();
 
@@ -67,18 +73,18 @@ export class TagsComponent {
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.allTags.filter(tag => tag.toLowerCase().includes(filterValue));
+    return this.tags.filter(tag => tag.toLowerCase().includes(filterValue));
   }
 
   ngOnInit(): void {
   }
 
   ngAfterViewInit() {
-    this.allTags = [
-      'Frontend', 'Backend', 'Git', 'Code Refactory', 'Bug', 'Frontend+Backend', 'Testing'
-    ];
-
-   
+    this.allTags = Array.from(tagsWithColors.keys());
+    
+    if (this.currentTags.length > 0) {
+      this.tags = this.currentTags.map((tag: { title: any; }) => tag.title);
+    }
   }
 
 }
