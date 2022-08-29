@@ -24,27 +24,29 @@ export class SuccessMessageComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.eventType = this.eventData.eventType;
-    this.elementName = this.eventData.elementName;
-
-    if (this.eventType != -1 )  {
-      this.showModal = true;
-      this.successMessage = '"' + this.elementName + '"';
-
-      if (this.eventType == Actions.addList || this.eventType == Actions.addTask) {
-        this.successMessage += MESSAGES['addItem'];
-      } else if (this.eventType == Actions.deleteList || this.eventType == Actions.deleteTask) {
-        this.successMessage += MESSAGES['deleteItem'];
-      } else  if (this.eventType == Actions.modifyList || this.eventType == Actions.modifyTask) {
-        this.successMessage += MESSAGES['modifyItem'];
-      } else if (this.eventType == Actions.completeList || this.eventType == Actions.completeTask) {
-        this.successMessage += MESSAGES['completeItem'];
-      } else if (this.eventType == Actions.beginTask) {
-        this.successMessage = "";
-        this.successMessage += MESSAGES['beginTask'] + " " + this.elementName;
+    if (typeof this.eventData !== 'undefined') {
+      this.eventType = this.eventData.eventType;
+      this.elementName = this.eventData.elementName;
+  
+      if (this.eventType != -1 )  {
+        this.showModal = true;
+        this.successMessage = '"' + this.elementName + '"';
+  
+        if (this.eventType == Actions.addList || this.eventType == Actions.addTask) {
+          this.successMessage += MESSAGES['addItem'];
+        } else if (this.eventType == Actions.deleteList || this.eventType == Actions.deleteTask) {
+          this.successMessage += MESSAGES['deleteItem'];
+        } else  if (this.eventType == Actions.modifyList || this.eventType == Actions.modifyTask) {
+          this.successMessage += MESSAGES['modifyItem'];
+        } else if (this.eventType == Actions.completeList || this.eventType == Actions.completeTask) {
+          this.successMessage += MESSAGES['completeItem'];
+        } else if (this.eventType == Actions.beginTask) {
+          this.successMessage = "";
+          this.successMessage += MESSAGES['beginTask'] + " " + this.elementName;
+        }
+  
+        this.setTimer();
       }
-
-      this.setTimer();
     }
   }
 

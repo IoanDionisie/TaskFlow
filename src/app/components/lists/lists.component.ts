@@ -17,6 +17,8 @@ import {
   transition,
   // ...
 } from '@angular/animations';
+import { ViewTaskComponent } from '../modals/view-task/view-task.component';
+import { ViewListComponent } from '../modals/view-list/view-list.component';
 
 
 @Component({
@@ -126,4 +128,10 @@ export class ListsComponent implements OnInit {
     let emitObject = {listEvent: listAction, list: list};
     this.listEvent.emit(emitObject);
   }
+
+  showListInfo(list: any) {
+    const modalRef = this.modalService.open(ViewListComponent);
+    modalRef.componentInstance.list = list;
+  }
+
 }

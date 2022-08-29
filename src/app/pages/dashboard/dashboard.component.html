@@ -26,6 +26,7 @@
 
     <div class="row">
         <app-success-message [eventData]="successEventData"></app-success-message>
+        <app-error-message [eventData]="errorEventData"></app-error-message>
     </div>
     <div class="row sidebar">
         <app-lists class="lists-container col-4"
@@ -34,7 +35,7 @@
         </app-lists>
         
         <div class="task-list-container col-8">
-            <div class="form-group search-tasks">
+            <div *ngIf="this.showSearch == true" class="form-group search-tasks">
                 <input type="text" class="form-control mb-4" placeholder="Search" [(ngModel)]="searchFilter" id="listSearch">
             </div>
             <mat-tab-group class="tasks-tabs" *ngIf="tasks" mat-align-tabs="start">

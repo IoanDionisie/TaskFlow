@@ -32,6 +32,8 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { ReactiveFormsModule } from "@angular/forms";
 import { DisplayTagsComponent } from './components/display-tags/display-tags.component';
+import { ErrorMessageComponent } from './components/dialogs/error-message/error-message.component';
+import { ViewListComponent } from './components/modals/view-list/view-list.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { DisplayTagsComponent } from './components/display-tags/display-tags.com
     WorkBreakComponent,
     SearchTaskFilterPipe,
     TagsComponent,
-    DisplayTagsComponent
+    DisplayTagsComponent,
+    ErrorMessageComponent,
+    ViewListComponent
   ],
   imports: [
     BrowserModule,

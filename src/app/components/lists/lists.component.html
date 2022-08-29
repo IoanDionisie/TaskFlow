@@ -21,14 +21,17 @@
                 <div ngbDropdown>
                     <i class="fa-solid fa-angle-down dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle></i>
                     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                        <button class="markCompleted" title="Mark as Completed"  *ngIf="list.percentCompleted == 100" (click)="markAsCompleted(list)">
+                        <button class="markCompleted" title="Mark as Completed"  *ngIf="list.percentCompleted == 100" (click)="markAsCompleted(list)" ngbTooltip="Mark as Completed">
                             <i class="fa-solid fa-check"></i>
                         </button>
-                        <button class="modify" (click)="modifyThisList(list)" title="Modify List">
+                        <button class="info" (click)="showListInfo(list)" title="Show List Info" ngbTooltip="List Info">
+                            <i class="fa-solid fa-info"></i>
+                        </button>
+                        <button class="modify" (click)="modifyThisList(list)" title="Modify List" ngbTooltip="Modify List">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </button>
                 
-                        <button class="delete" (click)="deleteThisList(list)" title="Delete List">
+                        <button class="delete" (click)="deleteThisList(list)" title="Delete List" ngbTooltip="Delete List">
                             <i class="fa-solid fa-trash"></i>
                         </button>
                     </div>
@@ -61,13 +64,12 @@
                 <div ngbDropdown>
                     <i class="fa-solid fa-angle-down dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle></i>
                     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                        <button *ngIf="list.status == ITEM_STATUS.inProgress" class="markCompleted" title="Mark as Completed" (click)="markAsCompleted(list)">
-                            <i class="fa-solid fa-check"></i>
+                        <button class="info" (click)="showListInfo(list)" title="Show List Info" ngbTooltip="List Info">
+                            <i class="fa-solid fa-info"></i>
                         </button>
                         <button class="modify" (click)="modifyThisList(list)" title="Modify List">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </button>
-                
                         <button class="delete" (click)="deleteThisList(list)" title="Delete List">
                             <i class="fa-solid fa-trash"></i>
                         </button>

@@ -61,6 +61,7 @@ app.post('/lists', (req, res) => {
     let newList = new List({
         title: req.body.title,
         description: req.body.description,
+        dateCreated: req.body.dateCreated,
         userId: userId,
         status: "In Progress"
     });

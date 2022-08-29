@@ -1,0 +1,29 @@
+@import '../../../../styles/variables.scss';
+
+.error-message-container {
+    position: absolute;
+    top: 10%;
+    left: 35%;
+    padding: 10px;
+    background: $errorColor;
+    border-radius: 8px;
+    color: white;
+    min-width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;  
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+
+    .error-icon {
+        padding-left: 15px;
+    }
+}
+
+.show {
+    visibility: visible;
+    opacity: 1;
+}

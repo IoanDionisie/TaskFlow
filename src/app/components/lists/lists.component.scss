@@ -82,7 +82,8 @@
 .delete, 
 .modify, 
 .complete,
-.markCompleted {
+.markCompleted,
+.info {
     border: none;
     background: none;
     outline: none;
@@ -110,6 +111,10 @@
 
 .markCompleted {
     color: $taskColor;
+}
+
+.info {
+    color: $errorColor;
 }
 
 .circle-progress {

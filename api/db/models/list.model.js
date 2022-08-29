@@ -20,6 +20,12 @@ const ListSchema = new mongoose.Schema({
     },
     observations: {
         type: String
+    },
+    dateCreated: {
+        type: Date
+    },
+    dateCompleted: {
+        type: Date
     }
 })
 

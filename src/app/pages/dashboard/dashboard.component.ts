@@ -30,10 +30,10 @@ export class DashboardComponent implements OnInit {
   tasks: any;
   displayInProgress: boolean = true;
   selectedList: any;
-
   percentCompleted: number | undefined;
-
   successEventData: Object | undefined;
+  errorEventData: Object | undefined;
+
   dummyCounter:number = 0;
   incrementNumber = false;
   
@@ -41,10 +41,14 @@ export class DashboardComponent implements OnInit {
   
   userName: string = "";
 
+  startedTasks: number = 0;
+
   readonly ITEM_TYPE = ITEM_TYPE;
   readonly ITEM_STATUS = ITEM_STATUS;
 
   public searchFilter: any = "";
+
+  showSearch: boolean = false;
 
   @HostBinding('class') class = 'center-component';
 
@@ -118,9 +122,16 @@ export class DashboardComponent implements OnInit {
   /* Splits the task list in 2 lists, 'In Progress' and 'Completed', and then sorts the completed tasks by Date */
   sortTasks(tasks: any) {
     this.tasks = tasks;
+    this.startedTasks = 0;
+
+    this.showSearch = this.tasks.length > 0 ? true : false; 
 
     for (let i = 0; i < this.tasks.length; ++i) {
       tasks[i].status == ITEM_STATUS.inProgress ? this.inProgressTasks.push(tasks[i]) : this.completedTasks.push(tasks[i]);
+      if (tasks[i].status == ITEM_STATUS.inProgress &&
+        tasks[i].isStarted == true) {
+          this.startedTasks++;
+        }
     }
     this.completedTasks.sort((objA:any, objB:any) => Number(objB.dateCompleted) - Number(objA.dateCompleted));
   }
@@ -218,6 +229,7 @@ export class DashboardComponent implements OnInit {
       this.calculatePercentCompleted();
       this.setProgressbarColor();
       this.showSuccessMessage(Actions.completeTask, task.title);
+      this.startedTasks--;
     })
   }
 
@@ -273,23 +285,36 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  showErrorMessage(event: any, title: any) {
+   this.errorEventData = {
+      counter: this.dummyCounter++,
+      eventType: event,
+      elementName: title
+    }
+  }
+
   logOut() {
     this.token.signOut();
   }
 
   beginTask(task: any) {
-    let date = new Date();
-    let data = {
-      dateStarted: date,
-      isStarted: true
+    if (this.startedTasks < 2) {
+      let date = new Date();
+      let data = {
+        dateStarted: date,
+        isStarted: true
+      }
+  
+      this.taskService.modifyTask(this.selectedList._id, task._id, data).subscribe((response: any) => {
+        task.dateStarted = date;
+        task.isStarted = true;
+        this.incrementTaskWorkingTime(task);
+        this.showSuccessMessage(Actions.beginTask, task.title);
+        this.startedTasks ++;
+      });
+    } else {
+      this.showErrorMessage(Actions.beginTask, task.title);
     }
-
-    this.taskService.modifyTask(this.selectedList._id, task._id, data).subscribe((response: any) => {
-      task.dateStarted = date;
-      task.isStarted = true;
-      this.incrementTaskWorkingTime(task);
-      this.showSuccessMessage(Actions.beginTask, task.title);
-    });
   }
 
   incrementTaskWorkingTime(task: any) {
