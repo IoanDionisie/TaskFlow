@@ -21,7 +21,8 @@ export class CreateListComponent  {
     let list = {
       confirmation: true, 
       title: this.name,
-      description: this.description
+      description: this.description,
+      dateCreated: new Date()
     }
     this.createListConfirmation.emit(list);
     this.closeModal();

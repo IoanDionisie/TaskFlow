@@ -1,0 +1,36 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title"> {{list.title}}</h4>
+</div>
+<div class="modal-body">
+  
+  <div class="modal-body-text">
+    <div class="title">
+      Description
+    </div>
+    <p>
+      {{list.description}}
+    </p>
+  </div>
+ 
+  <div class="modal-body-text">
+    <div class="title">
+    Date Created
+    </div>
+    <p>
+      {{list.dateCreated}}
+    </p>
+  </div>
+
+  <div *ngIf="list.status == ITEM_STATUS.completed" class="modal-body-text">
+    <div class="title">
+    Date Completed
+    </div>
+    <p>
+      {{list.dateCompleted}}
+    </p>
+  </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="closeModal()">Cancel</button>
+</div>
