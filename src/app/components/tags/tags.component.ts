@@ -6,6 +6,8 @@ import {COMMA, ENTER, M} from '@angular/cdk/keycodes';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs';
 import { tagsWithColors } from 'src/app/constants/tags-colors';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ErrorMessageComponent } from '../dialogs/error-message/error-message.component';
 
 @Component({
   selector: 'app-tags',
@@ -26,13 +28,15 @@ export class TagsComponent {
   allTags: string[] = [];
   auto: any;
 
+  tooManyTags: boolean = false;
+
   tagsWithColors: any;
 
   @Input() currentTags: any;
 
   @Output() tagsAdded: EventEmitter<string[]> = new EventEmitter();
 
-  constructor() {
+  constructor(private modalService: NgbModal) {
     this.filteredTags = this.tagsControl.valueChanges.pipe(
       startWith(null),
       map((tag: string | null) => (tag ? this._filter(tag) : this.allTags.slice())),
@@ -48,10 +52,13 @@ export class TagsComponent {
     // Clear the input value
     event.chipInput!.clear();
 
-    // Send the tags array to the parent component
-    this.tagsAdded.emit(this.tags);
-
-    this.tagsControl.setValue(null);
+    if (this.tags.length > 3) {
+      this.tooManyTagsError();
+    } else {
+      // Send the tags array to the parent component
+      this.tagsAdded.emit(this.tags);
+      this.tagsControl.setValue(null);
+    }
   }
 
   remove(tag: string): void {
@@ -67,8 +74,12 @@ export class TagsComponent {
     this.tagInput!.nativeElement.value = '';
     this.tagsControl.setValue(null);
     
-    // Send the tags array to the parent component
-    this.tagsAdded.emit(this.tags);
+    if (this.tags.length > 3) {
+      this.tooManyTagsError();
+    } else {
+      // Send the tags array to the parent component
+      this.tagsAdded.emit(this.tags);
+    }
   }
 
   private _filter(value: string): string[] {
@@ -85,6 +96,13 @@ export class TagsComponent {
     if (this.currentTags.length > 0) {
       this.tags = this.currentTags.map((tag: { title: any; }) => tag.title);
     }
+  }
+
+  tooManyTagsError() {
+    this.tooManyTags = true;
+    setTimeout(() =>{ 
+      this.tooManyTags = false;
+    }, 3000);
   }
 
 }

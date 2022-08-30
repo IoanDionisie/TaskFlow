@@ -1,4 +1,8 @@
+
 <mat-form-field class="tags-list" appearance="fill">
+  <div class="error-too-many-tags" [ngClass]="this.tooManyTags == false ? 'display-none' : ''">
+    You cannot add more than 3 tags!
+  </div>
     <mat-chip-list #tagList aria-label="Tags">
       <mat-chip
         *ngFor="let tag of tags"

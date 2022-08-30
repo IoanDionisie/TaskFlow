@@ -1,6 +1,6 @@
 # TasksManager
 
-A simple task managing app, developed using Angular CLI.
+A simple task managing app, developed using Angular CLI for frontend, and Nodejs&MongoDB for backend.
 
 <img src="/src/assets/images/TaskFlow.png" alt="My cool logo"/>
 

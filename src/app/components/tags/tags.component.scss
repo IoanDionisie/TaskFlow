@@ -24,3 +24,14 @@ mat-form-field  {
     border-radius: 10px;
     box-shadow: 0 8px 10px -10px $listColor;
 }
+
+.error-too-many-tags {
+    position: absolute;
+    top: -55px;
+    right: -10px;
+    color: #cc0000;
+}
+
+.display-none {
+    display: none;
+}
