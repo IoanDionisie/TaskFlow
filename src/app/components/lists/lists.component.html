@@ -45,7 +45,7 @@
 
 <div *ngIf="completedLists" class="completed-dropdown">
     <div class="completed-dropdown-toggle" (click)="toggleCompleted()">
-        <div class="list-title">
+        <div class="list-title completed">
             <i class="fa-solid" [ngClass]="showCompleted== true ? 'fa-caret-down' : 'fa-caret-right'"></i>
             Completed ({{completedLists.length}})
         </div>

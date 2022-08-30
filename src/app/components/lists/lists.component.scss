@@ -134,7 +134,10 @@
     :hover {
         cursor: pointer;
         color: $taskColor;
-
+    }
+   
+    .completed {
+        color: $darkSpringGreen;
     }
 
     .list-title i {
@@ -149,6 +152,16 @@
     .list-title {
         font-size: 17px;
         font-weight: 500;
+    }
+}
+
+.completed-dropdown-area {
+    .list {
+        color: $darkSpringGreen;
+    }
+
+    .list:hover {
+        color: $taskColor;
     }
 }
 
