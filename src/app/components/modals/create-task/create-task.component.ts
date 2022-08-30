@@ -33,15 +33,10 @@ export class CreateTaskComponent  {
 
     this.createTaskConfirmation.emit(obj);
     this.closeModal();
-
   }
 
   closeModal() {
     this.modal.close();
-  }
-
-  myMethod(event: any) {
-    console.log(event);
   }
 
   tagsAddedHandler(tags: string[]) {
@@ -50,7 +45,5 @@ export class CreateTaskComponent  {
     for (let i = 0; i < tags.length; ++i) {
       this.tags?.push({title: tags[i]});
     }
-
-    console.log(this.tags);
   }
 }

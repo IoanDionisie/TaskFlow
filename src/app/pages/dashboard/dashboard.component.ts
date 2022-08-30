@@ -123,7 +123,6 @@ export class DashboardComponent implements OnInit {
   sortTasks(tasks: any) {
     this.tasks = tasks;
     this.startedTasks = 0;
-
     this.showSearch = this.tasks.length > 0 ? true : false; 
 
     for (let i = 0; i < this.tasks.length; ++i) {
@@ -133,6 +132,8 @@ export class DashboardComponent implements OnInit {
           this.startedTasks++;
         }
     }
+
+    /* TODO */
     this.completedTasks.sort((objA:any, objB:any) => Number(objB.dateCompleted) - Number(objA.dateCompleted));
   }
 
