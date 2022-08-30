@@ -1,4 +1,4 @@
-# TasksManager
+# TaskFlow
 
 A simple task managing app, developed using Angular CLI for frontend, and Nodejs&MongoDB for backend.
 
