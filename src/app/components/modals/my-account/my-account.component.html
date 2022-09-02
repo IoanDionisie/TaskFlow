@@ -2,7 +2,47 @@
     <h4 class="modal-title" id="modal-title">Account</h4>
 </div>
 <div class="modal-body">
-   
+    <div class="name modal-text title-container">
+        <form  name="form"
+        (ngSubmit)="f.form.valid && onSubmit()"
+        #f="ngForm"
+        novalidate>
+
+            <div class="menu-item">Change Password</div>
+            <input
+            type="password"
+            class="form-control"
+            name="password"
+            [(ngModel)]="this.form.password"
+            required
+            minlength="6"
+            #password="ngModel"
+            [ngClass]="{ 'is-valid': (submitted || this.form.password.dirty) && !this.form.password.errors, 'is-invalid': (submitted || this.form.password.dirty) && this.form.password.errors }"
+            />
+            <app-password-strength [passwordToCheck]="this.form.password" (passwordStrength)="onPasswordStrengthChanged($event)"></app-password-strength>
+
+            <div class="alert-danger" *ngIf="form.password.errors">
+                <div *ngIf="form.password.errors['required']">
+                  Password is required
+                </div>
+                <div *ngIf="form.password.errors['minlength']">
+                  Password must be at least 8 characters
+                </div>
+            </div>
+
+            <label> Confirm Password</label>
+          
+            <input  
+            type="password"
+            class="form-control" 
+            [(ngModel)]="this.form.confirmPassword" 
+            required/>
+
+            <div class="form-group">
+                <button class="btn btn-primary btn-block"> Submit </button>
+            </div> 
+        </form>
+    </div>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-danger" (click)="closeModal()">Cancel</button>
