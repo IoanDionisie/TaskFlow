@@ -34,6 +34,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { DisplayTagsComponent } from './components/display-tags/display-tags.component';
 import { ErrorMessageComponent } from './components/dialogs/error-message/error-message.component';
 import { ViewListComponent } from './components/modals/view-list/view-list.component';
+import { PasswordStrengthComponent } from './components/password-strength/password-strength.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { ViewListComponent } from './components/modals/view-list/view-list.compo
     TagsComponent,
     DisplayTagsComponent,
     ErrorMessageComponent,
-    ViewListComponent
+    ViewListComponent,
+    PasswordStrengthComponent
   ],
   imports: [
     BrowserModule,

@@ -166,3 +166,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 input:disabled, textarea:disabled {
     background: lightgray;
 }
+
+.register .profile-img-card,
+.login .profile-img-card {
+    border-radius: 300px;
+}
+
+.register .margin-top,
+.login .margin-top {
+    margin-top: 20px;
+}

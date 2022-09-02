@@ -170,6 +170,7 @@
 
     .task:not(:first-child) {
         padding-top: 8px;
+        padding-top: 8px;
         padding-bottom: 8px;
         font-size: 17px;
         font-weight: 500;
@@ -177,6 +178,7 @@
 
     .task:first-child {
         padding-bottom: 8px;
+        padding-top: 8px;
         font-size: 17px;
         font-weight: 500;
     }

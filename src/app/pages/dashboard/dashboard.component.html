@@ -50,7 +50,7 @@
                                     <div class="checkmark"></div>
                                 </div>
 
-                                <div *ngIf="task.isStarted == false" class="circle gray-circle">
+                                <div *ngIf="task.isStarted == false" class="circle gray-circle" (click)="notStartedTask(task)">
                                     
                                 </div>
                                 

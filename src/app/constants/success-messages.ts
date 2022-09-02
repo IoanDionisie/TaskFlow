@@ -4,6 +4,7 @@ export const MESSAGES = {
     modifyItem: "  was succesfully modified!",
     completeItem: "  was succesfully marked as completed",
     beginTask:  "You successfully started working on task ",
-    beginTaskError: "You cannot start working at more than 2 tasks in the same time!"
+    beginTaskError: "You cannot start working at more than 2 tasks in the same time!",
+    completeNotStartedTask: "You cannot mark a task as completed until you don't begin the task!"
 };
 

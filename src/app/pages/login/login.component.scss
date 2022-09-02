@@ -7,3 +7,11 @@
 .card-container {
     padding: 30px;
 }
+
+.login .card-container {
+    min-width: 400px;
+}
+
+.login .alert-danger {
+    margin-top: 10px;
+}

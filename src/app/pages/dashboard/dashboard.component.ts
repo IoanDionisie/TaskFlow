@@ -234,6 +234,10 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  notStartedTask(task: any) {
+    this.showErrorMessage(Actions.completeTask, task.title);
+  }
+
   openTaskModal(task: any) {
     const modalRef = this.modalService.open(ViewTaskComponent);
     modalRef.componentInstance.task = task;

@@ -1,5 +1,5 @@
-<div class="container">
-    <div class="row center">
+<div class="container register">
+    <div class="row center margin-top">
         <div class="col-md-6 center">
             <div class="card card-container">
               <img
@@ -64,11 +64,17 @@
                     required
                     minlength="6"
                     #password="ngModel"
-                  />
-                  <div class="alert-danger" *ngIf="password.errors && f.submitted">
-                    <div *ngIf="password.errors['required']">Password is required</div>
+                    [ngClass]="{ 'is-valid': (submitted || form.password.dirty) && !form.password.errors, 'is-invalid': (submitted || form.password.dirty) && form.password.errors }"
+                    />
+
+                  <app-password-strength [passwordToCheck]="form.password" (passwordStrength)="onPasswordStrengthChanged($event)"></app-password-strength>
+                   
+                  <div class="alert-danger" *ngIf="password.errors">
+                    <div *ngIf="password.errors['required']">
+                      Password is required
+                    </div>
                     <div *ngIf="password.errors['minlength']">
-                      Password must be at least 6 characters
+                      Password must be at least 8 characters
                     </div>
                   </div>
                 </div>

@@ -30,6 +30,9 @@ export class ErrorMessageComponent implements OnInit {
       if (this.eventType == Actions.beginTask) {
         this.showModal = true;
         this.errorMessage = MESSAGES['beginTaskError'];
+      } else if (this.eventType == Actions.completeTask) {
+        this.showModal = true;
+        this.errorMessage = MESSAGES['completeNotStartedTask'];
       }
       this.setTimer();
     }
