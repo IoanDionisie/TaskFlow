@@ -438,12 +438,22 @@
 
 .user-section {
     position: absolute;
-    right: 70px;
+    right: 10px;
     top: 8px;
+    display: flex;
+    padding: 4px 15px 5px 5px;
+    justify-content: space-between;
+    align-items: center;
     background: $listColor;
     color: white;
-    padding: 5px 15px 5px 15px;
     border-radius: 20px;
+
+    .user-small-image {
+        width: 30px;
+        height: 30px;
+        border-radius: 40px;
+        margin-right: 15px;
+    }
 
     .username  {
         font-size: 18px;
@@ -454,17 +464,31 @@
     }
 
     #user-section-dropdown-content {
-        transform: translate(-62px, 40px)!important;
-        padding: 5px 8px 5px 8px;
-
+        transform: translate(-24px, 40px)!important;
+        padding: 0;
         .user-dropdown-action {
-            color: $listColor;
+            color: white;
+            padding: 5px 10px 5px 10px;
+            background: $listColor;
+        }
+
+        .user-dropdown-action:not(:last-child) {
+            border-bottom: 1px solid lightgray;
+        }
+
+        .user-dropdown-action:hover {
+            opacity: 0.8;
+            background: $listColor
         }
 
         .user-dropdown-action:hover {
             cursor: pointer;
         }
     }
+}
+
+::ng-deep .dropdown-toggle::after {
+    margin-left: 10px;
 }
 
 .work-break {

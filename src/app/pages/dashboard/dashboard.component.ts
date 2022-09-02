@@ -14,6 +14,7 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { HelperService } from 'src/app/services/helper.service';
 import { SettingsComponent } from 'src/app/components/modals/settings/settings.component';
 import { Component, HostBinding, OnInit } from '@angular/core';
+import { MyAccountComponent } from 'src/app/components/modals/my-account/my-account.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -364,5 +365,9 @@ export class DashboardComponent implements OnInit {
         this.incrementTaskWorkingTime(tasks[i]);
       }
     }
+  }
+
+  openAccountModal() {
+    const modalRef = this.modalService.open(MyAccountComponent);
   }
 }

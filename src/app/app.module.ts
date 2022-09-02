@@ -35,6 +35,7 @@ import { DisplayTagsComponent } from './components/display-tags/display-tags.com
 import { ErrorMessageComponent } from './components/dialogs/error-message/error-message.component';
 import { ViewListComponent } from './components/modals/view-list/view-list.component';
 import { PasswordStrengthComponent } from './components/password-strength/password-strength.component';
+import { MyAccountComponent } from './components/modals/my-account/my-account.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { PasswordStrengthComponent } from './components/password-strength/passwo
     DisplayTagsComponent,
     ErrorMessageComponent,
     ViewListComponent,
-    PasswordStrengthComponent
+    PasswordStrengthComponent,
+    MyAccountComponent
   ],
   imports: [
     BrowserModule,

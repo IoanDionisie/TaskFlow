@@ -5,17 +5,17 @@
     </div>
 
     <div ngbDropdown class="user-section" id="userSectionDropdown" ngbTooltip="Account Info">
+        <img class="user-small-image"   src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
         <div ngbDropdownToggle class="username" >
             {{ userName }}
         </div>
         <div id="user-section-dropdown-content" ngbDropdownMenu aria-labelledby="userSectionDropdown">
+            <div class="user-dropdown-action" (click)="openAccountModal()"> Account </div>
+            <div class="user-dropdown-action" (click)="showSettings()"> Settings </div>
             <div class="user-dropdown-action" (click)="logOut()"> Log out </div>
         </div>
     </div>
 
-    <button class="settings" (click)="showSettings()" ngbTooltip="Settings">
-        <i class="fa-solid fa-gear settings-icon"></i>
-    </button>
     <div class="row title-row">
         <div class="col-4">
             <div class="title has-text-primary">
