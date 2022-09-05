@@ -1,0 +1,70 @@
+@import "../../../../styles/variables.scss";
+
+.title-container {
+    width: 100%;
+}
+
+.title-container form {
+    width: 100%;
+    padding: 5px 5px 5px 5px;
+
+    .item-title {
+        width: 100%;
+        border-bottom: 1px solid lightgray;
+    }
+
+    .item-section {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        margin-top: 20px;
+
+        .item-sub-title {
+            width: 50%;
+        }
+
+        input  {
+            width: 50%;
+            margin: 0;
+        }
+
+        app-password-strength {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .alert-danger {
+            width: 100%;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+    }
+
+    .submit-form {
+        margin-top: 10px;
+        display: flex;
+        justify-content: flex-end;
+
+        .btn-primary {
+            width: 50%;
+            background: $forestGreen;
+        }
+
+        .btn-primary {
+            border: none;
+            opacity: 0.8;   
+        }
+
+        .btn-primary:hover {
+            opacity: 1;
+        }
+
+        .btn-primary:focus {
+            outline: none!important;
+            box-shadow: none;
+            border: none;
+        }
+    }
+}
+

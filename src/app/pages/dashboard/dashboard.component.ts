@@ -369,5 +369,6 @@ export class DashboardComponent implements OnInit {
 
   openAccountModal() {
     const modalRef = this.modalService.open(MyAccountComponent);
+    modalRef.componentInstance.username = this.userName;
   }
 }

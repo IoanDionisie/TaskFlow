@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-my-account',
@@ -9,23 +10,25 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 
 export class MyAccountComponent implements OnInit {
-
-  submitted = false;
-  working = false;
   complete = false;
   strongPassword = false;
+  errorMessage = "";
+  
+  @Input() public username: any;
 
   form: any = {
     confirmPassword: null,
+    username: null,
     password: new FormControl(null, [
       Validators.minLength(8),
       Validators.required,
     ])
   };
 
-  constructor(private modal: NgbActiveModal) { }
+  constructor(private modal: NgbActiveModal, private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.form.password = "";
     this.form.confirmPassword = "";
   }
 
@@ -33,22 +36,20 @@ export class MyAccountComponent implements OnInit {
     this.modal.close();
   }
 
-  
   onSubmit(): void {
-    this.submitted = true;
-    if (this.form.invalid) {
-      return;
-    }
-
-    this.working = true;
-
-    const { password } = this.form;
-  
+    this.form.username = this.username;
+    this.authService.changePassword(this.form.username, this.form.password).subscribe({
+      next: () => {
+        console.log("Changed password successfully!");
+      },
+      error: (err: { error: { message: any; }; }) => {
+        console.log(err.error)
+        this.errorMessage = err.error.message;
+      }
+    });
   }
 
   onPasswordStrengthChanged(event: boolean) {
-    console.log(this.form.password);
     this.strongPassword = event;
   }
-
 }

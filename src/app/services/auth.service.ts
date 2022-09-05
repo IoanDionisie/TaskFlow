@@ -31,4 +31,12 @@ export class AuthService {
       password
     }, httpOptions);
   }
+
+  changePassword(username: string, password: string): Observable<any> {
+    return this.http.post(AUTH_API + 'changePassword', {
+      username,
+      password
+    }, httpOptions);
+  }
+
 }

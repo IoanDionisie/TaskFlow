@@ -32,6 +32,20 @@ exports.currentUser = (req, res) => {
   return currUser;
 }
 
+exports.changePassword = (req, res) => {
+  var updatedUser = {
+    password: bcrypt.hashSync(req.body.password, 8)
+  }
+
+  User.findOneAndUpdate({username: req.body.username}, updatedUser).exec((err, user) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+    res.status(200).send({message: "Password updated with success!"});
+  });
+};
+
 exports.signin = (req, res) => {
     User.findOne({
       username: req.body.username
@@ -56,6 +70,7 @@ exports.signin = (req, res) => {
         var token = jwt.sign({ id: user.id }, config.secret, {
           expiresIn: 86400 // 24 hours
         });
+        
         res.status(200).send({
           id: user._id,
           username: user.username,

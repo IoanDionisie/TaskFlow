@@ -1,10 +1,9 @@
 <div class="container task-manager-container ">
-
     <div class="work-break">
         <app-work-break></app-work-break>    
     </div>
 
-    <div ngbDropdown class="user-section" id="userSectionDropdown" ngbTooltip="Account Info">
+    <div ngbDropdown class="user-section" id="userSectionDropdown">
         <img class="user-small-image"   src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
         <div ngbDropdownToggle class="username" >
             {{ userName }}
@@ -29,6 +28,7 @@
         <app-success-message [eventData]="successEventData"></app-success-message>
         <app-error-message [eventData]="errorEventData"></app-error-message>
     </div>
+
     <div class="row sidebar">
         <app-lists class="lists-container col-4"
             [inProgressLists]="inProgressLists" [completedLists]="completedLists" [selectedList]="selectedList"
@@ -45,17 +45,11 @@
                         <div *ngFor="let task of (inProgressTasks | searchTaskFilter : searchFilter);let indexOfElement=index;" class="task task-color" cdkDrag>
                             <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
                             <div class="checkbox-and-title">
-
                                 <div *ngIf="task.isStarted == true" class="circle" (click)="completeThisTask(task, indexOfElement)">
                                     <div class="checkmark"></div>
                                 </div>
-
-                                <div *ngIf="task.isStarted == false" class="circle gray-circle" (click)="notStartedTask(task)">
-                                    
-                                </div>
-                                
+                                <div *ngIf="task.isStarted == false" class="circle gray-circle" (click)="notStartedTask(task)"></div>
                                 <app-display-tags [tags]="task.tags"></app-display-tags>
-
                                 <div [ngClass]="task.isStarted == false ? 'not-started-task-color' : ''" class="task-title" (click)="openTaskModal(task)">
                                     {{task.title}}
                                 </div>
@@ -70,7 +64,6 @@
                                 <button class="modify" (click)="modifyThisTask(task)" title="Modify Task">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
-                
                                 <button class="delete" (click)="deleteThisTask(task, indexOfElement, ITEM_STATUS.inProgress)" title="Delete Task">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
@@ -86,9 +79,7 @@
                                 <div class="circle-completed">
                                     <div class="checkmark"></div>
                                 </div>
-
                                 <app-display-tags [tags]="task.tags"></app-display-tags>
-                               
                                 <div class="task-title" (click)="openTaskModal(task)">
                                     {{task.title}}
                                 </div>
@@ -97,7 +88,6 @@
                                 <button class="modify" (click)="modifyThisTask(task)" title="Modify Task">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
-                
                                 <button class="delete" (click)="deleteThisTask(task, indexOfElement, ITEM_STATUS.completed)" title="Delete Task">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
@@ -108,13 +98,13 @@
             </mat-tab-group>
         </div>
     </div>
+    
     <div class="row bottom-row">
         <div class="add-list">
-            <button class="list-background" (click)="createNewList()" ngbTooltip="Create a list">
+            <button class="add-list-button" (click)="createNewList()" ngbTooltip="Create a list">
                 Add list
             </button>
         </div>
-
         <div class="add-task" *ngIf="selectedList && selectedList.status == ITEM_STATUS.inProgress">
             <div *ngIf="inProgressTasks.length == 0" class="add-task-reminder">
                 Add new tasks for your list "{{selectedList.title}}" !

@@ -12,6 +12,11 @@
     }
 }
 
+.add-list-button {
+    background: $forestGreen;
+    color: white;
+}
+
 .list-background {
     background: $listColor;
     color: whitesmoke;
@@ -24,6 +29,7 @@
 
 .title {
     display: flex;
+    cursor: pointer;
     align-items: center;
 }
 
@@ -67,7 +73,7 @@
     border-radius: 0 30px 0 30px;
     position: relative;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-    background: #FFF url($topBackground) no-repeat center top /cover;
+    background: ghostwhite url($topBackground) no-repeat center top /cover;
     background-position: unset;
 }
 
@@ -249,7 +255,7 @@
     justify-content: center;
     align-items: center;
     padding: 5px;
-    background: $listColor;
+    background: $forestGreen;
     color: whitesmoke;
 }
 
@@ -561,10 +567,6 @@
     height: 100%;
     transition: 1s;
     z-index: 1;
-}
-
-.title-row {
-    cursor: pointer;
 }
 
 .title-row .title:hover:before {
