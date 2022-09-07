@@ -15,7 +15,6 @@
                 class="form-control"
                 name="password"
                 [(ngModel)]="this.form.password"
-                required
                 #password="ngModel"
                 />
                 <app-password-strength [passwordToCheck]="this.form.password" (passwordStrength)="onPasswordStrengthChanged($event)"></app-password-strength>
@@ -27,8 +26,7 @@
                 type="password"
                 class="form-control"
                 name="confirmPassword" 
-                [(ngModel)]="this.form.confirmPassword" 
-                required/>
+                [(ngModel)]="this.form.confirmPassword"/>
             </div>
             <div class="form-group submit-form">
                 <button class="btn btn-primary btn-block"> Submit </button>

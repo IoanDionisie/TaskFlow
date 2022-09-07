@@ -17,8 +17,7 @@ export class MyAccountComponent implements OnInit {
   errorMessage = "";
   passwordError = "";
   
-  @Input() public username: any;
-
+  @Input() username: any;
   @Output() changedPassword = new EventEmitter<string>();
 
   form: any = {
@@ -42,7 +41,7 @@ export class MyAccountComponent implements OnInit {
     this.form.username = this.username;
     if (this.form.password != this.form.confirmPassword) {
       this.passwordError = MESSAGES["passwordNotMatching"];
-    } else if (this.form.password.length < 6) {
+    } else if (this.form.password.length < 8) {
       this.passwordError = MESSAGES["passwordTooShort"]
     } else {
       this.authService.changePassword(this.form.username, this.form.password).subscribe({

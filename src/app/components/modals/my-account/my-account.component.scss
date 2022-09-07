@@ -28,9 +28,10 @@
             align-items: center;
         }
 
-        input  {
+        input[type="password"]  {
             width: 50%;
             margin: 0;
+            max-height: 30px;
         }
 
         app-password-strength {

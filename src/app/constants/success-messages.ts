@@ -8,7 +8,6 @@ export const MESSAGES = {
     completeNotStartedTask: "You cannot mark a task as completed until you don't begin the task!",
     changedPassword: "Your password was changed succesfully!",
     passwordNotMatching: "The passwords do not match!",
-    passwordTooShort: "The password must have at least 6 characters!"
-
+    passwordTooShort: "The password must have at least 8 characters!",
 };
 
