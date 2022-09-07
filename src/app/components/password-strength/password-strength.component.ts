@@ -52,7 +52,7 @@ export class PasswordStrengthComponent implements OnChanges {
     force = passedMatches === 2 ? Math.min(force, 20) : force;
     force = passedMatches === 3 ? Math.min(force, 30) : force;
     force = passedMatches === 4 ? Math.min(force, 40) : force;
-
+    console.log(force);
     return force;
   }
 

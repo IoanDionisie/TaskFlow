@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/services/auth.service';
+import { Output, EventEmitter } from '@angular/core';
+import { MESSAGES } from 'src/app/constants/success-messages';
 
 @Component({
   selector: 'app-my-account',
@@ -13,16 +15,16 @@ export class MyAccountComponent implements OnInit {
   complete = false;
   strongPassword = false;
   errorMessage = "";
+  passwordError = "";
   
   @Input() public username: any;
+
+  @Output() changedPassword = new EventEmitter<string>();
 
   form: any = {
     confirmPassword: null,
     username: null,
-    password: new FormControl(null, [
-      Validators.minLength(8),
-      Validators.required,
-    ])
+    password: null
   };
 
   constructor(private modal: NgbActiveModal, private authService: AuthService) { }
@@ -38,15 +40,21 @@ export class MyAccountComponent implements OnInit {
 
   onSubmit(): void {
     this.form.username = this.username;
-    this.authService.changePassword(this.form.username, this.form.password).subscribe({
-      next: () => {
-        console.log("Changed password successfully!");
-      },
-      error: (err: { error: { message: any; }; }) => {
-        console.log(err.error)
-        this.errorMessage = err.error.message;
-      }
-    });
+    if (this.form.password != this.form.confirmPassword) {
+      this.passwordError = MESSAGES["passwordNotMatching"];
+    } else if (this.form.password.length < 6) {
+      this.passwordError = MESSAGES["passwordTooShort"]
+    } else {
+      this.authService.changePassword(this.form.username, this.form.password).subscribe({
+        next: () => {
+          this.closeModal();
+          this.changedPassword.emit();
+        },
+        error: (err: { error: { message: any; }; }) => {
+          this.errorMessage = err.error.message;
+        }
+      });
+    }
   }
 
   onPasswordStrengthChanged(event: boolean) {

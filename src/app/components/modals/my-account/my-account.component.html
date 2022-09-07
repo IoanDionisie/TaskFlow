@@ -5,8 +5,8 @@
     <div class="name modal-text title-container">
         <form  name="form"
         (ngSubmit)="f.form.valid && onSubmit()"
-        #f="ngForm">
-
+        #f="ngForm"
+        novalidate>
             <div class="item-title">Change Password</div>
             <div class="item-section">
                 <div class="item-sub-title"> Enter a new Password</div>
@@ -16,31 +16,29 @@
                 name="password"
                 [(ngModel)]="this.form.password"
                 required
-                minlength="6"
                 #password="ngModel"
-                [ngClass]="{ 'is-valid': (this.form.password.dirty) && !this.form.password.errors, 'is-invalid': (this.form.password.dirty) && this.form.password.errors }"
                 />
                 <app-password-strength [passwordToCheck]="this.form.password" (passwordStrength)="onPasswordStrengthChanged($event)"></app-password-strength>
-    
-                
-                    <div *ngIf="form.password.errors['required']">
-                      Password is required
-                    </div>
-                    <div *ngIf="form.password.errors['minlength']">
-                      Password must be at least 8 characters
-                    </div>
-               
-                <div class="item-sub-title">Confirm Password</div>          
+            </div>
+
+            <div class="item-section">
+                <div class="item-sub-title">Confirm Password</div>              
                 <input  
                 type="password"
-                class="form-control" 
+                class="form-control"
+                name="confirmPassword" 
                 [(ngModel)]="this.form.confirmPassword" 
                 required/>
-    
             </div>
             <div class="form-group submit-form">
                 <button class="btn btn-primary btn-block"> Submit </button>
             </div> 
+            <div class="not-valid-password">
+                <div class="message">
+                    {{this.passwordError}}
+
+                </div>
+            </div>
         </form>
     </div>
 </div>

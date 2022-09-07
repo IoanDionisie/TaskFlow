@@ -10,7 +10,9 @@
 
     .item-title {
         width: 100%;
-        border-bottom: 1px solid lightgray;
+        font-weight: 500;
+        font-size: 18px;
+        margin-bottom: 20px;
     }
 
     .item-section {
@@ -18,10 +20,12 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-end;
-        margin-top: 20px;
 
         .item-sub-title {
             width: 50%;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
         }
 
         input  {
@@ -30,8 +34,8 @@
         }
 
         app-password-strength {
-            width: 100%;
-            margin-bottom: 15px;
+            width: 50%;
+            min-height: 28px;
         }
 
         .alert-danger {
@@ -45,6 +49,7 @@
         margin-top: 10px;
         display: flex;
         justify-content: flex-end;
+        margin-bottom: 8px;
 
         .btn-primary {
             width: 50%;
@@ -68,3 +73,18 @@
     }
 }
 
+.not-valid-password {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    color: red;
+    height: 25px;
+    font-weight: 400;
+    font-size: 16px;
+
+    .message {
+        width: 50%;
+        text-align: center;
+    }
+}

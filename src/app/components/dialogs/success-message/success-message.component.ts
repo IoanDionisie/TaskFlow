@@ -43,6 +43,8 @@ export class SuccessMessageComponent implements OnInit {
         } else if (this.eventType == Actions.beginTask) {
           this.successMessage = "";
           this.successMessage += MESSAGES['beginTask'] + " " + this.elementName;
+        } else if (this.eventType == Actions.changedPassword) {
+          this.successMessage = MESSAGES['changedPassword'];
         }
   
         this.setTimer();

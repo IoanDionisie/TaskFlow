@@ -135,7 +135,7 @@ export class DashboardComponent implements OnInit {
     }
 
     /* TODO */
-    this.completedTasks.sort((objA:any, objB:any) => Number(objB.dateCompleted) - Number(objA.dateCompleted));
+    this.completedTasks.sort((objA:any, objB:any) => Number(new Date(objB.dateCompleted)) - Number(new Date(objA.dateCompleted)));
   }
 
   createNewList() {
@@ -370,5 +370,9 @@ export class DashboardComponent implements OnInit {
   openAccountModal() {
     const modalRef = this.modalService.open(MyAccountComponent);
     modalRef.componentInstance.username = this.userName;
+    modalRef.componentInstance.changedPassword.subscribe(() => {
+      console.log("Changed password!");
+      this.showSuccessMessage(Actions.changedPassword, null);
+    })
   }
 }
