@@ -13,8 +13,10 @@ export class SettingsComponent implements OnInit  {
 
   tagName: string = "";
   tagColor: string = "";
-  showTagError: boolean  = false;
-  
+
+  showEmptyTagError: boolean  = false;
+  showTagLengthError: boolean = false;
+
   @Output() showMessage: EventEmitter<any> = new EventEmitter();
 
   constructor(private modal: NgbActiveModal) { }
@@ -29,10 +31,14 @@ export class SettingsComponent implements OnInit  {
   }
 
   addTag() {
+    this.showEmptyTagError = false;
+    this.showTagLengthError = false;
+
     if (this.tagName == "") {
-      this.showTagError = true;
+      this.showEmptyTagError = true;
+    } else if (this.tagName.length < 3) {
+      this.showTagLengthError = true
     } else {
-      this.showTagError = false;
       this.closeModal();
       let data = {
         tagName: this.tagName,
