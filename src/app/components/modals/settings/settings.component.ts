@@ -24,7 +24,6 @@ export class SettingsComponent implements OnInit  {
   
   ngOnInit(): void {
     this.tagColor = "#" + Math.floor(Math.random()*16777215).toString(16);
-    console.log(this.tagColor);
   }
 
   closeModal() {
@@ -52,7 +51,7 @@ export class SettingsComponent implements OnInit  {
           tagName: this.tagName,
           message: Actions.addTag
         }
-        
+
         this.showMessage.emit(showMessageData);
         this.closeModal();
       }); 

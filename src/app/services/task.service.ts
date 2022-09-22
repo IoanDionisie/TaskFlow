@@ -60,4 +60,9 @@ export class TaskService {
     return this.webReqService.get('tags');
   }
 
+  removeTag(tagId: any) {
+    let link = 'tags/' + tagId;
+    return this.webReqService.delete(link);
+  }
+
 }

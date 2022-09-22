@@ -38,6 +38,7 @@ import { PasswordStrengthComponent } from './components/password-strength/passwo
 import { MyAccountComponent } from './components/modals/my-account/my-account.component';
 import { CommonModule } from '@angular/common';
 import { SettingsComponent } from './components/modals/settings/settings.component';
+import { TagsListComponent } from './components/modals/tags-list/tags-list.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { SettingsComponent } from './components/modals/settings/settings.compone
     ViewListComponent,
     PasswordStrengthComponent,
     MyAccountComponent,
-    SettingsComponent
+    SettingsComponent,
+    TagsListComponent
   ],
   imports: [
     BrowserModule,

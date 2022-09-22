@@ -238,6 +238,20 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
 })
 
 /** 
+ * DELETE /tags/:id
+ * Purpose: Delete a tag
+ */
+ app.delete('/tags/:id', async (req, res) => {
+    // We want to delete the specified tag 
+    let tagId = req.params.id;
+    await Tag.findOneAndDelete({
+        _id: tagId
+    });
+   
+    res.status(200).send({});
+})
+
+/** 
  * GET /tags/
  * Purpose: Get a list of all tags for the currently logged user
  */

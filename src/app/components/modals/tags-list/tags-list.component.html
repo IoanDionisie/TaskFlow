@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title"> Tags List </h4>
+</div>
+
+<div class="modal-body">
+    <div class="tags">
+        <div *ngFor="let tag of tags" class="tag">
+            <div  [ngStyle]="{'background': tag.color}"  class="tag-title">
+                {{ tag.title }}
+            </div>
+            <i (click)="removeTag(tag)" class="fa-solid fa-xmark remove-tag"></i>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="closeModal()">Cancel</button>
+</div>

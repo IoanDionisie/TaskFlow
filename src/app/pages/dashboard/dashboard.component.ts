@@ -15,6 +15,7 @@ import { HelperService } from 'src/app/services/helper.service';
 import { SettingsComponent } from 'src/app/components/modals/settings/settings.component';
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { MyAccountComponent } from 'src/app/components/modals/my-account/my-account.component';
+import { TagsListComponent } from 'src/app/components/modals/tags-list/tags-list.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -256,7 +257,7 @@ export class DashboardComponent implements OnInit {
   }
 
   showTagsList() {
-    // todo
+    const modalRef = this.modalService.open(TagsListComponent);
   }
 
   setProgressbarColor() {
