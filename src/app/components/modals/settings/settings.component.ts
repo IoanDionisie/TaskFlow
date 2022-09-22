@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions } from 'src/app/enums/actions';
+import { TaskService } from 'src/app/services/task.service';
 
 @Component({
   selector: 'app-settings',
@@ -19,7 +20,7 @@ export class SettingsComponent implements OnInit  {
 
   @Output() showMessage: EventEmitter<any> = new EventEmitter();
 
-  constructor(private modal: NgbActiveModal) { }
+  constructor(private modal: NgbActiveModal, private taskService: TaskService) { }
   
   ngOnInit(): void {
     this.tagColor = "#" + Math.floor(Math.random()*16777215).toString(16);
@@ -39,15 +40,23 @@ export class SettingsComponent implements OnInit  {
     } else if (this.tagName.length < 3) {
       this.showTagLengthError = true
     } else {
-      this.closeModal();
-      let data = {
-        tagName: this.tagName,
-        message: Actions.addTag
+      let tag = {
+        title: this.tagName,
+        color: this.tagColor
       }
 
-      // Backend part TODO
+      this.taskService.createTag(tag).subscribe((response: any) => { 
+        console.log(response);  
 
-      this.showMessage.emit(data);
+        let showMessageData = {
+          tagName: this.tagName,
+          message: Actions.addTag
+        }
+        
+        this.showMessage.emit(showMessageData);
+        this.closeModal();
+      }); 
     }
   }
+  
 }

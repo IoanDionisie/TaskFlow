@@ -255,6 +255,10 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  showTagsList() {
+    // todo
+  }
+
   setProgressbarColor() {
     let percentCompleted = this.selectedList.percentCompleted;
 

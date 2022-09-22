@@ -52,4 +52,12 @@ export class TaskService {
     return this.webReqService.patch(link, list);
   }
 
+  createTag(payload: any) {
+    return this.webReqService.post('tags', payload);
+  }
+
+  getTags() {
+    return this.webReqService.get('tags');
+  }
+
 }

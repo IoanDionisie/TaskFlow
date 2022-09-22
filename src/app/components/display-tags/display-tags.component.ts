@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { tagsWithColors } from 'src/app/constants/tags-colors';
+import { TaskService } from 'src/app/services/task.service';
 
 @Component({
   selector: 'app-display-tags',
@@ -11,9 +12,13 @@ export class DisplayTagsComponent implements OnInit {
 
   tagsToDisplay: any;
   
-  constructor() { }
+  constructor(private taskService: TaskService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.taskService.getTags().subscribe(tags => {
+      // TODO get all tags and change the current behavior of hardcoded tags
+    });
+  }
 
   ngOnChanges() {
     this.displayTags();

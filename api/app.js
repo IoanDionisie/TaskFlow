@@ -27,6 +27,7 @@ const bodyParser = require('body-parser');
 const { List } = require('./db/models/list.model');
 const { Task } = require('./db/models/task.model');
 const { User } = require('./db/models/user.model');
+const { Tag } = require('./db/models/tag.model');
 const { authJwt } = require('./middleware');
 
 // Load middleware
@@ -208,6 +209,23 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
     res.status(200).send({});
 })
 
+/** 
+ * POST /tags
+ * Purpose: Create a new tag
+ */
+ app.post('/tags', (req, res) => {
+    let userId = authJwt.getUserId(req);
+
+    let newTag = new Tag({
+        title: req.body.title,
+        color: req.body.color,
+        userId: userId,
+    });
+
+    newTag.save().then((tag) => {
+        res.send(tag)
+    });
+})
 
 /** 
  * GET /users/
@@ -217,6 +235,18 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
      User.find().then((users) => {
         res.send(users)
      })
+})
+
+/** 
+ * GET /tags/
+ * Purpose: Get a list of all tags for the currently logged user
+ */
+ app.get('/tags', (req, res) => {
+    let userId = authJwt.getUserId(req);
+
+    Tag.find({userId: userId}).then((tags) => {
+       res.send(tags)
+    })
 })
 
 app.listen(3000, () => {
