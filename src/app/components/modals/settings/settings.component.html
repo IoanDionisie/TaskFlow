@@ -1,6 +1,7 @@
 <div class="modal-header">
     <h4 class="modal-title" id="modal-title"> Settings </h4>
 </div>
+
 <div class="modal-body">
     <div class="element theme">
         <div class="text">
@@ -14,6 +15,24 @@
         </label>
     </div>
        
+    <div class="element flex-wrap">
+        <div class="text">
+            Add a new tag
+        </div>
+        <div class="tag-data">
+            <input [ngStyle]="{'border-color': this.tagColor}" class="add-tag-input border-radius-10" type="text" placeholder="Enter tag name..." (change)='tagName=$event.target.value' [value]="this.tagName">
+            <input class="color-picker" type="color" id="head" name="head" (change)='tagColor=$event.target.value' [value]="this.tagColor">
+            <i class="fa-solid fa-eye-dropper color-picker-icon"></i>
+        </div>
+        <div class="add-tag">
+            <button class="btn add-tag" (click)="addTag()"> Add Tag </button>
+        </div>
+        <div class="tag-error">
+            <div *ngIf="this.showTagError == true" class="error-message">
+                Tag name cannot be empty!
+            </div>
+        </div>
+    </div>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-danger" (click)="closeModal()">Cancel</button>

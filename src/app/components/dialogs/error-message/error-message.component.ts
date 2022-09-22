@@ -26,14 +26,16 @@ export class ErrorMessageComponent implements OnInit {
     if (typeof this.eventData !== 'undefined') {
       this.eventType = this.eventData.eventType;
       this.elementName = this.eventData.elementName;
+      this.showModal = true;
 
       if (this.eventType == Actions.beginTask) {
-        this.showModal = true;
         this.errorMessage = MESSAGES['beginTaskError'];
       } else if (this.eventType == Actions.completeTask) {
-        this.showModal = true;
         this.errorMessage = MESSAGES['completeNotStartedTask'];
+      } else if (this.eventType = Actions.addEmptyTag) {
+        this.errorMessage = MESSAGES['addEmptyTag'];
       }
+
       this.setTimer();
     }
   }

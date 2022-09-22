@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -36,6 +36,8 @@ import { ErrorMessageComponent } from './components/dialogs/error-message/error-
 import { ViewListComponent } from './components/modals/view-list/view-list.component';
 import { PasswordStrengthComponent } from './components/password-strength/password-strength.component';
 import { MyAccountComponent } from './components/modals/my-account/my-account.component';
+import { CommonModule } from '@angular/common';
+import { SettingsComponent } from './components/modals/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,8 @@ import { MyAccountComponent } from './components/modals/my-account/my-account.co
     ErrorMessageComponent,
     ViewListComponent,
     PasswordStrengthComponent,
-    MyAccountComponent
+    MyAccountComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -76,9 +79,12 @@ import { MyAccountComponent } from './components/modals/my-account/my-account.co
     MatFormFieldModule,
     MatChipsModule,
     MatAutocompleteModule,
-    ReactiveFormsModule
+    ReactiveFormsModule, 
+    CommonModule
   ],
+
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+ }

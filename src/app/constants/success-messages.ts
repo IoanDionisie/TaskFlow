@@ -9,5 +9,6 @@ export const MESSAGES = {
     changedPassword: "Your password was changed succesfully!",
     passwordNotMatching: "The passwords do not match!",
     passwordTooShort: "The password must have at least 8 characters!",
+    addEmptyTag: "The tag name cannot be empty!"
 };
 

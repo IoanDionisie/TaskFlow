@@ -184,3 +184,15 @@ input:disabled, textarea:disabled {
 .login .margin-top {
     margin-top: 20px;
 }
+
+.border-radius-10 {
+    border-radius: 10px;
+}
+
+.border-dashed {
+    border: 1px dashed $listColor;
+}
+
+.margin-bottom-10 {
+    margin-bottom: 10px;
+}

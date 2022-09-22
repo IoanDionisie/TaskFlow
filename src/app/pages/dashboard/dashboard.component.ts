@@ -250,6 +250,9 @@ export class DashboardComponent implements OnInit {
 
   showSettings() {
     const modalRef = this.modalService.open(SettingsComponent);
+    modalRef.componentInstance.showMessage.subscribe((receivedData: any) => {
+      this.showSuccessMessage(receivedData.message, receivedData.tagName);
+    })
   }
 
   setProgressbarColor() {
@@ -371,7 +374,6 @@ export class DashboardComponent implements OnInit {
     const modalRef = this.modalService.open(MyAccountComponent);
     modalRef.componentInstance.username = this.userName;
     modalRef.componentInstance.changedPassword.subscribe(() => {
-      console.log("Changed password!");
       this.showSuccessMessage(Actions.changedPassword, null);
     })
   }

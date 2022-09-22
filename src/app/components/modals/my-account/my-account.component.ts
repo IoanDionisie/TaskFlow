@@ -42,7 +42,7 @@ export class MyAccountComponent implements OnInit {
     if (this.form.password != this.form.confirmPassword) {
       this.passwordError = MESSAGES["passwordNotMatching"];
     } else if (this.form.password.length < 8) {
-      this.passwordError = MESSAGES["passwordTooShort"]
+      this.passwordError = MESSAGES["passwordTooShort"];
     } else {
       this.authService.changePassword(this.form.username, this.form.password).subscribe({
         next: () => {
