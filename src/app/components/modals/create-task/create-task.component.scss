@@ -1,3 +1,12 @@
+@import "../../../../styles/variables.scss";
+
 app-tags {
     width: 100%;
+}
+
+.error-message {
+    display: flex;
+    justify-content: end;
+    color: $errorColor;
+    padding-top: 5px;
 }

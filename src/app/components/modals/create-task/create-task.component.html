@@ -6,6 +6,9 @@
         <label for="title">Title</label>
         <input type="text" id="title" [(ngModel)]="title" minlength="2">
     </div>
+    <div class="error-message" *ngIf="this.emptyTitle == true">
+       * The title cannot be empty.
+    </div>
   
     <div class="description modal-text description-container">
         <label for="description">Description</label>

@@ -13,6 +13,7 @@ export class CreateTaskComponent  {
   @Output() createTaskConfirmation: EventEmitter<any> = new EventEmitter();
 
   title: any;
+  emptyTitle: boolean = false;
   description: any;
   tags: Object[]|undefined;
 
@@ -31,8 +32,12 @@ export class CreateTaskComponent  {
       tags: this.tags
     }
 
-    this.createTaskConfirmation.emit(obj);
-    this.closeModal();
+    if  (this.title == null ||this.title.length == 0) {
+      this.emptyTitle = true;
+    } else {
+      this.createTaskConfirmation.emit(obj);
+      this.closeModal();
+    }
   }
 
   closeModal() {
