@@ -44,11 +44,16 @@ export class CreateTaskComponent  {
     this.modal.close();
   }
 
-  tagsAddedHandler(tags: string[]) {
+  tagsAddedHandler(tags: any) {
     this.tags = [];
 
     for (let i = 0; i < tags.length; ++i) {
-      this.tags?.push({title: tags[i]});
+      if (tags[i].title == null) {
+        let color = "#" + Math.floor(Math.random()*16777215).toString(16);
+        this.tags?.push({title: tags[i], color: color});
+      } else {
+        this.tags?.push(tags[i]);
+      }
     }
   }
 }

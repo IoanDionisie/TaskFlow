@@ -1,5 +1,5 @@
 <div class="task-tags">
-    <div *ngFor="let tag of tagsToDisplay" class="tag" [ngClass]="tag.class">
+    <div *ngFor="let tag of tags" class="tag" [ngStyle]="{'background': tag.color}"  >
         {{tag.title}}
     </div>
 </div>
