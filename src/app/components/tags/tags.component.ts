@@ -1,12 +1,11 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, ViewChildren } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
-import {COMMA, ENTER, M} from '@angular/cdk/keycodes';
-import { debounceTime, Observable } from 'rxjs';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ErrorMessageComponent } from '../dialogs/error-message/error-message.component';
 import { TaskService } from 'src/app/services/task.service';
 
 @Component({
@@ -51,15 +50,17 @@ export class TagsComponent {
       this.tooManyTagsError();
     } else {
       const value = (event.value || '').trim();
+      console.log(value);
       if (value) {
         this.tags.push(value);
       }
   
       // Send the tags array to the parent component
       this.tagsAdded.emit(this.tags);
-      this.tagsControl.setValue(null);
     }
     // Clear the input value
+    this.tagsControl.setValue(null);
+    this.tagInput!.nativeElement.value = '';
     event.chipInput!.clear();
   }
 
@@ -81,7 +82,6 @@ export class TagsComponent {
           break;
         }
       }
-  
       this.tagInput!.nativeElement.value = '';
       this.tagsControl.setValue(null);
       // Send the tags array to the parent component

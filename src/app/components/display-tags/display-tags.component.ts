@@ -11,7 +11,6 @@ export class DisplayTagsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void { 
-    console.log(this.tags);
   }
 
 }

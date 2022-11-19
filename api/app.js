@@ -137,7 +137,7 @@ app.post('/lists/:id/tasks', async (req, res) => {
         description: req.body.description,
         dateCreated: req.body.dateCreated,
         tags: req.body.tags,
-        order: lastTask.order + 1
+        order: lastTask != null ? lastTask.order + 1 : 0
     })
 
     task.save().then((taskDoc) => {

@@ -16,6 +16,7 @@ import { SettingsComponent } from 'src/app/components/modals/settings/settings.c
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { MyAccountComponent } from 'src/app/components/modals/my-account/my-account.component';
 import { TagsListComponent } from 'src/app/components/modals/tags-list/tags-list.component';
+import { List } from 'src/app/models/list.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,11 +25,11 @@ import { TagsListComponent } from 'src/app/components/modals/tags-list/tags-list
 })
 
 export class DashboardComponent implements OnInit {
-  lists: any[] = [];
+  lists: List[] = [];
   inProgressTasks: any = [];
   completedTasks: any = [];
-  inProgressLists: any = [];
-  completedLists: any = [];
+  inProgressLists: List[] = [];
+  completedLists: List[] = [];
   tasks: any;
   displayInProgress: boolean = true;
   selectedList: any;

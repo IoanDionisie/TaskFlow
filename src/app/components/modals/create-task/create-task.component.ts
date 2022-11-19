@@ -1,6 +1,6 @@
 import { ITEM_STATUS } from 'src/app/constants/item-status';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-create-task',

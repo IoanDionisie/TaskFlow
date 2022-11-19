@@ -50,7 +50,6 @@ export class ModifyItemComponent implements OnInit {
 
     for (let i = 0; i < tags.length; ++i) {
       if (tags[i].title == null || typeof tags[i].title == 'undefined') {
-        console.log("adding title to undefined!");
         let color = "#" + Math.floor(Math.random()*16777215).toString(16);
         this.tags?.push({title: tags[i], color: color});
       } else {

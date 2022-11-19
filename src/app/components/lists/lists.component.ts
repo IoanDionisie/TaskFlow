@@ -19,6 +19,7 @@ import {
 } from '@angular/animations';
 import { ViewTaskComponent } from '../modals/view-task/view-task.component';
 import { ViewListComponent } from '../modals/view-list/view-list.component';
+import { List } from 'src/app/models/list.model';
 
 
 @Component({
@@ -44,9 +45,9 @@ import { ViewListComponent } from '../modals/view-list/view-list.component';
 })
 
 export class ListsComponent implements OnInit {
-  @Input() inProgressLists:any;
-  @Input() completedLists: any;
-  @Input() selectedList: any;
+  @Input() inProgressLists: List[] = [];
+  @Input() completedLists: List[] = [];
+  @Input() selectedList: List = new List("");
   @Output() listEvent: EventEmitter<any> = new EventEmitter();
   @Input() incrementNumber: any;
   @Input() progressBarColor: any;
@@ -57,7 +58,8 @@ export class ListsComponent implements OnInit {
   readonly ITEM_STATUS = ITEM_STATUS;
 
   constructor(private taskService: TaskService, private modalService: NgbModal, private token: TokenStorageService,
-    private helperService: HelperService) {}
+    private helperService: HelperService) {
+    }
 
   ngOnInit(): void {
     this.showInProgress = true;
@@ -78,7 +80,7 @@ export class ListsComponent implements OnInit {
     }
   }
   
-  modifyThisList(list: any) {
+  modifyThisList(list: List) {
     const modalRef = this.modalService.open(ModifyItemComponent);
     this.helperService.modalRefConfig(modalRef, ITEM_TYPE.list, list);
 
@@ -93,7 +95,7 @@ export class ListsComponent implements OnInit {
     })
   }
 
-  deleteThisList(list: any) {
+  deleteThisList(list: List) {
     const modalRef = this.modalService.open(DeleteItemComponent);
     modalRef.componentInstance.elementName = ITEM_TYPE.list;
     modalRef.componentInstance.removeConfirmation.subscribe((receivedData: any) => {
@@ -112,7 +114,7 @@ export class ListsComponent implements OnInit {
     }, 2000);
   }
 
-  markAsCompleted(list: any) {
+  markAsCompleted(list: List) {
     list.status = ITEM_STATUS.completed;
     list.dateCompleted = new Date();
     this.taskService.modifyList(list._id, list).subscribe((response: any) => {
@@ -120,17 +122,19 @@ export class ListsComponent implements OnInit {
     })
   }
 
-  selectList(list: any)  {
+  selectList(list: List)  {
     this.selectedList = list;
+    console.log(this.selectedList);
+
     this.pickListEvent(ListActions.selectList, list);
   }
 
-  pickListEvent(listAction: any, list: any) {
+  pickListEvent(listAction: any, list: List) {
     let emitObject = {listEvent: listAction, list: list};
     this.listEvent.emit(emitObject);
   }
 
-  showListInfo(list: any) {
+  showListInfo(list: List) {
     const modalRef = this.modalService.open(ViewListComponent);
     modalRef.componentInstance.list = list;
   }

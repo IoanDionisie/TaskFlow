@@ -42,9 +42,7 @@ export class RegisterComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-
     this.working = true;
-
     const { username, email, password } = this.form;
    
     this.authService.register(username, email, password).subscribe({
