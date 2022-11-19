@@ -23,32 +23,4 @@
     .tag:not(:last-child) {
         margin-right: 3px;
     }
-
-    .codeRefactory {
-        background: $codeRefactoryTag;
-    }
-
-    .frontend {
-        background: $frontendTag;
-    }
-
-    .backend {
-        background: $backendTag;
-    }
-    
-    .git {
-        background: $gitTag;
-    }
-
-    .testing {
-        background: $testingTag;
-    }
-
-    .frontendBackend {
-        background: $frontendBackendTag;
-    }
-
-    .bug {
-        background: $bugTag;
-    }
 }

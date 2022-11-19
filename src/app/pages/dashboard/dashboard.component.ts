@@ -3,7 +3,7 @@ import { TaskService } from 'src/app/services/task.service';
 import { DeleteItemComponent } from 'src/app/components/dialogs/delete-item/delete-item.component';
 import { CreateListComponent } from 'src/app/components/modals/create-list/create-list.component';
 import { CreateTaskComponent } from 'src/app/components/modals/create-task/create-task.component';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ModifyItemComponent } from 'src/app/components/modals/modify-item/modify-item.component';
 import { ListActions } from 'src/app/enums/list-actions.model';
 import { Actions } from 'src/app/enums/actions';
@@ -26,8 +26,8 @@ import { List } from 'src/app/models/list.model';
 
 export class DashboardComponent implements OnInit {
   lists: List[] = [];
-  inProgressTasks: any = [];
-  completedTasks: any = [];
+  inProgressTasks: Task[] = [];
+  completedTasks: Task[] = [];
   inProgressLists: List[] = [];
   completedLists: List[] = [];
   tasks: any;
@@ -39,7 +39,6 @@ export class DashboardComponent implements OnInit {
 
   dummyCounter:number = 0;
   incrementNumber = false;
-  
   progressBarColor: any;
   
   userName: string = "";

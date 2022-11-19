@@ -47,7 +47,7 @@ import { List } from 'src/app/models/list.model';
 export class ListsComponent implements OnInit {
   @Input() inProgressLists: List[] = [];
   @Input() completedLists: List[] = [];
-  @Input() selectedList: List = new List("");
+  @Input() selectedList: List = new List();
   @Output() listEvent: EventEmitter<any> = new EventEmitter();
   @Input() incrementNumber: any;
   @Input() progressBarColor: any;

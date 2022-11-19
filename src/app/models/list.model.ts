@@ -11,8 +11,5 @@ export class List {
     userId?: string;
     percentCompleted?: number;
 
-    constructor(title: string) {
-        this.title = title;
-    }
     
 }
