@@ -50,7 +50,6 @@ export class TagsComponent {
       this.tooManyTagsError();
     } else {
       const value = (event.value || '').trim();
-      console.log(value);
       if (value) {
         this.tags.push(value);
       }
@@ -58,6 +57,7 @@ export class TagsComponent {
       // Send the tags array to the parent component
       this.tagsAdded.emit(this.tags);
     }
+
     // Clear the input value
     this.tagsControl.setValue(null);
     this.tagInput!.nativeElement.value = '';
@@ -89,9 +89,11 @@ export class TagsComponent {
     }
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.tagsFromServer.filter((tag: { title: string; }) => tag.title.toLowerCase().includes(filterValue));
+  private _filter(value: string): any {
+    if(typeof value == 'string')  {
+      const filterValue = value.toLowerCase();
+      return this.tagsFromServer.filter((tag: { title: string; }) => tag.title.toLowerCase().includes(filterValue));
+    }
   }
 
   ngOnInit(): void {
