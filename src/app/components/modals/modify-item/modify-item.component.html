@@ -19,7 +19,7 @@
     
     <div *ngIf="elementName == ITEM_TYPE.task" class="observations modal-text description-container">
         <label>Tags</label>
-        <app-tags [currentTags]="this.tags" (tagsAdded)="tagsAddedHandler($event)"></app-tags>
+        <app-tags [currentTags]="this.tags" [taskCompleted]="this.status" (tagsAdded)="tagsAddedHandler($event)"></app-tags>
     </div>
 </div>
 <div class="modal-footer">

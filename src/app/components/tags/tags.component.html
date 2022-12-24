@@ -8,7 +8,7 @@
         *ngFor="let tag of tags"
         (removed)="remove(tag)">
         {{tag.title != null ? tag.title : tag}}
-        <button matChipRemove>
+        <button matChipRemove [disabled]="this.taskCompleted == ITEM_STATUS.completed">
           <mat-icon>cancel</mat-icon>
         </button>
       </mat-chip>
@@ -16,6 +16,7 @@
       <input
         placeholder="Add tag..."
         #tagInput
+        [disabled]="this.taskCompleted == ITEM_STATUS.completed"
         [formControl]="tagsControl"
         [matAutocomplete]="auto"
         [matChipInputFor]="tagList"

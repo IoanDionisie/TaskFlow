@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TaskService } from 'src/app/services/task.service';
+import { ITEM_STATUS } from 'src/app/constants/item-status';
 
 @Component({
   selector: 'app-tags',
@@ -21,18 +22,18 @@ export class TagsComponent {
   
   separatorKeysCodes: number[] = [ENTER, COMMA];
   tagsControl = new FormControl('');
- 
   filteredTags: Observable<string[]>|undefined;
   tags: string[] = [];
   tagsToEmit: any;
   allTags: string[] = [];
   auto: any;
-
   tagsFromServer: any;
-
   tooManyTags: boolean = false;
-
   tagsWithColors: any;
+
+  readonly ITEM_STATUS = ITEM_STATUS;
+
+  @Input() taskCompleted: string = '';
 
   @Input() currentTags: any;
 
@@ -97,6 +98,7 @@ export class TagsComponent {
   }
 
   ngOnInit(): void {
+    this.tagsControl.disable();
   }
 
   ngAfterViewInit() {

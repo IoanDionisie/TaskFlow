@@ -35,3 +35,8 @@ mat-form-field  {
 .display-none {
     display: none;
 }
+
+input:disabled {
+    display: none!important;
+    pointer-events: none;
+}

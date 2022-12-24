@@ -9,7 +9,7 @@ import { ITEM_TYPE } from 'src/app/constants/item-types';
   styleUrls: ['./modify-item.component.scss']
 })
 export class ModifyItemComponent implements OnInit {
-
+  
   @Input() public elementName: any;
   @Input() public title: string = "";
   @Input() public description: string = "";
