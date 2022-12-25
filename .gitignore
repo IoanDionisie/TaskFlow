@@ -6,6 +6,10 @@
 /out-tsc
 /bazel-out
 
+
+# Uploads
+api/uploads
+
 # Node
 /node_modules
 api/node_modules

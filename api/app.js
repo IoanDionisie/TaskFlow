@@ -32,11 +32,24 @@ const { authJwt } = require('./middleware');
 
 // Load middleware
 app.use(bodyParser.json());
-
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 /* Route handlers */
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
+
+const  multipart  =  require('connect-multiparty');
+const  multipartMiddleware  =  multipart(
+    { uploadDir:  './uploads'}
+);
+
+app.post('/api/upload', multipartMiddleware, (req, res) => {
+    res.json({
+        'message': 'File uploaded successfully'
+    });
+});
 
 /* List routes */
 
@@ -113,10 +126,10 @@ app.delete('/lists/:id', async (req, res) => {
  * GET /lists/:id/tasks
  * Purpose: Get all tasks in a specific list
  */
-app.get('/lists/:id/tasks', (req, res) => {
+app.get('/lists/:id/tasks', async (req, res) => {
     let id = req.params.id;
 
-    Task.find({
+    await Task.find({
         _listId: id
     }).sort({order: "desc"}).then((tasks) => {
         res.send(tasks);
@@ -140,7 +153,7 @@ app.post('/lists/:id/tasks', async (req, res) => {
         order: lastTask != null ? lastTask.order + 1 : 0
     })
 
-    task.save().then((taskDoc) => {
+    await task.save().then((taskDoc) => {
         res.send(taskDoc);
     })    
 })

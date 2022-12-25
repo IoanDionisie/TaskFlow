@@ -204,7 +204,6 @@ input:disabled, textarea:disabled {
     --secondary-dark: #121212;
     --text-dark: #fff;
     --header-text-dark: #788791;
-   
 }
 
 .color-scheme-dark {
@@ -232,5 +231,9 @@ input:disabled, textarea:disabled {
         .mat-tab-label-content {
             color: var(--text-dark)!important;
         }
+    }
+
+    .not-started-task-color {
+        color: var(--text-dark)!important;
     }
 }

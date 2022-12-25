@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/services/auth.service';
 import { Output, EventEmitter } from '@angular/core';
 import { MESSAGES } from 'src/app/constants/success-messages';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-my-account',
@@ -15,7 +16,8 @@ export class MyAccountComponent implements OnInit {
   strongPassword = false;
   errorMessage = "";
   passwordError = "";
-  
+  uploadedFiles: File | undefined;
+
   @Input() username: any;
   @Output() changedPassword = new EventEmitter<string>();
 
@@ -25,7 +27,8 @@ export class MyAccountComponent implements OnInit {
     password: null
   };
 
-  constructor(private modal: NgbActiveModal, private authService: AuthService) { }
+  constructor(private modal: NgbActiveModal, private authService: AuthService, 
+    private http: HttpClient) { }
 
   ngOnInit(): void {
     this.form.password = "";
@@ -57,5 +60,21 @@ export class MyAccountComponent implements OnInit {
 
   onPasswordStrengthChanged(event: boolean) {
     this.strongPassword = event;
+  }
+
+  fileChange(element: any) {
+    this.uploadedFiles = element.target.files[0];
+  }
+
+
+  uploadFile() {
+    let formData = new FormData();
+    if (this.uploadedFiles) {
+      formData.append("uploads", this.uploadedFiles, this.uploadedFiles.name);
+      this.http.post('/api/upload', formData)
+      .subscribe((response) => {
+           console.log('response received is ', response);
+      })
+    }
   }
 }
