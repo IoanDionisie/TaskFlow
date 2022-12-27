@@ -1,14 +1,11 @@
 const express = require('express');
 const cors = require("cors");
 const app = express();
+const fs = require('fs');
+const multer = require("multer");
+const multipart  =  require('connect-multiparty');
 
-/*
-
-var corsOptions = {
-    origin: "http://localhost:3000"
-};
-app.use(cors(corsOptions));
-*/
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -40,14 +37,37 @@ app.use(bodyParser.urlencoded({
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
 
-const  multipart  =  require('connect-multiparty');
-const  multipartMiddleware  =  multipart(
-    { uploadDir:  './uploads'}
-);
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+       cb(null, "./uploads")
+    },
+    //TODO change file extension
+    filename: (req, file, cb) => {
+        const userId = authJwt.getUserId(req);
+        const fileSize = parseInt(req.headers["content-length"]);
+        if (fileSize < 10000000)  {
+            cb(null, `${userId}-profilepicture.jpg`);
+        } else {
+            //TODO add size limitation
+        }
+    }
+});
 
-app.post('/api/upload', multipartMiddleware, (req, res) => {
-    res.json({
-        'message': 'File uploaded successfully'
+// Make the uploads folder accesible to retrieve the profile pic on frontend
+app.use('/api/images', express.static('uploads'));
+
+const fileData = multer({ storage: storage });
+var uploadSingle = fileData.single("uploads");
+
+app.post('/api/upload', (req, res) => {
+    uploadSingle(req, res, function (err) {
+        if (err) {
+            console.log(err);
+            return;
+        } else if (res.status(200)) {
+            res.json({ message: "Successfully uploaded files" });
+            res.end();
+        }
     });
 });
 
@@ -245,9 +265,9 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
  * Purpose: Get a list of all users
  */
  app.get('/users', (req, res) => {
-     User.find().then((users) => {
+    User.find().then((users) => {
         res.send(users)
-     })
+    })
 })
 
 /** 

@@ -17,6 +17,7 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { MyAccountComponent } from 'src/app/components/modals/my-account/my-account.component';
 import { TagsListComponent } from 'src/app/components/modals/tags-list/tags-list.component';
 import { List } from 'src/app/models/list.model';
+import { ImageService } from 'src/app/services/image.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -47,6 +48,7 @@ export class DashboardComponent implements OnInit {
 
   readonly ITEM_TYPE = ITEM_TYPE;
   readonly ITEM_STATUS = ITEM_STATUS;
+  readonly profilePicture = window.sessionStorage.getItem("profilepicture");
 
   public searchFilter: any = "";
 
@@ -55,11 +57,13 @@ export class DashboardComponent implements OnInit {
   @HostBinding('class') class = 'center-component';
 
   constructor(private taskService: TaskService, private modalService: NgbModal,
-    private token: TokenStorageService, private helperService: HelperService) { }
+    private token: TokenStorageService, private helperService: HelperService,
+    private imageService: ImageService) { }
 
   ngOnInit(): void {
     this.getAllLists();
     this.userName = this.token.getUser().username;
+    this.imageService.setProfilePicture();
   }
 
   groupLists() {

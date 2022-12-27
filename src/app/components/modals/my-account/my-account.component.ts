@@ -5,6 +5,8 @@ import { Output, EventEmitter } from '@angular/core';
 import { MESSAGES } from 'src/app/constants/success-messages';
 import { HttpClient } from '@angular/common/http';
 
+const API_URL = 'http://localhost:3000/api/';
+
 @Component({
   selector: 'app-my-account',
   templateUrl: './my-account.component.html',
@@ -16,11 +18,12 @@ export class MyAccountComponent implements OnInit {
   strongPassword = false;
   errorMessage = "";
   passwordError = "";
-  uploadedFiles: File | undefined;
+  uploadedFile: File | undefined;
 
   @Input() username: any;
   @Output() changedPassword = new EventEmitter<string>();
 
+  
   form: any = {
     confirmPassword: null,
     username: null,
@@ -63,15 +66,15 @@ export class MyAccountComponent implements OnInit {
   }
 
   fileChange(element: any) {
-    this.uploadedFiles = element.target.files[0];
+    this.uploadedFile = element.target.files[0];
   }
 
 
   uploadFile() {
     let formData = new FormData();
-    if (this.uploadedFiles) {
-      formData.append("uploads", this.uploadedFiles, this.uploadedFiles.name);
-      this.http.post('/api/upload', formData)
+    if (this.uploadedFile) {
+      formData.append("uploads", this.uploadedFile, this.uploadedFile.name);
+      this.http.post(API_URL + 'upload', formData)
       .subscribe((response) => {
            console.log('response received is ', response);
       })

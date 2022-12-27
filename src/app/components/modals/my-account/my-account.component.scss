@@ -93,3 +93,17 @@
 .upload {
     cursor: pointer;
 }
+
+.custom-file-label {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.custom-file-label:hover {
+    cursor: pointer;
+}
+
+.custom-file-label::after {
+    display: none!important;
+}

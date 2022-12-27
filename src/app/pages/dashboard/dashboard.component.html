@@ -2,9 +2,8 @@
     <div class="work-break">
         <app-work-break></app-work-break>    
     </div>
-
     <div ngbDropdown class="user-section" id="userSectionDropdown">
-        <img class="user-small-image"   src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
+        <img class="user-small-image"   [src]="this.profilePicture ? this.profilePicture : '//ssl.gstatic.com/accounts/ui/avatar_2x.png'">
         <div ngbDropdownToggle class="username" >
             {{ userName }}
         </div>

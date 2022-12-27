@@ -65,8 +65,8 @@
 .task-manager-container {
     width: 100%;
     opacity: 0.9;
-    max-width: 70%;
-    max-height: 80%;
+    max-width: 80%;
+    max-height: 95%;
     height: 100%;
     background: whitesmoke;
     padding: 8px 15px 8px 15px;
@@ -443,11 +443,13 @@
 
 
 .user-section {
+    width: auto;
+    height: 35px;
     position: absolute;
     right: 10px;
     top: 8px;
     display: flex;
-    padding: 4px 15px 5px 5px;
+    padding: 4px 15px 5px 0px;
     justify-content: space-between;
     align-items: center;
     background: $listColor;
@@ -455,14 +457,16 @@
     border-radius: 20px;
 
     .user-small-image {
-        width: 30px;
-        height: 30px;
+        width: 45px;
+        height: 45px;
         border-radius: 40px;
-        margin-right: 15px;
+        margin-right: 10px;
     }
 
     .username  {
         font-size: 18px;
+        align-items: center;
+        display: flex;
     }
 
     .username:hover {
@@ -470,12 +474,18 @@
     }
 
     #user-section-dropdown-content {
-        transform: translate(14px, 40px)!important;
+        transform: translate(15px, 40px)!important;
+        border-top-left-radius: 20px;
+        border: none;
         padding: 0;
         .user-dropdown-action {
             color: white;
             padding: 5px 10px 5px 10px;
             background: $listColor;
+        }
+
+        .user-dropdown-action:first-child {
+            border-top-left-radius: 20px;
         }
 
         .user-dropdown-action:not(:last-child) {
