@@ -23,9 +23,11 @@ export class ViewTaskComponent implements OnInit {
   ngOnInit(): void {
     this.dateCreated = Utils.convertDate(new Date(this.task.dateCreated));
     this.dateCompleted = Utils.convertDate(new Date(this.task.dateCompleted));
-    console.log(this.task.lastDateStarted, this.task.dateStarted);
-    let dateStarted = this.task.lastDateStarted ? this.task.lastDateStarted : this.task.dateStarted;
-    this.workingTime = this.helperService.secondsToHoursMinutesSeconds(this.task.pastWorkingTime + this.helperService.getSecondsDiff(dateStarted, this.task.dateCompleted));
+    if (this.task.totalWorkingTime == 0) {
+      this.workingTime = this.helperService.secondsToHoursMinutesSeconds(this.helperService.getSecondsDiff(new Date(this.task.dateCreated), new Date(this.task.dateCompleted)));
+    } else {
+      this.workingTime = this.helperService.secondsToHoursMinutesSeconds(this.task.totalWorkingTime);
+    }
   }
 
   closeModal() {

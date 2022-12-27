@@ -243,7 +243,7 @@ export class DashboardComponent implements OnInit {
 
     this.taskService.modifyTask(this.selectedList._id, task._id, task).subscribe((response: any) => {
       this.inProgressTasks.splice(index, 1);
-      task.pastWorkingTime += pastWorkingTime;
+      task.totalWorkingTime += pastWorkingTime;
       this.completedTasks.unshift(task);
       this.calculatePercentCompleted();
       this.setProgressbarColor();

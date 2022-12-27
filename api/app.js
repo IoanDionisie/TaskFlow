@@ -72,6 +72,7 @@ app.post('/api/upload', (req, res) => {
     });
 });
 
+
 /* List routes */
 
 /** 
@@ -214,7 +215,7 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
  */
  app.patch('/lists/:listId/tasks/:taskId', async (req, res) => {
     let task = await Task.findById(req.params.taskId);
-    let totalWorkingTime = 0;
+    let totalWorkingTime;
     if (req.body.datePaused) {
         totalWorkingTime = req.body.pastWorkingTime + task.pastWorkingTime;
         await Task.findByIdAndUpdate(
@@ -231,21 +232,36 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
         res.status(200).send({});
     } else {
         if (req.body.status == "Completed") {
-            totalWorkingTime = req.body.pastWorkingTime + task.pastWorkingTime;
-        }
-        await Task.findByIdAndUpdate(
-            req.params.taskId, {
-                title: req.body.title,
-                description: req.body.description,
-                dateCompleted: req.body.dateCompleted,
-                status: req.body.status,
-                observations: req.body.observations,
-                lastDateStarted: req.body.dateStarted,
-                tags: req.body.tags,
-                totalWorkingTime: totalWorkingTime,
-                isStarted: req.body.isStarted
-            })
-        res.status(200).send({});
+            if (task.pastWorkingTime > 0) {
+                totalWorkingTime = req.body.pastWorkingTime + task.pastWorkingTime;
+            }
+            
+            await Task.findByIdAndUpdate(
+                req.params.taskId, {
+                    title: req.body.title,
+                    description: req.body.description,
+                    dateCompleted: req.body.dateCompleted,
+                    status: req.body.status,
+                    observations: req.body.observations,
+                    lastDateStarted: req.body.dateStarted,
+                    tags: req.body.tags,
+                    totalWorkingTime: totalWorkingTime,
+                    isStarted: req.body.isStarted
+                })
+        } else {
+            await Task.findByIdAndUpdate(
+                req.params.taskId, {
+                    title: req.body.title,
+                    description: req.body.description,
+                    dateCompleted: req.body.dateCompleted,
+                    status: req.body.status,
+                    observations: req.body.observations,
+                    lastDateStarted: req.body.dateStarted,
+                    tags: req.body.tags,
+                    isStarted: req.body.isStarted
+                })
+        } 
+        res.status(200).send({totalWorkingTime});
     }
 })
 

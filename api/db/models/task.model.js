@@ -64,6 +64,10 @@ const TaskSchema = new mongoose.Schema({
     pastWorkingTime: {
         type: Number,
         default: 0
+    }, 
+    totalWorkingTime: {
+        type: Number,
+        default: 0
     }
 })
 
