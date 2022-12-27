@@ -47,6 +47,15 @@ export class SuccessMessageComponent implements OnInit {
           this.successMessage = MESSAGES['changedPassword'];
         } else if (this.eventType == Actions.addTag) {
           this.successMessage = "Tag " + this.elementName + MESSAGES['addItem'];
+        } else  if (this.eventType == Actions.resumeTask) {
+          this.successMessage = "";
+          this.successMessage += MESSAGES['resumeTask'];
+        } else if (this.eventType == Actions.pauseTask) {
+          this.successMessage = "";
+          this.successMessage += MESSAGES['pauseTask'];
+        } else if (this.eventType == Actions.changeProfilePicture) {
+          this.successMessage = "";
+          this.successMessage += MESSAGES['changeProfilePicture'];
         }
   
         this.setTimer();

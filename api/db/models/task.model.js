@@ -46,10 +46,13 @@ const TaskSchema = new mongoose.Schema({
         type: Date
     },
     isStarted: {
-        type: Boolean,
-        default: false
+        type: String,
+        default: "notStarted"
     },
     dateStarted: {
+        type: Date
+    },
+    lastDateStarted: {
         type: Date
     },
     dateCompleted: {
@@ -57,7 +60,11 @@ const TaskSchema = new mongoose.Schema({
     },
     tags: [
         TagSchema
-    ]
+    ],
+    pastWorkingTime: {
+        type: Number,
+        default: 0
+    }
 })
 
 const Task = mongoose.model('task', TaskSchema);

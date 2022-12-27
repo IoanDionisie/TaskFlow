@@ -8,7 +8,10 @@ export enum Actions {
   completeTask,
   completeList,
   beginTask,
+  pauseTask,
+  resumeTask,
   changedPassword,
   addTag,
-  addEmptyTag
+  addEmptyTag,
+  changeProfilePicture
 }

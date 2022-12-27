@@ -26,6 +26,7 @@ const { Task } = require('./db/models/task.model');
 const { User } = require('./db/models/user.model');
 const { Tag } = require('./db/models/tag.model');
 const { authJwt } = require('./middleware');
+const e = require('express');
 
 // Load middleware
 app.use(bodyParser.json());
@@ -170,7 +171,8 @@ app.post('/lists/:id/tasks', async (req, res) => {
         description: req.body.description,
         dateCreated: req.body.dateCreated,
         tags: req.body.tags,
-        order: lastTask != null ? lastTask.order + 1 : 0
+        order: lastTask != null ? lastTask.order + 1 : 0,
+        totalWorkTime: 0
     })
 
     await task.save().then((taskDoc) => {
@@ -211,19 +213,40 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
  * Purpose: Modifies an existing task
  */
  app.patch('/lists/:listId/tasks/:taskId', async (req, res) => {
-    // We want to update an existing task speficied by taskId 
-    await Task.findByIdAndUpdate(
-        req.params.taskId, {
-            title: req.body.title,
-            description: req.body.description,
-            dateCompleted: req.body.dateCompleted,
-            status: req.body.status,
-            observations: req.body.observations,
-            dateStarted: req.body.dateStarted,
-            tags: req.body.tags,
-            isStarted: req.body.isStarted
-        })
-    res.status(200).send({});
+    let task = await Task.findById(req.params.taskId);
+    let totalWorkingTime = 0;
+    if (req.body.datePaused) {
+        totalWorkingTime = req.body.pastWorkingTime + task.pastWorkingTime;
+        await Task.findByIdAndUpdate(
+            req.params.taskId, {
+                title: req.body.title,
+                description: req.body.description,
+                dateCompleted: req.body.dateCompleted,
+                status: req.body.status,
+                observations: req.body.observations,
+                tags: req.body.tags,
+                isStarted: req.body.isStarted,
+                pastWorkingTime: totalWorkingTime
+            })
+        res.status(200).send({});
+    } else {
+        if (req.body.status == "Completed") {
+            totalWorkingTime = req.body.pastWorkingTime + task.pastWorkingTime;
+        }
+        await Task.findByIdAndUpdate(
+            req.params.taskId, {
+                title: req.body.title,
+                description: req.body.description,
+                dateCompleted: req.body.dateCompleted,
+                status: req.body.status,
+                observations: req.body.observations,
+                lastDateStarted: req.body.dateStarted,
+                tags: req.body.tags,
+                totalWorkingTime: totalWorkingTime,
+                isStarted: req.body.isStarted
+            })
+        res.status(200).send({});
+    }
 })
 
 /** 

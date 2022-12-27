@@ -31,4 +31,30 @@ export class HelperService {
         modalRef.componentInstance.observations = item.observations;
     }
   }
+
+  secondsToHoursMinutesSeconds (sec_num: any): string {
+    let hours   = Math.floor(sec_num / 3600);
+    let minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    let seconds = sec_num - (hours * 3600) - (minutes * 60);
+    let strHours = hours.toString(), strMinutes = minutes.toString(), strSeconds = seconds.toString();
+
+    if (hours   < 10) {
+      strHours   = "0" + hours;
+    } 
+    if (minutes < 10) {
+      strMinutes = "0" + minutes;
+    }
+    if (seconds < 10) {
+      strSeconds = "0" + seconds;
+    }
+
+    return strHours+':'+strMinutes+':'+strSeconds;
+  }
+
+  getSecondsDiff(startDate: any, endDate: any) {
+    const msInSecond = 1000;
+    return Math.round(
+      Math.abs(endDate - startDate) / msInSecond
+    );
+  }
 }

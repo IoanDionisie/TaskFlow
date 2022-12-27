@@ -23,6 +23,7 @@ export class MyAccountComponent implements OnInit {
   @Input() username: any;
   @Output() changedPassword = new EventEmitter<string>();
 
+  @Output() changedProfilePicture = new EventEmitter<string>();
   
   form: any = {
     confirmPassword: null,
@@ -75,8 +76,9 @@ export class MyAccountComponent implements OnInit {
     if (this.uploadedFile) {
       formData.append("uploads", this.uploadedFile, this.uploadedFile.name);
       this.http.post(API_URL + 'upload', formData)
-      .subscribe((response) => {
-           console.log('response received is ', response);
+      .subscribe(() => {
+        this.changedProfilePicture.emit();
+        this.closeModal();
       })
     }
   }
