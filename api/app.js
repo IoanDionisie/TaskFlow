@@ -165,13 +165,17 @@ app.get('/lists/:id/tasks', async (req, res) => {
 app.post('/lists/:id/tasks', async (req, res) => {
     //  We want to create a new task in the specified list
     let lastTask = await Task.findOne().sort({"order": -1});
+
+    let sortedTags = req.body.tags;
+    sortedTags.sort((a, b) => a.title.localeCompare(b.title));
+
     let task = new Task({
         title: req.body.title,
         _listId:  req.params.id,
         status: req.body.status,
         description: req.body.description,
         dateCreated: req.body.dateCreated,
-        tags: req.body.tags,
+        tags: sortedTags,
         order: lastTask != null ? lastTask.order + 1 : 0
     })
 
@@ -237,6 +241,9 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
  * Purpose: Modifies an existing task
  */
  app.patch('/lists/:listId/tasks/:taskId', async (req, res) => {
+    let sortedTags = req.body.tags;
+    sortedTags.sort((a, b) => a.title.localeCompare(b.title));
+
     await Task.findByIdAndUpdate(
         req.params.taskId, {
             title: req.body.title,
@@ -245,7 +252,7 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
             dateCompleted: req.body.dateCompleted,
             status: req.body.status,
             observations: req.body.observations,
-            tags: req.body.tags,
+            tags: sortedTags,
             isStarted: req.body.isStarted
         })
         res.status(200).send();
