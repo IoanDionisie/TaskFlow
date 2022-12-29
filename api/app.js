@@ -26,6 +26,7 @@ const { Task } = require('./db/models/task.model');
 const { User } = require('./db/models/user.model');
 const { Tag } = require('./db/models/tag.model');
 const { authJwt } = require('./middleware');
+const e = require('express');
 
 // Load middleware
 app.use(bodyParser.json());
@@ -70,6 +71,7 @@ app.post('/api/upload', (req, res) => {
         }
     });
 });
+
 
 /* List routes */
 
@@ -163,16 +165,44 @@ app.get('/lists/:id/tasks', async (req, res) => {
 app.post('/lists/:id/tasks', async (req, res) => {
     //  We want to create a new task in the specified list
     let lastTask = await Task.findOne().sort({"order": -1});
+
+    let sortedTags = req.body.tags;
+    sortedTags.sort((a, b) => a.title.localeCompare(b.title));
+
     let task = new Task({
         title: req.body.title,
         _listId:  req.params.id,
         status: req.body.status,
         description: req.body.description,
         dateCreated: req.body.dateCreated,
-        tags: req.body.tags,
+        tags: sortedTags,
         order: lastTask != null ? lastTask.order + 1 : 0
     })
 
+    await task.save().then((taskDoc) => {
+        res.send(taskDoc);
+    })    
+})
+
+
+/** 
+ * POST /lists/:id/cloneTask
+ * Purpose: Clones a task from specified list
+ */
+app.post('/lists/:id/cloneTask', async (req, res) => {
+    //  We want to create a new task in the specified list
+    let lastTask = await Task.findOne().sort({"order": -1});
+    let clonedTask =  await Task.findById(req.body.taskId);
+
+    let task = new Task({
+        title: clonedTask.title,
+        _listId:  req.body.listId,
+        status: clonedTask.status,
+        description: clonedTask.description,
+        dateCreated: req.body.dateCreated,
+        tags: clonedTask.tags,
+        order: lastTask != null ? lastTask.order + 1 : 0,
+    })
     await task.save().then((taskDoc) => {
         res.send(taskDoc);
     })    
@@ -211,20 +241,22 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
  * Purpose: Modifies an existing task
  */
  app.patch('/lists/:listId/tasks/:taskId', async (req, res) => {
-    // We want to update an existing task speficied by taskId 
+    let sortedTags = req.body.tags;
+    sortedTags.sort((a, b) => a.title.localeCompare(b.title));
+
     await Task.findByIdAndUpdate(
         req.params.taskId, {
             title: req.body.title,
             description: req.body.description,
+            dateStarted: req.body.dateStarted,
             dateCompleted: req.body.dateCompleted,
             status: req.body.status,
             observations: req.body.observations,
-            dateStarted: req.body.dateStarted,
-            tags: req.body.tags,
+            tags: sortedTags,
             isStarted: req.body.isStarted
         })
-    res.status(200).send({});
-})
+        res.status(200).send();
+});
 
 /** 
  * PATCH /lists/:id/tasks

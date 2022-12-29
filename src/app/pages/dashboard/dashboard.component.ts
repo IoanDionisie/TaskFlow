@@ -18,6 +18,8 @@ import { MyAccountComponent } from 'src/app/components/modals/my-account/my-acco
 import { TagsListComponent } from 'src/app/components/modals/tags-list/tags-list.component';
 import { List } from 'src/app/models/list.model';
 import { ImageService } from 'src/app/services/image.service';
+import { TASK_STATUS } from 'src/app/constants/task-status';
+import { E } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-dashboard',
@@ -48,6 +50,7 @@ export class DashboardComponent implements OnInit {
 
   readonly ITEM_TYPE = ITEM_TYPE;
   readonly ITEM_STATUS = ITEM_STATUS;
+  readonly TASK_STATUS = TASK_STATUS;
   readonly profilePicture = window.sessionStorage.getItem("profilepicture");
 
   public searchFilter: any = "";
@@ -134,11 +137,10 @@ export class DashboardComponent implements OnInit {
     for (let i = 0; i < this.tasks.length; ++i) {
       tasks[i].status == ITEM_STATUS.inProgress ? this.inProgressTasks.push(tasks[i]) : this.completedTasks.push(tasks[i]);
       if (tasks[i].status == ITEM_STATUS.inProgress &&
-        tasks[i].isStarted == true) {
+        tasks[i].isStarted == TASK_STATUS.started) {
           this.startedTasks++;
         }
     }
-
     /* TODO */
     this.completedTasks.sort((objA:any, objB:any) => Number(new Date(objB.dateCompleted)) - Number(new Date(objA.dateCompleted)));
   }
@@ -200,6 +202,7 @@ export class DashboardComponent implements OnInit {
             this.inProgressTasks.splice(index, 1);
           }
 
+          this.startedTasks--;
           this.tasks.length--;
           this.calculatePercentCompleted();
           this.setProgressbarColor();
@@ -230,6 +233,7 @@ export class DashboardComponent implements OnInit {
   completeThisTask(task: any, index: number) {
     task.status = ITEM_STATUS.completed;
     task.dateCompleted = new Date();
+
     this.taskService.modifyTask(this.selectedList._id, task._id, task).subscribe((response: any) => {
       this.inProgressTasks.splice(index, 1);
       this.completedTasks.unshift(task);
@@ -320,12 +324,12 @@ export class DashboardComponent implements OnInit {
       let date = new Date();
       let data = {
         dateStarted: date,
-        isStarted: true
+        isStarted: TASK_STATUS.started
       }
   
       this.taskService.modifyTask(this.selectedList._id, task._id, data).subscribe((response: any) => {
         task.dateStarted = date;
-        task.isStarted = true;
+        task.isStarted = TASK_STATUS.started;
         this.incrementTaskWorkingTime(task);
         this.showSuccessMessage(Actions.beginTask, task.title);
         this.startedTasks ++;
@@ -335,45 +339,68 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  pauseTask(task: any) {
+    let date = new Date();
+
+    let data = {
+      datePaused: date,
+      isStarted: TASK_STATUS.paused
+    }
+
+    this.taskService.modifyTask(this.selectedList._id, task._id, data).subscribe((response: any) => {
+      task.isStarted = TASK_STATUS.paused;
+      this.incrementTaskWorkingTime(task);
+      this.showSuccessMessage(Actions.pauseTask, task.title);
+    });
+  }
+
+  resumeTask(task: any) {
+    let date = new Date();    
+    let data = {
+      dateStarted: date,
+      isStarted: TASK_STATUS.started
+    }
+
+    this.taskService.modifyTask(this.selectedList._id, task._id, data).subscribe((response: any) => {
+      task.isStarted = TASK_STATUS.started;
+      this.incrementTaskWorkingTime(task);
+      this.showSuccessMessage(Actions.resumeTask, task.title);
+    });
+  }
+
+  cloneTask(task: any) {
+    let data = {
+      dateCreated: new Date(),
+      taskId: task._id,
+      listId: this.selectedList._id
+    }
+    this.taskService.cloneTask(data).subscribe((response: any) => {
+      this.inProgressTasks.unshift(response);
+      if (typeof this.tasks !== 'undefined') {
+        this.tasks.unshift(response);
+      } else {
+        this.tasks = [];
+        this.tasks.push(response);
+      }
+
+      this.calculatePercentCompleted();
+      this.setProgressbarColor();
+      this.showSuccessMessage(Actions.cloneTask, task.title);
+    });
+  }
+
   incrementTaskWorkingTime(task: any) {
     let dateNow, dateStarted;
     setInterval(() => {
-      dateStarted  = new Date(task.dateStarted);
+      dateStarted = task.dateStarted;
       dateNow = new Date();
-      task.workingTime =  this.secondsToHoursMinutesSeconds(this.getSecondsDiff(dateStarted, dateNow));
+      task.workingTime = this.helperService.secondsToHoursMinutesSeconds(this.helperService.getSecondsDiff(new Date(dateStarted), dateNow));
     }, 1000);
-  }
-
-  getSecondsDiff(startDate: any, endDate: any) {
-    const msInSecond = 1000;
-    return Math.round(
-      Math.abs(endDate - startDate) / msInSecond
-    );
-  }
-
-
-  secondsToHoursMinutesSeconds (sec_num: any) {
-    let hours   = Math.floor(sec_num / 3600);
-    let minutes = Math.floor((sec_num - (hours * 3600)) / 60);
-    let seconds = sec_num - (hours * 3600) - (minutes * 60);
-    let strHours = hours.toString(), strMinutes = minutes.toString(), strSeconds = seconds.toString();
-
-    if (hours   < 10) {
-      strHours   = "0" + hours;
-    } 
-    if (minutes < 10) {
-      strMinutes = "0" + minutes;
-    }
-    if (seconds < 10) {
-      strSeconds = "0" + seconds;
-    }
-
-    return strHours+':'+strMinutes+':'+strSeconds;
   }
 
   setTasksTimer(tasks: any) {
     for (let i = 0; i < tasks.length; ++i) {
-      if (tasks[i].isStarted) {
+      if (tasks[i].isStarted == TASK_STATUS.started) {
         this.incrementTaskWorkingTime(tasks[i]);
       }
     }
@@ -385,5 +412,8 @@ export class DashboardComponent implements OnInit {
     modalRef.componentInstance.changedPassword.subscribe(() => {
       this.showSuccessMessage(Actions.changedPassword, null);
     })
+    modalRef.componentInstance.changedProfilePicture.subscribe((data: any) => {
+      this.showSuccessMessage(Actions.changeProfilePicture, null);
+    });
   }
 }

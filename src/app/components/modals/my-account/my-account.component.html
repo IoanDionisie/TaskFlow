@@ -40,15 +40,15 @@
             <div class="item-title"> Change profile picture </div>
             <div class="item-section">
                 <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span  class="input-group-text upload"  (click)="uploadFile()"  id="btnUpload">Upload</span>
-                    </div>
                     <div class="custom-file">
                         <form action="/api/upload" method="post" enctype="multipart/form-data">
                             <input  (change)="fileChange($event)"  type="file"  class="custom-file-input" name="profile-pic"  id="inputGroupFile01"  aria-describedby="inputGroupFileAddon01">
                         </form>
                         <label *ngIf="this.uploadedFile" class="custom-file-label" for="inputGroupFile01">{{this.uploadedFile.name}}</label>
                         <label *ngIf="!this.uploadedFile" class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                    </div>
+                    <div class="input-group-prepend">
+                        <span  class="input-group-text upload"  (click)="uploadFile()"  id="btnUpload">Upload</span>
                     </div>
                 </div>
             </div>

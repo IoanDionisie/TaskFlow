@@ -65,4 +65,9 @@ export class TaskService {
     return this.webReqService.delete(link);
   }
 
+  cloneTask(data: any) {
+    let link = 'lists/' + data.listId + '/cloneTask';
+    return this.webReqService.post(link, data);
+  }
+
 }

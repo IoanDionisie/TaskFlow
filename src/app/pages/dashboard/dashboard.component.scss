@@ -198,7 +198,10 @@
 .delete, 
 .modify, 
 .complete,
-.begin {
+.begin,
+.pause,
+.resume,
+.clone {
     border: none;
     background: none;
     outline: none;
@@ -226,6 +229,10 @@
 
 .begin {
     color: $darkSpringGreen;
+}
+
+.pause {
+    color: $errorColor;
 }
 
 .add-task {

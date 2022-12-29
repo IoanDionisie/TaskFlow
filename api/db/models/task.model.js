@@ -46,8 +46,8 @@ const TaskSchema = new mongoose.Schema({
         type: Date
     },
     isStarted: {
-        type: Boolean,
-        default: false
+        type: String,
+        default: "notStarted"
     },
     dateStarted: {
         type: Date

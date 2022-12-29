@@ -40,6 +40,15 @@
     </p>
   </div>
 
+  <div *ngIf="task.status == ITEM_STATUS.completed" class="modal-body-text">
+    <div class="title">
+    Working Time
+    </div>
+    <p>
+      {{this.workingTime}}
+    </p>
+  </div>
+
   <div class="modal-body-text">
     <div class="title">
       Tags
