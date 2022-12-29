@@ -241,7 +241,9 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
  * Purpose: Modifies an existing task
  */
  app.patch('/lists/:listId/tasks/:taskId', async (req, res) => {
-    let sortedTags = req.body.tags;
+    let task = await Task.findById(req.params.taskId);
+    let sortedTags = task.tags;
+
     sortedTags.sort((a, b) => a.title.localeCompare(b.title));
 
     await Task.findByIdAndUpdate(
