@@ -199,7 +199,9 @@
 .modify, 
 .complete,
 .begin,
-.pause {
+.pause,
+.resume,
+.clone {
     border: none;
     background: none;
     outline: none;

@@ -61,11 +61,14 @@
                                 <button *ngIf="task.isStarted == TASK_STATUS.started" class="pause" (click)="pauseTask(task)" title="Pause Task">
                                     <i class="fa-solid fa-pause"></i>
                                 </button>
-                                <button *ngIf="task.isStarted == TASK_STATUS.paused" class="pause" (click)="resumeTask(task)" title="Resume Task">
+                                <button *ngIf="task.isStarted == TASK_STATUS.paused" class="resume" (click)="resumeTask(task)" title="Resume Task">
                                     <i class="fa-solid fa-forward-step"></i>
                                 </button>
                                 <button *ngIf="task.isStarted == TASK_STATUS.notStarted" class="begin" (click)="beginTask(task)" title="Begin Task">
                                     <i class="fa-solid fa-flag-checkered"></i>
+                                </button>
+                                <button class="clone" (click)="cloneTask(task)" title="Clone Task">
+                                    <i class="fa-solid fa-clone"></i>
                                 </button>
                                 <button class="modify" (click)="modifyThisTask(task)" title="Modify Task">
                                     <i class="fa-solid fa-pen-to-square"></i>

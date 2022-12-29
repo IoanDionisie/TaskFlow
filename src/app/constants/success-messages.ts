@@ -12,6 +12,7 @@ export const MESSAGES = {
     passwordNotMatching: "The passwords do not match!",
     passwordTooShort: "The password must have at least 8 characters!",
     addEmptyTag: "The tag name cannot be empty!",
-    changeProfilePicture: "Your profile picture was changed succesfully!"
+    changeProfilePicture: "Your profile picture was changed succesfully!",
+    cloneTask: "Task was succesfully cloned!",
 };
 

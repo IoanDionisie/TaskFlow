@@ -233,17 +233,9 @@ export class DashboardComponent implements OnInit {
   completeThisTask(task: any, index: number) {
     task.status = ITEM_STATUS.completed;
     task.dateCompleted = new Date();
-    
-    let pastWorkingTime: number;
-    if (task.lastDateStarted) {
-      pastWorkingTime = this.helperService.getSecondsDiff(task.dateCompleted, new Date(task.lastDateStarted));
-    } else {
-      pastWorkingTime = this.helperService.getSecondsDiff(task.dateCompleted, new Date(task.dateStarted));
-    }
 
     this.taskService.modifyTask(this.selectedList._id, task._id, task).subscribe((response: any) => {
       this.inProgressTasks.splice(index, 1);
-      task.totalWorkingTime += pastWorkingTime;
       this.completedTasks.unshift(task);
       this.calculatePercentCompleted();
       this.setProgressbarColor();
@@ -349,22 +341,14 @@ export class DashboardComponent implements OnInit {
 
   pauseTask(task: any) {
     let date = new Date();
-    let pastWorkingTime: number;
-    if (task.lastDateStarted) {
-      pastWorkingTime = this.helperService.getSecondsDiff(date, new Date(task.lastDateStarted));
-    } else {
-      pastWorkingTime = this.helperService.getSecondsDiff(date, new Date(task.dateStarted));
-    }
 
     let data = {
       datePaused: date,
-      pastWorkingTime: pastWorkingTime,
       isStarted: TASK_STATUS.paused
     }
 
     this.taskService.modifyTask(this.selectedList._id, task._id, data).subscribe((response: any) => {
       task.isStarted = TASK_STATUS.paused;
-      task.pastWorkingTime += pastWorkingTime;
       this.incrementTaskWorkingTime(task);
       this.showSuccessMessage(Actions.pauseTask, task.title);
     });
@@ -379,22 +363,38 @@ export class DashboardComponent implements OnInit {
 
     this.taskService.modifyTask(this.selectedList._id, task._id, data).subscribe((response: any) => {
       task.isStarted = TASK_STATUS.started;
-      task.lastDateStarted  = new Date();
       this.incrementTaskWorkingTime(task);
       this.showSuccessMessage(Actions.resumeTask, task.title);
+    });
+  }
+
+  cloneTask(task: any) {
+    let data = {
+      dateCreated: new Date(),
+      taskId: task._id,
+      listId: this.selectedList._id
+    }
+    this.taskService.cloneTask(data).subscribe((response: any) => {
+      this.inProgressTasks.unshift(response);
+      if (typeof this.tasks !== 'undefined') {
+        this.tasks.unshift(response);
+      } else {
+        this.tasks = [];
+        this.tasks.push(response);
+      }
+
+      this.calculatePercentCompleted();
+      this.setProgressbarColor();
+      this.showSuccessMessage(Actions.cloneTask, task.title);
     });
   }
 
   incrementTaskWorkingTime(task: any) {
     let dateNow, dateStarted;
     setInterval(() => {
-      if (task.lastDateStarted) {
-        dateStarted  = new Date(task.lastDateStarted);
-      } else {
-        dateStarted = task.dateStarted;
-      }
+      dateStarted = task.dateStarted;
       dateNow = new Date();
-      task.workingTime = this.helperService.secondsToHoursMinutesSeconds(this.helperService.getSecondsDiff(dateStarted, dateNow) + task.pastWorkingTime);
+      task.workingTime = this.helperService.secondsToHoursMinutesSeconds(this.helperService.getSecondsDiff(new Date(dateStarted), dateNow));
     }, 1000);
   }
 
@@ -414,7 +414,6 @@ export class DashboardComponent implements OnInit {
     })
     modalRef.componentInstance.changedProfilePicture.subscribe((data: any) => {
       this.showSuccessMessage(Actions.changeProfilePicture, null);
-      //this.imageService.setProfilePicture();
     });
   }
 }

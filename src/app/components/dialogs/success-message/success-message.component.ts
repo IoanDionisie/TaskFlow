@@ -56,6 +56,9 @@ export class SuccessMessageComponent implements OnInit {
         } else if (this.eventType == Actions.changeProfilePicture) {
           this.successMessage = "";
           this.successMessage += MESSAGES['changeProfilePicture'];
+        } else if (this.eventType == Actions.cloneTask) {
+          this.successMessage = "";
+          this.successMessage += MESSAGES['cloneTask'];
         }
   
         this.setTimer();

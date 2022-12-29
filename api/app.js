@@ -172,10 +172,33 @@ app.post('/lists/:id/tasks', async (req, res) => {
         description: req.body.description,
         dateCreated: req.body.dateCreated,
         tags: req.body.tags,
-        order: lastTask != null ? lastTask.order + 1 : 0,
-        totalWorkTime: 0
+        order: lastTask != null ? lastTask.order + 1 : 0
     })
 
+    await task.save().then((taskDoc) => {
+        res.send(taskDoc);
+    })    
+})
+
+
+/** 
+ * POST /lists/:id/cloneTask
+ * Purpose: Clones a task from specified list
+ */
+app.post('/lists/:id/cloneTask', async (req, res) => {
+    //  We want to create a new task in the specified list
+    let lastTask = await Task.findOne().sort({"order": -1});
+    let clonedTask =  await Task.findById(req.body.taskId);
+
+    let task = new Task({
+        title: clonedTask.title,
+        _listId:  req.body.listId,
+        status: clonedTask.status,
+        description: clonedTask.description,
+        dateCreated: req.body.dateCreated,
+        tags: clonedTask.tags,
+        order: lastTask != null ? lastTask.order + 1 : 0,
+    })
     await task.save().then((taskDoc) => {
         res.send(taskDoc);
     })    
@@ -214,56 +237,19 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
  * Purpose: Modifies an existing task
  */
  app.patch('/lists/:listId/tasks/:taskId', async (req, res) => {
-    let task = await Task.findById(req.params.taskId);
-    let totalWorkingTime;
-    if (req.body.datePaused) {
-        totalWorkingTime = req.body.pastWorkingTime + task.pastWorkingTime;
-        await Task.findByIdAndUpdate(
-            req.params.taskId, {
-                title: req.body.title,
-                description: req.body.description,
-                dateCompleted: req.body.dateCompleted,
-                status: req.body.status,
-                observations: req.body.observations,
-                tags: req.body.tags,
-                isStarted: req.body.isStarted,
-                pastWorkingTime: totalWorkingTime
-            })
-        res.status(200).send({});
-    } else {
-        if (req.body.status == "Completed") {
-            if (task.pastWorkingTime > 0) {
-                totalWorkingTime = req.body.pastWorkingTime + task.pastWorkingTime;
-            }
-            
-            await Task.findByIdAndUpdate(
-                req.params.taskId, {
-                    title: req.body.title,
-                    description: req.body.description,
-                    dateCompleted: req.body.dateCompleted,
-                    status: req.body.status,
-                    observations: req.body.observations,
-                    lastDateStarted: req.body.dateStarted,
-                    tags: req.body.tags,
-                    totalWorkingTime: totalWorkingTime,
-                    isStarted: req.body.isStarted
-                })
-        } else {
-            await Task.findByIdAndUpdate(
-                req.params.taskId, {
-                    title: req.body.title,
-                    description: req.body.description,
-                    dateCompleted: req.body.dateCompleted,
-                    status: req.body.status,
-                    observations: req.body.observations,
-                    lastDateStarted: req.body.dateStarted,
-                    tags: req.body.tags,
-                    isStarted: req.body.isStarted
-                })
-        } 
-        res.status(200).send({totalWorkingTime});
-    }
-})
+    await Task.findByIdAndUpdate(
+        req.params.taskId, {
+            title: req.body.title,
+            description: req.body.description,
+            dateStarted: req.body.dateStarted,
+            dateCompleted: req.body.dateCompleted,
+            status: req.body.status,
+            observations: req.body.observations,
+            tags: req.body.tags,
+            isStarted: req.body.isStarted
+        })
+        res.status(200).send();
+});
 
 /** 
  * PATCH /lists/:id/tasks

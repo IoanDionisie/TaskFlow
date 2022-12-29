@@ -13,5 +13,6 @@ export enum Actions {
   changedPassword,
   addTag,
   addEmptyTag,
-  changeProfilePicture
+  changeProfilePicture,
+  cloneTask
 }
