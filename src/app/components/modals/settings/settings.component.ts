@@ -45,7 +45,6 @@ export class SettingsComponent implements OnInit  {
       }
 
       this.taskService.createTag(tag).subscribe((response: any) => { 
-        console.log(response);  
 
         let showMessageData = {
           tagName: this.tagName,

@@ -124,7 +124,6 @@ export class ListsComponent implements OnInit {
 
   selectList(list: List)  {
     this.selectedList = list;
-    console.log(this.selectedList);
 
     this.pickListEvent(ListActions.selectList, list);
   }

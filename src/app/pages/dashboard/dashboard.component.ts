@@ -219,7 +219,6 @@ export class DashboardComponent implements OnInit {
     modalRef.componentInstance.modifyItemConfirmation.subscribe((receivedData: any) => {
       if (receivedData.confirmation === true) {
         this.taskService.modifyTask(this.selectedList._id, task._id, receivedData).subscribe((response: any) => {
-          console.log(receivedData)
           task.title = receivedData.title;
           task.description = receivedData.description;
           task.observations = receivedData.observations;

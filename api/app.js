@@ -167,7 +167,9 @@ app.post('/lists/:id/tasks', async (req, res) => {
     let lastTask = await Task.findOne().sort({"order": -1});
 
     let sortedTags = req.body.tags;
-    sortedTags.sort((a, b) => a.title.localeCompare(b.title));
+    if (sortedTags) {
+        sortedTags.sort((a, b) => a.title.localeCompare(b.title));
+    }
 
     let task = new Task({
         title: req.body.title,
@@ -241,10 +243,11 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
  * Purpose: Modifies an existing task
  */
  app.patch('/lists/:listId/tasks/:taskId', async (req, res) => {
-    let task = await Task.findById(req.params.taskId);
-    let sortedTags = task.tags;
+    let sortedTags = req.body.tags;
 
-    sortedTags.sort((a, b) => a.title.localeCompare(b.title));
+    if (sortedTags) {
+        sortedTags.sort((a, b) => a.title.localeCompare(b.title));
+    }
 
     await Task.findByIdAndUpdate(
         req.params.taskId, {
