@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 @Component({
@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
   form: any = {
     username: null,
     email: null,
-    password: new FormControl(null, [
+    password: new UntypedFormControl(null, [
       Validators.minLength(8),
       Validators.required,
     ]),
