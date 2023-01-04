@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, ViewChildren } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
@@ -21,7 +21,7 @@ export class TagsComponent {
   @ViewChildren('autocomplete') autocompleteDiv: ElementRef|undefined;
   
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  tagsControl = new FormControl('');
+  tagsControl = new UntypedFormControl('');
   filteredTags: Observable<string[]>|undefined;
   tags: string[] = [];
   tagsToEmit: any;

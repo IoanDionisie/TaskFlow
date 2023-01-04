@@ -114,5 +114,7 @@
       }
     }
   },
-  "defaultProject": "TasksManager"
+  "cli": {
+    "analytics": false
+  }
 }

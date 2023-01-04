@@ -10,20 +10,20 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~13.3.0",
-    "@angular/cdk": "^13.3.9",
-    "@angular/common": "~13.3.0",
-    "@angular/compiler": "~13.3.0",
-    "@angular/core": "~13.3.0",
-    "@angular/forms": "~13.3.0",
-    "@angular/localize": "~13.3.0",
-    "@angular/material": "^13.3.9",
-    "@angular/platform-browser": "~13.3.0",
-    "@angular/platform-browser-dynamic": "~13.3.0",
-    "@angular/router": "~13.3.0",
+    "@angular/animations": "^15.0.4",
+    "@angular/cdk": "^14.2.7",
+    "@angular/common": "^15.0.4",
+    "@angular/compiler": "^15.0.4",
+    "@angular/core": "^15.0.4",
+    "@angular/forms": "^15.0.4",
+    "@angular/localize": "^15.0.4",
+    "@angular/material": "^14.2.7",
+    "@angular/platform-browser": "^15.0.4",
+    "@angular/platform-browser-dynamic": "^15.0.4",
+    "@angular/router": "^15.0.4",
     "@circlon/angular-tree-component": "^11.0.4",
     "@fjsc/ng2-dnd-list": "^1.0.4",
-    "@ng-bootstrap/ng-bootstrap": "^12.1.2",
+    "@ng-bootstrap/ng-bootstrap": "^14.0.0",
     "@popperjs/core": "^2.10.2",
     "@techiediaries/ngx-textarea-autosize": "^1.3.0",
     "alert-sound-notify": "^0.0.8",
@@ -43,9 +43,9 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~13.3.3",
-    "@angular/cli": "~13.3.3",
-    "@angular/compiler-cli": "~13.3.0",
+    "@angular-devkit/build-angular": "^15.0.4",
+    "@angular/cli": "^15.0.4",
+    "@angular/compiler-cli": "^15.0.4",
     "@types/jasmine": "~3.10.0",
     "@types/node": "^12.11.1",
     "jasmine-core": "~4.0.0",
@@ -54,6 +54,6 @@
     "karma-coverage": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
-    "typescript": "~4.6.2"
+    "typescript": "~4.8.4"
   }
 }
