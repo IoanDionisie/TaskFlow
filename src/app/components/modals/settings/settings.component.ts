@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions } from 'src/app/enums/actions';
 import { TaskService } from 'src/app/services/task.service';
@@ -20,7 +21,8 @@ export class SettingsComponent implements OnInit  {
 
   @Output() showMessage: EventEmitter<any> = new EventEmitter();
 
-  constructor(private modal: NgbActiveModal, private taskService: TaskService) { }
+  constructor(private modal: NgbActiveModal, private taskService: TaskService,
+    private sanitizer: DomSanitizer) { }
   
   ngOnInit(): void {
     this.tagColor = "#" + Math.floor(Math.random()*16777215).toString(16);
@@ -55,6 +57,23 @@ export class SettingsComponent implements OnInit  {
         this.closeModal();
       }); 
     }
+  }
+
+  exportData() {
+    this.taskService.getDataForExport().subscribe(response => {
+      var element = document.createElement('a');
+      var jsonElem = JSON.stringify(response);
+      element.setAttribute('href', "data:text/json;charset=UTF-8," + encodeURIComponent(jsonElem));
+      element.setAttribute('download', "TaskFlowData.json");
+      element.style.display = 'none';
+      document.body.appendChild(element);
+      element.click();
+      document.body.removeChild(element);
+    });
+  }
+
+  importData() {
+
   }
   
 }

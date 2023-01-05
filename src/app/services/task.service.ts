@@ -70,4 +70,8 @@ export class TaskService {
     return this.webReqService.post(link, data);
   }
 
+  getDataForExport() {
+    return this.webReqService.get('export')
+  }
+
 }

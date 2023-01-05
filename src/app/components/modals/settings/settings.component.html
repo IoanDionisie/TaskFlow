@@ -4,31 +4,42 @@
 
 <div class="modal-body">
     <div class="element theme">
-        <div class="text">
+        <div class="item-title">
             Application Theme
         </div>
         <app-change-theme></app-change-theme>
     </div>
        
     <div class="element flex-wrap">
-        <div class="text">
+        <div class="item-title">
             Add a new tag
         </div>
-        <div class="tag-data">
-            <input [ngStyle]="{'border-color': this.tagColor}" class="add-tag-input border-radius-10" type="text" placeholder="Enter tag name..." (change)='tagName=$event.target.value' [value]="this.tagName">
-            <input class="color-picker" type="color" id="head" name="head" (change)='tagColor=$event.target.value' [value]="this.tagColor">
-            <i class="fa-solid fa-eye-dropper color-picker-icon"></i>
-        </div>
-        <div class="add-tag">
-            <button class="btn add-tag" (click)="addTag()"> Add Tag </button>
-        </div>
-        <div class="tag-error">
-            <div *ngIf="this.showEmptyTagError == true" class="error-message">
-                Tag name cannot be empty!
+        <div class="bottom-section">
+            <div class="tag-data">
+                <input [ngStyle]="{'border-color': this.tagColor}" class="add-tag-input border-radius-10" type="text" placeholder="Enter tag name..." (change)='tagName=$event.target.value' [value]="this.tagName">
+                <input class="color-picker" type="color" id="head" name="head" (change)='tagColor=$event.target.value' [value]="this.tagColor">
+                <i class="fa-solid fa-eye-dropper color-picker-icon"></i>
             </div>
-            <div *ngIf="this.showTagLengthError == true" class="error-message">
-                Tag name cannot have less than 3 characters!
+            <div class="add-tag">
+                <button class="btn add-tag" (click)="addTag()"> Add Tag </button>
             </div>
+            <div class="tag-error">
+                <div *ngIf="this.showEmptyTagError == true" class="error-message">
+                    Tag name cannot be empty!
+                </div>
+                <div *ngIf="this.showTagLengthError == true" class="error-message">
+                    Tag name cannot have less than 3 characters!
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="element flex-wrap">
+        <div class="item-title">
+            Export data <span style="font-weight: 400;"> (Lists, Tasks, Tags) </span>
+        </div>
+        <div class="bottom-section">
+            <button class="btn import-data" (click)="importData()"> Import </button>
+            <button class="btn export-data" (click)="exportData()"> Export </button>
         </div>
     </div>
 </div>

@@ -333,7 +333,33 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
     })
 })
 
+/** 
+ * GET /export
+ * Purpose: Get data for export
+ */
+app.get('/export',  async (req, res) => {
+    let userId = authJwt.getUserId(req);
+    let tags = await Tag.find({userId: userId});
+    let lists = await List.find({userId: userId});
+    let tasks = [];
+
+    for (let i = 0; i < lists.length; i++) {
+        var obj = {
+            tasks: await Task.find({_listId: lists[i]._id}),
+            id: lists[i]._id
+        }
+        tasks.push(obj);
+    }
+
+    var response = {
+        tags: tags,
+        tasks: tasks,
+        lists: lists
+    };
+    res.send(response);    
+})
+
 app.listen(3000, () => {
     console.log("App listening on port 3000");
-});
+})
 
