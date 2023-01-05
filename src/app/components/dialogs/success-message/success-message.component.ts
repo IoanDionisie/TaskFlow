@@ -59,8 +59,9 @@ export class SuccessMessageComponent implements OnInit {
         } else if (this.eventType == Actions.cloneTask) {
           this.successMessage = "";
           this.successMessage += MESSAGES['cloneTask'];
-        }
-  
+        } else if (this.eventType == Actions.removeTag) {
+          this.successMessage = "Tag " + this.elementName + MESSAGES['deleteItem']
+        } 
         this.setTimer();
       }
     }
@@ -70,6 +71,6 @@ export class SuccessMessageComponent implements OnInit {
     setTimeout(() =>{ 
       this.eventType = -1;
       this.showModal = false;
-    }, 3000);
+    }, 4000);
   }
 }
