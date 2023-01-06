@@ -74,4 +74,8 @@ export class TaskService {
     return this.webReqService.get('export')
   }
 
+  importData(data: any) {
+    return this.webReqService.post('import', data);
+  }
+
 }

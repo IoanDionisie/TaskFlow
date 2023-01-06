@@ -38,8 +38,16 @@
             Export data <span style="font-weight: 400;"> (Lists, Tasks, Tags) </span>
         </div>
         <div class="bottom-section">
-            <button class="btn import-data" (click)="importData()"> Import </button>
             <button class="btn export-data" (click)="exportData()"> Export </button>
+        </div>
+    </div>
+    <div class="element flex-wrap">
+        <div class="item-title">
+            Import data <span style="font-weight: 400;"> (Lists, Tasks, Tags) </span>
+        </div>
+        <div class="export-bottom-section">
+            <input type="file" (change)="loadData($event.target.files)">
+            <button [disabled]="exportDisabled == true" class="btn import-data" (click)="importLoadedData()"> Import </button>
         </div>
     </div>
 </div>

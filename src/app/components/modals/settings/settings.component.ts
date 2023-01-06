@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, Self } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions } from 'src/app/enums/actions';
@@ -16,8 +16,14 @@ export class SettingsComponent implements OnInit  {
   tagName: string = "";
   tagColor: string = "";
 
+  messageData = {};
+
   showEmptyTagError: boolean  = false;
   showTagLengthError: boolean = false;
+
+  exportDisabled: boolean = true;
+
+  loadedData: JSON | undefined;
 
   @Output() showMessage: EventEmitter<any> = new EventEmitter();
 
@@ -48,12 +54,12 @@ export class SettingsComponent implements OnInit  {
 
       this.taskService.createTag(tag).subscribe((response: any) => { 
 
-        let showMessageData = {
+        this.messageData = {
           tagName: this.tagName,
           message: Actions.addTag
         }
 
-        this.showMessage.emit(showMessageData);
+        this.showMessage.emit(this.messageData);
         this.closeModal();
       }); 
     }
@@ -69,11 +75,62 @@ export class SettingsComponent implements OnInit  {
       document.body.appendChild(element);
       element.click();
       document.body.removeChild(element);
+
+      this.messageData = {
+        message: Actions.exportData
+      }
+
+      this.showMessage.emit(this.messageData);
+      this.closeModal();
     });
   }
 
-  importData() {
+  importFile(fileList: any) {
+    let file = fileList[0];
+    let fileReader: FileReader = new FileReader();
+    var result;
+    fileReader.onloadend = function(x) {
+      result = fileReader.result;
 
+    }
+    fileReader.readAsText(file);
+  }
+
+  loadData(files: any) {
+    var reader = new FileReader();
+    var file = files[0];
+    let self = this;
+
+    // Closure to capture the file information.
+    reader.onload = (function (theFile) {
+      return function (e) {
+        try {
+          if (e.target != null && e.target.result != null)  {
+            self.loadedData = JSON.parse(e.target.result as string);
+          }
+        } catch (ex) {
+          alert('ex when trying to parse json = ' + ex);
+        }
+      }
+    })(file);
+
+    reader.onloadend = (function() {
+      console.log("Load ended!");
+      self.exportDisabled = false;
+    });
+
+    reader.readAsText(file);
+  }
+
+  importLoadedData() {
+    this.taskService.importData(this.loadedData).subscribe(response => {
+
+      this.messageData = {
+        message: Actions.importData
+      }
+      this.showMessage.emit(this.messageData);
+      this.closeModal();
+    });
   }
   
 }

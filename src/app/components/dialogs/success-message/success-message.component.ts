@@ -20,7 +20,6 @@ export class SuccessMessageComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -61,7 +60,11 @@ export class SuccessMessageComponent implements OnInit {
           this.successMessage += MESSAGES['cloneTask'];
         } else if (this.eventType == Actions.removeTag) {
           this.successMessage = "Tag " + this.elementName + MESSAGES['deleteItem']
-        } 
+        } else if (this.eventType == Actions.importData) {
+          this.successMessage = MESSAGES['importData'];
+        } else if (this.eventType == Actions.exportData) {
+          this.successMessage = MESSAGES['exportData'];
+        }
         this.setTimer();
       }
     }
