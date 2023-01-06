@@ -23,13 +23,13 @@
             <div class="add-tag">
                 <button class="btn add-tag" (click)="addTag()"> Add Tag </button>
             </div>
-            <div class="tag-error">
-                <div *ngIf="this.showEmptyTagError == true" class="error-message">
-                    Tag name cannot be empty!
-                </div>
-                <div *ngIf="this.showTagLengthError == true" class="error-message">
-                    Tag name cannot have less than 3 characters!
-                </div>
+        </div>
+        <div class="tag-error">
+            <div *ngIf="this.showEmptyTagError == true" class="error-message">
+                Tag name cannot be empty!
+            </div>
+            <div *ngIf="this.showTagLengthError == true" class="error-message">
+                Tag name cannot have less than 3 characters!
             </div>
         </div>
     </div>

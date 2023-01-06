@@ -87,6 +87,7 @@ app.get('/lists', (req, res) => {
         res.send(lists);
     })
 })
+
 /** 
  * POST /lists
  * Purpose: Create a new list
@@ -357,6 +358,27 @@ app.get('/export',  async (req, res) => {
         lists: lists
     };
     res.send(response);    
+})
+
+/** 
+ * POST /
+ * Purpose: Imports data in current user's account
+ */
+app.post('/import', (req, res) => {
+    let userId = authJwt.getUserId(req);
+
+    let newList = new List({
+        title: req.body.title,
+        description: req.body.description,
+        dateCreated: req.body.dateCreated,
+        userId: userId,
+        status: "In Progress"
+    });
+
+    newList.save().then((listDoc) => {
+        res.send(listDoc)
+    });
+
 })
 
 app.listen(3000, () => {
