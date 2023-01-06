@@ -129,7 +129,7 @@ export class SettingsComponent implements OnInit  {
         message: Actions.importData
       }
       this.showMessage.emit(this.messageData);
-      this.closeModal();
+      //this.closeModal();
     });
   }
   

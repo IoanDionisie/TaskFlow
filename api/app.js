@@ -364,21 +364,56 @@ app.get('/export',  async (req, res) => {
  * POST /
  * Purpose: Imports data in current user's account
  */
-app.post('/import', (req, res) => {
+app.post('/import', async (req, res) => {
     let userId = authJwt.getUserId(req);
 
-    let newList = new List({
-        title: req.body.title,
-        description: req.body.description,
-        dateCreated: req.body.dateCreated,
-        userId: userId,
-        status: "In Progress"
-    });
+    let lists = req.body["lists"];
+    let taskLists = req.body["tasks"];
+    let tags = req.body["tags"];
 
-    newList.save().then((listDoc) => {
-        res.send(listDoc)
-    });
+    for (let k = 0; k < lists.length; k++) {
+        let newList = await new List({
+            title: lists[k].title,
+            description: lists[k].description,
+            dateCreated: lists[k].dateCreated,
+            dateCompleted: lists[k].dateCompleted,
+            observations: lists[k].observations,
+            userId: userId,
+            status: lists[k].status
+        });
+        newList.save();
 
+        for (let i = 0; i < taskLists.length; i++) {
+            if (taskLists[i].id == lists[k]._id) {
+                for (let j = 0; j < taskLists[i].tasks.length; j++) {
+                    let newTask = await new Task({
+                        title: taskLists[i].tasks[j].title,
+                        description: taskLists[i].tasks[j].description,
+                        dateStarted: taskLists[i].tasks[j].dateStarted,
+                        dateCreated: taskLists[i].tasks[j].dateCreated,
+                        dateCompleted: taskLists[i].tasks[j].dateCompleted,
+                        observations: taskLists[i].tasks[j].observations,
+                        _listId: newList._id,
+                        status: taskLists[i].tasks[j].status,
+                        order: taskLists[i].tasks[j].order,
+                        isStarted: taskLists[i].tasks[j].isStarted,
+                        tags: taskLists[i].tasks[j].tags
+                    });
+                    newTask.save();
+                }
+            }
+        }
+    }
+    
+    for (let i = 0; i < tags.length; i++) {
+        let newTag = await new Tag({
+            title: tags[i].title,
+            color: tags[i].color,
+            userId: userId,
+        });
+        newTag.save();
+    }
+    res.status(200).send({});
 })
 
 app.listen(3000, () => {
