@@ -50,9 +50,8 @@ export class DashboardComponent implements OnInit {
 
   readonly ITEM_TYPE = ITEM_TYPE;
   readonly ITEM_STATUS = ITEM_STATUS;
-  readonly TASK_STATUS = TASK_STATUS;
-  readonly profilePicture = window.sessionStorage.getItem("profilepicture");
-
+  readonly TASK_STATUS = TASK_STATUS; 
+  profilePicture: any;
   public searchFilter: any = "";
 
   showSearch: boolean = false;
@@ -67,6 +66,10 @@ export class DashboardComponent implements OnInit {
     this.getAllLists();
     this.userName = this.token.getUser().username;
     this.imageService.setProfilePicture();
+
+    if (this.imageService.getProfilePicture()) {
+      this.profilePicture = window.sessionStorage.getItem("profilepicture");
+    }
   }
 
   groupLists() {
