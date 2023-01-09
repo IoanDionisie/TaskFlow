@@ -53,7 +53,6 @@ export class RegisterComponent implements OnInit {
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUser(data);
         this.router.navigate(['dashboard']);
-        //this.router.navigate(['login'], {queryParams: { registered: 'true' } });
       },
       error: err => {
         this.errorMessage = err.error.message;

@@ -70,7 +70,6 @@ export class MyAccountComponent implements OnInit {
     this.uploadedFile = element.target.files[0];
   }
 
-
   uploadFile() {
     let formData = new FormData();
     if (this.uploadedFile) {

@@ -19,7 +19,6 @@ import { TagsListComponent } from 'src/app/components/modals/tags-list/tags-list
 import { List } from 'src/app/models/list.model';
 import { ImageService } from 'src/app/services/image.service';
 import { TASK_STATUS } from 'src/app/constants/task-status';
-import { E } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-dashboard',

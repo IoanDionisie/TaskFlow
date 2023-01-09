@@ -8,10 +8,14 @@ A simple task managing app, developed using Angular CLI for frontend, and Nodejs
 
 In this app, you are able to:
 
-  - Register/Login 
+  - Register/Login
+  - Change Password 
   - Create lists
   - Create tasks
+  - Create/remove tags
   - Start working on tasks and mark them as completed
   - Take a 15min break using the 'Break' button
   - Search throught the lists of tasks
   - See the 'Completed tasks' in a separate list
+  - Import/Export data (lists, tasks, tags) in JSON format
+  - Add a profile picture
