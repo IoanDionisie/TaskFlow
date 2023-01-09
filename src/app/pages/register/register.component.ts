@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-register',
@@ -27,7 +28,7 @@ export class RegisterComponent implements OnInit {
   isSignUpFailed = false;
   errorMessage = '';
 
-  constructor(private authService: AuthService,  private router: Router) { }
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService,  private router: Router) { }
  
   ngOnInit(): void {
     this.form.password = "";
@@ -49,7 +50,10 @@ export class RegisterComponent implements OnInit {
       next: data => {
         this.isSuccessful = true;
         this.isSignUpFailed = false;
-        this.router.navigate(['login'], {queryParams: { registered: 'true' } });
+        this.tokenStorage.saveToken(data.accessToken);
+        this.tokenStorage.saveUser(data);
+        this.router.navigate(['dashboard']);
+        //this.router.navigate(['login'], {queryParams: { registered: 'true' } });
       },
       error: err => {
         this.errorMessage = err.error.message;
