@@ -371,7 +371,23 @@ app.post('/import', async (req, res) => {
     let taskLists = req.body["tasks"];
     let tags = req.body["tags"];
 
+    let currentLists = await List.find({userId: userId});
+    let currentTags = await Tag.find({userId: userId}); 
+    let skipElement = false;
+
     for (let k = 0; k < lists.length; k++) {
+        skipElement = false;
+        for (let l = 0; l < currentLists.length; l++) {
+            if (lists[k].title == currentLists[l].title) {
+                lists[k]._id = null;
+                skipElement = true;
+            }
+        }
+
+        if (skipElement) {
+            continue;   
+        }
+
         let newList = await new List({
             title: lists[k].title,
             description: lists[k].description,
@@ -406,6 +422,17 @@ app.post('/import', async (req, res) => {
     }
     
     for (let i = 0; i < tags.length; i++) {
+        skipElement = false;
+        for (let j = 0; j < currentTags.length; j++) {
+            if (tags[i].title == currentTags[j].title) {
+                skipElement = true;
+            }
+        }
+
+        if (skipElement) {
+            continue;   
+        }
+        
         let newTag = await new Tag({
             title: tags[i].title,
             color: tags[i].color,

@@ -115,7 +115,6 @@ export class SettingsComponent implements OnInit  {
     })(file);
 
     reader.onloadend = (function() {
-      console.log("Load ended!");
       self.exportDisabled = false;
     });
 
@@ -129,7 +128,7 @@ export class SettingsComponent implements OnInit  {
         message: Actions.importData
       }
       this.showMessage.emit(this.messageData);
-      //this.closeModal();
+      this.closeModal();
     });
   }
   
