@@ -64,6 +64,8 @@ export class SuccessMessageComponent implements OnInit {
           this.successMessage = MESSAGES['importData'];
         } else if (this.eventType == Actions.exportData) {
           this.successMessage = MESSAGES['exportData'];
+        } else if (this.eventType == Actions.removeTags) {
+          this.successMessage = MESSAGES['removeTags'];
         }
         this.setTimer();
       }

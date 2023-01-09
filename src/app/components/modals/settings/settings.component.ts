@@ -131,5 +131,15 @@ export class SettingsComponent implements OnInit  {
       this.closeModal();
     });
   }
+
+  removeTags() {
+    this.taskService.removeTags().subscribe(response => {
+      this.messageData = {
+        message: Actions.removeTags
+      }
+      this.showMessage.emit(this.messageData);
+      this.closeModal();
+    });
+  }
   
 }

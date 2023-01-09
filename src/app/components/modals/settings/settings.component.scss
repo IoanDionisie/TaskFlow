@@ -124,7 +124,8 @@
 
   .add-tag, 
   .import-data,
-  .export-data {
+  .export-data,
+  .remove-tags {
     color: white;
     height: 30px;
     display: flex;
@@ -144,16 +145,22 @@
     background: $prussianBlue;
   }
 
+  .remove-tags {
+    background: $errorColor;
+  }
+
   .add-tag:focus,
   .import-data:focus,
-  .export-data:focus {
+  .export-data:focus,
+  .remove-tags:focus {
     outline:none;
     box-shadow: none;
   }
 
   .add-tag:hover,
   .export-data:hover,
-  .import-data:not(:disabled):hover {
+  .import-data:not(:disabled):hover,
+  .remove-tags:hover {
     opacity: 0.8;
   }
 

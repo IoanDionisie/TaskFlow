@@ -17,5 +17,6 @@ export enum Actions {
   changeProfilePicture,
   cloneTask,
   importData, 
-  exportData
+  exportData,
+  removeTags
 }

@@ -15,6 +15,7 @@ export const MESSAGES = {
     changeProfilePicture: "Your profile picture was changed succesfully!",
     cloneTask: "Task was succesfully cloned!",
     importData: "Data was succesfully imported!",
-    exportData: "Data was succesfully exported!"
+    exportData: "Data was succesfully exported!",
+    removeTags: "All tags were succesfully removed!"
 };
 

@@ -323,6 +323,16 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
 })
 
 /** 
+ * DELETE /tags/:id
+ * Purpose: Delete all tags defined for an user
+ */
+app.delete('/removetags', async (req, res) => {
+    let userId = authJwt.getUserId(req);
+    await Tag.deleteMany({userId: userId});
+    res.status(200).send({});
+})
+
+/** 
  * GET /tags/
  * Purpose: Get a list of all tags for the currently logged user
  */
@@ -432,7 +442,7 @@ app.post('/import', async (req, res) => {
         if (skipElement) {
             continue;   
         }
-        
+
         let newTag = await new Tag({
             title: tags[i].title,
             color: tags[i].color,
