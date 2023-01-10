@@ -449,10 +449,16 @@
 }
 
 
+.user-section-wrapper {
+    position: absolute;
+    right: 0;
+    top: 5px;
+}
+
 .user-section {
     width: auto;
     height: 35px;
-    position: absolute;
+    position: relative;
     right: 10px;
     top: 8px;
     display: flex;
@@ -481,7 +487,8 @@
     }
 
     #user-section-dropdown-content {
-        transform: translate(15px, 40px)!important;
+        inset: 42px 5px auto auto!important;
+        transform: none!important;
         border-top-left-radius: 20px;
         border: none;
         padding: 0;
