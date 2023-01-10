@@ -56,7 +56,7 @@ export class DashboardComponent implements OnInit {
 
   showSearch: boolean = false;
   
-  timer: TaskTimer = new TaskTimer(1000);
+  timers: Map<string, TaskTimer> = new Map<string, TaskTimer>();
 
   @HostBinding('class') class = 'center-component';
 
@@ -368,21 +368,44 @@ export class DashboardComponent implements OnInit {
   }
 
   completeTask(task: any, index: number) {
+    let now = new Date();
     task.status = ITEM_STATUS.completed;
+    let totalWorkingTime = this.calculateTotalWorkingTime(task, now);
+    
     let data = {
-      date: new Date(),
+      date: now,
       isStarted: TASK_STATUS.completed,
-      workIntervals: task.workIntervals
+      workIntervals: task.workIntervals,
+      status: ITEM_STATUS.completed,
+      totalWorkingTime: totalWorkingTime
     }
 
     this.taskService.modifyTaskDates(this.selectedList._id, task._id, data).subscribe((response: any) => {
       this.inProgressTasks.splice(index, 1);
+      task.totalWorkingTime = totalWorkingTime;
+      task.dateCompleted = now;
       this.completedTasks.unshift(task);
       this.calculatePercentCompleted();
       this.setProgressbarColor();
       this.showSuccessMessage(Actions.completeTask, task.title);
       this.startedTasks--;
     })
+    
+  }
+
+  calculateTotalWorkingTime(task: any, date: Date) {
+    task.workIntervals.push({
+      date: date, 
+      type: 'completed'
+    });
+    
+    var totalTime = 0;
+    for (let i = 0; i < task.workIntervals.length; i++) {
+      if (i % 2 == 0) {
+        totalTime += this.helperService.getSecondsDiff(new Date(task.workIntervals[i].date), new Date(task.workIntervals[i+1].date));
+      }
+    }
+    return this.helperService.secondsToHoursMinutesSeconds(totalTime);
   }
 
   cloneTask(task: any) {
@@ -410,39 +433,46 @@ export class DashboardComponent implements OnInit {
     let dateStarted: Date;
     let workIntervals = task.workIntervals;
     let timeWorkedSoFar = 0;
+    let timer = this.timers.get(task._id);
+
+    task.showTimer = true;
+    dateStarted = new Date();
 
     for (let i = 0; i < workIntervals.length; i = i + 2) {
       if (workIntervals[i + 1] != undefined)
         timeWorkedSoFar += this.helperService.getSecondsDiff(new Date(workIntervals[i].date), new Date(workIntervals[i + 1].date));
     } 
-    task.showTimer = true;
-   
-    dateStarted = new Date();
 
-    if (this.timer.get(task._id) == undefined) {
-      this.timer.add([
+    if (!timer) {
+      timer = new TaskTimer();
+      timer.add([
         {
             id: task._id,       
             totalRuns: 0,   
             callback(task) {}
         }
       ]);
-      this.timer.on('tick', () => {
+      timer.on('tick', () => {
         task.workingTime = this.helperService.secondsToHoursMinutesSeconds(this.helperService.getSecondsDiff(dateStarted, new Date()) + timeWorkedSoFar);
       });
 
-      this.timer.start();
+      timer.start();
+
+      this.timers.set(task._id, timer);
     } else {
-      this.timer.on('tick', () => {
+      timer.on('tick', () => {
         task.workingTime = this.helperService.secondsToHoursMinutesSeconds(this.helperService.getSecondsDiff(dateStarted, new Date()) + timeWorkedSoFar);
       });
 
-      this.timer.start();
+      timer.start();
     }
   }
 
   removeTimer(taskId: string) {
-    this.timer.removeAllListeners();
+    let timer = this.timers.get(taskId);
+    if (timer) {
+      timer.removeAllListeners();
+    }
   }
 
   setTasksTimer(tasks: any) {

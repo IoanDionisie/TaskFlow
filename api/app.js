@@ -255,7 +255,6 @@ app.patch('/lists/:listId/tasks/:taskId', async (req, res) => {
     req.params.taskId, {
         title: req.body.title,
         description: req.body.description,
-        dateCompleted: req.body.dateCompleted,
         status: req.body.status,
         observations: req.body.observations,
         tags: sortedTags,
@@ -283,20 +282,16 @@ app.patch('/lists/:listId/tasks/:taskId', async (req, res) => {
     } else {
         workIntervals.push(interval);
     }
-
-    if (req.body.dateCompleted) {
-        
-    }
     
     await Task.findByIdAndUpdate( req.params.taskId, {
-        dateCompleted: req.body.dateCompleted,
+        dateCompleted: req.body.date,
         status: req.body.status,
         isStarted: req.body.isStarted,
-        workIntervals: workIntervals
+        workIntervals: workIntervals,
+        totalWorkingTime: req.body.totalWorkingTime
     })
 
     res.send(workIntervals);
-    
 });
 
 /** 
