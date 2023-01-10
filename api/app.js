@@ -27,6 +27,7 @@ const { User } = require('./db/models/user.model');
 const { Tag } = require('./db/models/tag.model');
 const { authJwt } = require('./middleware');
 const e = require('express');
+const { WorkingDates } = require('./db/models/workingDates.model');
 
 // Load middleware
 app.use(bodyParser.json());
@@ -240,28 +241,62 @@ app.get('/lists/:listId/tasks/:taskId', (req, res) => {
 })
 
 /** 
- * PATCH /lists/:id/tasks
+ * PATCH /lists/:id/tasks/:id
  * Purpose: Modifies an existing task
  */
- app.patch('/lists/:listId/tasks/:taskId', async (req, res) => {
+app.patch('/lists/:listId/tasks/:taskId', async (req, res) => {
     let sortedTags = req.body.tags;
 
     if (sortedTags) {
         sortedTags.sort((a, b) => a.title.localeCompare(b.title));
     }
-
+    
     await Task.findByIdAndUpdate(
-        req.params.taskId, {
-            title: req.body.title,
-            description: req.body.description,
-            dateStarted: req.body.dateStarted,
-            dateCompleted: req.body.dateCompleted,
-            status: req.body.status,
-            observations: req.body.observations,
-            tags: sortedTags,
-            isStarted: req.body.isStarted
-        })
-        res.status(200).send();
+    req.params.taskId, {
+        title: req.body.title,
+        description: req.body.description,
+        dateCompleted: req.body.dateCompleted,
+        status: req.body.status,
+        observations: req.body.observations,
+        tags: sortedTags,
+        isStarted: req.body.isStarted
+    })
+        
+    res.status(200).send();
+        
+});
+
+/** 
+ * PATCH /lists/:id/tasks
+ * Purpose: Modifies an existing task
+ */
+ app.patch('/lists/:listId/tasks/:taskId/startPause', async (req, res) => {
+    let interval = new WorkingDates({
+        date: req.body.date,
+        type: req.body.isStarted
+    });
+    var workIntervals = req.body.workIntervals;
+    
+    if (!workIntervals) {
+        workIntervals = [];
+        workIntervals.push(interval);
+    } else {
+        workIntervals.push(interval);
+    }
+
+    if (req.body.dateCompleted) {
+        
+    }
+    
+    await Task.findByIdAndUpdate( req.params.taskId, {
+        dateCompleted: req.body.dateCompleted,
+        status: req.body.status,
+        isStarted: req.body.isStarted,
+        workIntervals: workIntervals
+    })
+
+    res.send(workIntervals);
+    
 });
 
 /** 

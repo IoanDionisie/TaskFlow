@@ -11,6 +11,15 @@ const TagSchema = new mongoose.Schema({
     color: {
         type: String
     }
+});
+
+const WorkingDatesSchema = new mongoose.Schema({
+    date: {
+        type: Date
+    },
+    type: {
+        type: String
+    }
 })
 
 const TaskSchema = new mongoose.Schema({
@@ -57,7 +66,13 @@ const TaskSchema = new mongoose.Schema({
     },
     tags: [
         TagSchema
-    ]
+    ],
+    workIntervals: [
+        WorkingDatesSchema
+    ],
+    workedTime: {
+        type: Number
+    }
 })
 
 const Task = mongoose.model('task', TaskSchema);

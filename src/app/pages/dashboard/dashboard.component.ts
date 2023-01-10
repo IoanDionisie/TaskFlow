@@ -19,6 +19,7 @@ import { TagsListComponent } from 'src/app/components/modals/tags-list/tags-list
 import { List } from 'src/app/models/list.model';
 import { ImageService } from 'src/app/services/image.service';
 import { TASK_STATUS } from 'src/app/constants/task-status';
+import { TaskTimer } from 'tasktimer';
 
 @Component({
   selector: 'app-dashboard',
@@ -54,6 +55,8 @@ export class DashboardComponent implements OnInit {
   public searchFilter: any = "";
 
   showSearch: boolean = false;
+  
+  timer: TaskTimer = new TaskTimer(1000);
 
   @HostBinding('class') class = 'center-component';
 
@@ -231,20 +234,6 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  completeThisTask(task: any, index: number) {
-    task.status = ITEM_STATUS.completed;
-    task.dateCompleted = new Date();
-
-    this.taskService.modifyTask(this.selectedList._id, task._id, task).subscribe((response: any) => {
-      this.inProgressTasks.splice(index, 1);
-      this.completedTasks.unshift(task);
-      this.calculatePercentCompleted();
-      this.setProgressbarColor();
-      this.showSuccessMessage(Actions.completeTask, task.title);
-      this.startedTasks--;
-    })
-  }
-
   notStartedTask(task: any) {
     this.showErrorMessage(Actions.completeTask, task.title);
   }
@@ -329,15 +318,15 @@ export class DashboardComponent implements OnInit {
 
   beginTask(task: any) {
     if (this.startedTasks < 2) {
-      let date = new Date();
       let data = {
-        dateStarted: date,
-        isStarted: TASK_STATUS.started
+        date: new Date(),
+        isStarted: TASK_STATUS.started,
+        workIntervals: task.workIntervals
       }
   
-      this.taskService.modifyTask(this.selectedList._id, task._id, data).subscribe((response: any) => {
-        task.dateStarted = date;
+      this.taskService.modifyTaskDates(this.selectedList._id, task._id, data).subscribe((response: any) => {
         task.isStarted = TASK_STATUS.started;
+        task.workIntervals = response;
         this.incrementTaskWorkingTime(task);
         this.showSuccessMessage(Actions.beginTask, task.title);
         this.startedTasks ++;
@@ -348,32 +337,52 @@ export class DashboardComponent implements OnInit {
   }
 
   pauseTask(task: any) {
-    let date = new Date();
-
     let data = {
-      datePaused: date,
-      isStarted: TASK_STATUS.paused
+      date: new Date(),
+      isStarted: TASK_STATUS.paused,
+      workIntervals: task.workIntervals
     }
 
-    this.taskService.modifyTask(this.selectedList._id, task._id, data).subscribe((response: any) => {
+    this.taskService.modifyTaskDates(this.selectedList._id, task._id, data).subscribe((response: any) => {
       task.isStarted = TASK_STATUS.paused;
-      this.incrementTaskWorkingTime(task);
+      task.showTimer = false;
+      this.removeTimer(task._id);
+      task.workIntervals = response;
       this.showSuccessMessage(Actions.pauseTask, task.title);
     });
   }
 
   resumeTask(task: any) {
-    let date = new Date();    
     let data = {
-      dateStarted: date,
-      isStarted: TASK_STATUS.started
+      date: new Date(),
+      isStarted: TASK_STATUS.started,
+      workIntervals: task.workIntervals
     }
 
-    this.taskService.modifyTask(this.selectedList._id, task._id, data).subscribe((response: any) => {
+    this.taskService.modifyTaskDates(this.selectedList._id, task._id, data).subscribe((response: any) => {
       task.isStarted = TASK_STATUS.started;
+      task.workIntervals = response;
       this.incrementTaskWorkingTime(task);
       this.showSuccessMessage(Actions.resumeTask, task.title);
     });
+  }
+
+  completeTask(task: any, index: number) {
+    task.status = ITEM_STATUS.completed;
+    let data = {
+      date: new Date(),
+      isStarted: TASK_STATUS.completed,
+      workIntervals: task.workIntervals
+    }
+
+    this.taskService.modifyTaskDates(this.selectedList._id, task._id, data).subscribe((response: any) => {
+      this.inProgressTasks.splice(index, 1);
+      this.completedTasks.unshift(task);
+      this.calculatePercentCompleted();
+      this.setProgressbarColor();
+      this.showSuccessMessage(Actions.completeTask, task.title);
+      this.startedTasks--;
+    })
   }
 
   cloneTask(task: any) {
@@ -398,12 +407,42 @@ export class DashboardComponent implements OnInit {
   }
 
   incrementTaskWorkingTime(task: any) {
-    let dateNow, dateStarted;
-    setInterval(() => {
-      dateStarted = task.dateStarted;
-      dateNow = new Date();
-      task.workingTime = this.helperService.secondsToHoursMinutesSeconds(this.helperService.getSecondsDiff(new Date(dateStarted), dateNow));
-    }, 1000);
+    let dateStarted: Date;
+    let workIntervals = task.workIntervals;
+    let timeWorkedSoFar = 0;
+
+    for (let i = 0; i < workIntervals.length; i = i + 2) {
+      if (workIntervals[i + 1] != undefined)
+        timeWorkedSoFar += this.helperService.getSecondsDiff(new Date(workIntervals[i].date), new Date(workIntervals[i + 1].date));
+    } 
+    task.showTimer = true;
+   
+    dateStarted = new Date();
+
+    if (this.timer.get(task._id) == undefined) {
+      this.timer.add([
+        {
+            id: task._id,       
+            totalRuns: 0,   
+            callback(task) {}
+        }
+      ]);
+      this.timer.on('tick', () => {
+        task.workingTime = this.helperService.secondsToHoursMinutesSeconds(this.helperService.getSecondsDiff(dateStarted, new Date()) + timeWorkedSoFar);
+      });
+
+      this.timer.start();
+    } else {
+      this.timer.on('tick', () => {
+        task.workingTime = this.helperService.secondsToHoursMinutesSeconds(this.helperService.getSecondsDiff(dateStarted, new Date()) + timeWorkedSoFar);
+      });
+
+      this.timer.start();
+    }
+  }
+
+  removeTimer(taskId: string) {
+    this.timer.removeAllListeners();
   }
 
   setTasksTimer(tasks: any) {

@@ -46,7 +46,7 @@
                         <div *ngFor="let task of (inProgressTasks | searchTaskFilter : searchFilter);let indexOfElement=index;" class="task task-color" cdkDrag>
                             <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
                             <div class="checkbox-and-title">
-                                <div *ngIf="task.isStarted == TASK_STATUS.started" class="circle" (click)="completeThisTask(task, indexOfElement)">
+                                <div *ngIf="task.isStarted == TASK_STATUS.started" class="circle" (click)="completeTask(task, indexOfElement)">
                                     <div class="checkmark"></div>
                                 </div>
                                 <div *ngIf="task.isStarted == false" class="circle gray-circle" (click)="notStartedTask(task)"></div>
@@ -56,7 +56,7 @@
                                 </div>
                             </div>
                             <div class="actions">
-                                <div *ngIf="task.isStarted == TASK_STATUS.started" class="task-duration">
+                                <div *ngIf="task.isStarted == TASK_STATUS.started && task.showTimer == true" class="task-duration">
                                     {{task.workingTime}}
                                 </div>
                                 <button *ngIf="task.isStarted == TASK_STATUS.started" class="pause" (click)="pauseTask(task)" title="Pause Task">

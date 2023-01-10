@@ -42,6 +42,11 @@ export class TaskService {
     return this.webReqService.patch(link, task);
   }
 
+  modifyTaskDates(listId: any, taskId: any, task: Object) {
+    let link = 'lists/' + listId + '/tasks/' + taskId + '/startPause';
+    return this.webReqService.patch(link, task);
+  }
+
   modifyTasks(listId: string, ids: string) {
     let link = 'lists/' + listId + '/reorderTasks';
     return this.webReqService.patch(link, {ids: ids});

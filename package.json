@@ -39,6 +39,7 @@
     "ngx-color-picker": "^12.0.1",
     "ngx-sortable": "^1.0.3",
     "rxjs": "~7.5.0",
+    "tasktimer": "^3.0.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
