@@ -4,7 +4,7 @@
 <div class="modal-body">
   
   <div class="modal-body-text">
-    <div class="title">
+    <div class="title" *ngIf="task.description">
       Description
     </div>
     <p [innerHTML]="task.description">
@@ -12,7 +12,7 @@
   </div>
  
   <div *ngIf="task.status == ITEM_STATUS.completed" class="modal-body-text">
-    <div class="title">
+    <div class="title"  *ngIf="task.observations">
       Observations
     </div>
     <p [innerHTML]="task.observations">
