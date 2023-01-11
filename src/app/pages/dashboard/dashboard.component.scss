@@ -216,11 +216,11 @@
 }
 
 .delete {
-    color: rgb(255,69,0);
+    color: $errorColor;
 }
 
 .modify {
-    color: $prussianBlue;
+    color: $taskColor;
 }
 
 .complete {
@@ -233,6 +233,10 @@
 
 .pause {
     color: $errorColor;
+}
+
+.clone {
+    color: $listColor;
 }
 
 .add-task {
