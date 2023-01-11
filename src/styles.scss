@@ -125,7 +125,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     .modal-header {
         color: white;
         border-bottom: none;
-        background: $forestGreen;
+        background: $taskColor;
         opacity: 0.8;
     }
 
@@ -141,7 +141,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
         border-radius: 30px 0;
         font-size: 18px;
         padding: 5px 20px 5px 20px;
-        background: $forestGreen;
+        background: $taskColor;
         opacity: 0.8;
         border: none;
         outline: none;
@@ -203,7 +203,7 @@ input:disabled, textarea:disabled {
     --primary-dark: #424242;
     --secondary-dark: #121212;
     --text-dark: #fff;
-    --header-text-dark: #788791;
+    --header-text-dark: #788791; 
 }
 
 .color-scheme-dark {

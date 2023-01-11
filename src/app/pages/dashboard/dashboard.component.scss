@@ -8,12 +8,12 @@
     color: $taskColor;
 
     .not-started-task-color {
-        color: $notStartedTask;
+        color: gray;
     }
 }
 
 .add-list-button {
-    background: $forestGreen;
+    background: $listColor;
     color: white;
 }
 
@@ -48,7 +48,7 @@
     .title {
         border-radius: 0 100px 55px 125px;
         color: white;
-        background: $listColor;
+        background: $taskColor;
         padding: 2px 10px 2px 10px;
         width: fit-content;
     }
@@ -262,7 +262,7 @@
     justify-content: center;
     align-items: center;
     padding: 5px;
-    background: $forestGreen;
+    background: $taskColor;
     color: whitesmoke;
 }
 
@@ -562,7 +562,7 @@
 .title-row .title {
     position: relative;
     overflow: hidden;
-    border: 5px solid $listColor;
+    border: 5px solid $taskColor;
 }
 
 .title-row .title-header {
@@ -576,13 +576,13 @@
 
 .title-row .title .app-logo {
     position: relative;
-    color: forestgreen;
+    color: white;
     transition: 1s;
     z-index: 3;  
 }
 
 .title-row .title:before {
-    background: forestgreen;
+    background: $listColor;
     content: "";
     position: absolute;
     top: 100%;

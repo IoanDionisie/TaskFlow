@@ -8,7 +8,7 @@
         border-radius: 30px;
         padding: 10px;
         font-size: 18px;
-        background: $orange;
+        background: orange;
         color: white;
         border: none;
         opacity: 0.8;
@@ -32,18 +32,6 @@
 
     .title {
         padding: 5px;
-    }
-
-    .first {
-        background: $firstTimeBubble;
-    }
-
-    .second {
-        background: $secondTimeBubble;
-    }
-
-    .third {
-        background: $thirdTimeBubble;
     }
     
     .break-container {
@@ -76,11 +64,11 @@
     }
 
     .pause-button {
-        background: $tomatoRed;
+        background: $listColor;
     }
 
     .exit-button {
-        background: $crimsonRed;
+        background: $errorColor;
     }
 
     .resume-button {
