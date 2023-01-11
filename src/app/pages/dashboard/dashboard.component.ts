@@ -396,7 +396,7 @@ export class DashboardComponent implements OnInit {
   calculateTotalWorkingTime(task: any, date: Date) {
     task.workIntervals.push({
       date: date, 
-      type: 'completed'
+      type: TASK_STATUS.completed
     });
     
     var totalTime = 0;
@@ -430,13 +430,11 @@ export class DashboardComponent implements OnInit {
   }
 
   incrementTaskWorkingTime(task: any) {
-    let dateStarted: Date;
     let workIntervals = task.workIntervals;
     let timeWorkedSoFar = 0;
     let timer = this.timers.get(task._id);
-
+    let dateStarted = new Date(workIntervals[workIntervals.length - 1].date);
     task.showTimer = true;
-    dateStarted = new Date();
 
     for (let i = 0; i < workIntervals.length; i = i + 2) {
       if (workIntervals[i + 1] != undefined)
