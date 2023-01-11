@@ -15,6 +15,14 @@
         <textarea autosize id="description" [(ngModel)]="description"></textarea>
     </div>
 
+    <div class="estimation modal-text estimation-container">
+        <label for="description">Estimation (hours)</label>
+        <select #teams (change)="pickEstimation(teams.value)">
+            <option default>0</option>
+            <option *ngFor="let item of timeValues">{{item}}</option>
+        </select>
+    </div>
+
     <div class="name modal-text tag-container">
         <label for="tags">Tags</label>
        <app-tags (tagsAdded)="tagsAddedHandler($event)"></app-tags>

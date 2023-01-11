@@ -57,7 +57,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .modal .modal-body {
-    max-height: 450px;
+    max-height: 480px;
     overflow-x: auto;
 }
 
@@ -85,6 +85,26 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
         margin-left: 15px;
         width: 100%;
         padding: 10px;
+        border: 1px solid $listColor;
+        border-radius: 10px;
+        box-shadow: 0 8px 10px -10px $listColor;
+    }
+}
+
+.estimation-container {
+    font-size: 1.1rem;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 5px;
+
+    label {
+        padding-bottom: 10px;
+        margin-bottom: 0;
+    }
+
+    select {
+        width: 90px;
         border: 1px solid $listColor;
         border-radius: 10px;
         box-shadow: 0 8px 10px -10px $listColor;

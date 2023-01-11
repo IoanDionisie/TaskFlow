@@ -76,6 +76,9 @@ const TaskSchema = new mongoose.Schema({
     totalWorkingTime: {
         type: String,
         default: "Not set"
+    },
+    estimation: {
+        type: Number
     }
 })
 

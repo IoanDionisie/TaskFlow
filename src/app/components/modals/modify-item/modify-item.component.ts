@@ -16,16 +16,24 @@ export class ModifyItemComponent implements OnInit {
   @Input() public status: string = "";
   @Input() public observations: string = "";
   @Input() public tags: any;
+  @Input() public estimation: any;
 
   @Output() modifyItemConfirmation: EventEmitter<any> = new EventEmitter();
+
+  timeValues: number[];
 
   readonly ITEM_STATUS = ITEM_STATUS;
   readonly ITEM_TYPE = ITEM_TYPE;
 
-  constructor(private modal: NgbActiveModal) {}
+  constructor(private modal: NgbActiveModal) {
+    this.timeValues = [];
+  }
 
   ngOnInit(): void {
-    console.log(this.observations);
+    for (let i = 1; i < 13; ++i) {
+      this.timeValues.push(i/2);
+    }
+    console.log(this.estimation)
   }
 
   confirm() {
@@ -35,7 +43,8 @@ export class ModifyItemComponent implements OnInit {
       description: this.description,
       status: this.status,
       observations: this.observations,
-      tags: this.tags
+      tags: this.tags,
+      estimation: this.estimation
     }
 
     this.modifyItemConfirmation.emit(obj);
@@ -57,5 +66,9 @@ export class ModifyItemComponent implements OnInit {
         this.tags?.push(tags[i]);
       }
     }
+  }
+
+  pickEstimation(value: number) {
+    this.estimation = value;
   }
 }

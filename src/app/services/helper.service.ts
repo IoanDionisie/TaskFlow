@@ -22,6 +22,7 @@ export class HelperService {
       modalRef.componentInstance.title = item.title;
       modalRef.componentInstance.description = item.description;
       modalRef.componentInstance.status = item.status;
+      modalRef.componentInstance.estimation = item.estimation;
       modalRef.componentInstance.observations = item.observations;
       modalRef.componentInstance.tags = item.tags;
     } else if (type == ITEM_TYPE.list) {

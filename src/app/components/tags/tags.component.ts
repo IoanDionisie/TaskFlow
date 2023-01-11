@@ -109,7 +109,7 @@ export class TagsComponent {
       });
     });
     
-    if (this.currentTags.length > 0) {
+    if (this.currentTags && this.currentTags.length > 0) {
       this.tags = this.currentTags;
     }
   }

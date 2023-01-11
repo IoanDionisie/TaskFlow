@@ -227,6 +227,7 @@ export class DashboardComponent implements OnInit {
           task.title = receivedData.title;
           task.description = receivedData.description;
           task.observations = receivedData.observations;
+          task.estimation = receivedData.estimation;
           task.tags = receivedData.tags;
           this.showSuccessMessage(Actions.modifyTask, task.title);
         })

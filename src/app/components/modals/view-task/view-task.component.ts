@@ -19,10 +19,12 @@ export class ViewTaskComponent implements OnInit {
   workingTime: any;
   description: string
   observations: string;
+  estimation: number;
 
   constructor(private modal: NgbActiveModal, private helperService: HelperService) { 
     this.description = '';
     this.observations = '';
+    this.estimation = 0;
   }
 
   ngOnInit(): void {
@@ -40,6 +42,11 @@ export class ViewTaskComponent implements OnInit {
     if (this.task.observations) {
       this.observations =  this.helperService.linkifyText(this.task.observations);
     }
+
+    if (this.task.estimation) {
+      this.estimation = this.task.estimation;
+    }
+
   }
 
   closeModal() {

@@ -179,6 +179,7 @@ app.post('/lists/:id/tasks', async (req, res) => {
         status: req.body.status,
         description: req.body.description,
         dateCreated: req.body.dateCreated,
+        estimation: req.body.estimation,
         tags: sortedTags,
         order: lastTask != null ? lastTask.order + 1 : 0
     })
@@ -257,6 +258,7 @@ app.patch('/lists/:listId/tasks/:taskId', async (req, res) => {
         description: req.body.description,
         status: req.body.status,
         observations: req.body.observations,
+        estimation: req.body.estimation,
         tags: sortedTags,
         isStarted: req.body.isStarted
     })
@@ -449,6 +451,7 @@ app.post('/import', async (req, res) => {
                         dateCreated: taskLists[i].tasks[j].dateCreated,
                         dateCompleted: taskLists[i].tasks[j].dateCompleted,
                         observations: taskLists[i].tasks[j].observations,
+                        estimation: taskLists[i].tasks[j].estimation,
                         _listId: newList._id,
                         status: taskLists[i].tasks[j].status,
                         order: taskLists[i].tasks[j].order,
