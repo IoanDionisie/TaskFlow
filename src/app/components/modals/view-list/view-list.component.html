@@ -7,9 +7,14 @@
     <div class="title">
       Description
     </div>
-    <p>
-      {{list.description}}
-    </p>
+    <p [innerHTML]="list.description"></p>
+  </div>
+
+  <div class="modal-body-text">
+    <div class="title">
+      Observations
+    </div>
+    <p [innerHTML]="list.observations"></p>
   </div>
  
   <div class="modal-body-text">

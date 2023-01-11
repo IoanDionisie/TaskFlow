@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ITEM_TYPE } from '../constants/item-types';
+import linkifyHtml from 'linkify-html';
 
 
 @Injectable({
@@ -57,4 +58,14 @@ export class HelperService {
       Math.abs(endDate - startDate) / msInSecond
     );
   }
-}
+
+  linkifyText(text: string) {
+    const options = { defaultProtocol: 'https', target: "_blank"};
+
+    return linkifyHtml(text, options);
+  }
+
+  convertDate(date: any) {
+    return date.toLocaleDateString() + " " + date.toLocaleTimeString();
+  }
+}   
