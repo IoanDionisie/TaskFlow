@@ -33,6 +33,8 @@
     "bulma": "^0.9.4",
     "canvas-confetti": "^1.5.1",
     "compass-mixins": "^0.12.12",
+    "linkify-html": "^4.1.0",
+    "linkifyjs": "^4.1.0",
     "mongoose": "^6.3.5",
     "ng-circle-progress": "^1.6.0",
     "ng2-dragula": "^2.1.1",

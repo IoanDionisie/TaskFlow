@@ -4,6 +4,9 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ITEM_STATUS } from 'src/app/constants/item-status';
 import { HelperService } from 'src/app/services/helper.service';
 import Utils from '../../../utils/Utils';
+import * as linkify from 'linkifyjs';
+import linkifyHtml from 'linkify-html';
+
 
 @Component({
   selector: 'app-view-task',
@@ -28,6 +31,19 @@ export class ViewTaskComponent implements OnInit {
     } else {
       this.workingTime = this.helperService.secondsToHoursMinutesSeconds(this.task.totalWorkingTime);
     }
+
+    if (this.task.description) {
+      this.task.description = this.linkifyText(this.task.description);
+    }
+    if (this.task.observations) {
+      this.task.observations =  this.linkifyText(this.task.observations);
+    }
+  }
+
+  linkifyText(text: string) {
+    const options = { defaultProtocol: 'https', target: "_blank"};
+
+    return linkifyHtml(text, options);
   }
 
   closeModal() {
