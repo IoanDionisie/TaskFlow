@@ -14,19 +14,24 @@ export class ViewListComponent implements OnInit {
   readonly ITEM_STATUS = ITEM_STATUS;
   dateCreated:  any;
   dateCompleted: any;
+  description: string
+  observations: string;
 
-  constructor(private modal: NgbActiveModal, private helperService: HelperService) { }
+  constructor(private modal: NgbActiveModal, private helperService: HelperService) {
+    this.description = '';
+    this.observations = '';
+   }
 
   ngOnInit(): void {
     this.dateCreated = this.helperService.convertDate(new Date(this.list.dateCreated));
     this.dateCompleted = this.helperService.convertDate(new Date(this.list.dateCompleted));
 
     if (this.list.description) {
-      this.list.description = this.helperService.linkifyText(this.list.description);
+      this.description = this.helperService.linkifyText(this.list.description);
     }
 
     if (this.list.observations) {
-      this.list.observations =  this.helperService.linkifyText(this.list.observations);
+      this.observations =  this.helperService.linkifyText(this.list.observations);
     }
   }
 

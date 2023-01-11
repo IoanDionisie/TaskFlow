@@ -25,6 +25,7 @@ export class ModifyItemComponent implements OnInit {
   constructor(private modal: NgbActiveModal) {}
 
   ngOnInit(): void {
+    console.log(this.observations);
   }
 
   confirm() {

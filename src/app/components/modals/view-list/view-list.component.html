@@ -4,17 +4,17 @@
 <div class="modal-body">
   
   <div class="modal-body-text">
-    <div class="title" *ngIf="list.description">
+    <div class="title" *ngIf="description">
       Description
     </div>
-    <p [innerHTML]="list.description"></p>
+    <p [innerHTML]="description"></p>
   </div>
 
   <div class="modal-body-text">
-    <div class="title" *ngIf="list.observations">
+    <div class="title" *ngIf="observations">
       Observations
     </div>
-    <p [innerHTML]="list.observations"></p>
+    <p [innerHTML]="observations"></p>
   </div>
  
   <div class="modal-body-text">

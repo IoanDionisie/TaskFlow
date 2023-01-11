@@ -17,8 +17,13 @@ export class ViewTaskComponent implements OnInit {
   dateCreated:  any;
   dateCompleted: any;
   workingTime: any;
+  description: string
+  observations: string;
 
-  constructor(private modal: NgbActiveModal, private helperService: HelperService) { }
+  constructor(private modal: NgbActiveModal, private helperService: HelperService) { 
+    this.description = '';
+    this.observations = '';
+  }
 
   ngOnInit(): void {
     this.dateCreated = this.helperService.convertDate(new Date(this.task.dateCreated));
@@ -30,10 +35,10 @@ export class ViewTaskComponent implements OnInit {
     }
 
     if (this.task.description) {
-      this.task.description = this.helperService.linkifyText(this.task.description);
+      this.description = this.helperService.linkifyText(this.task.description);
     }
     if (this.task.observations) {
-      this.task.observations =  this.helperService.linkifyText(this.task.observations);
+      this.observations =  this.helperService.linkifyText(this.task.observations);
     }
   }
 
