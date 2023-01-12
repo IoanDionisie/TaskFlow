@@ -19,3 +19,4 @@ In this app, you are able to:
   - See the 'Completed tasks' in a separate list
   - Import/Export data (lists, tasks, tags) in JSON format
   - Add a profile picture
+  - See some info & statistics about the tasks of a list 
