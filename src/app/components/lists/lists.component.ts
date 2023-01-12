@@ -51,6 +51,7 @@ export class ListsComponent implements OnInit {
   @Output() listEvent: EventEmitter<any> = new EventEmitter();
   @Input() incrementNumber: any;
   @Input() progressBarColor: any;
+  @Input() tagsObject: any;
 
   showInProgress: boolean | undefined;
   showCompleted: boolean | undefined;
@@ -136,6 +137,7 @@ export class ListsComponent implements OnInit {
   showListInfo(list: List) {
     const modalRef = this.modalService.open(ViewListComponent);
     modalRef.componentInstance.list = list;
+    modalRef.componentInstance.tagsObject = this.tagsObject;
   }
 
 }

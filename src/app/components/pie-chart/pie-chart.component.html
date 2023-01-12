@@ -1,0 +1,19 @@
+<ngx-charts-pie-chart
+  [view]="view"
+  [scheme]="colorScheme"
+  [results]="dataArray"
+  [gradient]="gradient"
+  [legend]="showLegend"
+  [legendPosition]="legendPosition"
+  [labels]="showLabels"
+  [doughnut]="isDoughnut"
+  [tooltipDisabled]="tooltipDisabled"
+  (select)="onSelect($event)"
+  (activate)="onActivate($event)"
+  (deactivate)="onDeactivate($event)"
+  >
+  <ng-template #seriesTooltipTemplate let-model="model">
+    This is vertical line tooltip template
+    <pre>{{ model | json }}</pre>
+  </ng-template>
+</ngx-charts-pie-chart>

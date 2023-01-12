@@ -40,6 +40,8 @@ import { CommonModule } from '@angular/common';
 import { SettingsComponent } from './components/modals/settings/settings.component';
 import { TagsListComponent } from './components/modals/tags-list/tags-list.component';
 import { ChangeThemeComponent } from './components/change-theme/change-theme.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,8 @@ import { ChangeThemeComponent } from './components/change-theme/change-theme.com
     MyAccountComponent,
     SettingsComponent,
     TagsListComponent,
-    ChangeThemeComponent
+    ChangeThemeComponent,
+    PieChartComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +87,8 @@ import { ChangeThemeComponent } from './components/change-theme/change-theme.com
     MatChipsModule,
     MatAutocompleteModule,
     ReactiveFormsModule, 
-    CommonModule
+    CommonModule,
+    NgxChartsModule
   ],
 
   providers: [authInterceptorProviders],

@@ -47,6 +47,8 @@ export class DashboardComponent implements OnInit {
   userName: string = "";
 
   startedTasks: number = 0;
+  
+  tagsObject: any = {};
 
   readonly ITEM_TYPE = ITEM_TYPE;
   readonly ITEM_STATUS = ITEM_STATUS;
@@ -122,7 +124,36 @@ export class DashboardComponent implements OnInit {
       this.setTasksTimer(this.inProgressTasks);
       this.calculatePercentCompleted();
       this.setProgressbarColor();
+      this.createTagsStatistics();
     });
+  }
+
+  createTagsStatistics() {
+    const tagsMap = new Map();
+    var tagsArray = [];
+    var colorScheme = [];
+
+    for (var task of this.tasks) {
+      for (var tag of task.tags) {
+        if (tagsMap.has(tag.title)) {
+          tag.value = tagsMap.get(tag.title).value + 1;
+          tagsMap.set(tag.title, tag);
+        } else {
+          tag.value = 1;
+          tagsMap.set(tag.title, tag);
+        }
+      }
+    }
+  
+    for (var tag of tagsMap.values()) {
+      tagsArray.push({name: tag.title, value: tag.value});
+      colorScheme.push(tag.color);
+    }
+
+    this.tagsObject = {
+      tagsArray: tagsArray,
+      colorScheme: colorScheme
+    };
   }
 
   /* Calculates the percent of tasks that have been completed, from a specific list */

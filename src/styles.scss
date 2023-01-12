@@ -27,8 +27,6 @@ html, body {
     z-index: 9999;
 }
 
-$prussianBlue: #122E42;
-
 h1 {
     color: $prussianBlue;
 }
@@ -47,7 +45,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
       content: " ";
       height: 100%;
     }
+
+    .modal-dialog {
+        max-width: 700px!important;
+        max-height: 700px!important;
+    }
 }
+
   
 .modal-dialog {
     width: 100%;
@@ -56,8 +60,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     vertical-align: middle;
 }
 
+
+
 .modal .modal-body {
-    max-height: 480px;
     overflow-x: auto;
 }
 
@@ -188,10 +193,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     .modal-body-text {
         font-size: 18px;
     }
+
+    .custom-file .custom-file-label {
+        background: transparent;
+    }
 }
 
 
-input:disabled, textarea:disabled {
+input:disabled, textarea:disabled, select:disabled {
     background: lightgray;
 }
 
@@ -220,7 +229,7 @@ input:disabled, textarea:disabled {
 
 :root {
     --top-navbar-dark: #212529;
-    --primary-dark: black;
+    --primary-dark: #1F1B24;
     --secondary-dark: #121212;
     --text-dark: #fff;
     --header-text-dark: #788791; 
@@ -256,4 +265,48 @@ input:disabled, textarea:disabled {
     .not-started-task-color {
         color: var(--text-dark)!important;
     }
+
+    .legend-label-text {
+        color: white;
+    }
+
+    .chart-legend .legend-label .active .legend-label-text {
+        color: white;
+        opacity: 0.8;
+    }
+
+    .pie-label.animation {
+        fill: white;
+    }
+
+    .task-manager-container {
+        opacity: 0.95!important;
+    }
+
+    .modal-body, .modal-footer {
+        background: var(--primary-dark)!important;
+    }
+
+    .modal-footer {
+        border-radius: 0 0 30px 30px;
+    }
+
+    input:disabled, textarea:disabled, select:disabled {
+        cursor: not-allowed;
+        background: initial!important;
+    }
+}
+
+.pie-label.animation {
+    font-size: 16px;
+}
+
+.legend-labels {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+}
+
+.ngx-charts-tooltip-content {
+    z-index: 999999!important;
 }

@@ -34,6 +34,15 @@
       {{this.dateCompleted}}
     </p>
   </div>
+
+  <div class="modal-body-text pie-chart">
+    <div class="title">
+      Tags distribution
+    </div>
+    <app-pie-chart [dataObject]="tagsObject"> </app-pie-chart>
+  </div>
+
+ 
 </div>
 
 <div class="modal-footer">

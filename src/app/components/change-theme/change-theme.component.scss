@@ -1,11 +1,13 @@
+@import "../../../styles/variables.scss";
+
 .checkbox {
     opacity: 0;
     position: absolute;
 }
 
 .label {
-    width: 56px;
-    height: 26px;
+    width: 64px;
+    height: 30px;
     background-color: #111;
     display: flex;
     border-radius: 50px;
@@ -14,15 +16,16 @@
     padding: 5px;
     position: relative;
     transform: scale(1.1);
+    border: 2px solid $taskColor;
 }
 
 .ball {
-    width: 19px;
-    height: 19px;
+    width: 20px;
+    height: 20px;
     background-color: white;
     position: absolute;
     top: 3px;
-    left: 6px;
+    left: 4px;
     border-radius: 50%;
     cursor: pointer;
     transition: transform 0.2s linear;
@@ -30,7 +33,7 @@
 
 /*  target the elemenent after the label*/
 .checkbox:checked+.label .ball {
-    transform: translateX(26px);
+    transform: translateX(32px);
 }
 
 .fa-moon,

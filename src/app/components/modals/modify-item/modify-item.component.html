@@ -12,9 +12,9 @@
         <textarea [disabled]="this.status == ITEM_STATUS.completed" autosize id="description" [value]="this.description" [(ngModel)]="this.description"></textarea>
     </div>
 
-    <div class="estimation modal-text estimation-container">
+    <div *ngIf="elementName == ITEM_TYPE.task" class="estimation modal-text estimation-container">
         <label for="description">Estimation (hours)</label>
-        <select #teams (change)="pickEstimation(teams.value)">
+        <select [disabled]="this.status == ITEM_STATUS.completed" #teams (change)="pickEstimation(teams.value)">
             <option *ngFor="let item of timeValues" [selected]="item == estimation">{{item}}</option>
         </select>
     </div>

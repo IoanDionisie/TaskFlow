@@ -9,9 +9,11 @@ import { HelperService } from 'src/app/services/helper.service';
   styleUrls: ['./view-list.component.scss']
 })
 export class ViewListComponent implements OnInit {
+  readonly ITEM_STATUS = ITEM_STATUS;
 
   @Input() list: any;
-  readonly ITEM_STATUS = ITEM_STATUS;
+  @Input() tagsObject: any;
+
   dateCreated:  any;
   dateCompleted: any;
   description: string
@@ -38,5 +40,4 @@ export class ViewListComponent implements OnInit {
   closeModal() {
     this.modal.close();
   }
-
 }

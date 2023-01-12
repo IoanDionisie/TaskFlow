@@ -28,7 +28,7 @@ export class CreateTaskComponent implements OnInit  {
   }
 
   ngOnInit(): void {
-    for (let i = 1; i < 13; ++i) {
+    for (let i = 0; i < 13; ++i) {
       this.timeValues.push(i/2);
     }
   }
