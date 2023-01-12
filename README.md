@@ -17,6 +17,7 @@ From the root folder of the project:
   
 From 'api' folder:
 
+- npm install
 - nodemon.cmd .\app.js
 
 ## Functionalities
