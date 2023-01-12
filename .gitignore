@@ -49,3 +49,8 @@ Thumbs.db
 
 # Backup files
 src/assets/json/
+
+
+# Env files
+.env
+.env.test
