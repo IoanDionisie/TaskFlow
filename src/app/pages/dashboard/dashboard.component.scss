@@ -92,7 +92,6 @@
     border-radius: 0 30px 0 30px;
     font-size: 20px;
     border: none;
-    opacity: 0.8;
     height: 2.5rem;
     padding: 15px;
     display: flex;
@@ -104,7 +103,7 @@
 }
 
 .add-list button:hover {
-    opacity: 1;
+    opacity: 0.8;
     cursor: pointer;
 }
 
@@ -136,9 +135,6 @@
     display: flex;
 }
 
-.completed-tasks  .task-title {
-    color: $darkSpringGreen;
-}
 
 .task-list-container {
 
@@ -212,6 +208,7 @@
     :hover {
        cursor: pointer;
        font-size: 20px;
+       color: $errorColor;
     }
     color: $listColor;
 }
@@ -239,17 +236,17 @@
     display: flex;
     font-size: 35px;
     border: none;
-    opacity: 0.8;
+    opacity: 1;
     transition: transform 0.7s ease-in-out;
     justify-content: center;
     align-items: center;
     padding: 5px;
-    background: $taskColor;
+    background: $listColor;
     color: whitesmoke;
 }
 
 .create-task:hover {
-    opacity: 1;
+    opacity: 0.8;
     cursor: pointer;
     transform: rotate(360deg);
 }
@@ -274,13 +271,14 @@
    
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: $darkSpringGreen!important; 
+    background: $taskColor!important; 
     border-radius: 10px;
 }
   
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: $darkSpringGreen; 
+    opacity: 0.8;
+    cursor: pointer;
 }
 
 .add-task-reminder {
@@ -326,7 +324,7 @@
 .circle,
 .circle-completed {
     position: relative;
-    border: 1px solid $taskColor;
+    border: 1px solid $listColor;
     border-radius: 50%;
     width: 28px;
     height: 28px;
@@ -337,7 +335,7 @@
   }
 
   .circle-completed {
-    background: $taskColor;
+    background: $listColor;
   }
 
 .circle-completed .checkmark {
@@ -405,7 +403,7 @@
     top: 0;
     right: 0;
     border: none;
-    background: $darkSpringGreen;
+    background: $taskColor;
     border-radius: 0 30px 0 30px;
     padding: 8px;
 
@@ -447,7 +445,7 @@
     padding: 4px 15px 5px 0px;
     justify-content: space-between;
     align-items: center;
-    background: $listColor;
+    background: $taskColor;
     color: white;
     border-radius: 20px;
 

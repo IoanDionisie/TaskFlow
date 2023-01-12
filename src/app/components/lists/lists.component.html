@@ -20,7 +20,7 @@
                 </div>
                 <div ngbDropdown>
                     <i class="fa-solid fa-angle-down dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle></i>
-                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <div class="list-dropdown" ngbDropdownMenu aria-labelledby="dropdownBasic1">
                         <button class="markCompleted" title="Mark as Completed"  *ngIf="list.percentCompleted == 100" (click)="markAsCompleted(list)" ngbTooltip="Mark as Completed">
                             <i class="fa-solid fa-check"></i>
                         </button>
@@ -63,7 +63,7 @@
                 </div>
                 <div ngbDropdown>
                     <i class="fa-solid fa-angle-down dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle></i>
-                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <div class="list-dropdown" ngbDropdownMenu aria-labelledby="dropdownBasic1">
                         <button class="info" (click)="showListInfo(list)" title="Show List Info" ngbTooltip="List Info">
                             <i class="fa-solid fa-info"></i>
                         </button>

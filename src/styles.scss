@@ -27,9 +27,6 @@ html, body {
     z-index: 9999;
 }
 
-h1 {
-    color: $prussianBlue;
-}
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
@@ -167,14 +164,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
         font-size: 18px;
         padding: 5px 20px 5px 20px;
         background: $taskColor;
-        opacity: 0.8;
         border: none;
         outline: none;
     }
 
     .btn-success:hover,
     .btn-danger:hover {
-        opacity: 1;
+        opacity: 0.8;
     }
 
     .btn-danger {
@@ -184,7 +180,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
         border-radius: 0 30px;
         font-size: 18px;
         padding: 5px 20px 5px 20px;
-        opacity: 0.8;
         background: $listColor;
         border: none;
         outline: none;
@@ -237,6 +232,11 @@ input:disabled, textarea:disabled, select:disabled {
 
 .color-scheme-dark {
     color: var(--text-dark);
+
+   
+    background: url(assets/images/night3.jpg) no-repeat top center;
+    background-size: cover;
+    
   
     h1,
     h2,

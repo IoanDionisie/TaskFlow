@@ -90,26 +90,7 @@
        cursor: pointer;
        font-size: 22px;
     }
-}
-
-.delete {
-    color: rgb(255,69,0);
-}
-
-.modify {
-    color: $taskColor;
-}
-
-.complete {
-    color: $darkSpringGreen;
-}
-
-.markCompleted {
-    color: $taskColor;
-}
-
-.info {
-    color: $errorColor;
+    color: white;
 }
 
 .circle-progress {
@@ -166,4 +147,6 @@
 
 .actions .dropdown-menu {
     border: 2px solid $taskColor;
+    background: $taskColor
+
 }
