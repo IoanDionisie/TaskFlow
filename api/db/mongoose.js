@@ -8,8 +8,11 @@ var username = process.env.USER;
 const password = process.env.PASSWD;
 const cluster = process.env.CLUSTER;
 
+const localUri = `mongodb://localhost:27017/TasksManager`;
 const uri = `mongodb+srv://${username}:${password}@${cluster}`;
-mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}, (err) => {
+
+// Change the localUri with uri if you want to connect to the cloud database
+mongoose.connect(localUri, {useNewUrlParser: true, useUnifiedTopology: true}, (err) => {
     if (!err) console.log("db connected");
     else console.log("db error", err);
 });
