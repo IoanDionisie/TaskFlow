@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ColorSchemeService } from './services/colorscheme.service';
+import  packageJson from '../../package.json';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +10,11 @@ import { ColorSchemeService } from './services/colorscheme.service';
 export class AppComponent implements OnInit {
   title = 'TasksManager';
   currentTheme: string = "";
+  version: string = packageJson.version;
 
   constructor(private colorSchemeService: ColorSchemeService) {
     this.colorSchemeService.load();
+    console.log(this.version);
   }
 
   ngOnInit() {

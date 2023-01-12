@@ -20,6 +20,7 @@ import { List } from 'src/app/models/list.model';
 import { ImageService } from 'src/app/services/image.service';
 import { TASK_STATUS } from 'src/app/constants/task-status';
 import { TaskTimer } from 'tasktimer';
+import * as global from 'src/app/constants/variables';
 
 @Component({
   selector: 'app-dashboard',
@@ -49,6 +50,8 @@ export class DashboardComponent implements OnInit {
   startedTasks: number = 0;
   
   tagsObject: any = {};
+
+  version = global.version;
 
   readonly ITEM_TYPE = ITEM_TYPE;
   readonly ITEM_STATUS = ITEM_STATUS;
