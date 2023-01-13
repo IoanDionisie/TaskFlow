@@ -55,7 +55,7 @@
 }
 
 .sidebar {
-    height: 66%;
+    height: 70%;
 }
 
 .bottom-row {
@@ -168,7 +168,7 @@
 
     .task-title {
         padding-left: 5px;
-        padding-right: 5px;
+        padding-right: 15px;
     }
 
     .task:not(:first-child) {
@@ -511,6 +511,10 @@
 
 ::ng-deep .task-list-container .tasks-tabs .mat-tab-header {
     width: fit-content!important;
+}
+
+::ng-deep .task-list-container .tasks-tabs .mat-tab-body-wrapper {
+    padding-top: 5px;
 }
 
 .search-tasks {

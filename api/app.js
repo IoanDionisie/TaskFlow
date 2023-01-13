@@ -205,6 +205,7 @@ app.post('/lists/:id/cloneTask', async (req, res) => {
         status: clonedTask.status,
         description: clonedTask.description,
         dateCreated: req.body.dateCreated,
+        estimation: clonedTask.estimation,
         tags: clonedTask.tags,
         order: lastTask != null ? lastTask.order + 1 : 0,
     })

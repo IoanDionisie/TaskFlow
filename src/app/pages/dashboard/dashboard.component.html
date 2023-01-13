@@ -31,13 +31,13 @@
     </div>
 
     <div class="row sidebar">
-        <app-lists class="lists-container col-4"
+        <app-lists class="lists-container col-3"
             [inProgressLists]="inProgressLists" [completedLists]="completedLists" [selectedList]="selectedList"
             (listEvent)="listEvent($event)" [incrementNumber]="incrementNumber"  [progressBarColor]="progressBarColor"
             [tagsObject]="tagsObject">
         </app-lists>
         
-        <div class="task-list-container col-8">
+        <div class="task-list-container col-9">
             <div *ngIf="this.showSearch == true" class="form-group search-tasks">
                 <input type="text" class="form-control mb-4" placeholder="Search" [(ngModel)]="searchFilter" id="listSearch">
             </div>
