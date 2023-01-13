@@ -14,7 +14,6 @@ export class AppComponent implements OnInit {
 
   constructor(private colorSchemeService: ColorSchemeService) {
     this.colorSchemeService.load();
-    console.log(this.version);
   }
 
   ngOnInit() {
