@@ -1,0 +1,4 @@
+<div class="circles-wrapper" *ngIf="numbers">
+    <div class="circle"  *ngFor="let item of numbers; let i = index"></div>
+    <div class="half-circle" *ngIf="decimal > 0" > </div>
+</div>

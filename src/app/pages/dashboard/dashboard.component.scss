@@ -168,6 +168,7 @@
 
     .task-title {
         padding-left: 5px;
+        padding-right: 5px;
     }
 
     .task:not(:first-child) {
@@ -586,4 +587,11 @@
     position: absolute;
     right: 100px;
     bottom: 5px;
+}
+
+.title-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }

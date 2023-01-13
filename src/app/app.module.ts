@@ -42,6 +42,7 @@ import { TagsListComponent } from './components/modals/tags-list/tags-list.compo
 import { ChangeThemeComponent } from './components/change-theme/change-theme.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
+import { StatusCirclesComponent } from './components/status-circles/status-circles.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { PieChartComponent } from './components/pie-chart/pie-chart.component';
     SettingsComponent,
     TagsListComponent,
     ChangeThemeComponent,
-    PieChartComponent
+    PieChartComponent,
+    StatusCirclesComponent
   ],
   imports: [
     BrowserModule,
