@@ -2,6 +2,32 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css'; 
 @import "styles/variables.scss";
 
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 6px;
+    cursor:pointer;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+}
+   
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: $taskColor!important; 
+    border-radius: 10px;
+}
+  
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
 .centered-content {
     display: flex;
     justify-content: center;
@@ -233,7 +259,7 @@ input:disabled, textarea:disabled, select:disabled {
 .color-scheme-dark {
     color: var(--text-dark);
 
-    background: url(assets/images/matrix1.jpg) no-repeat top center;
+    background: url(assets/images/darkbkgnd.jpg) no-repeat top center;
     background-size: cover;
 
     .card-container {
