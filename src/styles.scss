@@ -338,3 +338,12 @@ input:disabled, textarea:disabled, select:disabled {
 .ngx-charts-tooltip-content {
     z-index: 999999!important;
 }
+
+.absolute-center {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}
