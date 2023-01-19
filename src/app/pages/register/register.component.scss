@@ -1,13 +1,30 @@
+@import "../../../styles/variables.scss";
+
 .center {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.register .card-container {
+    min-width: 400px;
+}
+
+.register,
+.register .height  {
+    height: 100%;
+}
+
 .card-container {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
     padding: 30px;
 }
 
-.register .card-container {
-    min-width: 400px;
+.version, .login {
+    display: flex;
+    justify-content: center;
 }

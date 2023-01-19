@@ -3,6 +3,8 @@ import { UntypedFormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { AuthService } from '../../services/auth.service';
+import * as global from 'src/app/constants/variables';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -27,6 +29,8 @@ export class RegisterComponent implements OnInit {
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
+
+  version = global.version;
 
   constructor(private authService: AuthService, private tokenStorage: TokenStorageService,  private router: Router) { }
  

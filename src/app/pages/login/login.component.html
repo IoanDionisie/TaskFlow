@@ -1,12 +1,15 @@
 <div class="container login">
-  <div class="row center margin-top">
-    <div class="col-md-6 center">
+  <div class="row center height margin-top">
+    <div class="col-md-6 height center">
       <div class="card card-container ">
-        <img
-          id="profile-img"
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          class="profile-img-card"
-        />
+        <div class="row title-row mb-5">
+          <div class="col-12 flex-center">
+              <div class="title has-text-primary">
+                  <h1 class="title-header"> TaskFlow </h1> 
+                  <i class="fa-solid fa-tree app-logo"></i>
+              </div>
+          </div>
+        </div>
         <form
           *ngIf="!isLoggedIn"
           name="form"
@@ -73,8 +76,11 @@
           Logged in as user. <!--TODO add role-->
         </div>
 
-        <div class="register-account">
-          You don't have an account yet? Register <a routerLink="/register"> here </a>
+        <div class="register-account mt-3">
+          You don't have an account yet? Register  &nbsp; <a routerLink="/register"> here </a>
+        </div>
+        <div class="version mt-3">
+          Version {{version}}
         </div>
       </div>
     </div>
