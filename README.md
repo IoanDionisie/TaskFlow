@@ -18,6 +18,8 @@ From the root folder of the project:
 From 'api' folder:
 
 - npm install
+- create locally a new database in CompassDB (running on port 27017).
+- create a new file called '.env', and add there DBNAME=yourDatabaseName.
 - nodemon.cmd .\app.js
 
 ## Functionalities
