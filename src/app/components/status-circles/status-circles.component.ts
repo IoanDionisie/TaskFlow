@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-status-circles',
@@ -15,17 +15,16 @@ export class StatusCirclesComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.numbers = [];
 
     if (!this.isInt(this.circles) && this.circles > 0) {
       var intgr = Math.floor(this.circles);
       this.decimal = this.circles - Math.floor(this.circles);
       this.circles = intgr;
     }
-
     this.numbers = [...Array(this.circles)];
   }
   
-
   isInt(n: number) {
     return n % 1 === 0;
  }

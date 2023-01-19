@@ -21,6 +21,7 @@ import { ImageService } from 'src/app/services/image.service';
 import { TASK_STATUS } from 'src/app/constants/task-status';
 import { TaskTimer } from 'tasktimer';
 import * as global from 'src/app/constants/variables';
+import { Observable, subscribeOn, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -58,8 +59,9 @@ export class DashboardComponent implements OnInit {
   readonly TASK_STATUS = TASK_STATUS; 
   profilePicture: any;
   public searchFilter: any = "";
-
   showSearch: boolean = false;
+  
+  setProfilePicture: Subscription = new Subscription();
   
   timers: Map<string, TaskTimer> = new Map<string, TaskTimer>();
 
@@ -69,14 +71,24 @@ export class DashboardComponent implements OnInit {
     private token: TokenStorageService, private helperService: HelperService,
     private imageService: ImageService) { }
 
+
+  ngOnDestroy(): void { 
+    this.timers.forEach((timer: TaskTimer) => {
+      timer.stop();
+    });
+
+    if (this.setProfilePicture) {
+      this.setProfilePicture.unsubscribe();
+    }
+  }
+
   ngOnInit(): void {
     this.getAllLists();
     this.userName = this.token.getUser().username;
     this.imageService.setProfilePicture();
-
-    if (this.imageService.getProfilePicture()) {
-      this.profilePicture = window.sessionStorage.getItem("profilepicture");
-    }
+    this.setProfilePicture = this.imageService.profilePicture$.subscribe((response: any) => {
+      this.profilePicture = response;
+    });
   }
 
   groupLists() {
@@ -164,8 +176,8 @@ export class DashboardComponent implements OnInit {
     if (this.tasks.length == 0)
       this.selectedList.percentCompleted = 0;
     else
-      this.selectedList.percentCompleted = Math.floor(this.completedTasks.length / this.tasks.length * 100);
-  }
+      this.selectedList.percentCompleted = Math.floor(this.completedTasks.length / this.tasks.length * 100);    
+    }
 
   /* Splits the task list in 2 lists, 'In Progress' and 'Completed', and then sorts the completed tasks by Date */
   sortTasks(tasks: any) {
@@ -519,11 +531,16 @@ export class DashboardComponent implements OnInit {
   openAccountModal() {
     const modalRef = this.modalService.open(MyAccountComponent);
     modalRef.componentInstance.username = this.userName;
+   
     modalRef.componentInstance.changedPassword.subscribe(() => {
       this.showSuccessMessage(Actions.changedPassword, null);
     })
+
     modalRef.componentInstance.changedProfilePicture.subscribe((data: any) => {
       this.showSuccessMessage(Actions.changeProfilePicture, null);
+      this.setProfilePicture = this.imageService.profilePicture$.subscribe(response => {
+        this.profilePicture = response;
+      })
     });
   }
 }

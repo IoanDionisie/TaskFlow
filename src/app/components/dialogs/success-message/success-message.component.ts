@@ -8,7 +8,7 @@ import { MESSAGES} from  'src/app/constants/success-messages';
   templateUrl: './success-message.component.html',
   styleUrls: ['./success-message.component.scss']
 })
-export class SuccessMessageComponent implements OnInit {
+export class SuccessMessageComponent {
 
   @Input() eventData:any;
 
@@ -18,9 +18,6 @@ export class SuccessMessageComponent implements OnInit {
   showModal: boolean = false;
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (typeof this.eventData !== 'undefined') {

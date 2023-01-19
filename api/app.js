@@ -264,7 +264,7 @@ app.patch('/lists/:listId/tasks/:taskId', async (req, res) => {
         isStarted: req.body.isStarted
     })
         
-    res.status(200).send();
+    res.status(200).send(req.body);
         
 });
 
@@ -387,6 +387,8 @@ app.get('/export',  async (req, res) => {
     let lists = await List.find({userId: userId});
     let tasks = [];
 
+    lists.sort((a,b) => (a.status < b.status) ? 1 : ((b.status < a.status) ? -1 : 0));
+    
     for (let i = 0; i < lists.length; i++) {
         var obj = {
             tasks: await Task.find({_listId: lists[i]._id}),
@@ -402,6 +404,16 @@ app.get('/export',  async (req, res) => {
     };
     res.send(response);    
 })
+
+function compare( a, b ) {
+    if ( a.status < b.status ){
+      return -1;
+    }
+    if ( a.status > b.status ){
+      return 1;
+    }
+    return 0;
+}
 
 /** 
  * POST /
@@ -485,6 +497,21 @@ app.post('/import', async (req, res) => {
         newTag.save();
     }
     res.status(200).send({});
+})
+
+/** 
+ * GET /
+ * Purpose: Checks if a file with the given name exists
+ */
+app.get('/checkFile/:file', async (req, res) => {
+    const path = 'uploads/' + req.params.file;
+    await fs.access(path, fs.F_OK, (err) => {
+        if (err) {
+            res.status(200).send(false);
+            return;
+        }
+        res.status(200).send(true);
+    })
 })
 
 app.listen(3000, () => {

@@ -88,4 +88,9 @@ export class TaskService {
     return this.webReqService.post('import', data);
   }
 
+  checkFile(file: any) {
+    let link = 'checkfile/' + file;
+    return this.webReqService.get(link);
+  }
+
 }
