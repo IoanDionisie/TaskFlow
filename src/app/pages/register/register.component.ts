@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { AuthService } from '../../services/auth.service';
 import * as global from 'src/app/constants/variables';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddProfilePictureComponent } from 'src/app/components/modals/add-profile-picture/add-profile-picture.component';
 
 @Component({
   selector: 'app-register',
@@ -32,7 +34,8 @@ export class RegisterComponent implements OnInit {
 
   version = global.version;
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService,  private router: Router) { }
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService,  private router: Router,
+    private modalService: NgbModal) { }
  
   ngOnInit(): void {
     this.form.password = "";
@@ -56,7 +59,7 @@ export class RegisterComponent implements OnInit {
         this.isSignUpFailed = false;
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUser(data);
-        this.router.navigate(['dashboard']);
+        this.openAddProfilePictureModal();
       },
       error: err => {
         this.errorMessage = err.error.message;
@@ -64,7 +67,13 @@ export class RegisterComponent implements OnInit {
       }
     });
   }
-
+  
+  openAddProfilePictureModal() {
+    const modalRef = this.modalService.open(AddProfilePictureComponent);
+    modalRef.componentInstance.uploadImageConfirmation.subscribe((response: any) => {
+      this.router.navigate(['dashboard']);
+    })
+  }
   onPasswordStrengthChanged(event: boolean) {
     this.strongPassword = event;
   }

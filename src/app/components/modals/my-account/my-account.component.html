@@ -42,10 +42,10 @@
                 <div class="input-group">
                     <div class="custom-file">
                         <form action="/api/upload" method="post" enctype="multipart/form-data">
-                            <input  (change)="fileChange($event)"  type="file"  class="custom-file-input" name="profile-pic"  id="inputGroupFile01"  aria-describedby="inputGroupFileAddon01">
+                            <input  (change)="fileChange($event)"  type="file"  class="custom-file-input" name="profile-pic"  id="inputGroupFile03"  aria-describedby="inputGroupFileAddon01">
                         </form>
-                        <label *ngIf="this.uploadedFile" class="custom-file-label" for="inputGroupFile01">{{this.uploadedFile.name}}</label>
-                        <label *ngIf="!this.uploadedFile" class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                        <label *ngIf="this.uploadedFile" class="custom-file-label" for="inputGroupFile03">{{this.uploadedFile.name}}</label>
+                        <label *ngIf="!this.uploadedFile" class="custom-file-label" for="inputGroupFile03">Choose file</label>
                     </div>
                     <div class="input-group-prepend">
                         <span  class="input-group-text upload"  (click)="uploadFile()"  id="btnUpload">Upload</span>

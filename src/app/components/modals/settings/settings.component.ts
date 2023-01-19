@@ -82,7 +82,6 @@ export class SettingsComponent implements OnInit  {
 
       this.showMessage.emit(this.messageData);
       this.closeModal(); 
-      console.log(response);
     });
   }
 

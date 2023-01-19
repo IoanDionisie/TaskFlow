@@ -22,7 +22,6 @@ export class MyAccountComponent implements OnInit {
 
   @Input() username: any;
   @Output() changedPassword = new EventEmitter<string>();
-
   @Output() changedProfilePicture = new EventEmitter<string>();
   
   form: any = {
