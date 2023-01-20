@@ -44,6 +44,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { StatusCirclesComponent } from './components/status-circles/status-circles.component';
 import { AddProfilePictureComponent } from './components/modals/add-profile-picture/add-profile-picture.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { NewPasswordComponent } from './pages/new-password/new-password.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +73,9 @@ import { AddProfilePictureComponent } from './components/modals/add-profile-pict
     ChangeThemeComponent,
     PieChartComponent,
     StatusCirclesComponent,
-    AddProfilePictureComponent
+    AddProfilePictureComponent,
+    ResetPasswordComponent,
+    NewPasswordComponent
   ],
   imports: [
     BrowserModule,

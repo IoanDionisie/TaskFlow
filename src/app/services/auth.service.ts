@@ -39,4 +39,9 @@ export class AuthService {
     }, httpOptions);
   }
 
+  resetPassword(email: any) {
+    return this.http.post(AUTH_API + 'resetPassword', {
+      email
+    }, httpOptions);
+  }
 }

@@ -418,11 +418,15 @@ input:disabled, textarea:disabled, select:disabled {
     justify-content: center;
 }
 
+.new-password .btn-primary,
+.reset-password .btn-primary,
 .login .btn-primary,
 .register .btn-primary {
     background: $listColor;
 }
 
+.new-password .btn-primary:hover,
+.reset-password .btn-primary:hover,
 .login .btn-primary:hover,
 .register .btn-primary:hover {
     opacity: 0.9;

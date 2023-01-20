@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+var crypto = require('crypto');
 
 const UserSchema = new mongoose.Schema({
     username: {
@@ -18,6 +19,16 @@ const UserSchema = new mongoose.Schema({
     }
 });
 
-const User = mongoose.model('user', UserSchema);
+//generate password reset hash
+UserSchema.methods.generatePasswordResetHash = function(){
+  const resetHash = crypto.createHash('sha512').update(this.password).digest('hex')
+  return resetHash;
+}
 
+//verify password reset hash
+UserSchema.methods.verifyPasswordResetHash = function(resetHash = undefined){
+  return this.passwordResetHash() === resetHash;
+}
+
+const User = mongoose.model('user', UserSchema);
 module.exports = { User };

@@ -34,6 +34,7 @@ export class AddProfilePictureComponent implements OnInit {
   
   fileChange(element: any) {
     this.uploadedFile = element.target.files[0];
+    this.uploadFile();
   }
 
   continueToDashboard() {
