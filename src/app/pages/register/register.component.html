@@ -29,7 +29,7 @@
                     maxlength="20"
                     #username="ngModel"
                   />
-                  <div class="alert-danger" *ngIf="username.errors && f.submitted">
+                  <div class="custom-alert-danger mt-3" *ngIf="username.errors && f.submitted">
                     <div *ngIf="username.errors['required']">Username is required</div>
                     <div *ngIf="username.errors['minlength']">
                       Username must be at least 3 characters
@@ -50,7 +50,7 @@
                     email
                     #email="ngModel"
                   />
-                  <div class="alert-danger" *ngIf="email.errors && f.submitted">
+                  <div class="custom-alert-danger mt-3" *ngIf="email.errors && f.submitted">
                     <div *ngIf="email.errors['required']">Email is required</div>
                     <div *ngIf="email.errors['email']">
                       Email must be a valid email address
@@ -72,7 +72,7 @@
 
                   <app-password-strength [passwordToCheck]="form.password" (passwordStrength)="onPasswordStrengthChanged($event)"></app-password-strength>
                    
-                  <div class="alert-danger" *ngIf="password.errors">
+                  <div class="custom-alert-danger mt-3" *ngIf="password.errors">
                     <div *ngIf="password.errors['required']">
                       Password is required
                     </div>

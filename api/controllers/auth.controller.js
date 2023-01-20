@@ -95,13 +95,13 @@ async function sendResetPasswordLink(req, res) {
         return res.status(200).json({});
     }else{
         return res.status(400).json({
-            message : "Email Address is invalid"
+            message : "Email Address is invalid!"
         })
     } 
   } catch(err) {
       console.log(err);
       return res.status(500).json({
-          message : "Internal server error"
+          message : "Internal server error!"
       })
   }
 }
@@ -119,22 +119,22 @@ async function checkResetPasswordLink(req, res) {
               })
             } else {
                 return res.status(400).json({
-                  message: "You have provided an invalid reset link"
+                  message: "You have provided an invalid reset link!"
                 })
             }
           } else {
               return res.status(400).json({
-                message: "You have provided an invalid reset link"
+                message: "You have provided an invalid reset link!"
               })
           }
       } else {
           //if there are no query parameters, serve the normal request form
-          return res.status(400).json({response: "You have provided an invalid reset link"})
+          return res.status(400).json({response: "You have provided an invalid reset link!"})
       }
   } catch (err) {
       console.log(err)
       return res.status(500).json({
-          message: "Internal server error"
+          message: "Internal server error!"
       })
   }
 }

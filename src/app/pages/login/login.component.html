@@ -28,7 +28,7 @@
               #username="ngModel"
             />
             <div
-              class="alert alert-danger"
+              class="mt-3 custom-alert-danger"
               role="alert"
               *ngIf="username.errors && f.submitted"
             >
@@ -47,7 +47,7 @@
               #password="ngModel"
             />
             <div
-              class="alert alert-danger"
+              class="mt-3 custom-alert-danger"
               role="alert"
               *ngIf="password.errors && f.submitted"
             >
@@ -64,7 +64,7 @@
           </div>
           <div class="form-group">
             <div
-              class="alert alert-danger"
+              class="mt-3 custom-alert-danger"
               role="alert"
               *ngIf="f.submitted && isLoginFailed"
             >

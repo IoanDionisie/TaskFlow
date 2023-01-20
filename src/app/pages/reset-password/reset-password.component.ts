@@ -28,10 +28,7 @@ export class ResetPasswordComponent {
 
   onSubmit () {
     this.submitted = true;
-    if (this.form.invalid) {
-      return;
-    }
-    
+ 
     this.authService.resetPassword(this.form.email).subscribe({
       next: () => {
         this.mailSent = true;
