@@ -1,10 +1,24 @@
 const config = require("../config/auth.config");
 const { User } = require('../db/models/user.model');
+const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
 
 dotenv.config();
 
+const mail = process.env.EMAIL;
+const mailPass = process.env.EMAIL_PASS;
 const sitepage = process.env.SITEPAGE;
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
+  auth: {
+   user: mail,
+   pass: mailPass,
+  },
+})
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
@@ -66,24 +80,25 @@ async function resetPassword(req, res) {
     //find a document with such email address
     const user = await User.findOne({email : req.body.email})
     //check if user object is not empty
-    if(user){
-        //generate hash
-        const hash = new User(user).generatePasswordResetHash()
-        //generate a password reset link
-        const resetLink = `${sitepage}/newpassword?email=${user.email}?&hash=${hash}`
-        //return reset link
-        return res.status(200).json({
-            resetLink
-        })
-        //remember to send a mail to the user
+    if(user) {
+        const hash = new User(user).generatePasswordResetHash();
+        const resetLink = `${sitepage}/newpassword?email=${user.email}?&hash=${hash}`;
+        const options = {
+          from: 'support@taskflowapp.com',
+          to: user.email,
+          subject: "Link for resetting password",
+          text: resetLink
+        }
+
+        transporter.sendMail(options);
+        return res.status(200).json({});
     }else{
-        //respond with an invalid email
         return res.status(400).json({
             message : "Email Address is invalid"
         })
     } 
   } catch(err) {
-      console.log(err)
+      console.log(err);
       return res.status(500).json({
           message : "Internal server error"
       })
