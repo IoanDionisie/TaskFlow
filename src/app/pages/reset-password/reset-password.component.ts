@@ -11,17 +11,33 @@ export class ResetPasswordComponent {
     email: null
   };
 
-  constructor(private authService: AuthService) {
+  submitted = false;
+  mailSent: boolean = false;
+  mailError: string = "";
 
+  constructor(private authService: AuthService) {
+  }
+
+  ngOnInit(): void {  
+    this.mailSent = false;
+  }
+
+  get f() {
+    return this.form.controls;
   }
 
   onSubmit () {
+    this.submitted = true;
+    if (this.form.invalid) {
+      return;
+    }
+    
     this.authService.resetPassword(this.form.email).subscribe({
       next: () => {
-        console.log("Password reset email sent");
+        this.mailSent = true;
       },
       error: (err: { error: { message: any; }; }) => {
-        console.log(err.error.message)
+       this.mailError = err.error.message;
       }
     });
   }

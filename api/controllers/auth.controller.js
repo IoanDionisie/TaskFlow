@@ -2,6 +2,7 @@ const config = require("../config/auth.config");
 const { User } = require('../db/models/user.model');
 const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
+var session = require('express-session');
 
 dotenv.config();
 
@@ -75,14 +76,14 @@ exports.changePassword = (req, res) => {
   });
 };
 
-async function resetPassword(req, res) {
+async function sendResetPasswordLink(req, res) {
   try {
     //find a document with such email address
     const user = await User.findOne({email : req.body.email})
     //check if user object is not empty
     if(user) {
         const hash = new User(user).generatePasswordResetHash();
-        const resetLink = `${sitepage}/newpassword?email=${user.email}?&hash=${hash}`;
+        const resetLink = `${sitepage}/newpassword?email=${user.email}&hash=${hash}`;
         const options = {
           from: 'support@taskflowapp.com',
           to: user.email,
@@ -105,7 +106,42 @@ async function resetPassword(req, res) {
   }
 }
 
-exports.resetPassword = resetPassword;
+async function checkResetPasswordLink(req, res) {
+  try {
+      //check for email and hash in query parameter
+      if (req.query && req.query.email && req.query.hash) {
+          const user = await User.findOne({ email: req.query.email });
+          if (user) {
+              if (new User(user).verifyPasswordResetHash(req.query.hash)) {
+                return res.status(200).json({
+                  message: "Reset link is valid",
+                  email: req.query.email
+              })
+            } else {
+                return res.status(400).json({
+                  message: "You have provided an invalid reset link"
+                })
+            }
+          } else {
+              return res.status(400).json({
+                message: "You have provided an invalid reset link"
+              })
+          }
+      } else {
+          //if there are no query parameters, serve the normal request form
+          return res.status(400).json({response: "You have provided an invalid reset link"})
+      }
+  } catch (err) {
+      console.log(err)
+      return res.status(500).json({
+          message: "Internal server error"
+      })
+  }
+}
+
+
+exports.sendResetPasswordLink = sendResetPasswordLink;
+exports.checkResetPasswordLink = checkResetPasswordLink;
 
 exports.signin = (req, res) => {
     User.findOne({
@@ -139,4 +175,17 @@ exports.signin = (req, res) => {
           accessToken: token
         });
       });
+};
+
+exports.changePasswordUsingMail = (req, res) => {
+  var updatedUser = {
+    password: bcrypt.hashSync(req.body.password, 8)
+  }
+  User.findOneAndUpdate({email: req.body.email}, updatedUser).exec((err, user) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+    res.status(200).send({message: "Password updated with success!"});
+  });
 };

@@ -11,7 +11,7 @@ module.exports = function(app) {
   });
 
   app.post("/api/auth/changePassword", controller.changePassword);
-
+  app.post("/api/auth/changePasswordUsingMail", controller.changePasswordUsingMail);
   app.post(
     "/api/auth/signup",
     [
@@ -19,8 +19,7 @@ module.exports = function(app) {
     ],
     controller.signup
   );
-
   app.post("/api/auth/signin", controller.signin);
-
-  app.post("/api/auth/resetPassword", controller.resetPassword);
+  app.post("/api/auth/sendResetPasswordLink", controller.sendResetPasswordLink);
+  app.get('/api/auth/checkResetPasswordLink', controller.checkResetPasswordLink);
 };

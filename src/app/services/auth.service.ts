@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
@@ -39,9 +39,29 @@ export class AuthService {
     }, httpOptions);
   }
 
+  changePasswordUsingMail(email: string, password: string): Observable<any> {
+    return this.http.post(AUTH_API + 'changePasswordUsingMail', {
+      email,
+      password
+    }, httpOptions); 
+  }
+
   resetPassword(email: any) {
-    return this.http.post(AUTH_API + 'resetPassword', {
+    return this.http.post(AUTH_API + 'sendResetPasswordLink', {
       email
     }, httpOptions);
+  }
+
+  checkResetPasswordLink(queryParams: any) {
+    let params = new HttpParams();
+    for (let i in queryParams) {
+      params = params.append(i, queryParams[i]);
+    }
+    const options = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      params: params
+    };
+    
+    return this.http.get(AUTH_API + 'checkResetPasswordLink', options);
   }
 }

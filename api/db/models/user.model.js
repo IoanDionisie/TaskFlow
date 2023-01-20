@@ -20,14 +20,14 @@ const UserSchema = new mongoose.Schema({
 });
 
 //generate password reset hash
-UserSchema.methods.generatePasswordResetHash = function(){
-  const resetHash = crypto.createHash('sha512').update(this.password).digest('hex')
+UserSchema.methods.generatePasswordResetHash = function() {
+  const resetHash = crypto.createHash('sha512').update(this.password).digest('hex');
   return resetHash;
 }
 
 //verify password reset hash
-UserSchema.methods.verifyPasswordResetHash = function(resetHash = undefined){
-  return this.passwordResetHash() === resetHash;
+UserSchema.methods.verifyPasswordResetHash = function(resetHash = undefined) {
+  return this.generatePasswordResetHash() === resetHash;
 }
 
 const User = mongoose.model('user', UserSchema);
