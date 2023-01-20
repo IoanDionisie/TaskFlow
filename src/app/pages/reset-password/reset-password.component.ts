@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -10,11 +11,18 @@ export class ResetPasswordComponent {
     email: null
   };
 
-  constructor() {
+  constructor(private authService: AuthService) {
 
   }
 
   onSubmit () {
-    console.log(this.form);
+    this.authService.resetPassword(this.form.email).subscribe({
+      next: () => {
+        console.log("Password reset email sent");
+      },
+      error: (err: { error: { message: any; }; }) => {
+        console.log(err.error.message)
+      }
+    });
   }
 }
