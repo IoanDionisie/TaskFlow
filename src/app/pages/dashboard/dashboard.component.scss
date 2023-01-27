@@ -341,9 +341,8 @@
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.example-custom-placeholder {
-    background: #ccc;
-    border: dotted 3px #999;
+.drag-drop-placeholder {
+    background: transparent;
     min-height: 60px;
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }

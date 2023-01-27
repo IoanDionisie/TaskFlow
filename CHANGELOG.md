@@ -1,7 +1,10 @@
 
 # New features developed & bugs fixed
 
-# 
+# 1.0.8
+
+- Customized drag&drop placeholder
+- Added login with Google account
 
 # 1.0.7
 

@@ -12,6 +12,7 @@ api/uploads
 
 # Node
 /node_modules
+**/node_modules
 api/node_modules
 npm-debug.log
 yarn-error.log
@@ -54,3 +55,6 @@ src/assets/json/
 # Env files
 .env
 .env.test
+
+# Config files
+./api/config/auth.config.js

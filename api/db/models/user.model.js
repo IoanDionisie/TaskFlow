@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 var crypto = require('crypto');
 
 const UserSchema = new mongoose.Schema({
+    googleId: {
+      type: String,
+      require: true
+    },
     username: {
       type: String,
       required: true
@@ -10,8 +14,7 @@ const UserSchema = new mongoose.Schema({
       type: String
     },
     password: {
-      type: String,
-      required: true
+      type: String
     },
     role: {
       type: String,

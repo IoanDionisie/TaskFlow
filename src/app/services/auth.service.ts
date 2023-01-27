@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 const AUTH_API = 'http://localhost:3000/api/auth/';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' }).append("Access-Control-Allow-Origin", "*")
 };
 
 @Injectable({
@@ -14,6 +14,7 @@ const httpOptions = {
 })
 
 export class AuthService {
+
   constructor(private http: HttpClient) { }
 
   login(username: string, password: string): Observable<any> {
@@ -22,6 +23,10 @@ export class AuthService {
       username,
       password
     }, httpOptions);
+  }
+
+  loginWithGoogle(): Observable<any> {
+    return this.http.get(AUTH_API + 'google', httpOptions);
   }
 
   register(username: string, email: string, password: string): Observable<any> {

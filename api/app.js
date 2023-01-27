@@ -4,6 +4,9 @@ const app = express();
 const fs = require('fs');
 const multer = require("multer");
 const multipart  =  require('connect-multiparty');
+const session = require('express-session');
+const querystring = require('node:querystring');
+const config = require("./config/auth.config");
 
 app.use(cors());
 
@@ -13,9 +16,18 @@ app.use(express.urlencoded({ extended: true }));
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");    
+    res.header("Access-Control-Allow-Headers", "Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization");
     next();
 });
+
+const dotenv = require('dotenv');
+dotenv.config();
+
+app.use(session({
+    resave: false,
+    saveUninitialized: true,
+    secret: 'SECRET' 
+}));
 
 const mongoose  = require('./db/mongoose');
 const bodyParser = require('body-parser');
@@ -60,6 +72,87 @@ app.use('/api/images', express.static('uploads'));
 
 const fileData = multer({ storage: storage });
 var uploadSingle = fileData.single("uploads");
+
+const passport = require('passport');
+const { googleSignIn } = require('./controllers/auth.controller');
+var userProfile;
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function(user, cb) {
+    cb(null, user);
+  });
+  
+passport.deserializeUser(function(obj, cb) {
+    cb(null, obj);
+});
+
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+
+var jwt = require("jsonwebtoken");
+
+passport.use(new GoogleStrategy({
+    clientID: GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_CLIENT_SECRET,
+    callbackURL: "/api/auth/google/callback"
+  },
+  async(accessToken, refreshToken, profile, done) => {
+    const newUser = {
+        googleId: profile.id,
+        username: profile.displayName.replace(/\s/g, "")
+    }
+    try {
+        let user = await User.findOne({ googleId: profile.id})
+        if (user) {
+            var token = jwt.sign({ id: user.id }, config.secret, {
+                expiresIn: 86400 // 24 hours
+            });
+            done(null, user);
+        } else {
+            var token = jwt.sign({ id: user.id }, config.secret, {
+                expiresIn: 86400 // 24 hours
+            });
+            user = await User.create(newUser); 
+            done(null, user);
+        }
+    } catch(err) {
+        console.log(err);
+    }
+  }
+));
+ 
+app.get('/api/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
+app.get('/api/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/error' }),
+  function(req, res) {
+    User.findOne({
+        username: req.user.username
+      }).exec((err, user) => {
+          if (err) {
+            res.status(500).send({ message: err });
+            return;
+          }
+
+          if (!user) {
+            return res.status(404).send({ message: "User Not found." });
+          }
+         
+          var token = jwt.sign({ id: user.id }, config.secret, {
+            expiresIn: 86400 // 24 hours
+          });
+
+          const query = querystring.stringify({
+            "username": user.username,
+            "accessToken": token,
+        });
+    
+        res.redirect('http://localhost:4200/dashboard/?' + query);
+    });
+});
+
 
 app.post('/api/upload', (req, res) => {
     uploadSingle(req, res, function (err) {

@@ -10,6 +10,7 @@ import * as global from 'src/app/constants/variables';
   styleUrls: ['./login.component.scss']
 })
 
+
 export class LoginComponent implements OnInit {
   form: any = {
     username: null,
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
   isLoginFailed = false;
   errorMessage = '';
   version = global.version;
+  API_GOOGLE_URL = 'http://localhost:3000/api/auth/google';
 
   constructor(private authService: AuthService, private tokenStorage: TokenStorageService,
     private router: Router) { }
@@ -48,5 +50,9 @@ export class LoginComponent implements OnInit {
   }
   reloadPage(): void {
     window.location.reload();
+  }
+
+  onLoginWithGoogle() {
+    this.authService.loginWithGoogle();
   }
 }
