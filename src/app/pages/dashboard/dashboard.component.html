@@ -41,6 +41,10 @@
             <div *ngIf="this.showSearch == true" class="form-group search-tasks">
                 <input type="text" class="form-control mb-4" placeholder="Search" [(ngModel)]="searchFilter" id="listSearch">
             </div>
+            <div class="no-tasks-message pt-3 pl-2" *ngIf="inProgressTasks.length == 0 &&
+            completedTasks.length == 0">
+                This list doesn't have any tasks yet. Use the button from the right bottom corner to add tasks.
+            </div>
             <mat-tab-group class="tasks-tabs" *ngIf="tasks" mat-align-tabs="start">
                 <mat-tab *ngIf="inProgressTasks.length > 0" [label]="'In Progress (' + inProgressTasks.length + ')'">
                     <div  cdkDropList class="inprogress-tasks" (cdkDropListDropped)="drop($event, inProgressTasks)">
