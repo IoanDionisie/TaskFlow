@@ -33,7 +33,7 @@
     <div class="row sidebar">
         <app-lists class="lists-container col-3"
             [inProgressLists]="inProgressLists" [completedLists]="completedLists" [selectedList]="selectedList"
-            (listEvent)="listEvent($event)" [incrementNumber]="incrementNumber"  [progressBarColor]="progressBarColor"
+            (listEvent)="listEvent($event)" [progressBarColor]="progressBarColor"
             [tagsObject]="tagsObject">
         </app-lists>
         
@@ -114,17 +114,10 @@
         </div>
     </div>
     
-    <div class="row bottom-row">
-        <div class="add-list">
-            <button class="btn-primary add-list-button" (click)="createNewList()" ngbTooltip="Create a list">
-                Add list
-            </button>
-        </div>
-      
+    <div class="row bottom-row">   
         <div class="version">
             Version {{this.version}}
         </div>
-
         <div class="add-task" *ngIf="selectedList && selectedList.status == ITEM_STATUS.inProgress">
             <div *ngIf="inProgressTasks.length == 0" class="add-task-reminder">
                 Add new tasks for your list "{{selectedList.title}}" !

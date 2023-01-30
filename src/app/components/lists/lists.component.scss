@@ -116,6 +116,23 @@
     }
 }
 
+.inprogress-dropdown-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.btn-primary:hover {
+    color: white!important;
+    background: $taskColor;
+}
+
+.add-list .btn-primary {
+    border-radius: 30px;
+    border: none!important;
+    background: $taskColor;
+}
+
 .inprogress-dropdown-area,
 .completed-dropdown-area {
     overflow-y: auto;

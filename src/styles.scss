@@ -423,6 +423,11 @@ input:disabled, textarea:disabled, select:disabled {
     font-weight: 500;
 }
 
+.btn-primary:focus {
+    outline: none!important;
+    box-shadow: none!important;
+}
+
 .btn-primary {
     opacity: 1;
 }
@@ -430,7 +435,8 @@ input:disabled, textarea:disabled, select:disabled {
 .new-password .btn-primary,
 .reset-password .btn-primary,
 .login .btn-primary,
-.register .btn-primary {
+.register .btn-primary,
+.btn-primary {
     background: $listColor;
 }
 

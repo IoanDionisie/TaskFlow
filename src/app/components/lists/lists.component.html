@@ -1,10 +1,16 @@
 
 
 <div *ngIf="inProgressLists" class="main-dropdown pt-3">
-    <div class="inprogress-dropdown-toggle" (click)="toggleInProgress()">
-        <div [@incrementNumber]="incrementNumber == false ? 'initial' : 'incrementing'" class="list-title">
+    <div class="inprogress-dropdown-toggle">
+        <div [@incrementNumber]="incrementNumber == false ? 'initial' : 'incrementing'" class="list-title" (click)="toggleInProgress()">
             <i class="fa-solid pr-1" [ngClass]="showInProgress == true ? 'fa-caret-down' : 'fa-caret-right'"></i>
             In Progress ({{inProgressLists.length}})
+        </div>
+
+        <div class="add-list">
+            <button class="btn-primary border" (click)="createNewList()" ngbTooltip="Create a list">
+                Add list
+            </button>
         </div>
     </div>
     <div class="inprogress-dropdown-area pl-4 pr-3" [ngClass]="showInProgress == false ? 'hide' : ''">
@@ -42,8 +48,8 @@
 </div>
 <div class="space-div"></div>
 <div *ngIf="completedLists.length > 0" class="main-dropdown pt-3">
-    <div class="completed-dropdown-toggle" (click)="toggleCompleted()">
-        <div class="list-title completed">
+    <div class="completed-dropdown-toggle">
+        <div class="list-title completed" (click)="toggleCompleted()">
             <i class="fa-solid pr-1" [ngClass]="showCompleted== true ? 'fa-caret-down' : 'fa-caret-right'"></i>
             Completed ({{completedLists.length}})
         </div>

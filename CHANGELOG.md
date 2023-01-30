@@ -1,5 +1,12 @@
 
 # New features developed & bugs fixed
+ 
+
+# 1.0.9
+
+- Changed layout of lists-component
+- Moved the 'Add new list' button to the top of the lists-component
+- Changed list's dropdown menu
 
 # 1.0.8
 

@@ -20,6 +20,7 @@ import {
 import { ViewTaskComponent } from '../modals/view-task/view-task.component';
 import { ViewListComponent } from '../modals/view-list/view-list.component';
 import { List } from 'src/app/models/list.model';
+import { CreateListComponent } from '../modals/create-list/create-list.component';
 
 
 @Component({
@@ -44,14 +45,17 @@ import { List } from 'src/app/models/list.model';
   ]
 })
 
+
+
 export class ListsComponent implements OnInit {
   @Input() inProgressLists: List[] = [];
   @Input() completedLists: List[] = [];
   @Input() selectedList: List = new List();
   @Output() listEvent: EventEmitter<any> = new EventEmitter();
-  @Input() incrementNumber: any;
   @Input() progressBarColor: any;
   @Input() tagsObject: any;
+
+  incrementNumber = false;
 
   showInProgress: boolean | undefined;
   showCompleted: boolean | undefined;
@@ -106,6 +110,27 @@ export class ListsComponent implements OnInit {
         })
       }
     })
+  }
+
+  
+  createNewList() {
+    const modalRef = this.modalService.open(CreateListComponent);
+    modalRef.componentInstance.createListConfirmation.subscribe((response: any) => {
+      if (response.confirmation === true) {
+        this.taskService.createList(response).subscribe((list: any) => {
+          this.inProgressLists.push(list);
+          this.incrementListNumberAnimation();
+          this.pickListEvent(ListActions.addList, list);
+        }); 
+      }
+    })
+  }
+
+  incrementListNumberAnimation() {
+    this.incrementNumber = true;
+    setTimeout(() =>{ 
+      this.incrementNumber = false;
+    }, 2000);
   }
 
   decrementListNumberAnimation() {

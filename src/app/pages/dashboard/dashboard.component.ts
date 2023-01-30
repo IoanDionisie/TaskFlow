@@ -43,7 +43,7 @@ export class DashboardComponent implements OnInit {
   errorEventData: Object | undefined;
 
   dummyCounter:number = 0;
-  incrementNumber = false;
+
   progressBarColor: any;
   
   userName: string = "";
@@ -195,30 +195,6 @@ export class DashboardComponent implements OnInit {
     /* TODO */
     this.completedTasks.sort((objA:any, objB:any) => Number(new Date(objB.dateCompleted)) - Number(new Date(objA.dateCompleted)));
   }
-
-  createNewList() {
-    const modalRef = this.modalService.open(CreateListComponent);
-    modalRef.componentInstance.createListConfirmation.subscribe((response: any) => {
-      if (response.confirmation === true) {
-        this.taskService.createList(response).subscribe((response: any) => {
-          this.lists.push(response);
-          if (this.lists.length == 1) {
-            this.selectedList = response;
-          }
-          this.groupLists();
-          this.showSuccessMessage(Actions.addList, response.title);
-          this.incrementListNumberAnimation()
-        }); 
-      }
-    })
-  }
-
-  incrementListNumberAnimation() {
-    this.incrementNumber = true;
-    setTimeout(() =>{ 
-      this.incrementNumber = false;
-    }, 2000);
-  }
   
   createNewTask() {
     const modalRef = this.modalService.open(CreateTaskComponent);
@@ -340,6 +316,9 @@ export class DashboardComponent implements OnInit {
       this.getAllLists();
       this.groupLists();
       this.showSuccessMessage(Actions.completeList, event.list.title);
+    } else if (event.listEvent == ListActions.addList) {
+      console.log("yo")
+      this.showSuccessMessage(Actions.addList, event.list.title);
     }
   }
 
