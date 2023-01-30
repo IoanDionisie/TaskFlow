@@ -1,13 +1,13 @@
 
 
-<div *ngIf="inProgressLists" class="inprogress-dropdown">
+<div *ngIf="inProgressLists" class="main-dropdown pt-3">
     <div class="inprogress-dropdown-toggle" (click)="toggleInProgress()">
         <div [@incrementNumber]="incrementNumber == false ? 'initial' : 'incrementing'" class="list-title">
-            <i class="fa-solid" [ngClass]="showInProgress == true ? 'fa-caret-down' : 'fa-caret-right'"></i>
+            <i class="fa-solid pr-1" [ngClass]="showInProgress == true ? 'fa-caret-down' : 'fa-caret-right'"></i>
             In Progress ({{inProgressLists.length}})
         </div>
     </div>
-    <div class="inprogress-dropdown-area" [ngClass]="showInProgress == false ? 'hide' : ''">
+    <div class="inprogress-dropdown-area pl-4 pr-3" [ngClass]="showInProgress == false ? 'hide' : ''">
         <div *ngFor="let list of inProgressLists"  (click)="selectList(list)" class="list list-color" [ngClass]="selectedList._id == list._id ? 'selected' : ''">
             <div class="list-title">
                 {{ list.title }}
@@ -19,7 +19,7 @@
                     <ngb-progressbar [textType]="dark" [showValue]="false" [type]="progressBarColor" [value]="list.percentCompleted"></ngb-progressbar>
                 </div>
                 <div ngbDropdown>
-                    <i class="fa-solid fa-angle-down dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle></i>
+                    <i class="fa-solid fa-caret-down dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle></i>
                     <div class="list-dropdown" ngbDropdownMenu aria-labelledby="dropdownBasic1">
                         <button class="markCompleted" title="Mark as Completed"  *ngIf="list.percentCompleted == 100" (click)="markAsCompleted(list)" ngbTooltip="Mark as Completed">
                             <i class="fa-solid fa-check"></i>
@@ -40,17 +40,15 @@
         </div>
     </div>
 </div>
-
-
-
-<div *ngIf="completedLists.length > 0" class="completed-dropdown">
+<div class="space-div"></div>
+<div *ngIf="completedLists.length > 0" class="main-dropdown pt-3">
     <div class="completed-dropdown-toggle" (click)="toggleCompleted()">
         <div class="list-title completed">
-            <i class="fa-solid" [ngClass]="showCompleted== true ? 'fa-caret-down' : 'fa-caret-right'"></i>
+            <i class="fa-solid pr-1" [ngClass]="showCompleted== true ? 'fa-caret-down' : 'fa-caret-right'"></i>
             Completed ({{completedLists.length}})
         </div>
     </div>
-    <div class="completed-dropdown-area" [ngClass]="showCompleted == false ? 'hide' : ''">
+    <div class="completed-dropdown-area pl-4 pr-3" [ngClass]="showCompleted == false ? 'hide' : ''">
         <div *ngFor="let list of completedLists" class="list list-color" (click)="selectList(list)" [ngClass]="selectedList._id == list._id ? 'selected' : ''">
             <div class="list-title">
                 {{ list.title }}
@@ -62,7 +60,7 @@
                     <ngb-progressbar [textType]="dark" [showValue]="false" type="success" [value]="list.percentCompleted"></ngb-progressbar>
                 </div>
                 <div ngbDropdown>
-                    <i class="fa-solid fa-angle-down dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle></i>
+                    <i class="fa-solid fa-caret-down dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle></i>
                     <div class="list-dropdown" ngbDropdownMenu aria-labelledby="dropdownBasic1">
                         <button class="info" (click)="showListInfo(list)" title="Show List Info" ngbTooltip="List Info">
                             <i class="fa-solid fa-info"></i>

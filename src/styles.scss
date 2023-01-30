@@ -197,7 +197,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
     .btn-success:hover,
     .btn-danger:hover {
-        opacity: 0.8;
+        opacity: 0.9;
     }
 
     .btn-danger {
@@ -423,6 +423,10 @@ input:disabled, textarea:disabled, select:disabled {
     font-weight: 500;
 }
 
+.btn-primary {
+    opacity: 1;
+}
+
 .new-password .btn-primary,
 .reset-password .btn-primary,
 .login .btn-primary,
@@ -430,10 +434,7 @@ input:disabled, textarea:disabled, select:disabled {
     background: $listColor;
 }
 
-.new-password .btn-primary:hover,
-.reset-password .btn-primary:hover,
-.login .btn-primary:hover,
-.register .btn-primary:hover {
+.btn-primary:hover {
     opacity: 0.9;
 }
 

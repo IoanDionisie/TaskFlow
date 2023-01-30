@@ -8,9 +8,10 @@
 
 
 # Uploads
-api/uploads
+/api/uploads
 
 # Node
+/api/node_modules
 /node_modules
 npm-debug.log
 yarn-error.log

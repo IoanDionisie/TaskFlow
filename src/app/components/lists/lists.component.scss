@@ -72,8 +72,6 @@
     border-radius: 50px 0 100px 50px;
 }
 
-
-
 .delete, 
 .modify, 
 .complete,
@@ -104,7 +102,8 @@
     align-items: center;
     font-size: 20px;
     font-weight: 500;
-    min-height: 59px;
+    height: 10%;
+    margin-bottom:20px;
     color: $listColor;
 
     :hover {
@@ -115,15 +114,12 @@
     .completed {
         color: $listColor;
     }
-
-    .list-title i {
-        padding-right: 10px;
-    }
 }
 
 .inprogress-dropdown-area,
 .completed-dropdown-area {
-    padding-left: 25px;
+    overflow-y: auto;
+    height: 90%;
 
     .list-title {
         font-size: 17px;
@@ -148,5 +144,12 @@
 .actions .dropdown-menu {
     border: 2px solid $taskColor;
     background: $taskColor
+}
 
+.main-dropdown {
+    height: 44%;
+}
+
+.space-div {
+    height: 12%;
 }

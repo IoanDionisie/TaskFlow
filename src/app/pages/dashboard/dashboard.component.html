@@ -116,7 +116,7 @@
     
     <div class="row bottom-row">
         <div class="add-list">
-            <button class="add-list-button" (click)="createNewList()" ngbTooltip="Create a list">
+            <button class="btn-primary add-list-button" (click)="createNewList()" ngbTooltip="Create a list">
                 Add list
             </button>
         </div>
@@ -129,7 +129,7 @@
             <div *ngIf="inProgressTasks.length == 0" class="add-task-reminder">
                 Add new tasks for your list "{{selectedList.title}}" !
             </div>
-            <button [ngClass]="inProgressTasks.length == 0 ? 'button-pulse-effect': ''" class="create-task" (click)="createNewTask()" ngbTooltip="Create a Task">
+            <button [ngClass]="inProgressTasks.length == 0 ? 'button-pulse-effect': ''" class="btn-primary create-task" (click)="createNewTask()" ngbTooltip="Create a Task">
                 <i class="fa-solid fa-plus"></i>
             </button>
         </div>

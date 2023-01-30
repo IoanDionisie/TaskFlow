@@ -1,21 +1,21 @@
 <div class="work-break-content">
-    <button *ngIf="pauseStarted == false" class="break" ngbTooltip="Take a 15mins break!" (click)="startTimer()"> 
+    <button *ngIf="pauseStarted == false" class="btn-primary break" ngbTooltip="Take a 15mins break!" (click)="startTimer()"> 
         Break! 
     </button>
 
     <div *ngIf="pauseStarted == true" class="break-container">
-        <button *ngIf="paused == false" class="pause-button" (click)="pauseTimer()">
+        <button *ngIf="paused == false" class="btn-primary pause-button" (click)="pauseTimer()">
             <i class="fa-solid fa-pause"></i>
         </button>
 
-        <button *ngIf="paused == true" class="resume-button" (click)="resumeTimer()">
+        <button *ngIf="paused == true" class="btn-primary resume-button" (click)="resumeTimer()">
             <i class="fa-solid fa-play"></i>
         </button>
 
         <div class="time-break">
             {{ minutesToShow }} : {{ secondsToShow }}
          </div>
-         <button class="exit-button" (click)="stopTimer()">
+         <button class="btn-primary exit-button" (click)="stopTimer()">
             <i class="fa-solid fa-xmark"></i>
          </button>
     </div>

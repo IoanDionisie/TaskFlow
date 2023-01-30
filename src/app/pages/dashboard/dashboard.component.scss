@@ -76,14 +76,11 @@
 }
 
 .add-list button:hover {
-    opacity: 0.8;
     cursor: pointer;
 }
 
 .lists-container {
     height: 100%;
-    overflow-y: auto;
-    padding: 20px;
 }
 
 .lists-container .list {
@@ -220,7 +217,6 @@
 }
 
 .create-task:hover {
-    opacity: 0.8;
     cursor: pointer;
     transform: rotate(360deg);
 }
@@ -494,7 +490,7 @@
 
 .version {
     position: absolute;
-    right: 10rem;
+    right: 20rem;
     bottom: 5px;
 }
 
