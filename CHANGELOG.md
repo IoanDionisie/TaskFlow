@@ -2,6 +2,11 @@
 # New features developed & bugs fixed
  
 
+# 1.1.0
+
+- Moved a lot of methods from app.js to specific controllers
+- Added a text when selected list has no tasks
+  
 # 1.0.9
 
 - Changed layout of lists-component
