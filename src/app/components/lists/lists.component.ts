@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChange } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ITEM_STATUS } from 'src/app/constants/item-status';
 import { ITEM_TYPE } from 'src/app/constants/item-types';
@@ -8,21 +8,17 @@ import { DeleteItemComponent } from '../dialogs/delete-item/delete-item.componen
 import { ModifyItemComponent } from '../modals/modify-item/modify-item.component';
 import { TokenStorageService } from '../../services/token-storage.service';
 import { HelperService } from '../../services/helper.service';
-
+import { ViewListComponent } from '../modals/view-list/view-list.component';
+import { List } from 'src/app/models/list.model';
+import { CreateListComponent } from '../modals/create-list/create-list.component';
+import { ListService } from 'src/app/services/list.service';
 import {
   trigger,
   state,
   style,
   animate,
   transition,
-  // ...
 } from '@angular/animations';
-import { ViewTaskComponent } from '../modals/view-task/view-task.component';
-import { ViewListComponent } from '../modals/view-list/view-list.component';
-import { List } from 'src/app/models/list.model';
-import { CreateListComponent } from '../modals/create-list/create-list.component';
-import { ListService } from 'src/app/services/list.service';
-
 
 @Component({
   selector: 'app-lists',
@@ -45,8 +41,6 @@ import { ListService } from 'src/app/services/list.service';
     ]),
   ]
 })
-
-
 
 export class ListsComponent implements OnInit {
   @Input() inProgressLists: List[] = [];
