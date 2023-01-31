@@ -21,6 +21,7 @@ import { ViewTaskComponent } from '../modals/view-task/view-task.component';
 import { ViewListComponent } from '../modals/view-list/view-list.component';
 import { List } from 'src/app/models/list.model';
 import { CreateListComponent } from '../modals/create-list/create-list.component';
+import { ListService } from 'src/app/services/list.service';
 
 
 @Component({
@@ -62,7 +63,7 @@ export class ListsComponent implements OnInit {
 
   readonly ITEM_STATUS = ITEM_STATUS;
 
-  constructor(private taskService: TaskService, private modalService: NgbModal, private token: TokenStorageService,
+  constructor(private taskService: TaskService, private listService: ListService, private modalService: NgbModal, private token: TokenStorageService,
     private helperService: HelperService) {
     }
 
@@ -91,7 +92,7 @@ export class ListsComponent implements OnInit {
 
     modalRef.componentInstance.modifyItemConfirmation.subscribe((receivedData: any) => {
       if (receivedData.confirmation === true) {
-        this.taskService.modifyList(list._id, receivedData).subscribe((response: any) => {
+        this.listService.modifyList(list._id, receivedData).subscribe((response: any) => {
           list.title = receivedData.title;
           list.description = receivedData.description;
           this.pickListEvent(ListActions.modifyList, list);
@@ -105,7 +106,7 @@ export class ListsComponent implements OnInit {
     modalRef.componentInstance.elementName = ITEM_TYPE.list;
     modalRef.componentInstance.removeConfirmation.subscribe((receivedData: any) => {
       if (receivedData === true) {
-        this.taskService.deleteList(list._id).subscribe((response: any) => {
+        this.listService.deleteList(list._id).subscribe((response: any) => {
           this.pickListEvent(ListActions.deleteList, list);
         })
       }
@@ -117,7 +118,7 @@ export class ListsComponent implements OnInit {
     const modalRef = this.modalService.open(CreateListComponent);
     modalRef.componentInstance.createListConfirmation.subscribe((response: any) => {
       if (response.confirmation === true) {
-        this.taskService.createList(response).subscribe((list: any) => {
+        this.listService.createList(response).subscribe((list: any) => {
           this.inProgressLists.push(list);
           this.incrementListNumberAnimation();
           this.pickListEvent(ListActions.addList, list);
@@ -143,7 +144,7 @@ export class ListsComponent implements OnInit {
   markAsCompleted(list: List) {
     list.status = ITEM_STATUS.completed;
     list.dateCompleted = new Date();
-    this.taskService.modifyList(list._id, list).subscribe((response: any) => {
+    this.listService.modifyList(list._id, list).subscribe((response: any) => {
       this.pickListEvent(ListActions.completeList, list);
     })
   }

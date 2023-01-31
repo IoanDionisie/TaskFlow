@@ -22,6 +22,7 @@ import { TASK_STATUS } from 'src/app/constants/task-status';
 import { TaskTimer } from 'tasktimer';
 import * as global from 'src/app/constants/variables';
 import { Observable, subscribeOn, Subscription } from 'rxjs';
+import { ListService } from 'src/app/services/list.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -69,7 +70,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(private taskService: TaskService, private modalService: NgbModal,
     private token: TokenStorageService, private helperService: HelperService,
-    private imageService: ImageService) { }
+    private imageService: ImageService, private listService: ListService) { }
 
 
   ngOnDestroy(): void { 
@@ -115,7 +116,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getAllLists() {
-    this.taskService.getLists().subscribe((response: any) => {
+    this.listService.getLists().subscribe((response: any) => {
       if (response.length > 0) {
         this.lists = response;
         this.selectedList = this.lists[0];
@@ -317,7 +318,6 @@ export class DashboardComponent implements OnInit {
       this.groupLists();
       this.showSuccessMessage(Actions.completeList, event.list.title);
     } else if (event.listEvent == ListActions.addList) {
-      console.log("yo")
       this.showSuccessMessage(Actions.addList, event.list.title);
     }
   }

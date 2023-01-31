@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output, Self } from '@angular/c
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions } from 'src/app/enums/actions';
+import { OthersService } from 'src/app/services/others.service';
+import { TagService } from 'src/app/services/tag.service';
 import { TaskService } from 'src/app/services/task.service';
 
 @Component({
@@ -27,7 +29,8 @@ export class SettingsComponent implements OnInit  {
 
   @Output() showMessage: EventEmitter<any> = new EventEmitter();
 
-  constructor(private modal: NgbActiveModal, private taskService: TaskService,
+  constructor(private modal: NgbActiveModal, private othersService: OthersService,
+    private tagService: TagService,
     private sanitizer: DomSanitizer) { }
   
   ngOnInit(): void {
@@ -52,7 +55,7 @@ export class SettingsComponent implements OnInit  {
         color: this.tagColor
       }
 
-      this.taskService.createTag(tag).subscribe((response: any) => { 
+      this.tagService.createTag(tag).subscribe((response: any) => { 
 
         this.messageData = {
           tagName: this.tagName,
@@ -66,7 +69,7 @@ export class SettingsComponent implements OnInit  {
   }
 
   exportData() {
-    this.taskService.getDataForExport().subscribe(response => {
+    this.othersService.getDataForExport().subscribe(response => {
       var element = document.createElement('a');
       var jsonElem = JSON.stringify(response);
       element.setAttribute('href', "data:text/json;charset=UTF-8," + encodeURIComponent(jsonElem));
@@ -122,7 +125,7 @@ export class SettingsComponent implements OnInit  {
   }
 
   importLoadedData() {
-    this.taskService.importData(this.loadedData).subscribe(response => {
+    this.othersService.importData(this.loadedData).subscribe(response => {
 
       this.messageData = {
         message: Actions.importData
@@ -133,7 +136,7 @@ export class SettingsComponent implements OnInit  {
   }
 
   removeTags() {
-    this.taskService.removeTags().subscribe(response => {
+    this.tagService.removeTags().subscribe(response => {
       this.messageData = {
         message: Actions.removeTags
       }

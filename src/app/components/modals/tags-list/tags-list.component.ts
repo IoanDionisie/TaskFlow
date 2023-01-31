@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions } from 'src/app/enums/actions';
 import { Tag } from 'src/app/models/tag.model';
+import { TagService } from 'src/app/services/tag.service';
 import { TaskService } from 'src/app/services/task.service';
 
 @Component({
@@ -15,20 +16,21 @@ export class TagsListComponent implements OnInit {
 
   @Output() showMessage: EventEmitter<any> = new EventEmitter();
 
-  constructor(private modal: NgbActiveModal, private taskService: TaskService) { }
+  constructor(private modal: NgbActiveModal,
+    private tagService: TagService) { }
 
   ngOnInit(): void {
     this.getTags();
   }
 
   getTags() {
-    this.taskService.getTags().subscribe(tags => {
+    this.tagService.getTags().subscribe(tags => {
       this.tags = tags;
     });
   }
 
   removeTag(tag: Tag) {
-    this.taskService.removeTag(tag._id).subscribe(response  => {
+    this.tagService.removeTag(tag._id).subscribe(response  => {
       let showMessageData = {
         tagName: tag.title,  
         message: Actions.removeTag

@@ -6,8 +6,8 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TaskService } from 'src/app/services/task.service';
 import { ITEM_STATUS } from 'src/app/constants/item-status';
+import { TagService } from 'src/app/services/tag.service';
 
 @Component({
   selector: 'app-tags',
@@ -39,7 +39,7 @@ export class TagsComponent {
 
   @Output() tagsAdded: EventEmitter<string[]> = new EventEmitter();
 
-  constructor(private modalService: NgbModal, private taskService: TaskService) {
+  constructor(private modalService: NgbModal, private tagService: TagService) {
     this.filteredTags = this.tagsControl.valueChanges.pipe(
       startWith(null),
       map((tag: string | null) => (tag ? this._filter(tag) : this.allTags.slice())),
@@ -102,7 +102,7 @@ export class TagsComponent {
   }
 
   ngAfterViewInit() {
-    this.taskService.getTags().subscribe(tags => {
+    this.tagService.getTags().subscribe(tags => {
       this.tagsFromServer = tags;
       this.allTags = this.tagsFromServer.map(function(item: { [x: string]: any; }) {
         return item['title'];

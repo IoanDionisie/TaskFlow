@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { OthersService } from './others.service';
 import { TaskService } from './task.service';
 import { TokenStorageService } from './token-storage.service';
 
@@ -22,13 +23,13 @@ export class ImageService {
   private _profilePictureSource = new BehaviorSubject<string>("");
   profilePicture$ = this._profilePictureSource.asObservable();
 
-  constructor(private token: TokenStorageService, private taskService: TaskService) { }
+  constructor(private token: TokenStorageService, private othersService: OthersService) { }
 
   setProfilePicture() {
     let profilePicture = IMAGE_API + this.token.getUser().id + "-profilepicture.jpg";
     let localFile = this.token.getUser().id + "-profilepicture.jpg";
 
-    this.taskService.checkFile(localFile).subscribe(response => {
+    this.othersService.checkFile(localFile).subscribe(response => {
       if (response == true) {
         window.sessionStorage.setItem(PROFILE_PICTURE, profilePicture);
         this._profilePictureSource.next(profilePicture);

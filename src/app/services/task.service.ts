@@ -8,15 +8,7 @@ import { WebRequestService } from './web-request.service';
 export class TaskService {
   
   constructor(private webReqService: WebRequestService) { }
-
-  createList(payload: any) {
-    return this.webReqService.post('lists', payload);
-  }
-
-  getLists() {
-    return this.webReqService.get('lists');
-  }
-
+  
   getTasks(listId : any) {
     let link = 'lists/' + listId + '/tasks';
     return this.webReqService.get(link);
@@ -29,11 +21,6 @@ export class TaskService {
 
   deleteTask(listId: any, taskId: any) {
     let link = 'lists/' + listId + '/tasks/' + taskId;
-    return this.webReqService.delete(link);
-  }
-
-  deleteList(listId: any) {
-    let link = 'lists/' + listId;
     return this.webReqService.delete(link);
   }
 
@@ -51,46 +38,9 @@ export class TaskService {
     let link = 'lists/' + listId + '/reorderTasks';
     return this.webReqService.patch(link, {ids: ids});
   }
-
-  modifyList(listId: any, list: Object) {
-    let link = 'lists/' + listId;
-    return this.webReqService.patch(link, list);
-  }
-
-  createTag(payload: any) {
-    return this.webReqService.post('tags', payload);
-  }
-
-  getTags() {
-    return this.webReqService.get('tags');
-  }
-
-  removeTag(tagId: any) {
-    let link = 'tags/' + tagId;
-    return this.webReqService.delete(link);
-  }
-
-  removeTags() {
-    let link = 'removetags/';
-    return this.webReqService.delete(link);
-  }
-
+  
   cloneTask(data: any) {
     let link = 'lists/' + data.listId + '/cloneTask';
     return this.webReqService.post(link, data);
   }
-
-  getDataForExport() {
-    return this.webReqService.get('export')
-  }
-
-  importData(data: any) {
-    return this.webReqService.post('import', data);
-  }
-
-  checkFile(file: any) {
-    let link = 'checkfile/' + file;
-    return this.webReqService.get(link);
-  }
-
 }
