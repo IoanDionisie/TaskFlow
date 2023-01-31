@@ -3,9 +3,11 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { Observable } from 'rxjs';
 import { TokenStorageService } from '../services/token-storage.service';
 
+
 @Injectable({
     providedIn: 'root'
 })
+
 export class AuthGuard  implements CanActivate {
 
 constructor(private token: TokenStorageService, private router: Router) {}
