@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, Self } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { nextTick } from 'process';
 import { Actions } from 'src/app/enums/actions';
 import { OthersService } from 'src/app/services/others.service';
 import { TagService } from 'src/app/services/tag.service';
@@ -55,15 +56,19 @@ export class SettingsComponent implements OnInit  {
         color: this.tagColor
       }
 
-      this.tagService.createTag(tag).subscribe((response: any) => { 
+      this.tagService.createTag(tag).subscribe({ 
+        next: resp => {
+          this.messageData = {
+            tagName: this.tagName,
+            message: Actions.addTag
+          }
 
-        this.messageData = {
-          tagName: this.tagName,
-          message: Actions.addTag
+          this.showMessage.emit(this.messageData);
+          this.closeModal();
+        },
+        error: error => {
+          console.log(error);
         }
-
-        this.showMessage.emit(this.messageData);
-        this.closeModal();
       }); 
     }
   }

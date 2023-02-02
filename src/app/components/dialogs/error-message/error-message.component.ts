@@ -2,6 +2,7 @@ import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Actions } from 'src/app/enums/actions';
 import { ListActions } from 'src/app/enums/list-actions.model';
 import { MESSAGES} from  'src/app/constants/success-messages';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-error-message',
@@ -16,13 +17,13 @@ export class ErrorMessageComponent implements OnInit {
   errorMessage: string | undefined;
   showModal: boolean = false;
 
-  constructor() { }
+  constructor(private toastr:  ToastrService) { }
 
   ngOnInit(): void {
 
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     if (typeof this.eventData !== 'undefined') {
       this.eventType = this.eventData.eventType;
       this.elementName = this.eventData.elementName;
@@ -35,16 +36,7 @@ export class ErrorMessageComponent implements OnInit {
       } else if (this.eventType = Actions.addEmptyTag) {
         this.errorMessage = MESSAGES['addEmptyTag'];
       }
-
-      this.setTimer();
+      this.toastr.error(this.errorMessage, 'Error');
     }
   }
-
-  setTimer(): void {
-    setTimeout(() =>{ 
-      this.eventType = -1;
-      this.showModal = false;
-    }, 3000);
-  }
-
 }

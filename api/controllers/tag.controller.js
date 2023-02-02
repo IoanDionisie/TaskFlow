@@ -24,6 +24,16 @@ async function getTags(req, res) {
 async function addTag(req, res) {
     try {
         let userId = authJwt.getUserId(req);
+        
+        let userTags = await Tag.find({userId: userId});
+
+        for (tag of userTags) {
+            if (tag.title == req.body.title) {
+                return res.status(400).json({
+                    message : "Tag already exists!"
+                });
+            }
+        }
 
         let newTag = new Tag({
             title: req.body.title,

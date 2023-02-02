@@ -2,6 +2,7 @@ import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Actions } from 'src/app/enums/actions';
 import { ListActions } from 'src/app/enums/list-actions.model';
 import { MESSAGES} from  'src/app/constants/success-messages';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-success-message',
@@ -17,9 +18,9 @@ export class SuccessMessageComponent {
   successMessage: string | undefined;
   showModal: boolean = false;
 
-  constructor() { }
+  constructor(private toastr:  ToastrService) { }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     if (typeof this.eventData !== 'undefined') {
       this.eventType = this.eventData.eventType;
       this.elementName = this.eventData.elementName;
@@ -64,15 +65,10 @@ export class SuccessMessageComponent {
         } else if (this.eventType == Actions.removeTags) {
           this.successMessage = MESSAGES['removeTags'];
         }
-        this.setTimer();
       }
+      this.toastr.success(this.successMessage, 'Success');
     }
+
   }
 
-  setTimer(): void {
-    setTimeout(() =>{ 
-      this.eventType = -1;
-      this.showModal = false;
-    }, 4000);
-  }
 }

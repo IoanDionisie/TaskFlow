@@ -24,6 +24,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RegisterComponent } from './pages/register/register.component';
 import { authInterceptorProviders } from './helpers/auth.interceptor';
+import { errorInterceptorProviders } from './helpers/error.interceptor';
 import { WorkBreakComponent } from './components/work-break/work-break.component';
 import { SearchTaskFilterPipe } from './pipes/search-task-filter.pipe';
 import { TagsComponent } from './components/tags/tags.component';
@@ -46,6 +47,7 @@ import { StatusCirclesComponent } from './components/status-circles/status-circl
 import { AddProfilePictureComponent } from './components/modals/add-profile-picture/add-profile-picture.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { NewPasswordComponent } from './pages/new-password/new-password.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -96,10 +98,17 @@ import { NewPasswordComponent } from './pages/new-password/new-password.componen
     MatAutocompleteModule,
     ReactiveFormsModule, 
     CommonModule,
-    NgxChartsModule
+    NgxChartsModule,
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-top-center',
+      progressBar: true,
+      progressAnimation: 'decreasing',
+      disableTimeOut: "extendedTimeOut"
+    }),
   ],
 
-  providers: [authInterceptorProviders],
+  providers: [authInterceptorProviders, errorInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule {

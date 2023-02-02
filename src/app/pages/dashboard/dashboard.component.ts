@@ -23,6 +23,7 @@ import { TaskTimer } from 'tasktimer';
 import * as global from 'src/app/constants/variables';
 import { Observable, subscribeOn, Subscription } from 'rxjs';
 import { ListService } from 'src/app/services/list.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dashboard',
@@ -70,7 +71,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(private taskService: TaskService, private modalService: NgbModal,
     private token: TokenStorageService, private helperService: HelperService,
-    private imageService: ImageService, private listService: ListService) { }
+    private imageService: ImageService, private listService: ListService,
+    private toaster: ToastrService) { }
 
 
   ngOnDestroy(): void { 
