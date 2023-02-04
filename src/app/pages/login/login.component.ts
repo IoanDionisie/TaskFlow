@@ -16,11 +16,14 @@ export class LoginComponent implements OnInit {
     username: null,
     password: null
   };
+  
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
   version = global.version;
   API_GOOGLE_URL = 'http://localhost:3000/api/auth/google';
+  showPassword: boolean = false;
+
 
   constructor(private authService: AuthService, private tokenStorage: TokenStorageService,
     private router: Router) { }
@@ -54,5 +57,9 @@ export class LoginComponent implements OnInit {
 
   onLoginWithGoogle() {
     this.authService.loginWithGoogle();
+  }
+
+  changeShowPassword() {
+    this.showPassword = !this.showPassword;
   }
 }

@@ -83,7 +83,6 @@ export class ListsComponent implements OnInit {
   modifyThisList(list: List) {
     const modalRef = this.modalService.open(ModifyItemComponent);
     this.helperService.modalRefConfig(modalRef, ITEM_TYPE.list, list);
-
     modalRef.componentInstance.modifyItemConfirmation.subscribe((receivedData: any) => {
       if (receivedData.confirmation === true) {
         this.listService.modifyList(list._id, receivedData).subscribe((response: any) => {
@@ -107,7 +106,6 @@ export class ListsComponent implements OnInit {
     })
   }
 
-  
   createNewList() {
     const modalRef = this.modalService.open(CreateListComponent);
     modalRef.componentInstance.createListConfirmation.subscribe((response: any) => {

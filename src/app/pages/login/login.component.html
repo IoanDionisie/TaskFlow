@@ -15,8 +15,7 @@
           name="form"
           (ngSubmit)="f.form.valid && onSubmit()"
           #f="ngForm"
-          novalidate
-        >
+          novalidate>
           <div class="form-group">
             <label for="username">Username</label>
             <input
@@ -25,20 +24,19 @@
               name="username"
               [(ngModel)]="form.username"
               required
-              #username="ngModel"
-            />
+              #username="ngModel"/>
             <div
               class="mt-3 custom-alert-danger"
               role="alert"
-              *ngIf="username.errors && f.submitted"
-            >
+              *ngIf="username.errors && f.submitted">
               Username is required!
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group relative">
             <label for="password">Password</label>
             <input
-              type="password"
+              id="password"
+              [type]="showPassword ? 'text' : 'password'"
               class="form-control"
               name="password"
               [(ngModel)]="form.password"
@@ -46,11 +44,14 @@
               minlength="6"
               #password="ngModel"
             />
+            <button class="show-password" (click)="changeShowPassword()" >
+              <i id="showPassword"
+              [class]="showPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'" ></i>
+            </button>
             <div
               class="mt-3 custom-alert-danger"
               role="alert"
-              *ngIf="password.errors && f.submitted"
-            >
+              *ngIf="password.errors && f.submitted">
               <div *ngIf="password.errors['required']">Password is required</div>
               <div *ngIf="password.errors['minlength']">
                 Password must be at least 6 characters
@@ -75,8 +76,7 @@
             <div
               class="mt-3 custom-alert-danger"
               role="alert"
-              *ngIf="f.submitted && isLoginFailed"
-            >
+              *ngIf="f.submitted && isLoginFailed">
               Login failed: {{ errorMessage }}
             </div>
           </div>

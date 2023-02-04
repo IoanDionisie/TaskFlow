@@ -474,3 +474,19 @@ input:disabled, textarea:disabled, select:disabled {
 .toast-top-center {
     top: 30px!important;
 }
+
+.text-bg-success  {
+    background-color: $listColor!important;
+}
+
+.text-bg-warning {
+    background-color: $warningColor!important;
+}
+
+.text-bg-danger {
+    background-color: $errorColor!important;
+}
+
+.relative {
+    position: relative;
+}
