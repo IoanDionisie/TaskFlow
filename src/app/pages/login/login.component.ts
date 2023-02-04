@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     const { username, password } = this.form;
+    console.log(this.form);
     this.authService.login(username, password).subscribe({
       next: data => {
         this.tokenStorage.saveToken(data.accessToken);
@@ -46,7 +47,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['dashboard']);
       },
       error: err => {
-        this.errorMessage = err.error.message;
+        this.errorMessage = err.error.message;console.log(this.errorMessage);
         this.isLoginFailed = true;
       }
     });

@@ -32,6 +32,10 @@
               Username is required!
             </div>
           </div>
+
+          <app-password [form]="form" [(fSubmitted)]="f.submitted"></app-password>
+          
+          <!--
           <div class="form-group relative">
             <label for="password">Password</label>
             <input
@@ -58,6 +62,8 @@
               </div>
             </div>
           </div>
+          -->
+
           <div class="form-group">
             <button class="btn btn-primary btn-block">
               Login

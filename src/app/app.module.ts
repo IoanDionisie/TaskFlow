@@ -48,6 +48,7 @@ import { AddProfilePictureComponent } from './components/modals/add-profile-pict
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { NewPasswordComponent } from './pages/new-password/new-password.component';
 import { ToastrModule } from 'ngx-toastr';
+import { PasswordComponent } from './components/password/password.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { ToastrModule } from 'ngx-toastr';
     StatusCirclesComponent,
     AddProfilePictureComponent,
     ResetPasswordComponent,
-    NewPasswordComponent
+    NewPasswordComponent,
+    PasswordComponent
   ],
   imports: [
     BrowserModule,
