@@ -16,6 +16,15 @@ export class TagService {
     return this.webReqService.get('tags');
   }
 
+  modifyTagColor(tagId: string, color: string) { 
+    var tag = {
+      id: tagId,
+      color: color
+    }
+    let link = 'updatetag/' + tagId;
+    return this.webReqService.patch(link, tag);
+  }
+
   removeTag(tagId: any) {
     let link = 'tags/' + tagId;
     return this.webReqService.delete(link);

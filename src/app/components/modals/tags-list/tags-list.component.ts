@@ -26,21 +26,36 @@ export class TagsListComponent implements OnInit {
   getTags() {
     this.tagService.getTags().subscribe(tags => {
       this.tags = tags;
+      console.log(tags);
     });
   }
 
-  removeTag(tag: Tag) {
+  removeTag(tag: Tag, index: number) {
     this.tagService.removeTag(tag._id).subscribe(response  => {
       let showMessageData = {
         tagName: tag.title,  
         message: Actions.removeTag
       }
       this.showMessage.emit(showMessageData);
-      this.closeModal();
+      this.tags.splice(index, 1);
     })
   }
   
   closeModal() {
     this.modal.close();
   }
+
+  changeTagColor(tag: Tag, index: number, event: any) {
+    var color = event.target.value;
+    if (tag._id) {
+      this.tagService.modifyTagColor(tag._id, color).subscribe(response => {
+        this.tags[index].color = color;
+        let showMessageData = {
+          message: Actions.changeTagColor,
+          tagName: tag.title
+        }
+        this.showMessage.emit(showMessageData);
+      });
+    }
+  }  
 }

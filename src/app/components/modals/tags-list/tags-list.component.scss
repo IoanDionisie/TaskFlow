@@ -21,6 +21,11 @@
     display: flex;
 }
 
+.tag-title:hover {
+    opacity: 0.9;
+    cursor: pointer;
+}
+
 .tags {
     display: flex;
     flex-wrap: wrap;
@@ -36,4 +41,25 @@
     right: -1px;
     top: -6px;
     cursor: pointer;
+}
+
+.remove-tag:hover {
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+.tag {
+    .color-picker {
+        border: none;
+        margin-left: 5px;
+        margin-right: 5px;
+        cursor: pointer;
+    }
+
+    .color-picker-icon {
+        position: absolute;
+        right: 2.5rem;
+        font-size: 14px;
+        pointer-events: none;
+    }
 }

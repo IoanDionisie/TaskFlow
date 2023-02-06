@@ -78,6 +78,17 @@ async function deleteAllTags(req, res) {
     }
 }
 
+async function updateTag(req, res) {
+    try {
+        let tagId = req.params.id;
+        await Tag.findByIdAndUpdate(tagId, {
+            color: req.body.color
+        });
+        res.status(200).send({});
+    } catch(err) {
+        returnError(err, res);
+    }
+}
 
 function returnError(err, res) {
     console.log(err);
@@ -90,3 +101,4 @@ exports.getTags = getTags;
 exports.addTag = addTag;
 exports.deleteTag = deleteTag;
 exports.deleteAllTags = deleteAllTags;
+exports.updateTag = updateTag;

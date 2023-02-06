@@ -5,4 +5,5 @@ module.exports = function(app) {
     app.post("/tags", controller.addTag);   
     app.delete("/tags/:id", controller.deleteTag); 
     app.delete("/removetags", controller.deleteAllTags);
+    app.patch("/updatetag/:id", controller.updateTag);
 };

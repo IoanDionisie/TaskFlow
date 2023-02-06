@@ -18,5 +18,6 @@ export enum Actions {
   cloneTask,
   importData, 
   exportData,
-  removeTags
+  removeTags,
+  changeTagColor
 }

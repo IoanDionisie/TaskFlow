@@ -64,6 +64,8 @@ export class SuccessMessageComponent {
           this.successMessage = MESSAGES['exportData'];
         } else if (this.eventType == Actions.removeTags) {
           this.successMessage = MESSAGES['removeTags'];
+        } else if (this.eventType == Actions.changeTagColor) {
+          this.successMessage = "Tag " + this.elementName + MESSAGES['modifyItem'];
         }
       }
       this.toastr.success(this.successMessage, 'Success');

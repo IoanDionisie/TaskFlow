@@ -4,11 +4,13 @@
 
 <div class="modal-body">
     <div class="tags">
-        <div *ngFor="let tag of tags" class="tag">
+        <div *ngFor="let tag of tags; let i = index" class="tag">
             <div  [ngStyle]="{'background': tag.color}"  class="tag-title">
                 {{ tag.title }}
+                <input class="color-picker" type="color" id="head" name="head" (change)='changeTagColor(tag, i, $event)' [value]="tag.color">
+                <i class="fa-solid fa-eye-dropper color-picker-icon"></i>
             </div>
-            <i (click)="removeTag(tag)" class="fa-solid fa-xmark remove-tag"></i>
+            <i (click)="removeTag(tag, i)" class="fa-solid fa-xmark remove-tag"></i>
         </div>
     </div>
 </div>
