@@ -81,9 +81,25 @@ async function deleteAllTags(req, res) {
 async function updateTag(req, res) {
     try {
         let tagId = req.params.id;
+        let userId = authJwt.getUserId(req);
+
         await Tag.findByIdAndUpdate(tagId, {
             color: req.body.color
         });
+
+        var tasks = await Task.find({userId: userId});
+        
+        for (task of tasks) {
+            let tagList = task.tags;
+            for (tag of task.tags) {
+                if (tag._id == tagId) {
+                    tag.color = req.body.color;
+                    await Task.updateOne({_id: task._id}, {
+                        tags: tagList
+                    });
+                }
+            }
+        }
         res.status(200).send({});
     } catch(err) {
         returnError(err, res);

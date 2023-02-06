@@ -52,7 +52,8 @@ export class TagsListComponent implements OnInit {
         this.tags[index].color = color;
         let showMessageData = {
           message: Actions.changeTagColor,
-          tagName: tag.title
+          tagName: tag.title,
+          refresh: true
         }
         this.showMessage.emit(showMessageData);
       });

@@ -287,6 +287,9 @@ export class DashboardComponent implements OnInit {
     const modalRef = this.modalService.open(TagsListComponent);
     modalRef.componentInstance.showMessage.subscribe((receivedData: any) => {
         this.showSuccessMessage(receivedData.message, receivedData.tagName);
+        if (receivedData.refresh) {
+          this.ngOnInit();
+        }
     });
   }
 
