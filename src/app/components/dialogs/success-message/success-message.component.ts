@@ -39,7 +39,7 @@ export class SuccessMessageComponent {
           this.successMessage += MESSAGES['completeItem'];
         } else if (this.eventType == Actions.beginTask) {
           this.successMessage = "";
-          this.successMessage += MESSAGES['beginTask'] + " " + this.elementName;
+          this.successMessage += MESSAGES['beginTask'] + " " + '"' +  this.elementName + '"';
         } else if (this.eventType == Actions.changedPassword) {
           this.successMessage = MESSAGES['changedPassword'];
         } else if (this.eventType == Actions.addTag) {

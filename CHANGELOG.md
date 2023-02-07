@@ -1,6 +1,13 @@
 
 # New features developed & bugs fixed
  
+ # 1.1.1
+ 
+ - Added ngx toastr for notifications
+ - Adding a duplicate tag now show an error message
+ - Color of progress bars are now set
+ - Added show/hide password button on login form
+ - Added feature of changing color of tags (updating also the tasks that have that tag) 
 
 # 1.1.0
 
