@@ -48,7 +48,7 @@
             <mat-tab-group class="tasks-tabs" *ngIf="tasks" mat-align-tabs="start">
                 <mat-tab *ngIf="inProgressTasks.length > 0" [label]="'In Progress (' + inProgressTasks.length + ')'">
                     <div  cdkDropList class="inprogress-tasks" (cdkDropListDropped)="drop($event, inProgressTasks)">
-                        <div *ngFor="let task of (inProgressTasks | searchTaskFilter : searchFilter);let indexOfElement=index;" class="task task-color" cdkDrag [@slideAnimation]="task.animation">
+                        <div *ngFor="let task of (inProgressTasks | searchTaskFilter : searchFilter);let indexOfElement=index;" class="task task-color" cdkDrag [@slideAnimation]="task.animation" [@cloneTaskAnimation]="task.animation">
                             <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
                             <div class="title-wrapper">
                                 <div class="checkbox-and-title">

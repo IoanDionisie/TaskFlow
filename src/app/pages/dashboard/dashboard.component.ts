@@ -36,8 +36,15 @@ import { ANIMATIONS } from 'src/app/constants/animations';
       state('deleted', style({ transform: 'translateX(-150%)' })),
       transition(`* => ${ANIMATIONS.completed}`, animate(500)),
       transition(`* => ${ANIMATIONS.deleted}`, animate(500)),
-    ]
-  )]
+      ],
+    ),
+    trigger('cloneTaskAnimation', [
+      state('default', style({ transform: 'translateX(150%)' })),
+      state('cloned', style({ transform: 'translateX(0)' })),
+      transition(`${ANIMATIONS.default} => ${ANIMATIONS.cloned}`, animate(500)),
+      ],
+    ),
+  ]
 })
 
 export class DashboardComponent implements OnInit {
@@ -463,6 +470,7 @@ export class DashboardComponent implements OnInit {
       listId: this.selectedList._id
     }
     this.taskService.cloneTask(data).subscribe((response: any) => {
+      response.animation = ANIMATIONS.default;
       this.inProgressTasks.unshift(response);
       if (typeof this.tasks !== 'undefined') {
         this.tasks.unshift(response);
@@ -474,6 +482,11 @@ export class DashboardComponent implements OnInit {
       this.calculatePercentCompleted();
       this.setProgressbarColor();
       this.showSuccessMessage(Actions.cloneTask, task.title);
+      
+      var timer = setInterval(() => {
+        response.animation = ANIMATIONS.cloned;
+        clearInterval(timer);
+      }, 500);
     });
   }
 
