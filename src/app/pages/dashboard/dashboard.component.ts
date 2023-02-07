@@ -1,7 +1,6 @@
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TaskService } from 'src/app/services/task.service';
 import { DeleteItemComponent } from 'src/app/components/dialogs/delete-item/delete-item.component';
-import { CreateListComponent } from 'src/app/components/modals/create-list/create-list.component';
 import { CreateTaskComponent } from 'src/app/components/modals/create-task/create-task.component';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ModifyItemComponent } from 'src/app/components/modals/modify-item/modify-item.component';
@@ -21,14 +20,24 @@ import { ImageService } from 'src/app/services/image.service';
 import { TASK_STATUS } from 'src/app/constants/task-status';
 import { TaskTimer } from 'tasktimer';
 import * as global from 'src/app/constants/variables';
-import { Observable, subscribeOn, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ListService } from 'src/app/services/list.service';
 import { ToastrService } from 'ngx-toastr';
+import { trigger, transition, animate, style, query, group, state } from '@angular/animations'
+import { ANIMATIONS } from 'src/app/constants/animations';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  animations: [
+    trigger('slideAnimation', [
+      state('completed', style({ transform: 'translateX(150%)' })),
+      state('deleted', style({ transform: 'translateX(-150%)' })),
+      transition(`* => ${ANIMATIONS.completed}`, animate(500)),
+      transition(`* => ${ANIMATIONS.deleted}`, animate(500)),
+    ]
+  )]
 })
 
 export class DashboardComponent implements OnInit {
@@ -226,17 +235,22 @@ export class DashboardComponent implements OnInit {
     modalRef.componentInstance.removeConfirmation.subscribe((receivedData: any) => {
       if (receivedData === true) {
         this.taskService.deleteTask(this.selectedList._id, task._id).subscribe((response: any) =>  {
-          if (type == ITEM_STATUS.completed) {
-            this.completedTasks.splice(index, 1);
-          } else if (type == ITEM_STATUS.inProgress) {
-            this.inProgressTasks.splice(index, 1);
-          }
+          task.animation = ANIMATIONS.deleted;
+          
+          var timer = setInterval(() => {
+            if (type == ITEM_STATUS.completed) {
+              this.completedTasks.splice(index, 1);
+            } else if (type == ITEM_STATUS.inProgress) {
+              this.inProgressTasks.splice(index, 1);
+            }
 
-          this.startedTasks--;
-          this.tasks.length--;
-          this.calculatePercentCompleted();
-          this.setProgressbarColor();
-          this.showSuccessMessage(Actions.deleteTask, task.title);
+            this.startedTasks--;
+            this.tasks.length--;
+            this.calculatePercentCompleted();
+            this.setProgressbarColor();
+            this.showSuccessMessage(Actions.deleteTask, task.title);
+            clearInterval(timer);
+          }, 500);
         })
       }
     })
@@ -411,17 +425,21 @@ export class DashboardComponent implements OnInit {
     }
 
     this.taskService.modifyTaskDates(this.selectedList._id, task._id, data).subscribe((response: any) => {
-      this.inProgressTasks.splice(index, 1);
-      task.totalWorkingTime = totalWorkingTime;
-      task.dateCompleted = now;
-      this.completedTasks.unshift(task);
-      this.calculatePercentCompleted();
-      this.setProgressbarColor();
-      this.showSuccessMessage(Actions.completeTask, task.title);
-      this.startedTasks--;
+      task.animation = ANIMATIONS.completed;
+      var timer = setInterval(() => {
+        this.inProgressTasks.splice(index, 1);
+        task.totalWorkingTime = totalWorkingTime;
+        task.dateCompleted = now;
+        this.completedTasks.unshift(task);
+        this.calculatePercentCompleted();
+        this.setProgressbarColor();
+        this.showSuccessMessage(Actions.completeTask, task.title);
+        this.startedTasks--;
+        task.animation = ANIMATIONS.none;
+        clearInterval(timer);
+      }, 500);
     })
-    
-  }
+  }    
 
   calculateTotalWorkingTime(task: any, date: Date) {
     task.workIntervals.push({

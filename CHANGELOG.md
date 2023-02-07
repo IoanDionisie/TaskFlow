@@ -1,6 +1,12 @@
 
 # New features developed & bugs fixed
  
+
+
+# 1.1.2
+
+- Added slide animation on completing/removing tasks
+
  # 1.1.1
  
  - Added ngx toastr for notifications
