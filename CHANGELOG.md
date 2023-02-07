@@ -5,7 +5,7 @@
 
 # 1.1.2
 
-- Added slide animation on completing/removing tasks
+- Added slide animations on completing/removing tasks
 
  # 1.1.1
  

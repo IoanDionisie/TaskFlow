@@ -7,10 +7,17 @@
         <div *ngFor="let tag of tags; let i = index" class="tag">
             <div  [ngStyle]="{'background': tag.color}"  class="tag-title">
                 {{ tag.title }}
-                <input class="color-picker" type="color" id="head" name="head" (change)='changeTagColor(tag, i, $event)' [value]="tag.color">
+                <input class="color-picker" type="color" name="head" (change)='changeTagColor(tag, i, $event)' [value]="tag.color">
                 <i class="fa-solid fa-eye-dropper color-picker-icon"></i>
             </div>
             <i (click)="removeTag(tag, i)" class="fa-solid fa-xmark remove-tag"></i>
+        </div>
+    </div>
+
+    <div class="note mt-3">
+        <div class="note-text">Tip: You can change the color of the tag by clicking on
+            <i class="fa-solid fa-eye-dropper color-picker-icon"></i>,  and remove a tag by clicking on 
+            <i class="fa-solid fa-xmark remove-tag-icon"></i>
         </div>
     </div>
 </div>

@@ -43,6 +43,13 @@
     cursor: pointer;
 }
 
+.remove-tag-icon {
+    background: $errorColor;
+    color: white;
+    padding: 2px 5px 2px 5px;
+    border-radius: 30px;
+}
+
 .remove-tag:hover {
     cursor: pointer;
     opacity: 0.9;
@@ -62,4 +69,9 @@
         font-size: 14px;
         pointer-events: none;
     }
+}
+
+.note {
+    display: flex;
+    justify-content: center;
 }
