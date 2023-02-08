@@ -22,8 +22,6 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   version = global.version;
   API_GOOGLE_URL = 'http://localhost:3000/api/auth/google';
-  showPassword: boolean = false;
-
 
   constructor(private authService: AuthService, private tokenStorage: TokenStorageService,
     private router: Router) { }
@@ -37,7 +35,6 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     const { username, password } = this.form;
-    console.log(this.form);
     this.authService.login(username, password).subscribe({
       next: data => {
         this.tokenStorage.saveToken(data.accessToken);
@@ -58,9 +55,5 @@ export class LoginComponent implements OnInit {
 
   onLoginWithGoogle() {
     this.authService.loginWithGoogle();
-  }
-
-  changeShowPassword() {
-    this.showPassword = !this.showPassword;
   }
 }
