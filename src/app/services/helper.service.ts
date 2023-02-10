@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { ITEM_TYPE } from '../constants/item-types';
 import linkifyHtml from 'linkify-html';
 
@@ -13,7 +11,6 @@ export class HelperService {
     readonly ITEM_TYPE = ITEM_TYPE;
 
    constructor() {
-
    }
 
   modalRefConfig(modalRef: any, type:  any, item: any) {

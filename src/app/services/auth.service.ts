@@ -51,7 +51,7 @@ export class AuthService {
     }, httpOptions); 
   }
 
-  resetPassword(email: any) {
+  resetPassword(email: string) {
     return this.http.post(AUTH_API + 'sendResetPasswordLink', {
       email
     }, httpOptions);
