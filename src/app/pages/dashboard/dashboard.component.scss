@@ -8,11 +8,6 @@
     color: $taskColor;
 }
 
-.add-list-button {
-    background: $listColor;
-    color: white;
-}
-
 .list-background {
     background: $listColor;
     color: whitesmoke;
@@ -491,8 +486,12 @@
 
 .version {
     position: absolute;
-    right: 20rem;
-    bottom: 5px;
+    background: $taskColor;
+    padding: 10px 15px 10px 15px;
+    bottom: 0;
+    font-weight: 500;
+    left: 0;
+    border-radius: 0 30px 0 30px;
 }
 
 .title-wrapper {
