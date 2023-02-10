@@ -1,13 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output, Self } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { nextTick } from 'process';
 import { Actions } from 'src/app/enums/actions';
-import { OthersService } from 'src/app/services/others.service';
-import { TagService } from 'src/app/services/tag.service';
-import { TaskService } from 'src/app/services/task.service';
 import { NgStyle, NgIf } from '@angular/common';
 import { ChangeThemeComponent } from '../../change-theme/change-theme.component';
+import { FacadeService } from 'src/app/services/facade.service';
 
 @Component({
     selector: 'app-settings',
@@ -34,9 +30,7 @@ export class SettingsComponent implements OnInit  {
 
   @Output() showMessage: EventEmitter<any> = new EventEmitter();
 
-  constructor(private modal: NgbActiveModal, private othersService: OthersService,
-    private tagService: TagService,
-    private sanitizer: DomSanitizer) { }
+  constructor(private modal: NgbActiveModal, private facadeService: FacadeService) { }
   
   ngOnInit(): void {
     this.tagColor = "#" + Math.floor(Math.random()*16777215).toString(16);
@@ -60,7 +54,7 @@ export class SettingsComponent implements OnInit  {
         color: this.tagColor
       }
 
-      this.tagService.createTag(tag).subscribe({ 
+      this.facadeService.createTag(tag).subscribe({ 
         next: resp => {
           this.messageData = {
             tagName: this.tagName,
@@ -78,7 +72,7 @@ export class SettingsComponent implements OnInit  {
   }
 
   exportData() {
-    this.othersService.getDataForExport().subscribe(response => {
+    this.facadeService.getDataForExport().subscribe(response => {
       var element = document.createElement('a');
       var jsonElem = JSON.stringify(response);
       element.setAttribute('href', "data:text/json;charset=UTF-8," + encodeURIComponent(jsonElem));
@@ -134,7 +128,7 @@ export class SettingsComponent implements OnInit  {
   }
 
   importLoadedData() {
-    this.othersService.importData(this.loadedData).subscribe(response => {
+    this.facadeService.importData(this.loadedData).subscribe(response => {
 
       this.messageData = {
         message: Actions.importData
@@ -145,7 +139,7 @@ export class SettingsComponent implements OnInit  {
   }
 
   removeTags() {
-    this.tagService.removeTags().subscribe(response => {
+    this.facadeService.removeTags().subscribe(response => {
       this.messageData = {
         message: Actions.removeTags
       }

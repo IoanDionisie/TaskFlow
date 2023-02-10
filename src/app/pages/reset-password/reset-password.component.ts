@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
+import { FacadeService } from 'src/app/services/facade.service';
 
 @Component({
     selector: 'app-reset-password',
     templateUrl: './reset-password.component.html',
     styleUrls: ['./reset-password.component.scss'],
     standalone: true,
-    imports: [NgIf, FormsModule, RouterLink]
+    imports: [NgIf, FormsModule, RouterLink],
 })
 export class ResetPasswordComponent {
   form: any = {
@@ -20,7 +20,7 @@ export class ResetPasswordComponent {
   mailSent: boolean = false;
   mailError: string = "";
 
-  constructor(private authService: AuthService) {
+  constructor(private facadeService: FacadeService) {
   }
 
   ngOnInit(): void {  
@@ -34,7 +34,7 @@ export class ResetPasswordComponent {
   onSubmit () {
     this.submitted = true;
  
-    this.authService.resetPassword(this.form.email).subscribe({
+    this.facadeService.resetPassword(this.form.email).subscribe({
       next: () => {
         this.mailSent = true;
       },

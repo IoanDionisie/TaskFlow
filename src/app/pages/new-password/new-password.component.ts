@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
+import { FacadeService } from 'src/app/services/facade.service';
 
 @Component({
     selector: 'app-new-password',
@@ -23,12 +22,12 @@ export class NewPasswordComponent {
   passwordMatchError: boolean = false;
   passwordChanged: boolean = false;
 
-  constructor(private authService: AuthService, private token: TokenStorageService,
+  constructor(private facadeService: FacadeService,
     private activateRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.queryParams  = this.activateRoute.snapshot.queryParams;
-    this.authService.checkResetPasswordLink(this.queryParams).subscribe({
+    this.facadeService.checkResetPasswordLink(this.queryParams).subscribe({
      next: (response: any) => {
       this.form.email = response['email'];
      },
@@ -51,7 +50,7 @@ export class NewPasswordComponent {
     if (this.form.password.length < 8) {
       this.passwordLengthError = true;
     } else if (this.form.password == this.form.confirmPassword) {
-      this.authService.changePasswordUsingMail(email, this.form.password).subscribe({
+      this.facadeService.changePasswordUsingMail(email, this.form.password).subscribe({
         next: () => {
           this.passwordChanged = true;
         },

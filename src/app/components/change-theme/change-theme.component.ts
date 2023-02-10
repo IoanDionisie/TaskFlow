@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ColorSchemeService } from 'src/app/services/colorscheme.service';
+import { FacadeService } from 'src/app/services/facade.service';
 
 @Component({
     selector: 'app-change-theme',
@@ -11,15 +11,15 @@ export class ChangeThemeComponent implements OnInit {
   currentTheme: string = "";
   @Output() themeChange = new EventEmitter<string>();
 
-  constructor(public colorSchemeService: ColorSchemeService) { }
+  constructor(public facadeService: FacadeService) { }
 
   ngOnInit(): void {
-    this.currentTheme = this.colorSchemeService.currentActive();
+    this.currentTheme = this.facadeService.currentActiveColorScheme();
   }
 
   darkModeToggle() {
-    let theme = this.colorSchemeService.currentActive();
-    this.colorSchemeService.update(theme == 'light' ? 'dark' : 'light');
+    let theme = this.facadeService.currentActiveColorScheme();
+    this.facadeService.updateColorScheme(theme == 'light' ? 'dark' : 'light');
     this.themeChange.emit(theme == 'light' ? 'dark' : 'light');
   }
 

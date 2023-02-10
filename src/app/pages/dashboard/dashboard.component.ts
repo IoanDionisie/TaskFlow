@@ -1,5 +1,4 @@
 import { NgbModal, NgbDropdown, NgbDropdownToggle, NgbDropdownMenu, NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
-import { TaskService } from 'src/app/services/task.service';
 import { DeleteItemComponent } from 'src/app/components/dialogs/delete-item/delete-item.component';
 import { CreateTaskComponent } from 'src/app/components/modals/create-task/create-task.component';
 import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
@@ -9,8 +8,6 @@ import { Actions } from 'src/app/enums/actions';
 import { ViewTaskComponent } from 'src/app/components/modals/view-task/view-task.component';
 import { ITEM_TYPE } from 'src/app/constants/item-types';
 import { ITEM_STATUS } from 'src/app/constants/item-status';
-import { TokenStorageService } from 'src/app/services/token-storage.service';
-import { HelperService } from 'src/app/services/helper.service';
 import { SettingsComponent } from 'src/app/components/modals/settings/settings.component';
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { MyAccountComponent } from 'src/app/components/modals/my-account/my-account.component';
@@ -21,8 +18,6 @@ import { TASK_STATUS } from 'src/app/constants/task-status';
 import { TaskTimer } from 'tasktimer';
 import * as global from 'src/app/constants/variables';
 import { Subscription } from 'rxjs';
-import { ListService } from 'src/app/services/list.service';
-import { ToastrService } from 'ngx-toastr';
 import { trigger, transition, animate, style, state } from '@angular/animations'
 import { ANIMATIONS } from 'src/app/constants/animations';
 import { SearchTaskFilterPipe } from '../../pipes/search-task-filter.pipe';
@@ -35,6 +30,7 @@ import { ListsComponent } from '../../components/lists/lists.component';
 import { ErrorMessageComponent } from '../../components/dialogs/error-message/error-message.component';
 import { SuccessMessageComponent } from '../../components/dialogs/success-message/success-message.component';
 import { WorkBreakComponent } from 'src/app/components/work-break/work-break.component';
+import { FacadeService } from 'src/app/services/facade.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -95,10 +91,9 @@ export class DashboardComponent implements OnInit {
 
   @HostBinding('class') class = 'center-component';
 
-  constructor(private taskService: TaskService, private modalService: NgbModal,
-    private token: TokenStorageService, private helperService: HelperService,
-    private imageService: ImageService, private listService: ListService,
-    private toaster: ToastrService) { }
+  constructor(private modalService: NgbModal,
+    private facadeService: FacadeService,
+    private imageService: ImageService) { }
 
 
   ngOnDestroy(): void { 
@@ -113,7 +108,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllLists();
-    this.userName = this.token.getUser().username;
+    this.userName = this.facadeService.getUser().username;
     this.imageService.setProfilePicture();
     this.setProfilePicture = this.imageService.profilePicture$.subscribe((response: any) => {
       this.profilePicture = response;
@@ -139,12 +134,12 @@ export class DashboardComponent implements OnInit {
   }
 
   changeArrayOrder(tasks: any) {
-    this.taskService.modifyTasks(this.selectedList._id, tasks.map((task: any) =>  task._id)).subscribe((response: any) => {
+    this.facadeService.modifyTasks(this.selectedList._id, tasks.map((task: any) =>  task._id)).subscribe((response: any) => {
     });
   }
 
   getAllLists() {
-    this.listService.getLists().subscribe((response: any) => {
+    this.facadeService.getLists().subscribe((response: any) => {
       if (response.length > 0) {
         this.lists = response;
         this.selectedList = this.lists[0];
@@ -163,7 +158,7 @@ export class DashboardComponent implements OnInit {
     this.inProgressTasks = [];
     this.completedTasks = [];
 
-    this.taskService.getTasks(listId).subscribe((response: any) => {
+    this.facadeService.getTasks(listId).subscribe((response: any) => {
       this.sortTasks(response);
       this.setTasksTimer(this.inProgressTasks);
       this.calculatePercentCompleted();
@@ -228,7 +223,7 @@ export class DashboardComponent implements OnInit {
     const modalRef = this.modalService.open(CreateTaskComponent);
     modalRef.componentInstance.createTaskConfirmation.subscribe((response: any) => {
       if (response.confirmation === true) {
-        this.taskService.createTask(this.selectedList._id, response).subscribe((response: any) => {
+        this.facadeService.createTask(this.selectedList._id, response).subscribe((response: any) => {
           this.inProgressTasks.unshift(response);
           if (typeof this.tasks !== 'undefined') {
             this.tasks.unshift(response);
@@ -250,7 +245,7 @@ export class DashboardComponent implements OnInit {
     modalRef.componentInstance.elementName = ITEM_TYPE.task;
     modalRef.componentInstance.removeConfirmation.subscribe((receivedData: any) => {
       if (receivedData === true) {
-        this.taskService.deleteTask(this.selectedList._id, task._id).subscribe((response: any) =>  {
+        this.facadeService.deleteTask(this.selectedList._id, task._id).subscribe((response: any) =>  {
           task.animation = ANIMATIONS.deleted;
           
           var timer = setInterval(() => {
@@ -274,11 +269,11 @@ export class DashboardComponent implements OnInit {
 
   modifyThisTask(task: any) {
     const modalRef = this.modalService.open(ModifyItemComponent);
-    this.helperService.modalRefConfig(modalRef, ITEM_TYPE.task, task);
+    this.facadeService.modalRefConfig(modalRef, ITEM_TYPE.task, task);
 
     modalRef.componentInstance.modifyItemConfirmation.subscribe((receivedData: any) => {
       if (receivedData.confirmation === true) {
-        this.taskService.modifyTask(this.selectedList._id, task._id, receivedData).subscribe((response: any) => {
+        this.facadeService.modifyTask(this.selectedList._id, task._id, receivedData).subscribe((response: any) => {
           task.title = receivedData.title;
           task.description = receivedData.description;
           task.observations = receivedData.observations;
@@ -373,7 +368,7 @@ export class DashboardComponent implements OnInit {
   }
 
   logOut() {
-    this.token.signOut();
+    this.facadeService.signOut();
   }
 
   beginTask(task: any) {
@@ -384,7 +379,7 @@ export class DashboardComponent implements OnInit {
         workIntervals: task.workIntervals
       }
   
-      this.taskService.modifyTaskDates(this.selectedList._id, task._id, data).subscribe((response: any) => {
+      this.facadeService.modifyTaskDates(this.selectedList._id, task._id, data).subscribe((response: any) => {
         task.isStarted = TASK_STATUS.started;
         task.workIntervals = response;
         this.incrementTaskWorkingTime(task);
@@ -403,7 +398,7 @@ export class DashboardComponent implements OnInit {
       workIntervals: task.workIntervals
     }
 
-    this.taskService.modifyTaskDates(this.selectedList._id, task._id, data).subscribe((response: any) => {
+    this.facadeService.modifyTaskDates(this.selectedList._id, task._id, data).subscribe((response: any) => {
       task.isStarted = TASK_STATUS.paused;
       task.showTimer = false;
       this.removeTimer(task._id);
@@ -419,7 +414,7 @@ export class DashboardComponent implements OnInit {
       workIntervals: task.workIntervals
     }
 
-    this.taskService.modifyTaskDates(this.selectedList._id, task._id, data).subscribe((response: any) => {
+    this.facadeService.modifyTaskDates(this.selectedList._id, task._id, data).subscribe((response: any) => {
       task.isStarted = TASK_STATUS.started;
       task.workIntervals = response;
       this.incrementTaskWorkingTime(task);
@@ -440,7 +435,7 @@ export class DashboardComponent implements OnInit {
       totalWorkingTime: totalWorkingTime
     }
 
-    this.taskService.modifyTaskDates(this.selectedList._id, task._id, data).subscribe((response: any) => {
+    this.facadeService.modifyTaskDates(this.selectedList._id, task._id, data).subscribe((response: any) => {
       task.animation = ANIMATIONS.completed;
       var timer = setInterval(() => {
         this.inProgressTasks.splice(index, 1);
@@ -466,10 +461,10 @@ export class DashboardComponent implements OnInit {
     var totalTime = 0;
     for (let i = 0; i < task.workIntervals.length; i++) {
       if (i % 2 == 0) {
-        totalTime += this.helperService.getSecondsDiff(new Date(task.workIntervals[i].date), new Date(task.workIntervals[i+1].date));
+        totalTime += this.facadeService.getSecondsDiff(new Date(task.workIntervals[i].date), new Date(task.workIntervals[i+1].date));
       }
     }
-    return this.helperService.secondsToHoursMinutesSeconds(totalTime);
+    return this.facadeService.secondsToHoursMinutesSeconds(totalTime);
   }
 
   cloneTask(task: any) {
@@ -478,7 +473,7 @@ export class DashboardComponent implements OnInit {
       taskId: task._id,
       listId: this.selectedList._id
     }
-    this.taskService.cloneTask(data).subscribe((response: any) => {
+    this.facadeService.cloneTask(data).subscribe((response: any) => {
       response.animation = ANIMATIONS.default;
       this.inProgressTasks.unshift(response);
       if (typeof this.tasks !== 'undefined') {
@@ -508,7 +503,7 @@ export class DashboardComponent implements OnInit {
 
     for (let i = 0; i < workIntervals.length; i = i + 2) {
       if (workIntervals[i + 1] != undefined)
-        timeWorkedSoFar += this.helperService.getSecondsDiff(new Date(workIntervals[i].date), new Date(workIntervals[i + 1].date));
+        timeWorkedSoFar += this.facadeService.getSecondsDiff(new Date(workIntervals[i].date), new Date(workIntervals[i + 1].date));
     } 
 
     if (!timer) {
@@ -521,7 +516,7 @@ export class DashboardComponent implements OnInit {
         }
       ]);
       timer.on('tick', () => {
-        task.workingTime = this.helperService.secondsToHoursMinutesSeconds(this.helperService.getSecondsDiff(dateStarted, new Date()) + timeWorkedSoFar);
+        task.workingTime = this.facadeService.secondsToHoursMinutesSeconds(this.facadeService.getSecondsDiff(dateStarted, new Date()) + timeWorkedSoFar);
       });
 
       timer.start();
@@ -529,7 +524,7 @@ export class DashboardComponent implements OnInit {
       this.timers.set(task._id, timer);
     } else {
       timer.on('tick', () => {
-        task.workingTime = this.helperService.secondsToHoursMinutesSeconds(this.helperService.getSecondsDiff(dateStarted, new Date()) + timeWorkedSoFar);
+        task.workingTime = this.facadeService.secondsToHoursMinutesSeconds(this.facadeService.getSecondsDiff(dateStarted, new Date()) + timeWorkedSoFar);
       });
 
       timer.start();

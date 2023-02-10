@@ -2,9 +2,9 @@ import { T } from '@angular/cdk/keycodes';
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ITEM_STATUS } from 'src/app/constants/item-status';
-import { HelperService } from 'src/app/services/helper.service';
 import { DisplayTagsComponent } from '../../display-tags/display-tags.component';
 import { NgIf } from '@angular/common';
+import { FacadeService } from 'src/app/services/facade.service';
 
 
 @Component({
@@ -25,26 +25,26 @@ export class ViewTaskComponent implements OnInit {
   observations: string;
   estimation: number;
 
-  constructor(private modal: NgbActiveModal, private helperService: HelperService) { 
+  constructor(private modal: NgbActiveModal, private facadeService: FacadeService) { 
     this.description = '';
     this.observations = '';
     this.estimation = 0;
   }
 
   ngOnInit(): void {
-    this.dateCreated = this.helperService.convertDate(new Date(this.task.dateCreated));
-    this.dateCompleted = this.helperService.convertDate(new Date(this.task.dateCompleted));
+    this.dateCreated = this.facadeService.convertDate(new Date(this.task.dateCreated));
+    this.dateCompleted = this.facadeService.convertDate(new Date(this.task.dateCompleted));
     if (this.task.totalWorkingTime == 0) {
-      this.workingTime = this.helperService.secondsToHoursMinutesSeconds(this.helperService.getSecondsDiff(new Date(this.task.dateCreated), new Date(this.task.dateCompleted)));
+      this.workingTime = this.facadeService.secondsToHoursMinutesSeconds(this.facadeService.getSecondsDiff(new Date(this.task.dateCreated), new Date(this.task.dateCompleted)));
     } else {
-      this.workingTime = this.helperService.secondsToHoursMinutesSeconds(this.task.totalWorkingTime);
+      this.workingTime = this.facadeService.secondsToHoursMinutesSeconds(this.task.totalWorkingTime);
     }
 
     if (this.task.description) {
-      this.description = this.helperService.linkifyText(this.task.description);
+      this.description = this.facadeService.linkifyText(this.task.description);
     }
     if (this.task.observations) {
-      this.observations =  this.helperService.linkifyText(this.task.observations);
+      this.observations =  this.facadeService.linkifyText(this.task.observations);
     }
 
     if (this.task.estimation) {

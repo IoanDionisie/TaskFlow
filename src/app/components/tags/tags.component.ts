@@ -5,13 +5,12 @@ import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ITEM_STATUS } from 'src/app/constants/item-status';
-import { TagService } from 'src/app/services/tag.service';
 import { MatOptionModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { NgClass, NgForOf, AsyncPipe } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { FacadeService } from 'src/app/services/facade.service';
 
 @Component({
     selector: 'app-tags',
@@ -45,7 +44,7 @@ export class TagsComponent {
 
   @Output() tagsAdded: EventEmitter<string[]> = new EventEmitter();
 
-  constructor(private modalService: NgbModal, private tagService: TagService) {
+  constructor(private facadeService: FacadeService) {
     this.filteredTags = this.tagsControl.valueChanges.pipe(
       startWith(null),
       map((tag: string | null) => (tag ? this._filter(tag) : this.allTags.slice())),
@@ -108,7 +107,7 @@ export class TagsComponent {
   }
 
   ngAfterViewInit() {
-    this.tagService.getTags().subscribe(tags => {
+    this.facadeService.getTags().subscribe(tags => {
       this.tagsFromServer = tags;
       this.allTags = this.tagsFromServer.map(function(item: { [x: string]: any; }) {
         return item['title'];

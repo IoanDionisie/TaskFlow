@@ -1,6 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { AutosizeModule } from '@techiediaries/ngx-textarea-autosize';
 import { FormsModule } from '@angular/forms';
 
@@ -19,7 +18,7 @@ export class CreateListComponent  {
   description: string | undefined;
 
   
-  constructor(private modal: NgbActiveModal, private token: TokenStorageService) {}
+  constructor(private modal: NgbActiveModal) {}
   
   confirm() {
     let list = {

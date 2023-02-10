@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { ITEM_TYPE } from '../constants/item-types';
 import linkifyHtml from 'linkify-html';
 
-
 @Injectable({
     providedIn: 'root'
 })

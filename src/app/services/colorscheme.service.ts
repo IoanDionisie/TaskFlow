@@ -45,18 +45,18 @@ export class ColorSchemeService {
         }
     }
 
-    load() {
+    loadColorScheme() {
         this._getColorScheme();
         this.renderer.addClass(document.body, this.colorSchemePrefix + this.colorScheme);
     }
 
-    update(scheme: string) {
+    updateColorScheme(scheme: string) {
         this._setColorScheme(scheme);
         this.renderer.removeClass(document.body, this.colorSchemePrefix + (this.colorScheme === 'dark' ? 'light' : 'dark'));
         this.renderer.addClass(document.body, this.colorSchemePrefix + scheme);
     }
 
-    currentActive() {
+    currentActiveColorScheme() {
         return this.colorScheme;
     }
 

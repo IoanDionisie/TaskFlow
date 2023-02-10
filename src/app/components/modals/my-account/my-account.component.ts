@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { AuthService } from 'src/app/services/auth.service';
 import { Output, EventEmitter } from '@angular/core';
 import { MESSAGES } from 'src/app/constants/success-messages';
 import { HttpClient } from '@angular/common/http';
 import { NgIf } from '@angular/common';
 import { PasswordStrengthComponent } from '../../password-strength/password-strength.component';
 import { FormsModule } from '@angular/forms';
+import { FacadeService } from 'src/app/services/facade.service';
 
 const API_URL = 'http://localhost:3000/api/';
 
@@ -35,7 +35,7 @@ export class MyAccountComponent implements OnInit {
     password: null
   };
 
-  constructor(private modal: NgbActiveModal, private authService: AuthService, 
+  constructor(private modal: NgbActiveModal, private facadeService: FacadeService, 
     private http: HttpClient) { }
 
   ngOnInit(): void {
@@ -54,7 +54,7 @@ export class MyAccountComponent implements OnInit {
     } else if (this.form.password.length < 8) {
       this.passwordError = MESSAGES["passwordTooShort"];
     } else {
-      this.authService.changePassword(this.form.username, this.form.password).subscribe({
+      this.facadeService.changePassword(this.form.username, this.form.password).subscribe({
         next: () => {
           this.closeModal();
           this.changedPassword.emit();

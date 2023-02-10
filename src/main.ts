@@ -23,6 +23,7 @@ import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { errorInterceptorProviders } from './app/helpers/error.interceptor';
 import { authInterceptorProviders } from './app/helpers/auth.interceptor';
 import { RouterModule } from '@angular/router';
+import { FacadeService } from './app/services/facade.service';
 
 if (environment.production) {
   enableProdMode();
@@ -39,6 +40,7 @@ bootstrapApplication(AppComponent, {
         })),
         authInterceptorProviders, 
         errorInterceptorProviders,
-        provideAnimations()
+        provideAnimations(),
+        FacadeService
     ]
 }).catch(err => console.error(err));

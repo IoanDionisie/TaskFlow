@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, Validators, FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { TokenStorageService } from 'src/app/services/token-storage.service';
-import { AuthService } from '../../services/auth.service';
 import * as global from 'src/app/constants/variables';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddProfilePictureComponent } from 'src/app/components/modals/add-profile-picture/add-profile-picture.component';
 import { PasswordStrengthComponent } from '../../components/password-strength/password-strength.component';
 import { NgIf, NgClass } from '@angular/common';
+import { FacadeService } from 'src/app/services/facade.service';
 
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.scss'],
     standalone: true,
-    imports: [NgIf, FormsModule, NgClass, PasswordStrengthComponent, RouterLink]
+    imports: [NgIf, FormsModule, NgClass, PasswordStrengthComponent, RouterLink],
 })
 export class RegisterComponent implements OnInit {
 
@@ -38,7 +37,7 @@ export class RegisterComponent implements OnInit {
 
   version = global.version;
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService,  private router: Router,
+  constructor(private facadeService: FacadeService,  private router: Router,
     private modalService: NgbModal) { }
  
   ngOnInit(): void {
@@ -57,12 +56,12 @@ export class RegisterComponent implements OnInit {
     this.working = true;
     const { username, email, password } = this.form;
    
-    this.authService.register(username, email, password).subscribe({
+    this.facadeService.register(username, email, password).subscribe({
       next: data => {
         this.isSuccessful = true;
         this.isSignUpFailed = false;
-        this.tokenStorage.saveToken(data.accessToken);
-        this.tokenStorage.saveUser(data);
+        this.facadeService.saveToken(data.accessToken);
+        this.facadeService.saveUser(data);
         this.openAddProfilePictureModal();
       },
       error: err => {

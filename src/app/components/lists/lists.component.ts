@@ -3,15 +3,11 @@ import { NgbModal, NgbTooltip, NgbProgressbar, NgbDropdown, NgbDropdownToggle, N
 import { ITEM_STATUS } from 'src/app/constants/item-status';
 import { ITEM_TYPE } from 'src/app/constants/item-types';
 import { ListActions } from 'src/app/enums/list-actions.model';
-import { TaskService } from 'src/app/services/task.service';
 import { DeleteItemComponent } from '../dialogs/delete-item/delete-item.component';
 import { ModifyItemComponent } from '../modals/modify-item/modify-item.component';
-import { TokenStorageService } from '../../services/token-storage.service';
-import { HelperService } from '../../services/helper.service';
 import { ViewListComponent } from '../modals/view-list/view-list.component';
 import { List } from 'src/app/models/list.model';
 import { CreateListComponent } from '../modals/create-list/create-list.component';
-import { ListService } from 'src/app/services/list.service';
 import {
   trigger,
   state,
@@ -20,6 +16,7 @@ import {
   transition,
 } from '@angular/animations';
 import { NgIf, NgClass, NgForOf } from '@angular/common';
+import { FacadeService } from 'src/app/services/facade.service';
 
 @Component({
     selector: 'app-lists',
@@ -60,8 +57,8 @@ export class ListsComponent implements OnInit {
 
   readonly ITEM_STATUS = ITEM_STATUS;
 
-  constructor(private taskService: TaskService, private listService: ListService, private modalService: NgbModal, private token: TokenStorageService,
-    private helperService: HelperService) {
+  constructor(private modalService: NgbModal,
+    private facadeService: FacadeService) {
     }
 
   ngOnInit(): void {
@@ -85,10 +82,10 @@ export class ListsComponent implements OnInit {
   
   modifyThisList(list: List) {
     const modalRef = this.modalService.open(ModifyItemComponent);
-    this.helperService.modalRefConfig(modalRef, ITEM_TYPE.list, list);
+    this.facadeService.modalRefConfig(modalRef, ITEM_TYPE.list, list);
     modalRef.componentInstance.modifyItemConfirmation.subscribe((receivedData: any) => {
       if (receivedData.confirmation === true) {
-        this.listService.modifyList(list._id, receivedData).subscribe((response: any) => {
+        this.facadeService.modifyList(list._id, receivedData).subscribe((response: any) => {
           list.title = receivedData.title;
           list.description = receivedData.description;
           this.pickListEvent(ListActions.modifyList, list);
@@ -102,7 +99,7 @@ export class ListsComponent implements OnInit {
     modalRef.componentInstance.elementName = ITEM_TYPE.list;
     modalRef.componentInstance.removeConfirmation.subscribe((receivedData: any) => {
       if (receivedData === true) {
-        this.listService.deleteList(list._id).subscribe((response: any) => {
+        this.facadeService.deleteList(list._id).subscribe((response: any) => {
           this.pickListEvent(ListActions.deleteList, list);
         })
       }
@@ -113,7 +110,7 @@ export class ListsComponent implements OnInit {
     const modalRef = this.modalService.open(CreateListComponent);
     modalRef.componentInstance.createListConfirmation.subscribe((response: any) => {
       if (response.confirmation === true) {
-        this.listService.createList(response).subscribe((list: any) => {
+        this.facadeService.createList(response).subscribe((list: any) => {
           this.inProgressLists.push(list);
           this.incrementListNumberAnimation();
           this.pickListEvent(ListActions.addList, list);
@@ -139,7 +136,7 @@ export class ListsComponent implements OnInit {
   markAsCompleted(list: List) {
     list.status = ITEM_STATUS.completed;
     list.dateCompleted = new Date();
-    this.listService.modifyList(list._id, list).subscribe((response: any) => {
+    this.facadeService.modifyList(list._id, list).subscribe((response: any) => {
       this.pickListEvent(ListActions.completeList, list);
     })
   }

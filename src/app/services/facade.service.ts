@@ -127,12 +127,16 @@ export class FacadeService {
 
     /* Color Scheme Service */
 
-    load() {
-        return this.colorSchemeService.load();
+    loadColorScheme() {
+        return this.colorSchemeService.loadColorScheme();
     }
 
-    currentActive() {
-        return this.colorSchemeService.currentActive();
+    currentActiveColorScheme() {
+        return this.colorSchemeService.currentActiveColorScheme();
+    }
+
+    updateColorScheme(scheme: string) {
+        return this.colorSchemeService.updateColorScheme(scheme);
     }
 
     /* Helper Service */
@@ -158,6 +162,7 @@ export class FacadeService {
     }
 
     /* Image Service */
+
 
     setProfilePicture() {
         return this.imageService.setProfilePicture();

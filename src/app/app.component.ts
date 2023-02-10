@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ColorSchemeService } from './services/colorscheme.service';
 import  packageJson from '../../package.json';
 import { RouterOutlet } from '@angular/router';
+import { FacadeService } from './services/facade.service';
 
 @Component({
     selector: 'app-root',
@@ -16,11 +16,11 @@ export class AppComponent implements OnInit {
   currentTheme: string = "";
   version: string = packageJson.version;
 
-  constructor(private colorSchemeService: ColorSchemeService) {
-    this.colorSchemeService.load();
+  constructor(private facadeService: FacadeService) {
+    this.facadeService.loadColorScheme();
   }
 
   ngOnInit() {
-    this.currentTheme = this.colorSchemeService.currentActive();
+    this.currentTheme = this.facadeService.currentActiveColorScheme();
   }
 }

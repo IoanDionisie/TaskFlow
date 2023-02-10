@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { TokenStorageService } from '../../services/token-storage.service';
 import * as global from 'src/app/constants/variables';
 import { PasswordComponent } from '../../components/password/password.component';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
+import { FacadeService } from 'src/app/services/facade.service';
 
 
 @Component({
@@ -13,7 +12,7 @@ import { Router, RouterLink } from '@angular/router';
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
     standalone: true,
-    imports: [NgIf, FormsModule, PasswordComponent, RouterLink]
+    imports: [NgIf, FormsModule, PasswordComponent, RouterLink],
 })
 
 
@@ -29,11 +28,11 @@ export class LoginComponent implements OnInit {
   version = global.version;
   API_GOOGLE_URL = 'http://localhost:3000/api/auth/google';
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService,
+  constructor(private facadeService: FacadeService,
     private router: Router) { }
 
   ngOnInit(): void {
-    if (this.tokenStorage.getToken()) {
+    if (this.facadeService.getToken()) {
       this.isLoggedIn = true;
       this.router.navigate(['dashboard']);
     }
@@ -41,10 +40,10 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     const { username, password } = this.form;
-    this.authService.login(username, password).subscribe({
+    this.facadeService.login(username, password).subscribe({
       next: data => {
-        this.tokenStorage.saveToken(data.accessToken);
-        this.tokenStorage.saveUser(data);
+        this.facadeService.saveToken(data.accessToken);
+        this.facadeService.saveUser(data);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.router.navigate(['dashboard']);
@@ -60,6 +59,6 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginWithGoogle() {
-    this.authService.loginWithGoogle();
+    this.facadeService.loginWithGoogle();
   }
 }

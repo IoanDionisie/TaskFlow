@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { TokenStorageService } from '../services/token-storage.service';
+import { FacadeService } from '../services/facade.service';
 
 
 @Injectable({
@@ -10,11 +10,11 @@ import { TokenStorageService } from '../services/token-storage.service';
 
 export class AuthGuard  implements CanActivate {
 
-constructor(private token: TokenStorageService, private router: Router) {}
+constructor(private facadeService: FacadeService, private router: Router) {}
 
     canActivate(routerSnapshot: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-        if (this.token.getToken()) {
+        if (this.facadeService.getToken()) {
             return true;
         }
 
@@ -33,7 +33,7 @@ constructor(private token: TokenStorageService, private router: Router) {}
 
     if (routerSnapshot.queryParams["accessToken"]) {
         accessToken = routerSnapshot.queryParams["accessToken"];
-        this.token.saveToken(accessToken);
+        this.facadeService.saveToken(accessToken);
     } else {
         return false;
     }
@@ -43,7 +43,7 @@ constructor(private token: TokenStorageService, private router: Router) {}
             username: routerSnapshot.queryParams["username"],
             accessToken: routerSnapshot.queryParams["accessToken"]
         }
-        this.token.saveUser(data);
+        this.facadeService.saveUser(data);
     } else {
         return false;
 
