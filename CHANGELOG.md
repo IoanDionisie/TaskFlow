@@ -1,7 +1,13 @@
 
 # New features developed & bugs fixed
  
+# 1.1.3
 
+- Migrated to standalone components
+- Added animation on cloning tasks
+- Added tip for users in tags list component
+- Fixed bug - When pressing enter on login, password was revealed
+for a short time
 
 # 1.1.2
 

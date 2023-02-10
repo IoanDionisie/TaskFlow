@@ -1,18 +1,24 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, ViewChildren } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteSelectedEvent, MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ITEM_STATUS } from 'src/app/constants/item-status';
 import { TagService } from 'src/app/services/tag.service';
+import { MatOptionModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
+import { NgClass, NgForOf, AsyncPipe } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
-  selector: 'app-tags',
-  templateUrl: './tags.component.html',
-  styleUrls: ['./tags.component.scss']
+    selector: 'app-tags',
+    templateUrl: './tags.component.html',
+    styleUrls: ['./tags.component.scss'],
+    standalone: true,
+    imports: [MatFormFieldModule, NgClass, MatChipsModule, NgForOf, MatIconModule, FormsModule, MatAutocompleteModule, ReactiveFormsModule, MatOptionModule, AsyncPipe]
 })
 export class TagsComponent {
 

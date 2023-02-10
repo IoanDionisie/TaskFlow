@@ -1,13 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 const API_URL = 'http://localhost:3000/api/';
 
 @Component({
-  selector: 'app-add-profile-picture',
-  templateUrl: './add-profile-picture.component.html',
-  styleUrls: ['./add-profile-picture.component.scss']
+    selector: 'app-add-profile-picture',
+    templateUrl: './add-profile-picture.component.html',
+    styleUrls: ['./add-profile-picture.component.scss'],
+    standalone: true,
+    imports: [FormsModule, NgIf]
 })
 
 export class AddProfilePictureComponent implements OnInit {

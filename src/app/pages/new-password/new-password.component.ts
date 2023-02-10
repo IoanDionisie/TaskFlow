@@ -1,12 +1,16 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { FormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-new-password',
-  templateUrl: './new-password.component.html',
-  styleUrls: ['./new-password.component.scss']
+    selector: 'app-new-password',
+    templateUrl: './new-password.component.html',
+    styleUrls: ['./new-password.component.scss'],
+    standalone: true,
+    imports: [NgIf, FormsModule, RouterLink]
 })
 export class NewPasswordComponent {
   form: any = {

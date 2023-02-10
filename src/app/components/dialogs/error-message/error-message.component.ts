@@ -1,13 +1,13 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Actions } from 'src/app/enums/actions';
-import { ListActions } from 'src/app/enums/list-actions.model';
 import { MESSAGES} from  'src/app/constants/success-messages';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-error-message',
-  templateUrl: './error-message.component.html',
-  styleUrls: ['./error-message.component.scss']
+    selector: 'app-error-message',
+    templateUrl: './error-message.component.html',
+    styleUrls: ['./error-message.component.scss'],
+    standalone: true
 })
 export class ErrorMessageComponent implements OnInit {
   @Input() eventData:any;

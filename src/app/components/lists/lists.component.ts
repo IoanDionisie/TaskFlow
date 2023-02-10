@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbTooltip, NgbProgressbar, NgbDropdown, NgbDropdownToggle, NgbDropdownMenu } from '@ng-bootstrap/ng-bootstrap';
 import { ITEM_STATUS } from 'src/app/constants/item-status';
 import { ITEM_TYPE } from 'src/app/constants/item-types';
 import { ListActions } from 'src/app/enums/list-actions.model';
@@ -19,27 +19,30 @@ import {
   animate,
   transition,
 } from '@angular/animations';
+import { NgIf, NgClass, NgForOf } from '@angular/common';
 
 @Component({
-  selector: 'app-lists',
-  templateUrl: './lists.component.html',
-  styleUrls: ['./lists.component.scss'],
-  animations: [
-    trigger('incrementNumber', [
-      state('initial', style({
-        color: 'inherit'
-      })),
-      state('incrementing', style({
-        color: 'green'
-      })),
-      transition('initial => incrementing', [
-        animate('0.5s')
-      ]),
-      transition('incrementing => initial', [
-        animate('0.5s')
-      ])
-    ]),
-  ]
+    selector: 'app-lists',
+    templateUrl: './lists.component.html',
+    styleUrls: ['./lists.component.scss'],
+    animations: [
+        trigger('incrementNumber', [
+            state('initial', style({
+                color: 'inherit'
+            })),
+            state('incrementing', style({
+                color: 'green'
+            })),
+            transition('initial => incrementing', [
+                animate('0.5s')
+            ]),
+            transition('incrementing => initial', [
+                animate('0.5s')
+            ])
+        ]),
+    ],
+    standalone: true,
+    imports: [NgIf, NgClass, NgbTooltip, NgForOf, NgbProgressbar, NgbDropdown, NgbDropdownToggle, NgbDropdownMenu]
 })
 
 export class ListsComponent implements OnInit {

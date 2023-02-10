@@ -4,13 +4,18 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Output, EventEmitter } from '@angular/core';
 import { MESSAGES } from 'src/app/constants/success-messages';
 import { HttpClient } from '@angular/common/http';
+import { NgIf } from '@angular/common';
+import { PasswordStrengthComponent } from '../../password-strength/password-strength.component';
+import { FormsModule } from '@angular/forms';
 
 const API_URL = 'http://localhost:3000/api/';
 
 @Component({
-  selector: 'app-my-account',
-  templateUrl: './my-account.component.html',
-  styleUrls: ['./my-account.component.scss']
+    selector: 'app-my-account',
+    templateUrl: './my-account.component.html',
+    styleUrls: ['./my-account.component.scss'],
+    standalone: true,
+    imports: [FormsModule, PasswordStrengthComponent, NgIf]
 })
 
 export class MyAccountComponent implements OnInit {

@@ -1,9 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-work-break',
-  templateUrl: './work-break.component.html',
-  styleUrls: ['./work-break.component.scss']
+    selector: 'app-work-break',
+    templateUrl: './work-break.component.html',
+    styleUrls: ['./work-break.component.scss'],
+    standalone: true,
+    imports: [NgIf, NgbTooltip]
 })
 
 export class WorkBreakComponent implements OnInit {

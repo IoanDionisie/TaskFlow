@@ -1,8 +1,8 @@
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbDropdown, NgbDropdownToggle, NgbDropdownMenu, NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { TaskService } from 'src/app/services/task.service';
 import { DeleteItemComponent } from 'src/app/components/dialogs/delete-item/delete-item.component';
 import { CreateTaskComponent } from 'src/app/components/modals/create-task/create-task.component';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
 import { ModifyItemComponent } from 'src/app/components/modals/modify-item/modify-item.component';
 import { ListActions } from 'src/app/enums/list-actions.model';
 import { Actions } from 'src/app/enums/actions';
@@ -23,28 +23,38 @@ import * as global from 'src/app/constants/variables';
 import { Subscription } from 'rxjs';
 import { ListService } from 'src/app/services/list.service';
 import { ToastrService } from 'ngx-toastr';
-import { trigger, transition, animate, style, query, group, state } from '@angular/animations'
+import { trigger, transition, animate, style, state } from '@angular/animations'
 import { ANIMATIONS } from 'src/app/constants/animations';
+import { SearchTaskFilterPipe } from '../../pipes/search-task-filter.pipe';
+import { StatusCirclesComponent } from '../../components/status-circles/status-circles.component';
+import { DisplayTagsComponent } from '../../components/display-tags/display-tags.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { FormsModule } from '@angular/forms';
+import { NgIf, NgForOf, NgClass } from '@angular/common';
+import { ListsComponent } from '../../components/lists/lists.component';
+import { ErrorMessageComponent } from '../../components/dialogs/error-message/error-message.component';
+import { SuccessMessageComponent } from '../../components/dialogs/success-message/success-message.component';
+import { WorkBreakComponent } from 'src/app/components/work-break/work-break.component';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
-  animations: [
-    trigger('slideAnimation', [
-      state('completed', style({ transform: 'translateX(150%)' })),
-      state('deleted', style({ transform: 'translateX(-150%)' })),
-      transition(`* => ${ANIMATIONS.completed}`, animate(500)),
-      transition(`* => ${ANIMATIONS.deleted}`, animate(500)),
-      ],
-    ),
-    trigger('cloneTaskAnimation', [
-      state('default', style({ transform: 'translateX(150%)' })),
-      state('cloned', style({ transform: 'translateX(0)' })),
-      transition(`${ANIMATIONS.default} => ${ANIMATIONS.cloned}`, animate(500)),
-      ],
-    ),
-  ]
+    selector: 'app-dashboard',
+    templateUrl: './dashboard.component.html',
+    styleUrls: ['./dashboard.component.scss'],
+    animations: [
+        trigger('slideAnimation', [
+            state('completed', style({ transform: 'translateX(150%)' })),
+            state('deleted', style({ transform: 'translateX(-150%)' })),
+            transition(`* => ${ANIMATIONS.completed}`, animate(500)),
+            transition(`* => ${ANIMATIONS.deleted}`, animate(500)),
+        ]),
+        trigger('cloneTaskAnimation', [
+            state('default', style({ transform: 'translateX(150%)' })),
+            state('cloned', style({ transform: 'translateX(0)' })),
+            transition(`${ANIMATIONS.default} => ${ANIMATIONS.cloned}`, animate(500)),
+        ]),
+    ],
+    standalone: true,
+    imports: [WorkBreakComponent, NgbDropdown, NgbDropdownToggle, NgbDropdownMenu, SuccessMessageComponent, ErrorMessageComponent, ListsComponent, NgIf, FormsModule, MatTabsModule, DragDropModule, NgForOf, DisplayTagsComponent, NgClass, StatusCirclesComponent, NgbTooltip, SearchTaskFilterPipe]
 })
 
 export class DashboardComponent implements OnInit {
@@ -211,7 +221,6 @@ export class DashboardComponent implements OnInit {
           this.startedTasks++;
         }
     }
-    /* TODO */
     this.completedTasks.sort((objA:any, objB:any) => Number(new Date(objB.dateCompleted)) - Number(new Date(objA.dateCompleted)));
   }
   

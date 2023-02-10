@@ -2,11 +2,17 @@ import { ITEM_STATUS } from 'src/app/constants/item-status';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { O } from '@angular/cdk/keycodes';
+import { TagsComponent } from '../../tags/tags.component';
+import { AutosizeModule } from '@techiediaries/ngx-textarea-autosize';
+import { NgIf, NgForOf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-create-task',
-  templateUrl: './create-task.component.html',
-  styleUrls: ['./create-task.component.scss']
+    selector: 'app-create-task',
+    templateUrl: './create-task.component.html',
+    styleUrls: ['./create-task.component.scss'],
+    standalone: true,
+    imports: [FormsModule, NgIf, AutosizeModule, NgForOf, TagsComponent]
 })
 
 export class CreateTaskComponent implements OnInit  {

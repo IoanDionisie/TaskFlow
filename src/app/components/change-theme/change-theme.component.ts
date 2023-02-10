@@ -2,9 +2,10 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ColorSchemeService } from 'src/app/services/colorscheme.service';
 
 @Component({
-  selector: 'app-change-theme',
-  templateUrl: './change-theme.component.html',
-  styleUrls: ['./change-theme.component.scss']
+    selector: 'app-change-theme',
+    templateUrl: './change-theme.component.html',
+    styleUrls: ['./change-theme.component.scss'],
+    standalone: true
 })
 export class ChangeThemeComponent implements OnInit {
   currentTheme: string = "";

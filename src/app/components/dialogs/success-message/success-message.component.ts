@@ -1,13 +1,13 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Actions } from 'src/app/enums/actions';
-import { ListActions } from 'src/app/enums/list-actions.model';
 import { MESSAGES} from  'src/app/constants/success-messages';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-success-message',
-  templateUrl: './success-message.component.html',
-  styleUrls: ['./success-message.component.scss']
+    selector: 'app-success-message',
+    templateUrl: './success-message.component.html',
+    styleUrls: ['./success-message.component.scss'],
+    standalone: true
 })
 export class SuccessMessageComponent {
 

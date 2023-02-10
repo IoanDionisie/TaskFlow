@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-delete-item',
-  templateUrl: './delete-item.component.html',
-  styleUrls: ['./delete-item.component.scss']
+    selector: 'app-delete-item',
+    templateUrl: './delete-item.component.html',
+    styleUrls: ['./delete-item.component.scss'],
+    standalone: true
 })
 
 export class DeleteItemComponent  { 

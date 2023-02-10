@@ -3,12 +3,16 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ITEM_STATUS } from 'src/app/constants/item-status';
 import { HelperService } from 'src/app/services/helper.service';
+import { DisplayTagsComponent } from '../../display-tags/display-tags.component';
+import { NgIf } from '@angular/common';
 
 
 @Component({
-  selector: 'app-view-task',
-  templateUrl: './view-task.component.html',
-  styleUrls: ['./view-task.component.scss']
+    selector: 'app-view-task',
+    templateUrl: './view-task.component.html',
+    styleUrls: ['./view-task.component.scss'],
+    standalone: true,
+    imports: [NgIf, DisplayTagsComponent]
 })
 export class ViewTaskComponent implements OnInit {
   @Input() task: any;

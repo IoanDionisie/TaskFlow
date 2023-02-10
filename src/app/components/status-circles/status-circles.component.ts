@@ -1,9 +1,12 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { NgIf, NgForOf } from '@angular/common';
 
 @Component({
-  selector: 'app-status-circles',
-  templateUrl: './status-circles.component.html',
-  styleUrls: ['./status-circles.component.scss']
+    selector: 'app-status-circles',
+    templateUrl: './status-circles.component.html',
+    styleUrls: ['./status-circles.component.scss'],
+    standalone: true,
+    imports: [NgIf, NgForOf]
 })
 export class StatusCirclesComponent implements OnInit {
 

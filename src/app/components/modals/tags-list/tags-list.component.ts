@@ -4,11 +4,14 @@ import { Actions } from 'src/app/enums/actions';
 import { Tag } from 'src/app/models/tag.model';
 import { TagService } from 'src/app/services/tag.service';
 import { TaskService } from 'src/app/services/task.service';
+import { NgForOf, NgStyle } from '@angular/common';
 
 @Component({
-  selector: 'app-tags-list',
-  templateUrl: './tags-list.component.html',
-  styleUrls: ['./tags-list.component.scss']
+    selector: 'app-tags-list',
+    templateUrl: './tags-list.component.html',
+    styleUrls: ['./tags-list.component.scss'],
+    standalone: true,
+    imports: [NgForOf, NgStyle]
 })
 export class TagsListComponent implements OnInit {
 

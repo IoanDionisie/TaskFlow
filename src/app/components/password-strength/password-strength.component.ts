@@ -1,9 +1,12 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChange } from '@angular/core';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-password-strength',
-  styleUrls: ['./password-strength.component.scss'],
-  templateUrl: './password-strength.component.html',
+    selector: 'app-password-strength',
+    styleUrls: ['./password-strength.component.scss'],
+    templateUrl: './password-strength.component.html',
+    standalone: true,
+    imports: [NgIf]
 })
 export class PasswordStrengthComponent implements OnChanges {
   bar0: string | undefined;

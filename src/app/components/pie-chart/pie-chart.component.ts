@@ -1,9 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { JsonPipe } from '@angular/common';
+import { PieChartModule } from '@swimlane/ngx-charts';
 
 @Component({
-  selector: 'app-pie-chart',
-  templateUrl: './pie-chart.component.html',
-  styleUrls: ['./pie-chart.component.scss']
+    selector: 'app-pie-chart',
+    templateUrl: './pie-chart.component.html',
+    styleUrls: ['./pie-chart.component.scss'],
+    standalone: true,
+    imports: [PieChartModule, JsonPipe]
 })
 
 export class PieChartComponent implements OnInit {

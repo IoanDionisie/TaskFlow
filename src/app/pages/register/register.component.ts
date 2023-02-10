@@ -1,16 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { UntypedFormControl, Validators, FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 import { AuthService } from '../../services/auth.service';
 import * as global from 'src/app/constants/variables';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddProfilePictureComponent } from 'src/app/components/modals/add-profile-picture/add-profile-picture.component';
+import { PasswordStrengthComponent } from '../../components/password-strength/password-strength.component';
+import { NgIf, NgClass } from '@angular/common';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+    selector: 'app-register',
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.scss'],
+    standalone: true,
+    imports: [NgIf, FormsModule, NgClass, PasswordStrengthComponent, RouterLink]
 })
 export class RegisterComponent implements OnInit {
 

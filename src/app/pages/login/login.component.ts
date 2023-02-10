@@ -1,13 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { TokenStorageService } from '../../services/token-storage.service';
 import * as global from 'src/app/constants/variables';
+import { PasswordComponent } from '../../components/password/password.component';
+import { FormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
+
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    standalone: true,
+    imports: [NgIf, FormsModule, PasswordComponent, RouterLink]
 })
 
 

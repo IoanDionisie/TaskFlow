@@ -2,11 +2,15 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ITEM_STATUS } from 'src/app/constants/item-status';
 import { HelperService } from 'src/app/services/helper.service';
+import { PieChartComponent } from '../../pie-chart/pie-chart.component';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-view-list',
-  templateUrl: './view-list.component.html',
-  styleUrls: ['./view-list.component.scss']
+    selector: 'app-view-list',
+    templateUrl: './view-list.component.html',
+    styleUrls: ['./view-list.component.scss'],
+    standalone: true,
+    imports: [NgIf, PieChartComponent]
 })
 export class ViewListComponent implements OnInit {
   readonly ITEM_STATUS = ITEM_STATUS;

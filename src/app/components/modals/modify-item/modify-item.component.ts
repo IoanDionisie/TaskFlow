@@ -2,11 +2,17 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ITEM_STATUS } from 'src/app/constants/item-status';
 import { ITEM_TYPE } from 'src/app/constants/item-types';
+import { TagsComponent } from '../../tags/tags.component';
+import { NgIf, NgForOf } from '@angular/common';
+import { AutosizeModule } from '@techiediaries/ngx-textarea-autosize';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-modify-item',
-  templateUrl: './modify-item.component.html',
-  styleUrls: ['./modify-item.component.scss']
+    selector: 'app-modify-item',
+    templateUrl: './modify-item.component.html',
+    styleUrls: ['./modify-item.component.scss'],
+    standalone: true,
+    imports: [FormsModule, AutosizeModule, NgIf, NgForOf, TagsComponent]
 })
 export class ModifyItemComponent implements OnInit {
   

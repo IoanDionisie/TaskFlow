@@ -6,11 +6,15 @@ import { Actions } from 'src/app/enums/actions';
 import { OthersService } from 'src/app/services/others.service';
 import { TagService } from 'src/app/services/tag.service';
 import { TaskService } from 'src/app/services/task.service';
+import { NgStyle, NgIf } from '@angular/common';
+import { ChangeThemeComponent } from '../../change-theme/change-theme.component';
 
 @Component({
-  selector: 'app-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+    selector: 'app-settings',
+    templateUrl: './settings.component.html',
+    styleUrls: ['./settings.component.scss'],
+    standalone: true,
+    imports: [ChangeThemeComponent, NgStyle, NgIf]
 })
 
 export class SettingsComponent implements OnInit  {
