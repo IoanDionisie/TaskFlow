@@ -9,7 +9,7 @@ import { ViewTaskComponent } from 'src/app/components/modals/view-task/view-task
 import { ITEM_TYPE } from 'src/app/constants/item-types';
 import { ITEM_STATUS } from 'src/app/constants/item-status';
 import { SettingsComponent } from 'src/app/components/modals/settings/settings.component';
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit, ViewChild } from '@angular/core';
 import { MyAccountComponent } from 'src/app/components/modals/my-account/my-account.component';
 import { TagsListComponent } from 'src/app/components/modals/tags-list/tags-list.component';
 import { List } from 'src/app/models/list.model';
@@ -32,6 +32,7 @@ import { SuccessMessageComponent } from '../../components/dialogs/success-messag
 import { WorkBreakComponent } from 'src/app/components/work-break/work-break.component';
 import { FacadeService } from 'src/app/services/facade.service';
 import { ChangelogComponent } from 'src/app/components/modals/changelog/changelog.component';
+import { CustomPaginatorComponent } from 'src/app/components/custom-paginator/custom-paginator.component';
 
 @Component({
     selector: 'app-dashboard',
@@ -51,7 +52,7 @@ import { ChangelogComponent } from 'src/app/components/modals/changelog/changelo
         ]),
     ],
     standalone: true,
-    imports: [WorkBreakComponent, NgbDropdown, NgbDropdownToggle, NgbDropdownMenu, SuccessMessageComponent, ErrorMessageComponent, ListsComponent, NgIf, FormsModule, MatTabsModule, DragDropModule, NgForOf, DisplayTagsComponent, NgClass, StatusCirclesComponent, NgbTooltip, SearchTaskFilterPipe]
+    imports: [WorkBreakComponent, CustomPaginatorComponent, NgbDropdown, NgbDropdownToggle, NgbDropdownMenu, SuccessMessageComponent, ErrorMessageComponent, ListsComponent, NgIf, FormsModule, MatTabsModule, DragDropModule, NgForOf, DisplayTagsComponent, NgClass, StatusCirclesComponent, NgbTooltip, SearchTaskFilterPipe]
 })
 
 export class DashboardComponent implements OnInit {
@@ -91,6 +92,8 @@ export class DashboardComponent implements OnInit {
   timers: Map<string, TaskTimer> = new Map<string, TaskTimer>();
 
   @HostBinding('class') class = 'center-component';
+
+  inProgressSelected: boolean = true;
 
   constructor(private modalService: NgbModal,
     private facadeService: FacadeService,
@@ -568,5 +571,13 @@ export class DashboardComponent implements OnInit {
       const modalRef = this.modalService.open(ChangelogComponent);
       modalRef.componentInstance.changelog = data;
     })
+  }
+
+  paginatorEvent(event: any) {
+    console.log(event);  
+  }
+
+  tasksTabChange(event: any) {
+    this.inProgressSelected = event.index == 0 ? true : false;
   }
 }

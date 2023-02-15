@@ -128,9 +128,10 @@
 }
 
 .add-list .btn-primary {
-    border-radius: 30px;
+    border-radius: 0 100px 55px 125px;
+    padding: 0 15px 0px 15px;
     border: none!important;
-    background: $listColor;
+    background: $taskColor;
 }
 
 .inprogress-dropdown-area,

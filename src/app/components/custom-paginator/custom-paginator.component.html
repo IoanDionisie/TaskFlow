@@ -1,0 +1,24 @@
+<div class="row full-width">
+    <div class="paginator-content">
+        Items per page: 
+        <mat-form-field>
+            <mat-select [(value)]="pageSize" (selectionChange)="changePageSize($event)">
+                <mat-option *ngFor="let size of pageSizeOptions" [value]="size">
+                    {{size}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        Page &nbsp; {{selectedPage + 1}} of {{pageCount}}
+
+        <div class="direction-buttons">
+            <button class="direction-button" (click)="previousPage()" [disabled]="selectedPage == 0">
+                <mat-icon>chevron_left</mat-icon>
+            </button>
+    
+            <button class="direction-button" (click)="nextPage()" [disabled]="selectedPage == pageCount - 1">
+                <mat-icon>chevron_right</mat-icon>
+            </button>
+        </div> 
+    </div>
+</div>

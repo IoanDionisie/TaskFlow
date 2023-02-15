@@ -266,6 +266,15 @@ input:disabled, textarea:disabled, select:disabled {
     .card-container {
         background: #1F1B24;
     }
+
+    .direction-button {
+        color: var(--text-dark);
+    }
+
+    .mat-select-arrow, .mat-select-value {
+        color: var(--text-dark);
+    }
+
   
     h1,
     h2,

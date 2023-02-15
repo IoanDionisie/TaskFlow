@@ -112,6 +112,10 @@
         overflow-y: auto;
         overflow-x: hidden;
     }
+
+    .paginator { 
+        height: 10%;
+    }
     
     .padding-right {
         padding-right: 10px;
@@ -304,7 +308,7 @@
 }
 
 .mat-tab-group {
-    height: 100%;
+    height: 90%;
 }
 
 .cdk-drag-preview {
@@ -453,9 +457,14 @@
     width: fit-content!important;
 }
 
+::ng-deep .task-list-container .tasks-tabs .mat-tab-body-content {
+    overflow: hidden;
+}
+
 ::ng-deep .task-list-container .tasks-tabs .mat-tab-body-wrapper {
     padding-top: 5px;
 }
+
 
 .search-tasks {
     position: absolute;
