@@ -20,4 +20,9 @@ export class OthersService {
     let link = 'checkfile/' + file;
     return this.webReqService.get(link);
   }
+
+  getChangelog() {
+    let link = 'CHANGELOG.md';
+    return this.webReqService.getLocally(link);
+  }
 }

@@ -1,6 +1,14 @@
 
-# New features developed & bugs fixed
- 
+## New features & bugs fixed
+
+# 1.1.4
+
+- Styled 'Version' element
+- Renamed some methods in services, where needed
+- Added a Facade Service 
+- Replaced all service injections with Facade Service
+- Changelog now visible in app (when clicking on version number)
+
 # 1.1.3
 
 - Migrated to standalone components
@@ -13,7 +21,7 @@ for a short time
 
 - Added slide animations on completing/removing tasks
 
- # 1.1.1
+# 1.1.1
  
  - Added ngx toastr for notifications
  - Adding a duplicate tag now show an error message

@@ -1,0 +1,13 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Changelog</h4>
+</div>
+<div class="modal-body">
+    <div class="description-container modal-text">
+        <div [class]="line.type" *ngFor="let line of textLines">
+            {{line.text}}
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="closeModal()">Cancel</button>
+</div>

@@ -12,6 +12,10 @@ export class WebRequestService {
   constructor(private http: HttpClient) { 
     this.ROOT_URL = 'http://localhost:3000';
   }
+  
+  getLocally(uri: string) {
+    return this.http.get(uri, {responseType: 'text'});
+  }
 
   get(uri: string) {
     return this.http.get(`${this.ROOT_URL}/${uri}`, { responseType: 'json' });

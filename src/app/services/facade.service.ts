@@ -163,7 +163,6 @@ export class FacadeService {
 
     /* Image Service */
 
-
     setProfilePicture() {
         return this.imageService.setProfilePicture();
     }
@@ -198,6 +197,10 @@ export class FacadeService {
 
     checkFile(file: any) {
         return this.othersService.checkFile(file);
+    }
+    
+    getChangelog() {
+        return this.othersService.getChangelog();
     }
 
     /* Tag Service */

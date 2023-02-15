@@ -1,0 +1,25 @@
+@import "../../../../styles/variables.scss";
+
+.description-container {
+    max-height: 400px;
+    margin-top: 0;
+
+    .title {
+        margin-bottom: 10px;
+        font-weight: 600;
+        font-size: 1.5rem;
+        color: $listColor;
+    }
+
+    .header {
+        font-weight: 600;
+        margin-bottom: 8px;
+        margin-top: 8px;
+        font-size: 1.3rem;
+        color: $listColor;
+    }
+
+    .text {
+
+    }
+}

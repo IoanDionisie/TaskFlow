@@ -31,6 +31,7 @@ import { ErrorMessageComponent } from '../../components/dialogs/error-message/er
 import { SuccessMessageComponent } from '../../components/dialogs/success-message/success-message.component';
 import { WorkBreakComponent } from 'src/app/components/work-break/work-break.component';
 import { FacadeService } from 'src/app/services/facade.service';
+import { ChangelogComponent } from 'src/app/components/modals/changelog/changelog.component';
 
 @Component({
     selector: 'app-dashboard',
@@ -560,5 +561,12 @@ export class DashboardComponent implements OnInit {
         this.profilePicture = response;
       })
     });
+  }
+
+  showChangelog() {
+    this.facadeService.getChangelog().subscribe(data => {
+      const modalRef = this.modalService.open(ChangelogComponent);
+      modalRef.componentInstance.changelog = data;
+    })
   }
 }

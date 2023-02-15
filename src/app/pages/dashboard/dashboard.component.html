@@ -121,7 +121,7 @@
     </div>
     
     <div class="row bottom-row">   
-        <div class="version">
+        <div class="version" (click)="showChangelog()">
             Version {{this.version}}
         </div>
         <div class="add-task" *ngIf="selectedList && selectedList.status == ITEM_STATUS.inProgress">
