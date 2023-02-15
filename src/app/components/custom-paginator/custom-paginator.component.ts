@@ -14,7 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class CustomPaginatorComponent implements OnInit {
 
-  @Input() list: any[] = [];
+  list: any[] = [];
   @Output() eventChange: EventEmitter<any> = new EventEmitter();
 
   selectedPage: number = 0;
@@ -28,12 +28,13 @@ export class CustomPaginatorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.pageCount = Math.ceil(this.list.length / this.pageSize);
+    
   }
 
   changePageSize(event: any) {
     this.pageSize = event.value;
     this.output.pageSize = this.pageSize;
+    this.pageCount = Math.ceil(this.list.length / this.pageSize);
     this.eventChange.emit(this.output);
   }
 
@@ -47,5 +48,12 @@ export class CustomPaginatorComponent implements OnInit {
     this.selectedPage++;
     this.output.selectedPage = this.selectedPage;
     this.eventChange.emit(this.output);
+  }
+
+  loadList(list: any) {
+    console.log("loaded!");
+    this.list = list;
+    this.selectedPage = 0;
+    this.pageCount = Math.ceil(this.list.length / this.pageSize);
   }
 }

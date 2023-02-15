@@ -61,6 +61,7 @@ export class DashboardComponent implements OnInit {
   completedTasks: Task[] = [];
   inProgressLists: List[] = [];
   completedLists: List[] = [];
+  shownTasks: Task[] = [];
   tasks: any;
   displayInProgress: boolean = true;
   selectedList: any;
@@ -94,6 +95,9 @@ export class DashboardComponent implements OnInit {
   @HostBinding('class') class = 'center-component';
 
   inProgressSelected: boolean = true;
+
+  @ViewChild(CustomPaginatorComponent)
+  private customPaginatorComponent: CustomPaginatorComponent | undefined;
 
   constructor(private modalService: NgbModal,
     private facadeService: FacadeService,
@@ -168,6 +172,8 @@ export class DashboardComponent implements OnInit {
       this.calculatePercentCompleted();
       this.setProgressbarColor();
       this.createTagsStatistics();
+      this.customPaginatorComponent?.loadList(this.inProgressTasks);
+      this.shownTasks = this.inProgressTasks.slice((1 - 1) * 10, 1 * 10);
     });
   }
 
@@ -574,10 +580,17 @@ export class DashboardComponent implements OnInit {
   }
 
   paginatorEvent(event: any) {
-    console.log(event);  
+    let pageSize = event.pageSize;
+    let selectedPage = event.selectedPage;
+    if (this.inProgressSelected)
+      this.shownTasks = this.inProgressTasks.slice(selectedPage * pageSize, (selectedPage + 1) * pageSize);
+    else
+      this.shownTasks = this.completedTasks.slice(selectedPage * pageSize, (selectedPage + 1) * pageSize);
   }
 
   tasksTabChange(event: any) {
     this.inProgressSelected = event.index == 0 ? true : false;
+    if (this.customPaginatorComponent)
+      this.customPaginatorComponent.loadList(this.inProgressSelected == true ? this.inProgressTasks : this.completedTasks);
   }
 }
