@@ -61,7 +61,8 @@ export class DashboardComponent implements OnInit {
   completedTasks: Task[] = [];
   inProgressLists: List[] = [];
   completedLists: List[] = [];
-  shownTasks: Task[] = [];
+  shownInProgressTasks: Task[] = [];
+  shownCompletedTasks: Task[] = [];
   tasks: any;
   displayInProgress: boolean = true;
   selectedList: any;
@@ -138,6 +139,7 @@ export class DashboardComponent implements OnInit {
 
   drop(event: CdkDragDrop<Object[]>, tasks: any) {
     moveItemInArray(tasks, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.inProgressTasks, event.previousIndex, event.currentIndex);
     this.changeArrayOrder(this.inProgressTasks);
   }
 
@@ -173,7 +175,17 @@ export class DashboardComponent implements OnInit {
       this.setProgressbarColor();
       this.createTagsStatistics();
       this.customPaginatorComponent?.loadList(this.inProgressTasks);
-      this.shownTasks = this.inProgressTasks.slice((1 - 1) * 10, 1 * 10);
+
+      let pageSize;
+      if (this.facadeService.getPageSize() == null) {
+        this.facadeService.storePageSize(global.defaultPageSize);
+        pageSize = global.defaultPageSize;
+      } else {
+        pageSize = this.facadeService.getPageSize();
+      }
+
+      this.shownInProgressTasks = this.inProgressTasks.slice(0, Number(pageSize));
+      this.shownCompletedTasks = this.completedTasks.slice(0, Number(pageSize));
     });
   }
 
@@ -235,6 +247,7 @@ export class DashboardComponent implements OnInit {
       if (response.confirmation === true) {
         this.facadeService.createTask(this.selectedList._id, response).subscribe((response: any) => {
           this.inProgressTasks.unshift(response);
+          this.shownInProgressTasks.unshift(response);
           if (typeof this.tasks !== 'undefined') {
             this.tasks.unshift(response);
           } else {
@@ -261,8 +274,10 @@ export class DashboardComponent implements OnInit {
           var timer = setInterval(() => {
             if (type == ITEM_STATUS.completed) {
               this.completedTasks.splice(index, 1);
+              this.shownCompletedTasks.splice(index, 1);
             } else if (type == ITEM_STATUS.inProgress) {
               this.inProgressTasks.splice(index, 1);
+              this.shownInProgressTasks.splice(index, 1);
             }
 
             this.startedTasks--;
@@ -449,9 +464,11 @@ export class DashboardComponent implements OnInit {
       task.animation = ANIMATIONS.completed;
       var timer = setInterval(() => {
         this.inProgressTasks.splice(index, 1);
+        this.shownInProgressTasks.splice(index, 1);
         task.totalWorkingTime = totalWorkingTime;
         task.dateCompleted = now;
         this.completedTasks.unshift(task);
+        this.shownCompletedTasks.unshift(task);
         this.calculatePercentCompleted();
         this.setProgressbarColor();
         this.showSuccessMessage(Actions.completeTask, task.title);
@@ -486,6 +503,7 @@ export class DashboardComponent implements OnInit {
     this.facadeService.cloneTask(data).subscribe((response: any) => {
       response.animation = ANIMATIONS.default;
       this.inProgressTasks.unshift(response);
+      this.shownInProgressTasks.unshift(response);
       if (typeof this.tasks !== 'undefined') {
         this.tasks.unshift(response);
       } else {
@@ -582,15 +600,23 @@ export class DashboardComponent implements OnInit {
   paginatorEvent(event: any) {
     let pageSize = event.pageSize;
     let selectedPage = event.selectedPage;
-    if (this.inProgressSelected)
-      this.shownTasks = this.inProgressTasks.slice(selectedPage * pageSize, (selectedPage + 1) * pageSize);
+    let pageSizeChanged = event.pageSizeChanged;
+
+    if (pageSizeChanged) {
+      this.shownInProgressTasks = this.inProgressTasks.slice(selectedPage * pageSize, (selectedPage + 1) * pageSize);
+      this.shownCompletedTasks = this.completedTasks.slice(selectedPage * pageSize, (selectedPage + 1) * pageSize);
+    } else {
+      if (this.inProgressSelected)
+      this.shownInProgressTasks = this.inProgressTasks.slice(selectedPage * pageSize, (selectedPage + 1) * pageSize);
     else
-      this.shownTasks = this.completedTasks.slice(selectedPage * pageSize, (selectedPage + 1) * pageSize);
+      this.shownCompletedTasks = this.completedTasks.slice(selectedPage * pageSize, (selectedPage + 1) * pageSize);
+    }
   }
 
   tasksTabChange(event: any) {
-    this.inProgressSelected = event.index == 0 ? true : false;
-    if (this.customPaginatorComponent)
+    this.inProgressSelected = event.index == 0 ? true : false;    
+    if (this.customPaginatorComponent) {
       this.customPaginatorComponent.loadList(this.inProgressSelected == true ? this.inProgressTasks : this.completedTasks);
+    }
   }
 }

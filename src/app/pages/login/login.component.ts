@@ -26,6 +26,9 @@ export class LoginComponent implements OnInit {
   isLoginFailed = false;
   errorMessage = '';
   version = global.version;
+  
+
+  
   API_GOOGLE_URL = 'http://localhost:3000/api/auth/google';
 
   constructor(private facadeService: FacadeService,

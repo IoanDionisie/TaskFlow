@@ -4,6 +4,7 @@ import { ColorSchemeService } from "./colorscheme.service";
 import { HelperService } from "./helper.service";
 import { ImageService } from "./image.service";
 import { ListService } from "./list.service";
+import { LocalStorageService } from "./localStorage.service";
 import { OthersService } from "./others.service";
 import { TagService } from "./tag.service";
 import { TaskService } from "./task.service";
@@ -91,6 +92,14 @@ export class FacadeService {
             this._userService = this.injector.get(UserService);
         }
         return this._userService;
+    }
+
+    private _localStorageService!: LocalStorageService;
+    public get localStorageService(): LocalStorageService {
+        if(!this._localStorageService) {
+            this._localStorageService = this.injector.get(LocalStorageService);
+        }
+        return this._localStorageService;
     }
 
     constructor(private injector: Injector) {  }
@@ -290,4 +299,15 @@ export class FacadeService {
     getAdminBoard() {
         return this.userService.getAdminBoard();
     }
+    
+    /* Local Storage Service */
+    
+    storePageSize(size: number) {
+        return this.localStorageService.storePageSize(size);
+    }
+
+    getPageSize() {
+        return this.localStorageService.getPageSize();
+    }
+
 }
