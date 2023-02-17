@@ -43,7 +43,7 @@
                 <input type="text" class="form-control mb-4" placeholder="Search" [(ngModel)]="searchFilter" id="listSearch">
             </div>
             <div class="no-tasks-message pt-3 pl-2" *ngIf="inProgressTasks.length == 0 &&
-            completedTasks.length == 0">
+            completedTasks.length == 0 && listChanged == true">
                 This list doesn't have any tasks yet. Use the button from the right bottom corner to add tasks.
             </div>
             <mat-tab-group class="tasks-tabs" *ngIf="tasks" mat-align-tabs="start" (selectedTabChange)="tasksTabChange($event)">
@@ -127,7 +127,7 @@
             Version {{this.version}}
         </div>
         <div class="add-task" *ngIf="selectedList && selectedList.status == ITEM_STATUS.inProgress">
-            <div *ngIf="inProgressTasks.length == 0" class="add-task-reminder">
+            <div *ngIf="inProgressTasks.length == 0 && listChanged == true" class="add-task-reminder">
                 Add new tasks for your list "{{selectedList.title}}" !
             </div>
             <button [ngClass]="inProgressTasks.length == 0 ? 'button-pulse-effect': ''" class="btn-primary create-task" (click)="createNewTask()" ngbTooltip="Create a Task">

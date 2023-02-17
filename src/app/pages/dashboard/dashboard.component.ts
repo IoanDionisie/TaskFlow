@@ -101,6 +101,8 @@ export class DashboardComponent implements OnInit {
   private testObservableSource = new BehaviorSubject<any>(null);
   testObservable = this.testObservableSource.asObservable();
 
+  listChanged: boolean = false;
+
   @ViewChild(CustomPaginatorComponent)
   private customPaginatorComponent: CustomPaginatorComponent | undefined;
   paginatorStartIndex: number = 0;
@@ -368,6 +370,12 @@ export class DashboardComponent implements OnInit {
         this.selectedList = event.list;
         this.searchFilter = "";
         this.getAllTasks(event.list._id);
+        this.listChanged = false;
+
+        var timer = setInterval(() => {
+          this.listChanged = true;
+          clearInterval(timer);
+        }, 1600);
       }
     } else if (event.listEvent == ListActions.modifyList) {
       this.showSuccessMessage(Actions.modifyList, event.list.title)
