@@ -103,6 +103,8 @@ export class DashboardComponent implements OnInit {
 
   @ViewChild(CustomPaginatorComponent)
   private customPaginatorComponent: CustomPaginatorComponent | undefined;
+  paginatorStartIndex: number = 0;
+  paginatorEndIndex: number = 0;
 
   constructor(private modalService: NgbModal,
     private facadeService: FacadeService,
@@ -142,8 +144,8 @@ export class DashboardComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<Object[]>, tasks: any) {
-    moveItemInArray(tasks, event.previousIndex, event.currentIndex);
-    moveItemInArray(this.inProgressTasks, event.previousIndex, event.currentIndex);
+    moveItemInArray(tasks, event.previousIndex, event.currentIndex);    
+    moveItemInArray(this.inProgressTasks, event.previousIndex + this.paginatorStartIndex, event.currentIndex + this.paginatorStartIndex);
     this.changeArrayOrder(this.inProgressTasks);
   }
 
@@ -607,6 +609,7 @@ export class DashboardComponent implements OnInit {
     let pageSizeChanged = event.pageSizeChanged;
     let startIndex = selectedPage * pageSize;
     let endIndex = (selectedPage + 1) * pageSize; 
+    this.paginatorStartIndex = startIndex;
 
     if (pageSizeChanged) {
       this.shownInProgressTasks = this.inProgressTasks.slice(startIndex, endIndex);
