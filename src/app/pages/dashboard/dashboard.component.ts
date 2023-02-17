@@ -180,6 +180,7 @@ export class DashboardComponent implements OnInit {
       this.calculatePercentCompleted();
       this.setProgressbarColor();
       this.createTagsStatistics();
+
       this.customPaginatorComponent?.loadList(this.inProgressTasks);
 
       let pageSize;
@@ -616,9 +617,9 @@ export class DashboardComponent implements OnInit {
       this.shownCompletedTasks = this.completedTasks.slice(startIndex, endIndex);
     } else {
       if (this.inProgressSelected)
-      this.shownInProgressTasks = this.inProgressTasks.slice(startIndex, endIndex);
-    else
-      this.shownCompletedTasks = this.completedTasks.slice(startIndex, endIndex);
+        this.shownInProgressTasks = this.inProgressTasks.slice(startIndex, endIndex);
+      else
+        this.shownCompletedTasks = this.completedTasks.slice(startIndex, endIndex);
     }
   }
 

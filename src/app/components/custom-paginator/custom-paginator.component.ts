@@ -56,6 +56,7 @@ export class CustomPaginatorComponent implements OnInit {
   previousPage() {
     this.selectedPage--;
     this.output.pageSizeChanged = false;
+    this.output.pageSize = this.pageSize;
     this.output.selectedPage = this.selectedPage;
     this.eventChange.emit(this.output);
   }
@@ -63,6 +64,7 @@ export class CustomPaginatorComponent implements OnInit {
   nextPage() {
     this.selectedPage++;
     this.output.pageSizeChanged = false;
+    this.output.pageSize = this.pageSize;
     this.output.selectedPage = this.selectedPage;
     this.eventChange.emit(this.output);
   }
