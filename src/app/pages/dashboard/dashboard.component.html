@@ -96,7 +96,7 @@
                     <div class="completed-tasks">
                         <div *ngFor="let task of (shownCompletedTasks | searchTaskFilter : searchFilter); let indexOfElement=index;" 
                             class="task task-color" 
-                            cdkDrag [@slideAnimation]="task.animation">
+                            [@slideAnimation]="task.animation">
                             <div class="checkbox-and-title">
                                 <div class="circle-completed">
                                     <div class="checkmark"></div>
