@@ -1,6 +1,18 @@
 
 ## New features & bugs fixed
 
+
+# 1.1.5
+
+- Fixed bug: Border added on pagination
+- Fixed bug: Drag and drop not anymore working on completed tasks
+- Fixed bug: Drag&drop not working on more than first page
+- Fixed bug: Switching to last pages, tasks list is empty
+- Fixed bug: Switching to another list should reset searchbox text
+- Fixed bug: Selecting new list with no tasks, 'add task' and pagination were overlapping
+- Fixed bug: Clipping effect on some elements, when changing between lists
+- Fixed bug: Clicking on add task button changes its background to blue
+  
 # 1.1.4
 
 - Styled 'Version' element
