@@ -90,7 +90,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     overflow-x: auto;
 }
 
-.tag-container {
+.modal .tag-container {
     font-size: 1.1rem;
     display: flex;
     align-items: center;
@@ -102,7 +102,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     }
 }
 
-.title-container {
+.modal .title-container {
     display: flex;
     align-items: center;
     font-size: 1.1rem;
@@ -120,7 +120,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     }
 }
 
-.estimation-container {
+.modal .estimation-container {
     font-size: 1.1rem;
     margin-top: 20px;
     display: flex;
@@ -140,7 +140,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     }
 }
 
-.description-container {
+.modal .description-container {
     font-size: 1.1rem;
     margin-top: 20px;
 

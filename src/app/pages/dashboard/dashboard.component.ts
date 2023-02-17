@@ -17,7 +17,7 @@ import { ImageService } from 'src/app/services/image.service';
 import { TASK_STATUS } from 'src/app/constants/task-status';
 import { TaskTimer } from 'tasktimer';
 import * as global from 'src/app/constants/variables';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { trigger, transition, animate, style, state } from '@angular/animations'
 import { ANIMATIONS } from 'src/app/constants/animations';
 import { SearchTaskFilterPipe } from '../../pipes/search-task-filter.pipe';
@@ -33,6 +33,7 @@ import { WorkBreakComponent } from 'src/app/components/work-break/work-break.com
 import { FacadeService } from 'src/app/services/facade.service';
 import { ChangelogComponent } from 'src/app/components/modals/changelog/changelog.component';
 import { CustomPaginatorComponent } from 'src/app/components/custom-paginator/custom-paginator.component';
+import { TestingComponent } from './testing/testing.component';
 
 @Component({
     selector: 'app-dashboard',
@@ -52,7 +53,7 @@ import { CustomPaginatorComponent } from 'src/app/components/custom-paginator/cu
         ]),
     ],
     standalone: true,
-    imports: [WorkBreakComponent, CustomPaginatorComponent, NgbDropdown, NgbDropdownToggle, NgbDropdownMenu, SuccessMessageComponent, ErrorMessageComponent, ListsComponent, NgIf, FormsModule, MatTabsModule, DragDropModule, NgForOf, DisplayTagsComponent, NgClass, StatusCirclesComponent, NgbTooltip, SearchTaskFilterPipe]
+    imports: [TestingComponent, WorkBreakComponent, CustomPaginatorComponent, NgbDropdown, NgbDropdownToggle, NgbDropdownMenu, SuccessMessageComponent, ErrorMessageComponent, ListsComponent, NgIf, FormsModule, MatTabsModule, DragDropModule, NgForOf, DisplayTagsComponent, NgClass, StatusCirclesComponent, NgbTooltip, SearchTaskFilterPipe]
 })
 
 export class DashboardComponent implements OnInit {
@@ -96,6 +97,9 @@ export class DashboardComponent implements OnInit {
   @HostBinding('class') class = 'center-component';
 
   inProgressSelected: boolean = true;
+
+  private testObservableSource = new BehaviorSubject<any>(null);
+  testObservable = this.testObservableSource.asObservable();
 
   @ViewChild(CustomPaginatorComponent)
   private customPaginatorComponent: CustomPaginatorComponent | undefined;
@@ -601,15 +605,17 @@ export class DashboardComponent implements OnInit {
     let pageSize = event.pageSize;
     let selectedPage = event.selectedPage;
     let pageSizeChanged = event.pageSizeChanged;
+    let startIndex = selectedPage * pageSize;
+    let endIndex = (selectedPage + 1) * pageSize; 
 
     if (pageSizeChanged) {
-      this.shownInProgressTasks = this.inProgressTasks.slice(selectedPage * pageSize, (selectedPage + 1) * pageSize);
-      this.shownCompletedTasks = this.completedTasks.slice(selectedPage * pageSize, (selectedPage + 1) * pageSize);
+      this.shownInProgressTasks = this.inProgressTasks.slice(startIndex, endIndex);
+      this.shownCompletedTasks = this.completedTasks.slice(startIndex, endIndex);
     } else {
       if (this.inProgressSelected)
-      this.shownInProgressTasks = this.inProgressTasks.slice(selectedPage * pageSize, (selectedPage + 1) * pageSize);
+      this.shownInProgressTasks = this.inProgressTasks.slice(startIndex, endIndex);
     else
-      this.shownCompletedTasks = this.completedTasks.slice(selectedPage * pageSize, (selectedPage + 1) * pageSize);
+      this.shownCompletedTasks = this.completedTasks.slice(startIndex, endIndex);
     }
   }
 
