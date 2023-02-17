@@ -130,7 +130,7 @@
             <div *ngIf="inProgressTasks.length == 0 && listChanged == true" class="add-task-reminder">
                 Add new tasks for your list "{{selectedList.title}}" !
             </div>
-            <button [ngClass]="inProgressTasks.length == 0 ? 'button-pulse-effect': ''" class="btn-primary create-task" (click)="createNewTask()" ngbTooltip="Create a Task">
+            <button [ngClass]="inProgressTasks.length == 0 ? 'button-pulse-effect': ''" class="create-task" (click)="createNewTask()" ngbTooltip="Create a Task">
                 <i class="fa-solid fa-plus"></i>
             </button>
         </div>
