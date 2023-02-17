@@ -366,6 +366,7 @@ export class DashboardComponent implements OnInit {
     if (event.listEvent == ListActions.selectList) {
       if  (this.selectedList._id != event.list._id) {
         this.selectedList = event.list;
+        this.searchFilter = "";
         this.getAllTasks(event.list._id);
       }
     } else if (event.listEvent == ListActions.modifyList) {

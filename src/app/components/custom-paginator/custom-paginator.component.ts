@@ -23,7 +23,7 @@ export class CustomPaginatorComponent implements OnInit {
   selectedPage: number = 0;
   pageCount: number = 0;
   pageSize: number = global.defaultPageSize;
-  pageSizeOptions: number[] = [5, 8, 10, 15, 20];
+  pageSizeOptions: number[] = [6, 8, 10, 15, 20];
 
   output = {
     pageSize: this.pageSize,
