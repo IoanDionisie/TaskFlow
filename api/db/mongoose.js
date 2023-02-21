@@ -10,6 +10,8 @@ const cluster = process.env.CLUSTER;
 const dbname = process.env.DBNAME;
 const localUri = `mongodb://localhost:27017/${dbname}`;
 const uri = `mongodb+srv://${username}:${password}@${cluster}`;
+ 
+mongoose.set('strictQuery', false);  
 
 // Change the localUri with uri if you want to connect to the cloud database
 mongoose.connect(localUri, {useNewUrlParser: true, useUnifiedTopology: true}, (err) => {

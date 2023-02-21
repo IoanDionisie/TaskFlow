@@ -3,9 +3,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { NgFor } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import * as global from 'src/app/constants/variables';
 import { MatIconModule } from '@angular/material/icon';
 import { FacadeService } from 'src/app/services/facade.service';
+import * as global from 'src/app/constants/variables';
+
 
 @Component({
   selector: 'app-custom-paginator',
@@ -73,5 +74,14 @@ export class CustomPaginatorComponent implements OnInit {
     this.list = list;
     this.selectedPage = 0;
     this.pageCount = Math.ceil(this.list.length / this.pageSize);
+  }
+
+  modifyPageCount(list: any) {
+    this.pageCount = Math.ceil(this.list.length / this.pageSize);
+  }
+
+  modifySelectedPage(selectedPage: number) {
+    console.log(selectedPage);
+    this.selectedPage = selectedPage;
   }
 }

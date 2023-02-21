@@ -34,6 +34,7 @@ import { FacadeService } from 'src/app/services/facade.service';
 import { ChangelogComponent } from 'src/app/components/modals/changelog/changelog.component';
 import { CustomPaginatorComponent } from 'src/app/components/custom-paginator/custom-paginator.component';
 import { TestingComponent } from './testing/testing.component';
+import { E } from '@angular/cdk/keycodes';
 
 @Component({
     selector: 'app-dashboard',
@@ -107,6 +108,7 @@ export class DashboardComponent implements OnInit {
   private customPaginatorComponent: CustomPaginatorComponent | undefined;
   paginatorStartIndex: number = 0;
   paginatorEndIndex: number = 0;
+  selectedPage: number = 0;
 
   constructor(private modalService: NgbModal,
     private facadeService: FacadeService,
@@ -162,7 +164,7 @@ export class DashboardComponent implements OnInit {
         this.lists = response;
         this.selectedList = this.lists[0];
         this.groupLists();
-        this.getAllTasks(this.selectedList._id);
+        this.getAllTasks(this.selectedList._id, ITEM_STATUS.inProgress);
       }  else {
         this.inProgressLists = [];
         this.inProgressTasks = [];
@@ -172,7 +174,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  getAllTasks(listId: any) {
+  getAllTasks(listId: any, listStatus: string) {
     this.inProgressTasks = [];
     this.completedTasks = [];
 
@@ -183,7 +185,12 @@ export class DashboardComponent implements OnInit {
       this.setProgressbarColor();
       this.createTagsStatistics();
 
-      this.customPaginatorComponent?.loadList(this.inProgressTasks);
+      if (listStatus == ITEM_STATUS.inProgress) {
+        this.customPaginatorComponent?.loadList(this.inProgressTasks);
+      } else if (listStatus == ITEM_STATUS.completed) {
+        console.log(this.completedTasks)
+        this.customPaginatorComponent?.loadList(this.completedTasks);
+      }
 
       let pageSize;
       if (this.facadeService.getPageSize() == null) {
@@ -255,14 +262,31 @@ export class DashboardComponent implements OnInit {
     modalRef.componentInstance.createTaskConfirmation.subscribe((response: any) => {
       if (response.confirmation === true) {
         this.facadeService.createTask(this.selectedList._id, response).subscribe((response: any) => {
-          this.inProgressTasks.unshift(response);
-          this.shownInProgressTasks.unshift(response);
+          let pageSize = Number( this.facadeService.getPageSize());
+          if (this.selectedPage == 0) {
+            this.inProgressTasks.unshift(response);
+            this.shownInProgressTasks.unshift(response);
+            if (this.shownInProgressTasks.length > pageSize) {
+              this.shownInProgressTasks.pop();
+            }
+          } else {
+            this.selectedPage = 0;
+            let startIndex = 0;
+            let endIndex = pageSize;
+            this.inProgressTasks.unshift(response);
+            this.customPaginatorComponent?.loadList(this.inProgressTasks);
+            this.shownInProgressTasks = this.inProgressTasks.slice(startIndex, endIndex); 
+          }
+          this.customPaginatorComponent?.modifyPageCount(this.inProgressTasks);
+
+
           if (typeof this.tasks !== 'undefined') {
             this.tasks.unshift(response);
           } else {
             this.tasks = [];
             this.tasks.push(response);
           }
+
 
           this.calculatePercentCompleted();
           this.setProgressbarColor();
@@ -279,14 +303,32 @@ export class DashboardComponent implements OnInit {
       if (receivedData === true) {
         this.facadeService.deleteTask(this.selectedList._id, task._id).subscribe((response: any) =>  {
           task.animation = ANIMATIONS.deleted;
+          let pageSize = Number(this.facadeService.getPageSize());
+          let startIndex = this.selectedPage * pageSize;
+          let endIndex = (this.selectedPage + 1) * pageSize; 
           
           var timer = setInterval(() => {
             if (type == ITEM_STATUS.completed) {
-              this.completedTasks.splice(index, 1);
-              this.shownCompletedTasks.splice(index, 1);
-            } else if (type == ITEM_STATUS.inProgress) {
-              this.inProgressTasks.splice(index, 1);
-              this.shownInProgressTasks.splice(index, 1);
+              this.completedTasks.splice(startIndex + index, 1);
+              this.customPaginatorComponent?.modifyPageCount(this.completedTasks);
+              if (this.completedTasks.length % pageSize == 0 && this.completedTasks.length > 0 && this.selectedPage > 0) {
+                this.selectedPage --;
+                this.customPaginatorComponent?.modifySelectedPage(this.selectedPage);
+                startIndex = this.selectedPage * pageSize;
+                endIndex = (this.selectedPage + 1) * pageSize;
+              } 
+              this.shownCompletedTasks = this.completedTasks.slice(startIndex, endIndex);
+            
+            } else if (type == ITEM_STATUS.inProgress) {              
+              this.inProgressTasks.splice(startIndex + index, 1);
+              this.customPaginatorComponent?.modifyPageCount(this.inProgressTasks);
+              if (this.inProgressTasks.length % pageSize == 0 && this.inProgressTasks.length > 0 && this.selectedPage > 0) {
+                this.selectedPage --;
+                this.customPaginatorComponent?.modifySelectedPage(this.selectedPage);
+                startIndex = this.selectedPage * pageSize;
+                endIndex = (this.selectedPage + 1) * pageSize;
+              } 
+              this.shownInProgressTasks = this.inProgressTasks.slice(startIndex, endIndex);
             }
 
             this.startedTasks--;
@@ -369,7 +411,7 @@ export class DashboardComponent implements OnInit {
       if  (this.selectedList._id != event.list._id) {
         this.selectedList = event.list;
         this.searchFilter = "";
-        this.getAllTasks(event.list._id);
+        this.getAllTasks(event.list._id, event.list.status);
         this.listChanged = false;
 
         var timer = setInterval(() => {
@@ -620,7 +662,8 @@ export class DashboardComponent implements OnInit {
     let startIndex = selectedPage * pageSize;
     let endIndex = (selectedPage + 1) * pageSize; 
     this.paginatorStartIndex = startIndex;
-
+    this.selectedPage = selectedPage;
+    
     if (pageSizeChanged) {
       this.shownInProgressTasks = this.inProgressTasks.slice(startIndex, endIndex);
       this.shownCompletedTasks = this.completedTasks.slice(startIndex, endIndex);
