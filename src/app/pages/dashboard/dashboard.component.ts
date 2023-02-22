@@ -560,8 +560,25 @@ export class DashboardComponent implements OnInit {
     }
     this.facadeService.cloneTask(data).subscribe((response: any) => {
       response.animation = ANIMATIONS.default;
-      this.inProgressTasks.unshift(response);
-      this.shownInProgressTasks.unshift(response);
+     
+      let pageSize = Number( this.facadeService.getPageSize());
+      if (this.selectedPage == 0) {
+          this.inProgressTasks.unshift(response);
+          this.shownInProgressTasks.unshift(response);
+          if (this.shownInProgressTasks.length > pageSize) {
+            this.shownInProgressTasks.pop();
+          }
+      } else {
+        this.selectedPage = 0;
+        let startIndex = 0;
+        let endIndex = pageSize;
+        this.inProgressTasks.unshift(response);
+        this.customPaginatorComponent?.loadList(this.inProgressTasks);
+        this.shownInProgressTasks = this.inProgressTasks.slice(startIndex, endIndex); 
+      }
+      this.customPaginatorComponent?.modifyPageCount(this.inProgressTasks);
+    
+     
       if (typeof this.tasks !== 'undefined') {
         this.tasks.unshift(response);
       } else {
