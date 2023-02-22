@@ -521,12 +521,26 @@ export class DashboardComponent implements OnInit {
     this.facadeService.modifyTaskDates(this.selectedList._id, task._id, data).subscribe((response: any) => {
       task.animation = ANIMATIONS.completed;
       var timer = setInterval(() => {
-        this.inProgressTasks.splice(index, 1);
-        this.shownInProgressTasks.splice(index, 1);
         task.totalWorkingTime = totalWorkingTime;
         task.dateCompleted = now;
+
+        let pageSize = Number(this.facadeService.getPageSize());
+        let startIndex = this.selectedPage * pageSize;
+        let endIndex = (this.selectedPage + 1) * pageSize; 
+          
+        this.inProgressTasks.splice(startIndex + index, 1);
+        this.customPaginatorComponent?.modifyPageCount(this.inProgressTasks);
+        if (this.inProgressTasks.length % pageSize == 0 && this.inProgressTasks.length > 0 && this.selectedPage > 0) {
+          this.selectedPage --;
+          this.customPaginatorComponent?.modifySelectedPage(this.selectedPage);
+          startIndex = this.selectedPage * pageSize;
+          endIndex = (this.selectedPage + 1) * pageSize;
+        } 
+        this.shownInProgressTasks = this.inProgressTasks.slice(startIndex, endIndex);
+
         this.completedTasks.unshift(task);
         this.shownCompletedTasks.unshift(task);
+
         this.calculatePercentCompleted();
         this.setProgressbarColor();
         this.showSuccessMessage(Actions.completeTask, task.title);
