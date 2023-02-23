@@ -109,7 +109,7 @@ export class DashboardComponent implements OnInit {
   paginatorStartIndex: number = 0;
   paginatorEndIndex: number = 0;
   selectedPage: number = 0;
-
+  
   constructor(private modalService: NgbModal,
     private facadeService: FacadeService,
     private imageService: ImageService) { }
@@ -188,10 +188,9 @@ export class DashboardComponent implements OnInit {
       if (listStatus == ITEM_STATUS.inProgress) {
         this.customPaginatorComponent?.loadList(this.inProgressTasks);
       } else if (listStatus == ITEM_STATUS.completed) {
-        console.log(this.completedTasks)
         this.customPaginatorComponent?.loadList(this.completedTasks);
       }
-
+ 
       let pageSize;
       if (this.facadeService.getPageSize() == null) {
         this.facadeService.storePageSize(global.defaultPageSize);
@@ -414,10 +413,12 @@ export class DashboardComponent implements OnInit {
         this.getAllTasks(event.list._id, event.list.status);
         this.listChanged = false;
 
+        console.log(this.selectedList);
+
         var timer = setInterval(() => {
           this.listChanged = true;
           clearInterval(timer);
-        }, 1600);
+        }, 1000);
       }
     } else if (event.listEvent == ListActions.modifyList) {
       this.showSuccessMessage(Actions.modifyList, event.list.title)
@@ -707,7 +708,13 @@ export class DashboardComponent implements OnInit {
   }
 
   tasksTabChange(event: any) {
-    this.inProgressSelected = event.index == 0 ? true : false;    
+    this.inProgressSelected = event.index == 0 ? true : false;   
+    if (this.selectedList.status = ITEM_STATUS.completed) {
+      this.inProgressSelected = false;
+    } else {
+      this.inProgressSelected = true;
+    }
+
     if (this.customPaginatorComponent) {
       this.customPaginatorComponent.loadList(this.inProgressSelected == true ? this.inProgressTasks : this.completedTasks);
     }

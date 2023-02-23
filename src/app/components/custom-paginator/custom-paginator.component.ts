@@ -81,7 +81,6 @@ export class CustomPaginatorComponent implements OnInit {
   }
 
   modifySelectedPage(selectedPage: number) {
-    console.log(selectedPage);
     this.selectedPage = selectedPage;
   }
 }

@@ -81,6 +81,7 @@ export class ListsComponent implements OnInit {
   }
   
   modifyThisList(list: List) {
+    console.log(list)
     const modalRef = this.modalService.open(ModifyItemComponent);
     this.facadeService.modalRefConfig(modalRef, ITEM_TYPE.list, list);
     modalRef.componentInstance.modifyItemConfirmation.subscribe((receivedData: any) => {
