@@ -1,6 +1,16 @@
 
 ## New features & bugs fixed
 
+# 1.1.6
+
+- Fixed bug: Removing a task doesn't refresh the tasks number of that page
+- Fixed bug: Adding tasks make shown tasks to exceed the items / page
+- Fixed bug: Cloning tasks makes list exceed page number
+- Fixed bug: Completing tasks doesn't refresh the items/page
+- Fixed bug: Pagination not working for completed lists
+- Fixed bug: Add task' button disappears when clicking on any list
+- Fixed bug: Pagination is shown even when there are no tasks in a list
+- Fixed bug: Pagination now shown when a list has only completed tasks
 
 # 1.1.5
 
