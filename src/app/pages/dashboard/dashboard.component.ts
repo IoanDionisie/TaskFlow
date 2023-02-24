@@ -706,11 +706,17 @@ export class DashboardComponent implements OnInit {
   }
 
   tasksTabChange(event: any) {
+    console.log("changed");
+    console.log(event.index)
     this.inProgressSelected = event.index == 0 ? true : false;   
     if (this.selectedList.status == ITEM_STATUS.completed) {
       this.inProgressSelected = false;
     } else {
-      this.inProgressSelected = true;
+      if (this.shownInProgressTasks.length == 0 && this.shownCompletedTasks.length > 0) {
+        this.inProgressSelected = false;
+      } else {
+        this.inProgressSelected = true;
+      }
     }
 
     if (this.customPaginatorComponent) {

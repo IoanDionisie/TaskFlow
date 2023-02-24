@@ -126,7 +126,6 @@
         <div class="version" (click)="showChangelog()">
             Version {{this.version}}
         </div>
-        {{selectedList.status}}
         <div class="add-task" *ngIf="selectedList && selectedList.status == ITEM_STATUS.inProgress">
             <div *ngIf="inProgressTasks.length == 0 && listChanged == true" class="add-task-reminder">
                 Add new tasks for your list "{{selectedList.title}}" !
