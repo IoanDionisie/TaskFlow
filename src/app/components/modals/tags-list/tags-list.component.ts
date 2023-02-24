@@ -28,7 +28,6 @@ export class TagsListComponent implements OnInit {
   getTags() {
     this.facadeService.getTags().subscribe(tags => {
       this.tags = tags;
-      console.log(tags);
     });
   }
 

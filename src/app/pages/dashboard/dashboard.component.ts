@@ -145,6 +145,7 @@ export class DashboardComponent implements OnInit {
           this.inProgressLists.push(this.lists[i]);
         }
     }
+
   }
 
   drop(event: CdkDragDrop<Object[]>, tasks: any) {
@@ -410,11 +411,8 @@ export class DashboardComponent implements OnInit {
       if  (this.selectedList._id != event.list._id) {
         this.selectedList = event.list;
         this.searchFilter = "";
-        this.getAllTasks(event.list._id, event.list.status);
         this.listChanged = false;
-
-        console.log(this.selectedList);
-
+        this.getAllTasks(event.list._id, event.list.status);
         var timer = setInterval(() => {
           this.listChanged = true;
           clearInterval(timer);
@@ -709,7 +707,7 @@ export class DashboardComponent implements OnInit {
 
   tasksTabChange(event: any) {
     this.inProgressSelected = event.index == 0 ? true : false;   
-    if (this.selectedList.status = ITEM_STATUS.completed) {
+    if (this.selectedList.status == ITEM_STATUS.completed) {
       this.inProgressSelected = false;
     } else {
       this.inProgressSelected = true;
