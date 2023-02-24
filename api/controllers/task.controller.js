@@ -71,9 +71,9 @@ async function cloneTask(req, res) {
     try {
         let lastTask = await Task.findOne().sort({"order": -1});
         let clonedTask =  await Task.findById(req.body.taskId);
-    
+        let newTitle = clonedTask.title + " (copy)";
         let task = new Task({
-            title: clonedTask.title,
+            title: newTitle,
             _listId:  req.body.listId,
             status: clonedTask.status,
             description: clonedTask.description,
