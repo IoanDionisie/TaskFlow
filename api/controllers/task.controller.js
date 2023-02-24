@@ -68,6 +68,7 @@ async function addTask(req, res) {
  * Purpose: Clones a task in the specified list
  */
 async function cloneTask(req, res) {
+    
     try {
         let lastTask = await Task.findOne().sort({"order": -1});
         let clonedTask =  await Task.findById(req.body.taskId);
