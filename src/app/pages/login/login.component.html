@@ -58,6 +58,7 @@
             </div>
           </div>
         </form>
+
         <div class="alert alert-success" *ngIf="isLoggedIn">
           Logged in as user. <!--TODO add role-->
         </div>
@@ -76,3 +77,6 @@
     </div>
   </div>
 </div>
+
+<ngx-spinner bdColor ="#121212" size ="medium" color ="#BB86FC" type ="ball-atom" [fullScreen] ="true"><p style="color: white" > Trying to Login ... </p></ngx-spinner>
+

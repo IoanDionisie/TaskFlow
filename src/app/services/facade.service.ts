@@ -10,6 +10,7 @@ import { TagService } from "./tag.service";
 import { TaskService } from "./task.service";
 import { TokenStorageService } from "./token-storage.service";
 import { UserService } from "./user.service";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Injectable()
 export class FacadeService {
@@ -20,6 +21,14 @@ export class FacadeService {
             this._authService = this.injector.get(AuthService);
         }
         return this._authService;
+    }
+
+    private _ngxSpinnerService!: NgxSpinnerService;
+    public get ngxSpinnerService(): NgxSpinnerService {
+        if(!this._ngxSpinnerService) {
+            this._ngxSpinnerService = this.injector.get(NgxSpinnerService);
+        }
+        return this._ngxSpinnerService;
     }
 
     private _colorSchemeService!: ColorSchemeService;
@@ -308,6 +317,17 @@ export class FacadeService {
 
     getPageSize() {
         return this.localStorageService.getPageSize();
+    }
+
+    
+    /* Ngx Spinner Service */
+    
+    showSpinner() {
+        return this.ngxSpinnerService.show();
+    }
+
+    hideSpinner() {
+        return this.ngxSpinnerService.hide();
     }
 
 }

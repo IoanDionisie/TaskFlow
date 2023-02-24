@@ -35,6 +35,7 @@ import { ChangelogComponent } from 'src/app/components/modals/changelog/changelo
 import { CustomPaginatorComponent } from 'src/app/components/custom-paginator/custom-paginator.component';
 import { TestingComponent } from './testing/testing.component';
 import { E } from '@angular/cdk/keycodes';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
     selector: 'app-dashboard',
@@ -54,7 +55,12 @@ import { E } from '@angular/cdk/keycodes';
         ]),
     ],
     standalone: true,
-    imports: [TestingComponent, WorkBreakComponent, CustomPaginatorComponent, NgbDropdown, NgbDropdownToggle, NgbDropdownMenu, SuccessMessageComponent, ErrorMessageComponent, ListsComponent, NgIf, FormsModule, MatTabsModule, DragDropModule, NgForOf, DisplayTagsComponent, NgClass, StatusCirclesComponent, NgbTooltip, SearchTaskFilterPipe]
+    imports: [TestingComponent, WorkBreakComponent,
+       CustomPaginatorComponent, NgbDropdown, NgbDropdownToggle,
+        NgbDropdownMenu, SuccessMessageComponent, ErrorMessageComponent,
+         ListsComponent, NgIf, FormsModule, MatTabsModule, DragDropModule,
+          NgForOf, DisplayTagsComponent, NgClass, StatusCirclesComponent,
+           NgbTooltip, SearchTaskFilterPipe, NgxSpinnerModule]
 })
 
 export class DashboardComponent implements OnInit {
@@ -450,7 +456,12 @@ export class DashboardComponent implements OnInit {
   }
 
   logOut() {
-    this.facadeService.signOut();
+    this.facadeService.showSpinner();
+    var logoutInterval = setInterval(() => {
+      this.facadeService.signOut();
+      this.facadeService.hideSpinner();
+      clearInterval(logoutInterval);
+    }, 1500);
   }
 
   beginTask(task: any) {

@@ -14,7 +14,7 @@ import { AutosizeModule } from '@techiediaries/ngx-textarea-autosize';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { provideAnimations } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -31,7 +31,7 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
     providers: [
-        importProvidersFrom(BrowserModule, RouterModule.forRoot(routes), NgbModule, HttpClientModule, MatDialogModule, FormsModule, MatTabsModule, DragDropModule, AutosizeModule, MatTreeModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatChipsModule, MatAutocompleteModule, ReactiveFormsModule, CommonModule, NgxChartsModule, ToastrModule.forRoot({
+        importProvidersFrom(BrowserModule, RouterModule.forRoot(routes), NgbModule, HttpClientModule, MatDialogModule, FormsModule, MatTabsModule, DragDropModule, AutosizeModule, MatTreeModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatChipsModule, MatAutocompleteModule, ReactiveFormsModule, CommonModule, NgxChartsModule, BrowserAnimationsModule, ToastrModule.forRoot({
             timeOut: 5000,
             positionClass: 'toast-top-center',
             progressBar: true,
