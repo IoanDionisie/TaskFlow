@@ -726,5 +726,12 @@ export class DashboardComponent implements OnInit {
     if (this.customPaginatorComponent) {
       this.customPaginatorComponent.loadList(this.inProgressSelected == true ? this.inProgressTasks : this.completedTasks);
     }
+    
+    let param = {
+      selectedPage: 0,
+      pageSize: Number(this.facadeService.getPageSize()),
+      pageSizeChanged: false
+    }
+    this.paginatorEvent(param);
   }
 }
