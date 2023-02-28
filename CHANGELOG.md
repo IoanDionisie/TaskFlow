@@ -1,6 +1,14 @@
 
 ## New features & bugs fixed
 
+# 1.1.7
+
+- Added loading spinner on login & logout
+- Cloning a task now changes the name of the task (adds 'copy' at the end)
+- Fixed bug: Pagination doesn't show proper page when switching task's tabs
+- Disable pagination while entering something in searchbox
+- Fixed bug: Searchbox not working properly with pagination
+  
 # 1.1.6
 
 - Fixed bug: Removing a task doesn't refresh the tasks number of that page
