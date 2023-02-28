@@ -119,6 +119,9 @@
                 </mat-tab>
             </mat-tab-group>
             <app-custom-paginator [showPagination]="showPagination" (eventChange)="paginatorEvent($event)"></app-custom-paginator>
+            <div *ngIf="showPagination == false" class="search-results">
+                Found results: {{foundResults}}
+            </div>
         </div>
     </div>
     

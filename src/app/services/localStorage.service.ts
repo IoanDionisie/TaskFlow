@@ -16,4 +16,12 @@ export class LocalStorageService {
         return localStorage.getItem('pageSize');
     }
 
+    public storeShowTutorial(showTutorial: string) {
+        localStorage.setItem('showTutorial', showTutorial);
+    }
+
+    public getShowTutorial() {
+        return localStorage.getItem('showTutorial');
+    }
+
 }

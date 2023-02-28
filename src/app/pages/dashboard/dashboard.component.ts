@@ -36,6 +36,7 @@ import { CustomPaginatorComponent } from 'src/app/components/custom-paginator/cu
 import { TestingComponent } from './testing/testing.component';
 import { E } from '@angular/cdk/keycodes';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { WelcomePageComponent } from 'src/app/components/modals/welcome-page/welcome-page.component';
 
 @Component({
     selector: 'app-dashboard',
@@ -110,6 +111,8 @@ export class DashboardComponent implements OnInit {
 
   listChanged: boolean = false;
 
+  foundResults: number = 0;
+
   @ViewChild(CustomPaginatorComponent)
   private customPaginatorComponent: CustomPaginatorComponent | undefined;
   paginatorStartIndex: number = 0;
@@ -134,12 +137,28 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllLists();
     this.userName = this.facadeService.getUser().username;
     this.imageService.setProfilePicture();
     this.setProfilePicture = this.imageService.profilePicture$.subscribe((response: any) => {
       this.profilePicture = response;
     });
+
+    // this.facadeService.storeShowTutorial("true");
+    if (this.facadeService.getShowTutorial() !== "false") {
+      let modalRef = this.modalService.open(WelcomePageComponent);
+      modalRef.componentInstance.tutorial.subscribe((response: any) => {
+        if (response == true) {
+          this.showTutorial();
+        }
+      });
+    
+    } else {
+      this.getAllLists();
+    }
+  }
+
+  showTutorial() {
+
   }
 
   groupLists() {
@@ -419,6 +438,7 @@ export class DashboardComponent implements OnInit {
       if  (this.selectedList._id != event.list._id) {
         this.selectedList = event.list;
         this.searchFilter = "";
+        this.showPagination = true;
         this.listChanged = false;
         this.getAllTasks(event.list._id, event.list.status);
         var timer = setInterval(() => {
@@ -728,6 +748,9 @@ export class DashboardComponent implements OnInit {
     if (this.customPaginatorComponent) {
       this.customPaginatorComponent.loadList(this.inProgressSelected == true ? this.inProgressTasks : this.completedTasks);
     }
+
+    this.searchFilter = "";
+    this.showPagination = true;
     
     let param = {
       selectedPage: 0,
@@ -743,6 +766,8 @@ export class DashboardComponent implements OnInit {
       this.showPagination = false;
       this.shownInProgressTasks = this.inProgressTasks;
       this.shownCompletedTasks = this.completedTasks;
+      let pipe = new SearchTaskFilterPipe();
+      this.foundResults = this.inProgressSelected == true ? pipe.transform(this.shownInProgressTasks, searchValue).length : pipe.transform(this.shownCompletedTasks, searchValue).length;
     } else {
       this.shownInProgressTasks = this.inProgressTasks.slice(0, Number(this.facadeService.getPageSize()));
       this.shownCompletedTasks = this.completedTasks.slice(0, Number(this.facadeService.getPageSize()));

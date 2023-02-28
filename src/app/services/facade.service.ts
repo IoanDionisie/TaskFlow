@@ -319,6 +319,14 @@ export class FacadeService {
         return this.localStorageService.getPageSize();
     }
 
+    storeShowTutorial(show: string) {
+        return this.localStorageService.storeShowTutorial(show);
+    }
+
+    getShowTutorial() {
+        return this.localStorageService.getShowTutorial();
+    }
+
     
     /* Ngx Spinner Service */
     
