@@ -522,3 +522,12 @@
     position: absolute;
     top: 0;
 }
+
+::ng-deep .ngx-spinner-overlay .la-ball-atom .ng-star-inserted:first-child {
+    background: #03DAC5;
+}
+
+::ng-deep .ngx-spinner-overlay .loading-text {
+    font-size: 18px;
+    top: 62%!important;
+}

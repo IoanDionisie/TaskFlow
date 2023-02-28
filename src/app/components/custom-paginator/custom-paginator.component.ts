@@ -18,6 +18,8 @@ import * as global from 'src/app/constants/variables';
 
 export class CustomPaginatorComponent implements OnInit {
 
+  @Input() showPagination: boolean = true;
+
   list: any[] = [];
   @Output() eventChange: EventEmitter<any> = new EventEmitter();
 

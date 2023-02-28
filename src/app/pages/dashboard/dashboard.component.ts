@@ -115,6 +115,8 @@ export class DashboardComponent implements OnInit {
   paginatorStartIndex: number = 0;
   paginatorEndIndex: number = 0;
   selectedPage: number = 0;
+
+  showPagination: boolean = true;
   
   constructor(private modalService: NgbModal,
     private facadeService: FacadeService,
@@ -733,5 +735,19 @@ export class DashboardComponent implements OnInit {
       pageSizeChanged: false
     }
     this.paginatorEvent(param);
+  }
+
+  searchValueChanged(event: any) {
+    let searchValue = event.target.value;
+    if (searchValue != "") {
+      this.showPagination = false;
+      this.shownInProgressTasks = this.inProgressTasks;
+      this.shownCompletedTasks = this.completedTasks;
+    } else {
+      this.shownInProgressTasks = this.inProgressTasks.slice(0, Number(this.facadeService.getPageSize()));
+      this.shownCompletedTasks = this.completedTasks.slice(0, Number(this.facadeService.getPageSize()));
+      this.customPaginatorComponent?.modifySelectedPage(0);
+      this.showPagination = true;
+    }
   }
 }

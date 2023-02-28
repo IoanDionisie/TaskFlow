@@ -40,7 +40,7 @@
         
         <div class="task-list-container col-9">
             <div *ngIf="this.showSearch == true" class="form-group search-tasks">
-                <input type="text" class="form-control mb-4" placeholder="Search" [(ngModel)]="searchFilter" id="listSearch">
+                <input type="text" (input)="searchValueChanged($event)" class="form-control mb-4" placeholder="Search" [(ngModel)]="searchFilter" id="listSearch">
             </div>
             <div class="no-tasks-message pt-3 pl-2" *ngIf="inProgressTasks.length == 0 &&
             completedTasks.length == 0 && listChanged == true">
@@ -118,7 +118,7 @@
                     </div>
                 </mat-tab>
             </mat-tab-group>
-            <app-custom-paginator (eventChange)="paginatorEvent($event)"></app-custom-paginator>
+            <app-custom-paginator [showPagination]="showPagination" (eventChange)="paginatorEvent($event)"></app-custom-paginator>
         </div>
     </div>
     
