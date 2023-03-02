@@ -147,13 +147,16 @@ export class DashboardComponent implements OnInit {
       this.profilePicture = response;
     });
 
-    this.facadeService.storeShowTutorial("true");
+    //this.facadeService.storeShowTutorial("true");
     console.log(this.facadeService.getShowTutorial())
     if (this.facadeService.getShowTutorial() !== "false") {
       let modalRef = this.modalService.open(WelcomePageComponent);
       modalRef.componentInstance.tutorial.subscribe((response: any) => {
         if (response == true) {
           this.showTutorial();
+        } else {
+          this.facadeService.storeShowTutorial("false");
+          this.getAllLists();
         }
       });
     } else {
