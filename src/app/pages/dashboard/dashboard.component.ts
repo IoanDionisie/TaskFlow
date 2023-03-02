@@ -37,6 +37,7 @@ import { TestingComponent } from './testing/testing.component';
 import { E } from '@angular/cdk/keycodes';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { WelcomePageComponent } from 'src/app/components/modals/welcome-page/welcome-page.component';
+import { TUTORIAL_STEPS } from 'src/app/constants/tutorialsteps';
 
 @Component({
     selector: 'app-dashboard',
@@ -120,6 +121,9 @@ export class DashboardComponent implements OnInit {
   selectedPage: number = 0;
 
   showPagination: boolean = true;
+
+  tutorialStep: number = -1;
+  tutorialStepText: string = "";
   
   constructor(private modalService: NgbModal,
     private facadeService: FacadeService,
@@ -143,7 +147,8 @@ export class DashboardComponent implements OnInit {
       this.profilePicture = response;
     });
 
-    // this.facadeService.storeShowTutorial("true");
+    this.facadeService.storeShowTutorial("true");
+    console.log(this.facadeService.getShowTutorial())
     if (this.facadeService.getShowTutorial() !== "false") {
       let modalRef = this.modalService.open(WelcomePageComponent);
       modalRef.componentInstance.tutorial.subscribe((response: any) => {
@@ -151,14 +156,14 @@ export class DashboardComponent implements OnInit {
           this.showTutorial();
         }
       });
-    
     } else {
       this.getAllLists();
     }
   }
 
   showTutorial() {
-
+    this.tutorialStep = 1;
+    this.tutorialStepText = TUTORIAL_STEPS.createList;
   }
 
   groupLists() {
@@ -318,6 +323,11 @@ export class DashboardComponent implements OnInit {
           this.calculatePercentCompleted();
           this.setProgressbarColor();
           this.showSuccessMessage(Actions.addTask, response.title);
+
+          if (this.tutorialStep == 3) {
+            this.tutorialStep = 4;
+            this.tutorialStepText = TUTORIAL_STEPS.startTask;
+          }
         })
       }
     });
@@ -403,10 +413,14 @@ export class DashboardComponent implements OnInit {
 
   showSettings() {
     const modalRef = this.modalService.open(SettingsComponent);
+    modalRef.componentInstance.tutorialStep = this.tutorialStep;
     modalRef.componentInstance.showMessage.subscribe((receivedData: any) => {
       this.showSuccessMessage(receivedData.message, receivedData.tagName);
       if (receivedData.message == Actions.importData) {
         this.ngOnInit();
+      } else if (receivedData.message == Actions.addTagTutorial) {
+        this.tutorialStep = 3;
+        this.tutorialStepText = TUTORIAL_STEPS.createTask;
       }
     })
   }
@@ -457,7 +471,13 @@ export class DashboardComponent implements OnInit {
       this.groupLists();
       this.showSuccessMessage(Actions.completeList, event.list.title);
     } else if (event.listEvent == ListActions.addList) {
+      this.getAllLists();
       this.showSuccessMessage(Actions.addList, event.list.title);
+    } else if (event.listEvent == ListActions.addListTutorial) {
+      this.getAllLists();
+      this.showSuccessMessage(Actions.addList, event.list.title);
+      this.tutorialStep = 2;
+      this.tutorialStepText = TUTORIAL_STEPS.createTags;
     }
   }
 

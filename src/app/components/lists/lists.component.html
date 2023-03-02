@@ -8,7 +8,7 @@
         </div>
 
         <div class="add-list">
-            <button class="btn-primary border" (click)="createNewList()" ngbTooltip="Create a list">
+            <button [class]="tutorialStep == 1 ? 'btn-primary border button-pulse-effect' : 'btn-primary border'" (click)="createNewList()" ngbTooltip="Create a list">
                 Add list
             </button>
         </div>

@@ -49,6 +49,7 @@ export class ListsComponent implements OnInit {
   @Output() listEvent: EventEmitter<any> = new EventEmitter();
   @Input() progressBarColor: any;
   @Input() tagsObject: any;
+  @Input() tutorialStep: number = -1;
 
   incrementNumber = false;
 
@@ -113,7 +114,11 @@ export class ListsComponent implements OnInit {
         this.facadeService.createList(response).subscribe((list: any) => {
           this.inProgressLists.push(list);
           this.incrementListNumberAnimation();
-          this.pickListEvent(ListActions.addList, list);
+          if (this.tutorialStep == 1) {
+            this.pickListEvent(ListActions.addListTutorial, list);
+          } else {
+            this.pickListEvent(ListActions.addList, list);
+          }
         }); 
       }
     })

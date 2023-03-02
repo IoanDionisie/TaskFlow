@@ -43,6 +43,7 @@
     "ngx-sortable": "^1.0.3",
     "ngx-spinner": "^15.0.1",
     "ngx-toastr": "^16.0.2",
+    "nvm": "0.0.4",
     "rxjs": "~7.5.0",
     "tasktimer": "^3.0.0",
     "tslib": "^2.3.0",

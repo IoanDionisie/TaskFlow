@@ -21,7 +21,7 @@
                 <i class="fa-solid fa-eye-dropper color-picker-icon"></i>
             </div>
             <div class="add-tag">
-                <button class="btn add-tag" (click)="addTag()"> Add Tag </button>
+                <button [class]="tutorialStep == 2 ?  'btn add-tag button-pulse-effect' : 'btn add-tag'" (click)="addTag()"> Add Tag </button>
             </div>
         </div>
         <div class="tag-error">

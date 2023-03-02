@@ -5,7 +5,7 @@ const fs = require('fs');
 const multer = require("multer");
 const multipart  =  require('connect-multiparty');
 const session = require('express-session');
-const querystring = require('node:querystring');
+const querystring = require('qs');
 const config = require("./config/auth.config");
 
 app.use(cors());

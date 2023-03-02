@@ -4,14 +4,14 @@
     </div>
     <!-- <app-testing [testInput]="lists"></app-testing> -->
     <div class="user-section-wrapper">  
-        <div ngbDropdown class="user-section" id="userSectionDropdown">
+        <div ngbDropdown [open]="tutorialStep == 2" class="user-section" id="userSectionDropdown">
             <img class="user-small-image" [src]="this.profilePicture">
-            <div ngbDropdownToggle class="username" >
+            <div ngbDropdownToggle class="username">
                 {{ userName }}
             </div>
             <div id="user-section-dropdown-content" ngbDropdownMenu aria-labelledby="userSectionDropdown">
                 <div class="user-dropdown-action" (click)="openAccountModal()"> Account </div>
-                <div class="user-dropdown-action" (click)="showSettings()"> Settings </div>
+                <div [class]="tutorialStep == 2 ?  'user-dropdown-action list-background' : 'user-dropdown-action'" (click)="showSettings()"> Settings </div>
                 <div class="user-dropdown-action" (click)="showTagsList()"> Tags List </div>
                 <div class="user-dropdown-action" (click)="logOut()"> Log out </div>
             </div>
@@ -24,7 +24,15 @@
                 <i class="fa-solid fa-tree app-logo"></i>
             </div>
         </div>
+        <div *ngIf="tutorialStep != -1" class="col-12">
+            <div class="row justify-content-center tutorial">
+                <div class="col-6">
+                    {{tutorialStepText}}
+                </div>
+            </div>
+        </div>
     </div>
+
 
     <div class="row">
         <app-success-message [eventData]="successEventData"></app-success-message>
@@ -33,6 +41,7 @@
 
     <div class="row sidebar">
         <app-lists class="lists-container col-3"
+            [tutorialStep]="tutorialStep"
             [inProgressLists]="inProgressLists" [completedLists]="completedLists" [selectedList]="selectedList"
             (listEvent)="listEvent($event)" [progressBarColor]="progressBarColor"
             [tagsObject]="tagsObject">
@@ -75,7 +84,7 @@
                                 <button *ngIf="task.isStarted == TASK_STATUS.paused" class="resume" (click)="resumeTask(task)" title="Resume Task">
                                     <i class="fa-solid fa-forward-step"></i>
                                 </button>
-                                <button *ngIf="task.isStarted == TASK_STATUS.notStarted" class="begin" (click)="beginTask(task)" title="Begin Task">
+                                <button *ngIf="task.isStarted == TASK_STATUS.notStarted" [class]="tutorialStep == 4 ?  'begin icon-pulse-effect' : 'begin'" (click)="beginTask(task)" title="Begin Task">
                                     <i class="fa-solid fa-flag-checkered"></i>
                                 </button>
                                 <button class="clone" (click)="cloneTask(task)" title="Clone Task">
@@ -133,9 +142,9 @@
             <div *ngIf="inProgressTasks.length == 0 && listChanged == true" class="add-task-reminder">
                 Add new tasks for your list "{{selectedList.title}}" !
             </div>
-            <button [ngClass]="inProgressTasks.length == 0 ? 'button-pulse-effect': ''" class="create-task" (click)="createNewTask()" ngbTooltip="Create a Task">
+            <div [ngClass]="this.tutorialStep == 3 ? 'button-pulse-effect create-task': 'rotate create-task'" (click)="createNewTask()" ngbTooltip="Create a Task">
                 <i class="fa-solid fa-plus"></i>
-            </button>
+            </div>
         </div>
     </div>
 </div>

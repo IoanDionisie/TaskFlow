@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Actions } from 'src/app/enums/actions';
 import { NgStyle, NgIf } from '@angular/common';
@@ -28,6 +28,8 @@ export class SettingsComponent implements OnInit  {
 
   loadedData: JSON | undefined;
 
+  @Input() tutorialStep: number = -1;
+
   @Output() showMessage: EventEmitter<any> = new EventEmitter();
 
   constructor(private modal: NgbActiveModal, private facadeService: FacadeService) { }
@@ -56,9 +58,16 @@ export class SettingsComponent implements OnInit  {
 
       this.facadeService.createTag(tag).subscribe({ 
         next: resp => {
-          this.messageData = {
-            tagName: this.tagName,
-            message: Actions.addTag
+          if (this.tutorialStep == 2) {
+            this.messageData = {
+              tagName: this.tagName,
+              message: Actions.addTagTutorial
+            }
+          } else {
+            this.messageData = {
+              tagName: this.tagName,
+              message: Actions.addTag
+            }
           }
 
           this.showMessage.emit(this.messageData);
@@ -97,7 +106,6 @@ export class SettingsComponent implements OnInit  {
     var result;
     fileReader.onloadend = function(x) {
       result = fileReader.result;
-
     }
     fileReader.readAsText(file);
   }
