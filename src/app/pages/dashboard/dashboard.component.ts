@@ -147,8 +147,8 @@ export class DashboardComponent implements OnInit {
       this.profilePicture = response;
     });
 
-    //this.facadeService.storeShowTutorial("true");
-    console.log(this.facadeService.getShowTutorial())
+    //Used for testing Tutorial
+    // TODO EXPAND PROBLEM ON STEP 6  
     if (this.facadeService.getShowTutorial() !== "false") {
       let modalRef = this.modalService.open(WelcomePageComponent);
       modalRef.componentInstance.tutorial.subscribe((response: any) => {
@@ -481,6 +481,17 @@ export class DashboardComponent implements OnInit {
       this.showSuccessMessage(Actions.addList, event.list.title);
       this.tutorialStep = 2;
       this.tutorialStepText = TUTORIAL_STEPS.createTags;
+    } else if (event.listEvent == ListActions.completeListTutorial) {
+      this.getAllLists();
+      this.showSuccessMessage(Actions.completeList, event.list.title);
+      this.tutorialStep = 7;
+      this.tutorialStepText = TUTORIAL_STEPS.finishTutorial;
+
+      var timer = setInterval(() => {
+        this.facadeService.storeShowTutorial("false");
+        this.tutorialStep = -1;
+        clearInterval(timer);
+      }, 5000);
     }
   }
 
@@ -523,6 +534,11 @@ export class DashboardComponent implements OnInit {
         this.incrementTaskWorkingTime(task);
         this.showSuccessMessage(Actions.beginTask, task.title);
         this.startedTasks ++;
+
+        if (this.tutorialStep == 4) {
+          this.tutorialStep = 5;
+          this.tutorialStepText = TUTORIAL_STEPS.finishTask;
+        }
       });
     } else {
       this.showErrorMessage(Actions.beginTask, task.title);
@@ -601,6 +617,12 @@ export class DashboardComponent implements OnInit {
         this.showSuccessMessage(Actions.completeTask, task.title);
         this.startedTasks--;
         task.animation = ANIMATIONS.none;
+
+        if (this.tutorialStep == 5) {
+          this.tutorialStep = 6;
+          this.tutorialStepText = TUTORIAL_STEPS.finishList;
+        }
+
         clearInterval(timer);
       }, 500);
     })

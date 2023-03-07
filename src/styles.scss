@@ -264,7 +264,7 @@ input:disabled, textarea:disabled, select:disabled {
     background-size: cover;
 
     .card-container {
-        background: #1F1B24;
+        background: linear-gradient(90deg, rgba(18,18,18,1) 36%, rgba(31,27,36,1) 80%, rgba(33,37,41,1) 100%);
     }
 
     .direction-button {
@@ -284,7 +284,7 @@ input:disabled, textarea:disabled, select:disabled {
     }
 
     .task-manager-container {
-        background: linear-gradient(90deg, rgba(18,18,18,1) 36%, rgba(31,27,36,1) 68%, rgba(33,37,41,1) 100%)!important;
+        background: linear-gradient(90deg, rgba(18,18,18,1) 36%, rgba(31,27,36,1) 80%, rgba(33,37,41,1) 100%)!important;
         color: var(--text-dark)!important;
         
         label, input,

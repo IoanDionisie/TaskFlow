@@ -62,7 +62,7 @@
                             <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
                             <div class="title-wrapper">
                                 <div class="checkbox-and-title">
-                                    <div *ngIf="task.isStarted == TASK_STATUS.started" class="circle" (click)="completeTask(task, indexOfElement)">
+                                    <div *ngIf="task.isStarted == TASK_STATUS.started" [class]="tutorialStep == 5 ?  'button-pulse-effect circle' : 'circle'" (click)="completeTask(task, indexOfElement)">
                                         <div class="checkmark"></div>
                                     </div>
                                     <div *ngIf="task.isStarted == false" class="circle gray-circle" (click)="notStartedTask(task)"></div>

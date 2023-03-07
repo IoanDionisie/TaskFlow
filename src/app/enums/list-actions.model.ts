@@ -3,6 +3,7 @@ export enum ListActions {
     modifyList,
     selectList,
     completeList,
+    completeListTutorial,
     addList,
     addListTutorial
 }

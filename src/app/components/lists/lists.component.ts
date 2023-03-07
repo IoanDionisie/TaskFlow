@@ -142,7 +142,12 @@ export class ListsComponent implements OnInit {
     list.status = ITEM_STATUS.completed;
     list.dateCompleted = new Date();
     this.facadeService.modifyList(list._id, list).subscribe((response: any) => {
-      this.pickListEvent(ListActions.completeList, list);
+      
+      if (this.tutorialStep == 6) {
+        this.pickListEvent(ListActions.completeListTutorial, list);
+      } else {
+        this.pickListEvent(ListActions.completeList, list);
+      }
     })
   }
 
