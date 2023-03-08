@@ -320,11 +320,11 @@ export class FacadeService {
     }
 
     storeShowTutorial(show: string) {
-        return this.localStorageService.storeShowTutorial(show);
+        return this.localStorageService.storeShowTutorial(show, this.getUser().id);
     }
 
     getShowTutorial() {
-        return this.localStorageService.getShowTutorial();
+        return this.localStorageService.getShowTutorial(this.getUser().id);
     }
 
     

@@ -24,8 +24,8 @@
                     <span  class="progress-bar-text">{{list.percentCompleted}} %</span>
                     <ngb-progressbar [textType]="dark" [showValue]="false" [type]="progressBarColor" [value]="list.percentCompleted"></ngb-progressbar>
                 </div>
-                <div ngbDropdown [open]="tutorialStep == 6">
-                    <i class="fa-solid fa-caret-down dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle></i>
+                <div ngbDropdown>
+                    <i [class]="tutorialStep == 6 ?  ' icon-pulse-effect-2 fa-solid fa-caret-down dropdown-toggle' : 'fa-solid fa-caret-down dropdown-toggle'" id="dropdownBasic1" ngbDropdownToggle></i>
                     <div class="list-dropdown" ngbDropdownMenu aria-labelledby="dropdownBasic1">
                         <button class="markCompleted" title="Mark as Completed"  *ngIf="list.percentCompleted == 100" (click)="markAsCompleted(list)" ngbTooltip="Mark as Completed">
                             <i [class]="tutorialStep == 6 ? 'fa-solid fa-check icon-pulse-effect' : 'fa-solid fa-check'"></i>

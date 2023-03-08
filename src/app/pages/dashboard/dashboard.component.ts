@@ -148,7 +148,6 @@ export class DashboardComponent implements OnInit {
     });
 
     //Used for testing Tutorial
-    // TODO EXPAND PROBLEM ON STEP 6  
     if (this.facadeService.getShowTutorial() !== "false") {
       let modalRef = this.modalService.open(WelcomePageComponent);
       modalRef.componentInstance.tutorial.subscribe((response: any) => {

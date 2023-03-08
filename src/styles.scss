@@ -524,6 +524,13 @@ input:disabled, textarea:disabled, select:disabled {
     animation: icon-pulse-black 1s infinite;
 }
 
+.icon-pulse-effect-2 {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+    transform: scale(2);
+    animation: icon-pulse-black 1s infinite;
+}
+
+
 
 @keyframes icon-pulse-black {
     0% {

@@ -16,12 +16,14 @@ export class LocalStorageService {
         return localStorage.getItem('pageSize');
     }
 
-    public storeShowTutorial(showTutorial: string) {
-        localStorage.setItem('showTutorial', showTutorial);
+    public storeShowTutorial(showTutorialValue: string, userId: string) {
+        let showTutorialString = 'showTutorial' + userId;
+        localStorage.setItem(showTutorialString, showTutorialValue);
     }
 
-    public getShowTutorial() {
-        return localStorage.getItem('showTutorial');
+    public getShowTutorial(userId: string) {
+        let showTutorialString = 'showTutorial' + userId;
+        return localStorage.getItem(showTutorialString);
     }
 
 }
