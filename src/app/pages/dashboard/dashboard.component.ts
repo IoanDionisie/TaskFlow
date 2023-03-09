@@ -38,6 +38,8 @@ import { E } from '@angular/cdk/keycodes';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { WelcomePageComponent } from 'src/app/components/modals/welcome-page/welcome-page.component';
 import { TUTORIAL_STEPS } from 'src/app/constants/tutorialsteps';
+import { HistoryComponent } from '../history/history.component';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-dashboard',
@@ -124,10 +126,12 @@ export class DashboardComponent implements OnInit {
 
   tutorialStep: number = -1;
   tutorialStepText: string = "";
+  isAdmin: boolean = false;
   
   constructor(private modalService: NgbModal,
     private facadeService: FacadeService,
-    private imageService: ImageService) { }
+    private imageService: ImageService,
+    private router: Router) { }
 
 
   ngOnDestroy(): void { 
@@ -147,7 +151,10 @@ export class DashboardComponent implements OnInit {
       this.profilePicture = response;
     });
 
-    //Used for testing Tutorial
+    this.facadeService.isAdmin().subscribe(value => {
+      this.isAdmin = value;
+    });
+
     if (this.facadeService.getShowTutorial() !== "false") {
       let modalRef = this.modalService.open(WelcomePageComponent);
       modalRef.componentInstance.tutorial.subscribe((response: any) => {
@@ -818,5 +825,9 @@ export class DashboardComponent implements OnInit {
       this.customPaginatorComponent?.modifySelectedPage(0);
       this.showPagination = true;
     }
+  }
+
+  openHistoryPage() {
+    this.router.navigate(['history']);
   }
 }

@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { HistoryComponent } from './pages/history/history.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NewPasswordComponent } from './pages/new-password/new-password.component';
 import { RegisterComponent } from './pages/register/register.component';
@@ -13,4 +14,5 @@ export const routes: Routes = [
   {path: 'resetPassword', component: ResetPasswordComponent},
   {path: 'newpassword', component: NewPasswordComponent},
   {path: '', component: LoginComponent},
+  {path: 'history', component: HistoryComponent, canActivate:[AuthGuard]}
 ];

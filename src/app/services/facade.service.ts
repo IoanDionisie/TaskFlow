@@ -305,8 +305,8 @@ export class FacadeService {
         return this.userService.getUserBoard();
     }
 
-    getAdminBoard() {
-        return this.userService.getAdminBoard();
+    isAdmin() {
+        return this.userService.isAdmin();
     }
     
     /* Local Storage Service */

@@ -9,7 +9,8 @@ module.exports = function(app) {
     );
     next();
   });
-  app.get("/api/test/all", controller.allAccess);
-  app.get("/api/test/user", [authJwt.verifyToken], controller.userBoard);
-  app.get("/users", controller.getUsers);
+  app.get("/api/all", controller.allAccess);
+  app.get("/api/user", [authJwt.verifyToken], controller.userBoard);
+  app.get("/api/users", controller.getUsers);
+  app.get("/api/isAdmin", controller.isAdmin);
 };
