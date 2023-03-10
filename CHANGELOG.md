@@ -1,6 +1,13 @@
 
 ## New features & bugs fixed
 
+# 1.1.8
+
+- Added spinning animation for 'add task' button
+- Added gradient on the background of the dashboard's container
+- Created tutorial on first login
+- Added history page only for 'admin' users
+
 # 1.1.7
 
 - Added loading spinner on login & logout

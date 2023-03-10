@@ -31,7 +31,8 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
     providers: [
-        importProvidersFrom(BrowserModule, RouterModule.forRoot(routes), NgbModule, HttpClientModule, MatDialogModule, FormsModule, MatTabsModule, DragDropModule, AutosizeModule, MatTreeModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatChipsModule, MatAutocompleteModule, ReactiveFormsModule, CommonModule, NgxChartsModule, BrowserAnimationsModule, ToastrModule.forRoot({
+        importProvidersFrom(BrowserModule, RouterModule.forRoot(routes), NgbModule, HttpClientModule, MatDialogModule, FormsModule, MatTabsModule, DragDropModule, AutosizeModule, MatTreeModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatChipsModule, MatAutocompleteModule, ReactiveFormsModule, CommonModule, NgxChartsModule, BrowserAnimationsModule, 
+        ToastrModule.forRoot({
             timeOut: 5000,
             positionClass: 'toast-top-center',
             progressBar: true,

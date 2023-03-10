@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import  packageJson from '../../package.json';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { FacadeService } from './services/facade.service';
 
 @Component({
