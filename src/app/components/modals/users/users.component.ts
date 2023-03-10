@@ -39,19 +39,19 @@ export class UsersComponent implements OnInit {
 
     removeAdmin(user: any) {
         this.facadeService.removeAdmin(user._id).subscribe(response => {
-            console.log("removed");
+            this.ngOnInit();
         })
     }
 
     makeAdmin(user: any) {
         this.facadeService.makeAdmin(user._id).subscribe(response => {
-            console.log("removed");
+            this.ngOnInit();
         })
     }
 
     deleteUser(user: any) {
         this.facadeService.deleteUser(user._id).subscribe(response => {
-            console.log("removed");
+            this.ngOnInit();
         })
     }
 }

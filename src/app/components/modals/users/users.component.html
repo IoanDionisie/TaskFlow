@@ -12,19 +12,21 @@
             <mat-header-cell *matHeaderCellDef>Role</mat-header-cell>
             <mat-cell *matCellDef="let row;">
                 {{row.role}}
-                
+                <i *ngIf="row.role == USER_ROLES.ADMIN" class="fa-solid fa-star admin-icon pl-2"  ngbTooltip="Admin"></i>
+                <i *ngIf="row.role == USER_ROLES.MASTER" class="fa-solid fa-bolt-lightning admin-icon pl-2"  ngbTooltip="Master"></i>
+                <i *ngIf="row.role == USER_ROLES.USER" class="fa-solid fa-user admin-icon pl-2"  ngbTooltip="User"></i>
             </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="actions">
-            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <ng-container matColumnDef="actions" class="actions">
+            <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
             <mat-cell *matCellDef="let row;">
-                <button *ngIf="row.role == USER_ROLES.ADMIN" mat-icon-button (click)="removeAdmin(row)">
+                <button class="btn remove-admin" *ngIf="row.role == USER_ROLES.ADMIN" mat-icon-button (click)="removeAdmin(row)">
                     <mat-icon> Remove Admin </mat-icon>        
                 </button>
-                <button *ngIf="row.role == USER_ROLES.USER" mat-icon-button (click)="makeAdmin(row)">
+                <button class="btn make-admin" *ngIf="row.role == USER_ROLES.USER" mat-icon-button (click)="makeAdmin(row)">
                     <mat-icon>Make Admin</mat-icon>        
                 </button>
-                <button *ngIf="row._id !== this.userId" mat-icon-button (click)="deleteUser(row)"> 
+                <button class="btn delete-user" *ngIf="row._id !== this.userId" mat-icon-button (click)="deleteUser(row)"> 
                     <mat-icon color="warn">Delete</mat-icon>
                 </button>
             </mat-cell>

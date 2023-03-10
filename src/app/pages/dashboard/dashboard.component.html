@@ -7,7 +7,8 @@
         <div ngbDropdown [open]="tutorialStep == 2" class="user-section" id="userSectionDropdown">
             <img class="user-small-image" [src]="this.profilePicture">
             <div ngbDropdownToggle class="username">
-                <i *ngIf="this.userRole == USER_ROLES.MASTER" class="fa-solid fa-bolt-lightning admin-icon"  ngbTooltip="Admin"></i>
+                <i *ngIf="this.userRole == USER_ROLES.MASTER" class="fa-solid fa-bolt admin-icon admin-icon-position"  ngbTooltip="Master"></i>
+                <i *ngIf="this.userRole == USER_ROLES.ADMIN" class="fa-solid fa-star admin-icon admin-icon-position"  ngbTooltip="Admin"></i>
                 {{ userName }}
             </div>
             

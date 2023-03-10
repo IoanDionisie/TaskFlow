@@ -4,3 +4,37 @@
     max-height: 500px;
     min-height: 400px;
 }
+
+
+.remove-admin,
+.make-admin,
+.delete-user {
+    color: white;
+    padding: 2px 6px 2px 6px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 20px;
+    opacity: 1;
+}
+
+.remove-admin:hover,
+.make-admin:hover,
+.delete-user:hover {
+    opacity: 0.9;
+}
+
+.remove-admin {
+    background: $taskColor;
+}
+
+.make-admin {
+    background: $taskColor;
+}
+
+.delete-user {
+    background: $errorColor;
+}
+
+.mat-header-row {
+    border-bottom: 1px solid white;
+}
