@@ -1,0 +1,39 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title"> Users </h4>
+</div>
+
+<div class="modal-body">
+    <mat-table class="mat-elevation-z8" [dataSource]="users">
+        <ng-container matColumnDef="username">
+            <mat-header-cell *matHeaderCellDef>Username</mat-header-cell>
+            <mat-cell *matCellDef="let row;">{{row.username}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="role">
+            <mat-header-cell *matHeaderCellDef>Role</mat-header-cell>
+            <mat-cell *matCellDef="let row;">
+                {{row.role}}
+                
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let row;">
+                <button *ngIf="row.role == USER_ROLES.ADMIN" mat-icon-button (click)="removeAdmin(row)">
+                    <mat-icon> Remove Admin </mat-icon>        
+                </button>
+                <button *ngIf="row.role == USER_ROLES.USER" mat-icon-button (click)="makeAdmin(row)">
+                    <mat-icon>Make Admin</mat-icon>        
+                </button>
+                <button *ngIf="row._id !== this.userId" mat-icon-button (click)="deleteUser(row)"> 
+                    <mat-icon color="warn">Delete</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns">
+        </mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="closeModal()">Cancel</button>
+</div>

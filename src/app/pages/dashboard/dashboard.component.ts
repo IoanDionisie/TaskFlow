@@ -17,7 +17,7 @@ import { ImageService } from 'src/app/services/image.service';
 import { TASK_STATUS } from 'src/app/constants/task-status';
 import { TaskTimer } from 'tasktimer';
 import * as global from 'src/app/constants/variables';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { trigger, transition, animate, style, state } from '@angular/animations'
 import { ANIMATIONS } from 'src/app/constants/animations';
 import { SearchTaskFilterPipe } from '../../pipes/search-task-filter.pipe';
@@ -34,12 +34,13 @@ import { FacadeService } from 'src/app/services/facade.service';
 import { ChangelogComponent } from 'src/app/components/modals/changelog/changelog.component';
 import { CustomPaginatorComponent } from 'src/app/components/custom-paginator/custom-paginator.component';
 import { TestingComponent } from './testing/testing.component';
-import { E } from '@angular/cdk/keycodes';
-import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { WelcomePageComponent } from 'src/app/components/modals/welcome-page/welcome-page.component';
 import { TUTORIAL_STEPS } from 'src/app/constants/tutorialsteps';
+import { USER_ROLES } from 'src/app/constants/user-roles';
 import { HistoryComponent } from '../history/history.component';
 import { Router } from '@angular/router';
+import { UsersComponent } from 'src/app/components/modals/users/users.component';
 
 @Component({
     selector: 'app-dashboard',
@@ -97,6 +98,7 @@ export class DashboardComponent implements OnInit {
   readonly ITEM_TYPE = ITEM_TYPE;
   readonly ITEM_STATUS = ITEM_STATUS;
   readonly TASK_STATUS = TASK_STATUS; 
+  readonly USER_ROLES = USER_ROLES;
   profilePicture: any;
   public searchFilter: any = "";
   showSearch: boolean = false;
@@ -126,7 +128,7 @@ export class DashboardComponent implements OnInit {
 
   tutorialStep: number = -1;
   tutorialStepText: string = "";
-  isAdmin: boolean = false;
+  userRole: string = USER_ROLES.USER;
   
   constructor(private modalService: NgbModal,
     private facadeService: FacadeService,
@@ -151,8 +153,9 @@ export class DashboardComponent implements OnInit {
       this.profilePicture = response;
     });
 
-    this.facadeService.isAdmin().subscribe(value => {
-      this.isAdmin = value;
+    this.facadeService.getUserRole().subscribe(value => {
+      console.log(value);
+      this.userRole = value;
     });
 
     if (this.facadeService.getShowTutorial() !== "false") {
@@ -829,5 +832,9 @@ export class DashboardComponent implements OnInit {
 
   openHistoryPage() {
     this.router.navigate(['history']);
+  }
+
+  showUsers() {
+    this.modalService.open(UsersComponent);
   }
 }

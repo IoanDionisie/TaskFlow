@@ -12,5 +12,10 @@ module.exports = function(app) {
   app.get("/api/all", controller.allAccess);
   app.get("/api/user", [authJwt.verifyToken], controller.userBoard);
   app.get("/api/users", controller.getUsers);
-  app.get("/api/isAdmin", controller.isAdmin);
+  app.get("/api/userRole", controller.userRole);
+
+  app.patch("/api/giveAdminRights/:id", controller.giveAdminRights);
+  app.patch("/api/removeAdminRights/:id", controller.removeAdminRights);
+
+  app.delete("/api/deleteUser/:id", controller.deleteUser);
 };

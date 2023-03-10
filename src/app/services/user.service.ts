@@ -19,7 +19,23 @@ export class UserService {
     return this.http.get(API_URL + 'user', { responseType: 'text' });
   }
 
-  isAdmin(): Observable<any> {
-    return this.http.get(API_URL + "isAdmin", { responseType: 'text' });
+  userRole(): Observable<any> {
+    return this.http.get(API_URL + "userRole", { responseType: 'text' });
+  }
+
+  getUsers(): Observable<any> {
+    return this.http.get(API_URL + "users", { responseType: 'json' });
+  }
+  
+  deleteUser(id: any): Observable<any> {
+    return this.http.delete(API_URL + "deleteUser/" + id);
+  }
+
+  makeAdmin(id: any): Observable<any> {
+    return this.http.patch(API_URL + "giveAdminRights/" + id, {});
+  }
+
+  removeAdmin(id: any): Observable<any> {
+    return this.http.patch(API_URL + "removeAdminRights/" + id, {});
   }
 }

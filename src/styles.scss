@@ -298,6 +298,7 @@ input:disabled, textarea:disabled, select:disabled {
     .modal-content,
     .autocomplete-dropdown,
     textarea,
+    .mat-table,
     input,
     input:focus {
         background: var(--primary-dark)!important;
@@ -306,6 +307,7 @@ input:disabled, textarea:disabled, select:disabled {
         label, input,
         ::placeholder,
         .mat-option-text,
+        .mat-cell, .mat-header-cell,
         .mat-tab-label-content {
             color: var(--text-dark)!important;
         }
@@ -343,6 +345,10 @@ input:disabled, textarea:disabled, select:disabled {
     input:disabled, textarea:disabled, select:disabled {
         cursor: not-allowed;
         background: initial!important;
+    }
+
+    .mat-list-option, .mat-pseudo-checkbox {
+        color: var(--text-dark);
     }
 }
 
@@ -578,4 +584,8 @@ input:disabled, textarea:disabled, select:disabled {
     to {
         transform: rotate(360deg);
     }
+}
+
+.mat-table {
+    box-shadow: none!important;
 }
