@@ -379,12 +379,6 @@ input:disabled, textarea:disabled, select:disabled {
     top: 0;
 }
 
-.title-row .app-title:hover .app-logo {
-    transform: rotateY(720deg);
-    color: white;
-}
-
-
 .title-row .app-title {
     position: relative;
     overflow: hidden;
@@ -402,9 +396,7 @@ input:disabled, textarea:disabled, select:disabled {
     }
 
     .app-logo {
-        position: relative;
         color: white;
-        transition: 1s;
         z-index: 3;  
     }
 
@@ -418,17 +410,7 @@ input:disabled, textarea:disabled, select:disabled {
     }
 }
 
-.app-title:before {
-    background: $listColor;
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transition: 1s;
-    z-index: 1;
-}
+
 
 .title-row .title-header {
     position: relative;
@@ -581,10 +563,25 @@ input:disabled, textarea:disabled, select:disabled {
     from {
         transform: rotate(0deg);
     }
+    
     to {
         transform: rotate(360deg);
     }
 }
+
+.flip {
+    animation: flip 2s infinite linear;
+}
+
+@keyframes flip{
+    from {
+        transform: rotateY(0deg);
+    }
+
+    to {
+        transform: rotateY(360deg);
+    }
+ }
 
 .mat-table {
     box-shadow: none!important;
@@ -596,4 +593,26 @@ input:disabled, textarea:disabled, select:disabled {
 
 .mat-header-cell {
     font-size: 16px;
+}
+
+/* Class added for a shine effect on hover */
+.shine-effect {
+    overflow: hidden;
+}
+
+.shine-effect:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -300px;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: skewX(-30deg);
+    transition: 0.5s;
+} 
+  
+.shine-effect:hover:before {
+    left: 250px;
+    background: rgba(255, 255, 255, 0.2);
 }

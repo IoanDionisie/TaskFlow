@@ -24,9 +24,9 @@
     </div>
     <div class="row title-row">
         <div class="col-4">
-            <div class="app-title has-text-primary">
+            <div class="app-title has-text-primary shine-effect">
                 <h1 class="title-header"> TaskFlow </h1> 
-                <i class="fa-solid fa-tree app-logo"></i>
+                <i class="fa-solid fa-tree app-logo flip"></i>
             </div>
         </div>
         <div *ngIf="tutorialStep != -1" class="col-12">
@@ -139,7 +139,7 @@
     </div>
     
     <div class="row bottom-row">   
-        <div class="version" (click)="showChangelog()">
+        <div class="version shine-effect" (click)="showChangelog()">
             Version {{this.version}}
         </div>
         <div class="add-task" *ngIf="selectedList && selectedList.status == ITEM_STATUS.inProgress">
