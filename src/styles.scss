@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css'; 
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import "styles/variables.scss";
 
 
@@ -12,16 +12,16 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey; 
+    box-shadow: inset 0 0 5px grey;
     border-radius: 10px;
 }
-   
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: $taskColor!important; 
+    background: $taskColor!important;
     border-radius: 10px;
 }
-  
+
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     opacity: 0.8;
@@ -60,8 +60,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .modal {
     text-align: center;
 }
-  
-@media screen and (min-width: 768px) { 
+
+@media screen and (min-width: 768px) {
     .modal:before {
       display: inline-block;
       vertical-align: middle;
@@ -75,7 +75,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     }
 }
 
-  
+
 .modal-dialog {
     width: 100%;
     display: inline-block;
@@ -166,7 +166,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     input, textarea {
         outline: none;
     }
-    
+
     label {
         color: $listColor;
     }
@@ -254,7 +254,7 @@ input:disabled, textarea:disabled, select:disabled {
     --primary-dark: #1F1B24;
     --secondary-dark: #121212;
     --text-dark: #fff;
-    --header-text-dark: #788791; 
+    --header-text-dark: #788791;
 }
 
 .color-scheme-dark {
@@ -275,7 +275,7 @@ input:disabled, textarea:disabled, select:disabled {
         color: var(--text-dark);
     }
 
-  
+
     h1,
     h2,
     h3,
@@ -286,7 +286,7 @@ input:disabled, textarea:disabled, select:disabled {
     .task-manager-container {
         background: linear-gradient(90deg, rgba(18,18,18,1) 36%, rgba(31,27,36,1) 80%, rgba(33,37,41,1) 100%)!important;
         color: var(--text-dark)!important;
-        
+
         label, input,
         ::placeholder,
         .mat-option-text,
@@ -353,7 +353,7 @@ input:disabled, textarea:disabled, select:disabled {
 }
 
 .pie-label.animation {
-    font-size: 16px;    
+    font-size: 16px;
 }
 
 .legend-labels {
@@ -390,21 +390,21 @@ input:disabled, textarea:disabled, select:disabled {
     background: $taskColor;
     padding: 2px 10px 2px 10px;
     width: fit-content;
-    
+
     h1 {
         color: white;
     }
 
     .app-logo {
         color: white;
-        z-index: 3;  
+        z-index: 3;
     }
 
     .fa-tree {
         margin-left: 10px;
     }
 
-    .fa-tree, 
+    .fa-tree,
     .fa-pagelines {
         font-size: 28px;
     }
@@ -563,7 +563,7 @@ input:disabled, textarea:disabled, select:disabled {
     from {
         transform: rotate(0deg);
     }
-    
+
     to {
         transform: rotate(360deg);
     }
@@ -610,9 +610,14 @@ input:disabled, textarea:disabled, select:disabled {
     background: rgba(255, 255, 255, 0.3);
     transform: skewX(-30deg);
     transition: 0.5s;
-} 
-  
+}
+
 .shine-effect:hover:before {
     left: 250px;
     background: rgba(255, 255, 255, 0.2);
+}
+
+button:focus {
+  outline: none!important;
+  box-shadow: none!important;
 }
