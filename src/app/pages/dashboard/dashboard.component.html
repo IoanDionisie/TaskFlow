@@ -1,9 +1,9 @@
 <div class="container task-manager-container ">
     <div class="work-break">
-        <app-work-break></app-work-break>    
+        <app-work-break></app-work-break>
     </div>
     <!-- <app-testing [testInput]="lists"></app-testing> -->
-    <div class="user-section-wrapper">  
+    <div class="user-section-wrapper">
         <div ngbDropdown [open]="tutorialStep == 2" class="user-section" id="userSectionDropdown">
             <img class="user-small-image" [src]="this.profilePicture">
             <div ngbDropdownToggle class="username">
@@ -11,7 +11,7 @@
                 <i *ngIf="this.userRole == USER_ROLES.ADMIN" class="fa-solid fa-star admin-icon admin-icon-position"  ngbTooltip="Admin"></i>
                 {{ userName }}
             </div>
-            
+
             <div id="user-section-dropdown-content" ngbDropdownMenu aria-labelledby="userSectionDropdown">
                 <div class="user-dropdown-action" (click)="openAccountModal()"> Account </div>
                 <div class="user-dropdown-action" *ngIf="this.userRole == USER_ROLES.MASTER" (click)="showUsers()"> Users </div>
@@ -25,7 +25,7 @@
     <div class="row title-row">
         <div class="col-4">
             <div class="app-title has-text-primary shine-effect">
-                <h1 class="title-header"> TaskFlow </h1> 
+                <h1 class="title-header"> TaskFlow </h1>
                 <i class="fa-solid fa-tree app-logo flip"></i>
             </div>
         </div>
@@ -50,7 +50,7 @@
             (listEvent)="listEvent($event)" [progressBarColor]="progressBarColor"
             [tagsObject]="tagsObject">
         </app-lists>
-        
+
         <div class="task-list-container col-9">
             <div *ngIf="this.showSearch == true" class="form-group search-tasks">
                 <input type="text" (input)="searchValueChanged($event)" class="form-control mb-4" placeholder="Search" [(ngModel)]="searchFilter" id="listSearch">
@@ -77,7 +77,7 @@
                                     <app-status-circles [circles]="task.estimation"></app-status-circles>
                                 </div>
                             </div>
-                            
+
                             <div class="actions">
                                 <div *ngIf="task.isStarted == TASK_STATUS.started && task.showTimer == true" class="task-duration">
                                     {{task.workingTime}}
@@ -104,11 +104,11 @@
                         </div>
                     </div>
                 </mat-tab>
-               
+
                 <mat-tab [label]="'Completed (' + completedTasks.length + ')'" *ngIf="completedTasks.length > 0">
                     <div class="completed-tasks">
-                        <div *ngFor="let task of (shownCompletedTasks | searchTaskFilter : searchFilter); let indexOfElement=index;" 
-                            class="task task-color" 
+                        <div *ngFor="let task of (shownCompletedTasks | searchTaskFilter : searchFilter); let indexOfElement=index;"
+                            class="task task-color"
                             [@slideAnimation]="task.animation">
                             <div class="checkbox-and-title">
                                 <div class="circle-completed">
@@ -137,8 +137,8 @@
             </div>
         </div>
     </div>
-    
-    <div class="row bottom-row">   
+
+    <div class="row bottom-row">
         <div class="version shine-effect" (click)="showChangelog()">
             Version {{this.version}}
         </div>
