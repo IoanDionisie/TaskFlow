@@ -60,6 +60,12 @@
                   "type": "anyComponentStyle",
                   "maximumWarning": "2kb",
                   "maximumError": "100kb"
+                },
+                {
+                  "type": "all",
+                  "baseline": "1mb",
+                  "maximumWarning": "500kb",
+                  "maximumError": "450%"
                 }
               ],
               "fileReplacements": [
