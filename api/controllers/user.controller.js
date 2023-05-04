@@ -1,5 +1,8 @@
 const { User } = require('../db/models/user.model');
 const { authJwt } = require('../middleware');
+const { List } = require('../db/models/list.model');
+const { Task } = require('../db/models/task.model');
+const { Tag } = require('../db/models');
 
 exports.allAccess = (req, res) => {
     res.status(200).send("Public Content.");
@@ -9,7 +12,7 @@ exports.userBoard = (req, res) => {
     res.status(200).send("User Content.");
 };
 
-/** 
+/**
  * Purpose: Gets user's role for this app
  */
 async function userRole (req, res) {
@@ -23,7 +26,7 @@ async function userRole (req, res) {
     }
 }
 
-/** 
+/**
  * Purpose: Gets a list with al users currently registered
  */
 async function getUsers(req, res) {
@@ -37,7 +40,7 @@ async function getUsers(req, res) {
     }
 }
 
-/** 
+/**
  * Purpose: Gives an user admin rights
  */
 async function giveAdminRights(req, res) {
@@ -52,7 +55,7 @@ async function giveAdminRights(req, res) {
     }
 }
 
-/** 
+/**
  * Purpose: Removes the admin role for an user
  */
 async function removeAdminRights(req, res) {
@@ -67,12 +70,19 @@ async function removeAdminRights(req, res) {
     }
 }
 
-/** 
- * Purpose: Deletes an user and all its data (TODO)
+/**
+ * Purpose: Deletes an user and all its data
  */
 async function deleteUser(req, res) {
     try {
         let userId = req.params.id;
+        let userLists = await List.find({userId: userId});
+
+        for (let i = 0; i < userLists.length; ++i) {
+          await Task.deleteMany({_listId: userLists[i]._id});
+        }
+        await Tag.deleteMany({userId: userId});
+        await List.deleteMany({userId: userId});
         await User.findOneAndDelete({_id: userId});
         res.status(200).send({});
     } catch(err) {
