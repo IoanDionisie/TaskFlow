@@ -54,7 +54,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -62,10 +62,10 @@
                   "maximumError": "100kb"
                 },
                 {
-                  "type": "all",
-                  "baseline": "3mb",
-                  "maximumWarning": "500kb",
-                  "maximumError": "450%"
+                  "type": "bundle",
+                  "baseline": "10mb",
+                  "maximumWarning": "10mb",
+                  "maximumError": "50%"
                 }
               ],
               "fileReplacements": [

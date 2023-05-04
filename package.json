@@ -6,7 +6,10 @@
     "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build:stats": "ng build --stats-json",
+    "analyze": "webpack-bundle-analyzer dist/tasks-manager/stats.json" ,
+    "build-analyze": "npm run build:stats && npm run analyze"
   },
   "private": true,
   "dependencies": {
@@ -62,6 +65,7 @@
     "karma-coverage": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
-    "typescript": "~4.8.4"
+    "typescript": "~4.8.4",
+    "webpack-bundle-analyzer": "^4.8.0"
   }
 }
