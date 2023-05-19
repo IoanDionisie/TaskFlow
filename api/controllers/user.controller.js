@@ -15,7 +15,7 @@ exports.userBoard = (req, res) => {
 /**
  * Purpose: Gets user's role for this app
  */
-async function userRole (req, res) {
+async function userRole(req, res) {
     try {
         let userId = authJwt.getUserId(req);
         await User.findById({_id: userId}).then((user) => {

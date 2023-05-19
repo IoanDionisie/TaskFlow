@@ -11,10 +11,11 @@ import { TaskService } from "./task.service";
 import { TokenStorageService } from "./token-storage.service";
 import { UserService } from "./user.service";
 import { NgxSpinnerService } from "ngx-spinner";
+import { HistoryService } from "./history.service";
 
 @Injectable()
 export class FacadeService {
-  
+
     private _authService!: AuthService;
     public get authService(): AuthService {
         if(!this._authService) {
@@ -38,7 +39,7 @@ export class FacadeService {
         }
         return this._colorSchemeService;
     }
-    
+
     private _helperService!: HelperService;
     public get helperService(): HelperService {
         if(!this._helperService) {
@@ -111,6 +112,14 @@ export class FacadeService {
         return this._localStorageService;
     }
 
+    private _historyService!: HistoryService;
+    public get historyService(): HistoryService {
+        if(!this._historyService) {
+            this._historyService = this.injector.get(HistoryService);
+        }
+        return this._historyService;
+    }
+
     constructor(private injector: Injector) {  }
 
     /* Auth Service */
@@ -173,7 +182,7 @@ export class FacadeService {
 
     linkifyText (text: string) {
         return this.helperService.linkifyText(text);
-    }   
+    }
 
     convertDate(date: any) {
         return this.helperService.convertDate(date);
@@ -184,7 +193,7 @@ export class FacadeService {
     setProfilePicture() {
         return this.imageService.setProfilePicture();
     }
-    
+
     /* List Service */
 
     createList(list: any) {
@@ -205,7 +214,7 @@ export class FacadeService {
 
     /* Others Service */
 
-    getDataForExport() {    
+    getDataForExport() {
         return this.othersService.getDataForExport();
     }
 
@@ -216,7 +225,7 @@ export class FacadeService {
     checkFile(file: any) {
         return this.othersService.checkFile(file);
     }
-    
+
     getChangelog() {
         return this.othersService.getChangelog();
     }
@@ -253,7 +262,7 @@ export class FacadeService {
         return this.taskService.getTasks(listId);
     }
 
-    deleteTask(listId: any, taskId: any) { 
+    deleteTask(listId: any, taskId: any) {
         return this.taskService.deleteTask(listId, taskId);
     }
 
@@ -282,7 +291,7 @@ export class FacadeService {
     saveToken(token: string) {
         return this.tokenStorageService.saveToken(token);
     }
-    
+
     getToken() {
         return this.tokenStorageService.getToken();
     }
@@ -324,9 +333,9 @@ export class FacadeService {
     deleteUser(user: any) {
         return this.userService.deleteUser(user);
     }
-    
+
     /* Local Storage Service */
-    
+
     storePageSize(size: number) {
         return this.localStorageService.storePageSize(size);
     }
@@ -343,15 +352,21 @@ export class FacadeService {
         return this.localStorageService.getShowTutorial(this.getUser().id);
     }
 
-    
+
     /* Ngx Spinner Service */
-    
+
     showSpinner() {
         return this.ngxSpinnerService.show();
     }
 
     hideSpinner() {
         return this.ngxSpinnerService.hide();
+    }
+
+    /* History Service */
+
+    getHistory() {
+      return this.historyService.getHistory();
     }
 
 }

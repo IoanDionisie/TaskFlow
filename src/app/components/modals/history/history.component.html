@@ -1,0 +1,13 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title"> History </h4>
+</div>
+<div class="modal-body">
+  <mat-list>
+    <mat-list-item *ngFor="let item of elements" role="listitem">
+      User {{item.userId}} {{item.action}} {{item.actionObject}}
+    </mat-list-item>
+  </mat-list>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-danger" (click)="closeModal()">Cancel</button>
+</div>

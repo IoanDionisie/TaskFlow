@@ -1,6 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import "styles/variables.scss";
+@import "../node_modules/@angular/material/theming";
+
+@include mat-core();
+
+$my-primary: mat-palette($mat-teal, 800);
+$my-accent: mat-palette($mat-light-green, 800);
+$my-theme: mat-light-theme($my-primary, $my-accent);
+
+@include angular-material-theme($my-theme);
 
 
 

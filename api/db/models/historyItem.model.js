@@ -6,6 +6,9 @@ const HistoryItemSchema = new mongoose.Schema({
     },
     action: {
         type: String
+    },
+    actionObject: {
+      type: Object
     }
 });
 

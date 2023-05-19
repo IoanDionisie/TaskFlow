@@ -38,9 +38,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { WelcomePageComponent } from 'src/app/components/modals/welcome-page/welcome-page.component';
 import { TUTORIAL_STEPS } from 'src/app/constants/tutorialsteps';
 import { USER_ROLES } from 'src/app/constants/user-roles';
-import { HistoryComponent } from '../history/history.component';
 import { Router } from '@angular/router';
 import { UsersComponent } from 'src/app/components/modals/users/users.component';
+import { HistoryComponent } from 'src/app/components/modals/history/history.component';
 
 @Component({
     selector: 'app-dashboard',
@@ -86,25 +86,25 @@ export class DashboardComponent implements OnInit {
   dummyCounter:number = 0;
 
   progressBarColor: any;
-  
+
   userName: string = "";
 
   startedTasks: number = 0;
-  
+
   tagsObject: any = {};
 
   version = global.version;
 
   readonly ITEM_TYPE = ITEM_TYPE;
   readonly ITEM_STATUS = ITEM_STATUS;
-  readonly TASK_STATUS = TASK_STATUS; 
+  readonly TASK_STATUS = TASK_STATUS;
   readonly USER_ROLES = USER_ROLES;
   profilePicture: any;
   public searchFilter: any = "";
   showSearch: boolean = false;
-  
+
   setProfilePicture: Subscription = new Subscription();
-  
+
   timers: Map<string, TaskTimer> = new Map<string, TaskTimer>();
 
   @HostBinding('class') class = 'center-component';
@@ -129,14 +129,14 @@ export class DashboardComponent implements OnInit {
   tutorialStep: number = -1;
   tutorialStepText: string = "";
   userRole: string = USER_ROLES.USER;
-  
+
   constructor(private modalService: NgbModal,
     private facadeService: FacadeService,
     private imageService: ImageService,
     private router: Router) { }
 
 
-  ngOnDestroy(): void { 
+  ngOnDestroy(): void {
     this.timers.forEach((timer: TaskTimer) => {
       timer.stop();
     });
@@ -193,7 +193,7 @@ export class DashboardComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<Object[]>, tasks: any) {
-    moveItemInArray(tasks, event.previousIndex, event.currentIndex);    
+    moveItemInArray(tasks, event.previousIndex, event.currentIndex);
     moveItemInArray(this.inProgressTasks, event.previousIndex + this.paginatorStartIndex, event.currentIndex + this.paginatorStartIndex);
     this.changeArrayOrder(this.inProgressTasks);
   }
@@ -235,7 +235,7 @@ export class DashboardComponent implements OnInit {
       } else if (listStatus == ITEM_STATUS.completed) {
         this.customPaginatorComponent?.loadList(this.completedTasks);
       }
- 
+
       let pageSize;
       if (this.facadeService.getPageSize() == null) {
         this.facadeService.storePageSize(global.defaultPageSize);
@@ -265,7 +265,7 @@ export class DashboardComponent implements OnInit {
         }
       }
     }
-  
+
     for (var tag of tagsMap.values()) {
       tagsArray.push({name: tag.title, value: tag.value});
       colorScheme.push(tag.color);
@@ -282,14 +282,14 @@ export class DashboardComponent implements OnInit {
     if (this.tasks.length == 0)
       this.selectedList.percentCompleted = 0;
     else
-      this.selectedList.percentCompleted = Math.floor(this.completedTasks.length / this.tasks.length * 100);    
+      this.selectedList.percentCompleted = Math.floor(this.completedTasks.length / this.tasks.length * 100);
     }
 
   /* Splits the task list in 2 lists, 'In Progress' and 'Completed', and then sorts the completed tasks by Date */
   sortTasks(tasks: any) {
     this.tasks = tasks;
     this.startedTasks = 0;
-    this.showSearch = this.tasks.length > 0 ? true : false; 
+    this.showSearch = this.tasks.length > 0 ? true : false;
 
     for (let i = 0; i < this.tasks.length; ++i) {
       tasks[i].status == ITEM_STATUS.inProgress ? this.inProgressTasks.push(tasks[i]) : this.completedTasks.push(tasks[i]);
@@ -300,7 +300,7 @@ export class DashboardComponent implements OnInit {
     }
     this.completedTasks.sort((objA:any, objB:any) => Number(new Date(objB.dateCompleted)) - Number(new Date(objA.dateCompleted)));
   }
-  
+
   createNewTask() {
     const modalRef = this.modalService.open(CreateTaskComponent);
     modalRef.componentInstance.createTaskConfirmation.subscribe((response: any) => {
@@ -319,7 +319,7 @@ export class DashboardComponent implements OnInit {
             let endIndex = pageSize;
             this.inProgressTasks.unshift(response);
             this.customPaginatorComponent?.loadList(this.inProgressTasks);
-            this.shownInProgressTasks = this.inProgressTasks.slice(startIndex, endIndex); 
+            this.shownInProgressTasks = this.inProgressTasks.slice(startIndex, endIndex);
           }
           this.customPaginatorComponent?.modifyPageCount(this.inProgressTasks);
 
@@ -354,8 +354,8 @@ export class DashboardComponent implements OnInit {
           task.animation = ANIMATIONS.deleted;
           let pageSize = Number(this.facadeService.getPageSize());
           let startIndex = this.selectedPage * pageSize;
-          let endIndex = (this.selectedPage + 1) * pageSize; 
-          
+          let endIndex = (this.selectedPage + 1) * pageSize;
+
           var timer = setInterval(() => {
             if (type == ITEM_STATUS.completed) {
               this.completedTasks.splice(startIndex + index, 1);
@@ -365,10 +365,10 @@ export class DashboardComponent implements OnInit {
                 this.customPaginatorComponent?.modifySelectedPage(this.selectedPage);
                 startIndex = this.selectedPage * pageSize;
                 endIndex = (this.selectedPage + 1) * pageSize;
-              } 
+              }
               this.shownCompletedTasks = this.completedTasks.slice(startIndex, endIndex);
-            
-            } else if (type == ITEM_STATUS.inProgress) {              
+
+            } else if (type == ITEM_STATUS.inProgress) {
               this.inProgressTasks.splice(startIndex + index, 1);
               this.customPaginatorComponent?.modifyPageCount(this.inProgressTasks);
               if (this.inProgressTasks.length % pageSize == 0 && this.inProgressTasks.length > 0 && this.selectedPage > 0) {
@@ -376,7 +376,7 @@ export class DashboardComponent implements OnInit {
                 this.customPaginatorComponent?.modifySelectedPage(this.selectedPage);
                 startIndex = this.selectedPage * pageSize;
                 endIndex = (this.selectedPage + 1) * pageSize;
-              } 
+              }
               this.shownInProgressTasks = this.inProgressTasks.slice(startIndex, endIndex);
             }
 
@@ -536,7 +536,7 @@ export class DashboardComponent implements OnInit {
         isStarted: TASK_STATUS.started,
         workIntervals: task.workIntervals
       }
-  
+
       this.facadeService.modifyTaskDates(this.selectedList._id, task._id, data).subscribe((response: any) => {
         task.isStarted = TASK_STATUS.started;
         task.workIntervals = response;
@@ -589,7 +589,7 @@ export class DashboardComponent implements OnInit {
     let now = new Date();
     task.status = ITEM_STATUS.completed;
     let totalWorkingTime = this.calculateTotalWorkingTime(task, now);
-    
+
     let data = {
       date: now,
       isStarted: TASK_STATUS.completed,
@@ -606,8 +606,8 @@ export class DashboardComponent implements OnInit {
 
         let pageSize = Number(this.facadeService.getPageSize());
         let startIndex = this.selectedPage * pageSize;
-        let endIndex = (this.selectedPage + 1) * pageSize; 
-          
+        let endIndex = (this.selectedPage + 1) * pageSize;
+
         this.inProgressTasks.splice(startIndex + index, 1);
         this.customPaginatorComponent?.modifyPageCount(this.inProgressTasks);
         if (this.inProgressTasks.length % pageSize == 0 && this.inProgressTasks.length > 0 && this.selectedPage > 0) {
@@ -615,7 +615,7 @@ export class DashboardComponent implements OnInit {
           this.customPaginatorComponent?.modifySelectedPage(this.selectedPage);
           startIndex = this.selectedPage * pageSize;
           endIndex = (this.selectedPage + 1) * pageSize;
-        } 
+        }
         this.shownInProgressTasks = this.inProgressTasks.slice(startIndex, endIndex);
 
         this.completedTasks.unshift(task);
@@ -635,14 +635,14 @@ export class DashboardComponent implements OnInit {
         clearInterval(timer);
       }, 500);
     })
-  }    
+  }
 
   calculateTotalWorkingTime(task: any, date: Date) {
     task.workIntervals.push({
-      date: date, 
+      date: date,
       type: TASK_STATUS.completed
     });
-    
+
     var totalTime = 0;
     for (let i = 0; i < task.workIntervals.length; i++) {
       if (i % 2 == 0) {
@@ -660,7 +660,7 @@ export class DashboardComponent implements OnInit {
     }
     this.facadeService.cloneTask(data).subscribe((response: any) => {
       response.animation = ANIMATIONS.default;
-     
+
       let pageSize = Number( this.facadeService.getPageSize());
       if (this.selectedPage == 0) {
           this.inProgressTasks.unshift(response);
@@ -674,11 +674,11 @@ export class DashboardComponent implements OnInit {
         let endIndex = pageSize;
         this.inProgressTasks.unshift(response);
         this.customPaginatorComponent?.loadList(this.inProgressTasks);
-        this.shownInProgressTasks = this.inProgressTasks.slice(startIndex, endIndex); 
+        this.shownInProgressTasks = this.inProgressTasks.slice(startIndex, endIndex);
       }
       this.customPaginatorComponent?.modifyPageCount(this.inProgressTasks);
-    
-     
+
+
       if (typeof this.tasks !== 'undefined') {
         this.tasks.unshift(response);
       } else {
@@ -689,7 +689,7 @@ export class DashboardComponent implements OnInit {
       this.calculatePercentCompleted();
       this.setProgressbarColor();
       this.showSuccessMessage(Actions.cloneTask, task.title);
-      
+
       var timer = setInterval(() => {
         response.animation = ANIMATIONS.cloned;
         clearInterval(timer);
@@ -707,14 +707,14 @@ export class DashboardComponent implements OnInit {
     for (let i = 0; i < workIntervals.length; i = i + 2) {
       if (workIntervals[i + 1] != undefined)
         timeWorkedSoFar += this.facadeService.getSecondsDiff(new Date(workIntervals[i].date), new Date(workIntervals[i + 1].date));
-    } 
+    }
 
     if (!timer) {
       timer = new TaskTimer();
       timer.add([
         {
-            id: task._id,       
-            totalRuns: 0,   
+            id: task._id,
+            totalRuns: 0,
             callback(task) {}
         }
       ]);
@@ -752,7 +752,7 @@ export class DashboardComponent implements OnInit {
   openAccountModal() {
     const modalRef = this.modalService.open(MyAccountComponent);
     modalRef.componentInstance.username = this.userName;
-   
+
     modalRef.componentInstance.changedPassword.subscribe(() => {
       this.showSuccessMessage(Actions.changedPassword, null);
     })
@@ -777,10 +777,10 @@ export class DashboardComponent implements OnInit {
     let selectedPage = event.selectedPage;
     let pageSizeChanged = event.pageSizeChanged;
     let startIndex = selectedPage * pageSize;
-    let endIndex = (selectedPage + 1) * pageSize; 
+    let endIndex = (selectedPage + 1) * pageSize;
     this.paginatorStartIndex = startIndex;
     this.selectedPage = selectedPage;
-    
+
     if (pageSizeChanged) {
       this.shownInProgressTasks = this.inProgressTasks.slice(startIndex, endIndex);
       this.shownCompletedTasks = this.completedTasks.slice(startIndex, endIndex);
@@ -794,7 +794,7 @@ export class DashboardComponent implements OnInit {
 
   tasksTabChange(event: any) {
     this.inProgressSelected = event.index == 0 ? true : false;
-    
+
     if (this.selectedList.status == ITEM_STATUS.completed) {
       this.inProgressSelected = false;
     }
@@ -805,7 +805,7 @@ export class DashboardComponent implements OnInit {
 
     this.searchFilter = "";
     this.showPagination = true;
-    
+
     let param = {
       selectedPage: 0,
       pageSize: Number(this.facadeService.getPageSize()),
@@ -831,7 +831,7 @@ export class DashboardComponent implements OnInit {
   }
 
   openHistoryPage() {
-    this.router.navigate(['history']);
+    this.modalService.open(HistoryComponent);
   }
 
   showUsers() {

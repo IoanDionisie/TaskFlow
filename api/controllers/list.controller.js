@@ -2,10 +2,12 @@ const { authJwt } = require('../middleware');
 const { List } = require('../db/models/list.model');
 const { Task } = require('../db/models/task.model');
 
-/** 
+const history = require('./history.controller');
+/**
  * Purpose: Gets all lists for the logged in user
  */
 async function getLists(req, res) {
+  console.log(arguments.callee.name)
     try {
         let userId = authJwt.getUserId(req);
         await List.find({userId: userId}).then((lists) => {
@@ -16,7 +18,7 @@ async function getLists(req, res) {
     }
 }
 
-/** 
+/**
  * Purpose: Update a specified list
  */
 async function updateList(req, res) {
@@ -28,14 +30,14 @@ async function updateList(req, res) {
             status: req.body.status,
             observations: req.body.observations,
             dateCompleted: req.body.dateCompleted
-        });  
+        });
         res.status(200).send({});
     } catch(err) {
         returnError(err, res);
     }
 }
 
-/** 
+/**
  * Purpose: Create a new list
  */
 async function createList(req, res) {
@@ -51,13 +53,14 @@ async function createList(req, res) {
 
         newList.save().then((listDoc) => {
             res.send(listDoc)
+            history.addHistoryItem(req, req.body);
         });
     } catch(err) {
         returnError(err, res);
     }
 }
-    
-/** 
+
+/**
 
  * Purpose: Delete a list
  */

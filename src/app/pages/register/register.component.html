@@ -5,8 +5,8 @@
               <div class="row title-row mb-5">
                 <div class="col-12 flex-center">
                     <div class="app-title has-text-primary">
-                        <h1 class="title-header"> TaskFlow </h1> 
-                        <i class="fa-solid fa-tree app-logo"></i>
+                        <h1 class="title-header"> TaskFlow </h1>
+                        <i class="fa-solid fa-tree app-logo flip"></i>
                     </div>
                 </div>
               </div>
@@ -71,7 +71,7 @@
                     />
 
                   <app-password-strength [passwordToCheck]="form.password" (passwordStrength)="onPasswordStrengthChanged($event)"></app-password-strength>
-                   
+
                   <div class="custom-alert-danger mt-3" *ngIf="password.errors">
                     <div *ngIf="password.errors['required']">
                       Password is required

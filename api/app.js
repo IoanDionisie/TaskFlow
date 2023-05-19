@@ -27,7 +27,7 @@ const appPage = process.env.SITEPAGE;
 app.use(session({
     resave: false,
     saveUninitialized: true,
-    secret: 'SECRET' 
+    secret: 'SECRET'
 }));
 
 const mongoose  = require('./db/mongoose');
@@ -53,6 +53,7 @@ require('./routes/list.routes')(app);
 require('./routes/task.routes')(app);
 require('./routes/tag.routes')(app);
 require('./routes/user.routes')(app);
+require('./routes/history.routes')(app);
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -84,7 +85,7 @@ app.use(passport.session());
 passport.serializeUser(function(user, cb) {
     cb(null, user);
   });
-  
+
 passport.deserializeUser(function(obj, cb) {
     cb(null, obj);
 });
@@ -116,7 +117,7 @@ passport.use(new GoogleStrategy({
             var token = jwt.sign({ id: user.id }, config.secret, {
                 expiresIn: 86400 // 24 hours
             });
-            user = await User.create(newUser); 
+            user = await User.create(newUser);
             done(null, user);
         }
     } catch(err) {
@@ -124,9 +125,9 @@ passport.use(new GoogleStrategy({
     }
   }
 ));
- 
+
 app.get('/api/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
-app.get('/api/auth/google/callback', 
+app.get('/api/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/error' }),
   function(req, res) {
     User.findOne({
@@ -140,7 +141,7 @@ app.get('/api/auth/google/callback',
           if (!user) {
             return res.status(404).send({ message: "User Not found." });
           }
-         
+
           var token = jwt.sign({ id: user.id }, config.secret, {
             expiresIn: 86400 // 24 hours
           });
@@ -149,7 +150,7 @@ app.get('/api/auth/google/callback',
             "username": user.username,
             "accessToken": token,
         });
-    
+
         res.redirect(`${appPage}/dashboard/?` + query);
     });
 });
@@ -166,7 +167,7 @@ app.post('/api/upload', (req, res) => {
     });
 });
 
-/** 
+/**
  * GET /export
  * Purpose: Get data for export
  */
@@ -177,7 +178,7 @@ app.get('/export',  async (req, res) => {
     let tasks = [];
 
     lists.sort((a,b) => (a.status < b.status) ? 1 : ((b.status < a.status) ? -1 : 0));
-    
+
     for (let i = 0; i < lists.length; i++) {
         var obj = {
             tasks: await Task.find({_listId: lists[i]._id}),
@@ -191,7 +192,7 @@ app.get('/export',  async (req, res) => {
         tasks: tasks,
         lists: lists
     };
-    res.send(response);    
+    res.send(response);
 })
 
 function compare( a, b ) {
@@ -204,7 +205,7 @@ function compare( a, b ) {
     return 0;
 }
 
-/** 
+/**
  * POST /
  * Purpose: Imports data in current user's account
  */
@@ -216,7 +217,7 @@ app.post('/import', async (req, res) => {
     let tags = req.body["tags"];
 
     let currentLists = await List.find({userId: userId});
-    let currentTags = await Tag.find({userId: userId}); 
+    let currentTags = await Tag.find({userId: userId});
     let skipElement = false;
 
     for (let k = 0; k < lists.length; k++) {
@@ -229,7 +230,7 @@ app.post('/import', async (req, res) => {
         }
 
         if (skipElement) {
-            continue;   
+            continue;
         }
 
         let newList = await new List({
@@ -265,7 +266,7 @@ app.post('/import', async (req, res) => {
             }
         }
     }
-    
+
     for (let i = 0; i < tags.length; i++) {
         skipElement = false;
         for (let j = 0; j < currentTags.length; j++) {
@@ -275,7 +276,7 @@ app.post('/import', async (req, res) => {
         }
 
         if (skipElement) {
-            continue;   
+            continue;
         }
 
         let newTag = await new Tag({
@@ -288,7 +289,7 @@ app.post('/import', async (req, res) => {
     res.status(200).send({});
 })
 
-/** 
+/**
  * GET /
  * Purpose: Checks if a file with the given name exists
  */

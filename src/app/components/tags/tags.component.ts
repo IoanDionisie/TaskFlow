@@ -3,7 +3,7 @@ import { UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/f
 import { MatAutocompleteSelectedEvent, MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Observable } from 'rxjs';
+import { Observable, isEmpty } from 'rxjs';
 import { startWith, map } from 'rxjs';
 import { ITEM_STATUS } from 'src/app/constants/item-status';
 import { MatOptionModule } from '@angular/material/core';
@@ -24,7 +24,7 @@ export class TagsComponent {
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>|undefined;
 
   @ViewChildren('autocomplete') autocompleteDiv: ElementRef|undefined;
-  
+
   separatorKeysCodes: number[] = [ENTER, COMMA];
   tagsControl = new UntypedFormControl('');
   filteredTags: Observable<string[]>|undefined;
@@ -59,7 +59,7 @@ export class TagsComponent {
       if (value) {
         this.tags.push(value);
       }
-  
+
       // Send the tags array to the parent component
       this.tagsAdded.emit(this.tags);
     }
@@ -78,7 +78,7 @@ export class TagsComponent {
     }
   }
 
-  selected(event: MatAutocompleteSelectedEvent): void {   
+  selected(event: MatAutocompleteSelectedEvent): void {
     if (this.tags.length == 3) {
       this.tooManyTagsError();
     } else {
@@ -113,7 +113,7 @@ export class TagsComponent {
         return item['title'];
       });
     });
-    
+
     if (this.currentTags && this.currentTags.length > 0) {
       this.tags = this.currentTags;
     }
@@ -121,7 +121,7 @@ export class TagsComponent {
 
   tooManyTagsError() {
     this.tooManyTags = true;
-    setTimeout(() =>{ 
+    setTimeout(() =>{
       this.tooManyTags = false;
     }, 3000);
   }
