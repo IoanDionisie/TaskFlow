@@ -3,6 +3,8 @@ const { authJwt } = require('../middleware');
 const { List } = require('../db/models/list.model');
 const { Task } = require('../db/models/task.model');
 const { Tag } = require('../db/models');
+const history = require('./history.controller');
+
 
 exports.allAccess = (req, res) => {
     res.status(200).send("Public Content.");
@@ -46,9 +48,14 @@ async function getUsers(req, res) {
 async function giveAdminRights(req, res) {
     try {
         let userId = req.params.id;
+        let selectedUser;
         await User.findByIdAndUpdate(userId, {
             role: "admin"
+        }).then((user) => {
+          selectedUser = user;
         });
+
+        history.addHistoryItem(req, selectedUser, arguments.callee.name);
         res.status(200).send({});
     } catch(err) {
         returnError(err, res);
@@ -61,9 +68,15 @@ async function giveAdminRights(req, res) {
 async function removeAdminRights(req, res) {
     try {
         let userId = req.params.id;
+        let selectedUser;
+
         await User.findByIdAndUpdate(userId, {
             role: "user"
+        }).then((user) => {
+          selectedUser = user;
         });
+
+        history.addHistoryItem(req, selectedUser, arguments.callee.name);
         res.status(200).send({});
     } catch(err) {
         returnError(err, res);
@@ -83,7 +96,10 @@ async function deleteUser(req, res) {
         }
         await Tag.deleteMany({userId: userId});
         await List.deleteMany({userId: userId});
-        await User.findOneAndDelete({_id: userId});
+        await User.findOneAndDelete({_id: userId}).then((user) => {
+          history.addHistoryItem(req, user, arguments.callee.name);
+        });
+
         res.status(200).send({});
     } catch(err) {
         returnError(err, res);

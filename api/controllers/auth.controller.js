@@ -3,6 +3,8 @@ const { User } = require('../db/models/user.model');
 const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
 var session = require('express-session');
+const history = require('./history.controller');
+
 
 dotenv.config();
 
@@ -36,7 +38,7 @@ exports.signup = (req, res) => {
             res.status(500).send({ message: err });
             return;
         }
-     
+
         user.save(err => {
             if (err) {
                 res.status(500).send({ message: err });
@@ -66,12 +68,13 @@ exports.changePassword = (req, res) => {
   var updatedUser = {
     password: bcrypt.hashSync(req.body.password, 8)
   }
-
   User.findOneAndUpdate({username: req.body.username}, updatedUser).exec((err, user) => {
     if (err) {
       res.status(500).send({ message: err });
       return;
     }
+    let methodName = "changePassword";
+    history.addHistoryItem(req, null, methodName);
     res.status(200).send({message: "Password updated with success!"});
   });
 };
@@ -97,7 +100,7 @@ async function sendResetPasswordLink(req, res) {
         return res.status(400).json({
             message : "Email Address is invalid!"
         })
-    } 
+    }
   } catch(err) {
       console.log(err);
       return res.status(500).json({
@@ -167,7 +170,7 @@ exports.signin = (req, res) => {
         var token = jwt.sign({ id: user.id }, config.secret, {
           expiresIn: 86400 // 24 hours
         });
-        
+
         res.status(200).send({
           id: user._id,
           username: user.username,

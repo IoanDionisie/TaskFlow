@@ -4,7 +4,10 @@
 <div class="modal-body">
   <mat-list>
     <mat-list-item *ngFor="let item of elements" role="listitem">
-      User {{item.userId}} {{item.action}} {{item.actionObject}}
+      <span *ngIf="item.user">{{item.user.username}} </span> &nbsp;
+      <span  *ngIf="item.action">{{item.action}} </span> &nbsp;
+      <span *ngIf="item.actionObject"> {{item.actionObject.title}} </span>
+      <span *ngIf="item.actionObject"> {{item.actionObject.username}} </span>
     </mat-list-item>
   </mat-list>
 </div>

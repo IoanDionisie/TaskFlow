@@ -1,13 +1,13 @@
 const { authJwt } = require('../middleware');
 const { List } = require('../db/models/list.model');
 const { Task } = require('../db/models/task.model');
-
 const history = require('./history.controller');
+
+
 /**
  * Purpose: Gets all lists for the logged in user
  */
 async function getLists(req, res) {
-  console.log(arguments.callee.name)
     try {
         let userId = authJwt.getUserId(req);
         await List.find({userId: userId}).then((lists) => {
@@ -31,6 +31,8 @@ async function updateList(req, res) {
             observations: req.body.observations,
             dateCompleted: req.body.dateCompleted
         });
+
+        history.addHistoryItem(req, req.body, arguments.callee.name);
         res.status(200).send({});
     } catch(err) {
         returnError(err, res);
@@ -53,7 +55,7 @@ async function createList(req, res) {
 
         newList.save().then((listDoc) => {
             res.send(listDoc)
-            history.addHistoryItem(req, req.body);
+            history.addHistoryItem(req, req.body, arguments.callee.name);
         });
     } catch(err) {
         returnError(err, res);
@@ -70,9 +72,15 @@ async function deleteList(req, res) {
         await Task.deleteMany({
             _listId: id
         })
+
+        let deletedList = await List.findById(id);
         await List.findOneAndDelete({
             _id: id
+        }).then((list) => {
+          deletedList = list;
         });
+
+        history.addHistoryItem(req, deletedList, arguments.callee.name);
         res.status(200).send({});
     } catch(err) {
         returnError(err, res);

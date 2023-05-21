@@ -292,6 +292,10 @@ input:disabled, textarea:disabled, select:disabled {
       color: var(--header-text-dark);
     }
 
+    mat-list-item .mat-list-item-content {
+      color: var(--text-dark);
+    }
+
     .task-manager-container {
         background: linear-gradient(90deg, rgba(18,18,18,1) 36%, rgba(31,27,36,1) 80%, rgba(33,37,41,1) 100%)!important;
         color: var(--text-dark)!important;

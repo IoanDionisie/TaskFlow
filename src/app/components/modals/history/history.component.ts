@@ -21,8 +21,6 @@ import { FacadeService } from 'src/app/services/facade.service';
 export class HistoryComponent implements OnInit  {
 
   elements: HistoryItem[] = [];
-
-
   readonly ITEM_STATUS = ITEM_STATUS;
 
   constructor(private modal: NgbActiveModal, private facadeService: FacadeService) {
@@ -30,13 +28,9 @@ export class HistoryComponent implements OnInit  {
 
   ngOnInit(): void {
     this.facadeService.getHistory().subscribe((elements: any) => {
-      console.log(elements);
       this.elements = elements;
-  })
-  }
-
-  confirm() {
-
+      console.log(elements);
+    })
   }
 
   closeModal() {

@@ -1,8 +1,9 @@
 const { isNamedExportBindings } = require('typescript');
 const { Task } = require('../db/models/task.model');
 const { WorkingDates } = require('../db/models/workingDates.model');
+const history = require('./history.controller');
 
-/** 
+/**
  * Purpose: Gets a specific task by id
  */
 async function getTask(req, res) {
@@ -18,7 +19,7 @@ async function getTask(req, res) {
     }
 }
 
-/** 
+/**
  * Purpose: Gets tasks from a specific list
  */
 async function getTasks(req, res) {
@@ -34,7 +35,7 @@ async function getTasks(req, res) {
     }
 }
 
-/** 
+/**
  * Purpose: Adds a task in the specified list
  */
 async function addTask(req, res) {
@@ -44,7 +45,7 @@ async function addTask(req, res) {
         if (sortedTags) {
             sortedTags.sort((a, b) => a.title.localeCompare(b.title));
         }
-    
+
         let task = new Task({
             title: req.body.title,
             _listId:  req.params.id,
@@ -55,16 +56,17 @@ async function addTask(req, res) {
             tags: sortedTags,
             order: lastTask != null ? lastTask.order + 1 : 0
         })
-    
+
         await task.save().then((taskDoc) => {
+            history.addHistoryItem(req, req.body, arguments.callee.name);
             res.send(taskDoc);
-        })   
+        })
     } catch(err) {
         returnError(err, res);
-    } 
+    }
 }
 
-/** 
+/**
  * Purpose: Clones a task in the specified list
  */
 async function cloneTask(req, res) {
@@ -83,14 +85,15 @@ async function cloneTask(req, res) {
             order: lastTask != null ? lastTask.order + 1 : 0,
         })
         await task.save().then((taskDoc) => {
+            history.addHistoryItem(req, clonedTask, arguments.callee.name);
             res.send(taskDoc);
-        })    
+        })
     } catch(err) {
         returnError(err, res);
     }
 }
 
-/** 
+/**
  * Purpose: Updates a task in the specified list
  */
 async function updateTask(req, res) {
@@ -99,7 +102,8 @@ async function updateTask(req, res) {
         if (sortedTags) {
             sortedTags.sort((a, b) => a.title.localeCompare(b.title));
         }
-        
+
+        let updatedTask;
         await Task.findByIdAndUpdate(
         req.params.taskId, {
             title: req.body.title,
@@ -109,14 +113,18 @@ async function updateTask(req, res) {
             estimation: req.body.estimation,
             tags: sortedTags,
             isStarted: req.body.isStarted
-        })   
-        res.status(200).send(req.body);   
+        }).then((task) => {
+          updatedTask = task;
+        })
+
+        history.addHistoryItem(req, updatedTask, arguments.callee.name);
+        res.status(200).send(req.body);
     } catch(err) {
         returnError(err, res);
     }
 }
 
-/** 
+/**
  * Purpose: Updates a task's work intervals in the specified list
  */
 async function updateTaskWorkIntervals(req, res) {
@@ -139,13 +147,13 @@ async function updateTaskWorkIntervals(req, res) {
             workIntervals: workIntervals,
             totalWorkingTime: req.body.totalWorkingTime
         })
-        res.send(workIntervals);   
+        res.send(workIntervals);
     } catch(err) {
         returnError(err, res);
     }
 }
 
-/** 
+/**
  * Purpose: Reorders tasks in the specified list
  */
 async function reorderTasks(req, res) {
@@ -157,14 +165,14 @@ async function reorderTasks(req, res) {
             await Task.findByIdAndUpdate(tasks[i], {
                 order: counter
             });
-        }   
-        res.status(200).send({});  
+        }
+        res.status(200).send({});
     } catch(err) {
         returnError(err, res);
     }
 }
 
-/** 
+/**
  * Purpose: Deletes a task in the specified list
  */
 async function deleteTask(req, res) {
@@ -173,6 +181,7 @@ async function deleteTask(req, res) {
             _id: req.params.taskId,
             _listId: req.params.listId
         }).then((removedTaskDocument) => {
+            history.addHistoryItem(req, removedTaskDocument, arguments.callee.name);
             res.send(removedTaskDocument);
         });
     } catch(err) {
