@@ -2,14 +2,16 @@
   <h4 class="modal-title" id="modal-title"> History </h4>
 </div>
 <div class="modal-body">
-  <mat-list>
-    <mat-list-item *ngFor="let item of elements" role="listitem">
+  <mat-list class="history-list">
+    <mat-list-item *ngFor="let item of paginatorElements" role="listitem">
       <span *ngIf="item.user">{{item.user.username}} </span> &nbsp;
       <span  *ngIf="item.action">{{item.action}} </span> &nbsp;
       <span *ngIf="item.actionObject"> {{item.actionObject.title}} </span>
       <span *ngIf="item.actionObject"> {{item.actionObject.username}} </span>
     </mat-list-item>
   </mat-list>
+  <mat-paginator  (page)="onChangePage($event)" #paginator [length]="this.elements.length" [pageSize]="10" [pageSizeOptions]="[5, 8, 10, 25]">
+  </mat-paginator>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-danger" (click)="closeModal()">Cancel</button>

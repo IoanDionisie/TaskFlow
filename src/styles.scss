@@ -634,3 +634,11 @@ button:focus {
   outline: none!important;
   box-shadow: none!important;
 }
+//TODO
+.mat-paginator .cdk-overlay-connected-position-bounding-box {
+  z-index: 1000000 !important;
+}
+
+.mat-paginator .cdk-global-overlay-wrapper {
+  z-index: 1000000 !important;
+}

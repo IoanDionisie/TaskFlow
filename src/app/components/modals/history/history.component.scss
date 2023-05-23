@@ -1,4 +1,21 @@
+@import "../../../../styles/variables.scss";
+
 :host {
-  min-height: 70vh;
+  height: auto;
 }
 
+.history-list {
+  height: 60vh;
+  overflow-y: auto;
+}
+
+.mat-paginator {
+  background: var(--primary-dark);
+  color: var(--text-dark);
+}
+
+::ng-deep .mat-paginator-range-actions .mat-button-disabled .mat-button-wrapper svg {
+  cursor: not-allowed;
+  color: gray!important;
+  fill: gray!important;
+}
