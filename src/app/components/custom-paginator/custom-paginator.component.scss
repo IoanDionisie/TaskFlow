@@ -12,22 +12,31 @@
     margin: 0;
 }
 
-::ng-deep .paginator-content .mat-select-value {
+::ng-deep .paginator-content .mat-mdc-select-value {
     display: flex!important;
     justify-content: center!important;
 }
 
-::ng-deep .paginator-content .mat-form-field {
-    width: 80px;
+::ng-deep .paginator-content .mat-mdc-form-field {
     margin-left: 20px;
     margin-right: 20px;
+    display: flex;
+    width: auto;
+    flex-direction: row;
 }
 
-.mat-form-underline {
+::ng-deep .paginator-content .mat-mdc-text-field-wrapper {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    max-width: 140px;
+}
+
+.mat-mdc-form-underline {
     display: none!important;
 }
 
-::ng-deep .paginator-content .mat-form-field-infix {
+::ng-deep .paginator-content .mat-mdc-form-field-infix {
     margin: 0;
     padding-right: 5px;
     padding-left: 5px;

@@ -19,7 +19,7 @@ import { NgbModal, NgbDropdown, NgbDropdownToggle, NgbDropdownMenu, NgbTooltip }
     templateUrl: './history.component.html',
     styleUrls: ['./history.component.scss'],
     standalone: true,
-    imports: [FormsModule, NgIf, AutosizeModule,
+    imports: [FormsModule, NgIf,
       NgForOf, TagsComponent, MatListModule, CommonModule,
       MatPaginatorModule, NgbDropdown, NgbDropdownToggle, NgbDropdownMenu]
 })

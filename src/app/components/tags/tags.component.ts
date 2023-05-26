@@ -11,13 +11,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { NgClass, NgForOf, AsyncPipe } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FacadeService } from 'src/app/services/facade.service';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
     selector: 'app-tags',
     templateUrl: './tags.component.html',
     styleUrls: ['./tags.component.scss'],
     standalone: true,
-    imports: [MatFormFieldModule, NgClass, MatChipsModule, NgForOf, MatIconModule, FormsModule, MatAutocompleteModule, ReactiveFormsModule, MatOptionModule, AsyncPipe]
+    imports: [MatFormFieldModule, MatInputModule, NgClass, MatChipsModule, NgForOf, MatIconModule, FormsModule, MatAutocompleteModule, ReactiveFormsModule, MatOptionModule, AsyncPipe]
 })
 export class TagsComponent {
 

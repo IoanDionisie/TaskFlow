@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
     templateUrl: './create-task.component.html',
     styleUrls: ['./create-task.component.scss'],
     standalone: true,
-    imports: [FormsModule, NgIf, AutosizeModule, NgForOf, TagsComponent]
+    imports: [FormsModule, NgIf, NgForOf, TagsComponent]
 })
 
 export class CreateTaskComponent implements OnInit  {
@@ -38,10 +38,10 @@ export class CreateTaskComponent implements OnInit  {
       this.timeValues.push(i/2);
     }
   }
-  
+
   confirm() {
     let obj = {
-      confirmation: true, 
+      confirmation: true,
       title: this.title,
       description: this.description,
       dateCreated: new Date(),

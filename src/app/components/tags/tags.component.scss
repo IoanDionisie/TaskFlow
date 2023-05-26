@@ -13,11 +13,20 @@ mat-form-field  {
     display: none;
 }
 
-::ng-deep .tags-list .mat-form-field-underline {
+::ng-deep .tags-list .mat-mdc-form-field-underline {
     display: none;
 }
 
-::ng-deep .tags-list .mat-form-field-flex {
+::ng-deep .tags-list .mat-mdc-text-field-wrapper {
+  background: var(--primary-dark);
+  padding: 0;
+}
+
+::ng-deep .mat-mdc-option .mdc-list-item__primary-text {
+  color: var(--text-dark)!important;
+}
+
+::ng-deep .tags-list .mat-mdc-form-field-flex {
     background: initial!important;
     padding: 10px;
     border: 1px solid $listColor;
@@ -40,3 +49,4 @@ input:disabled {
     display: none!important;
     pointer-events: none;
 }
+

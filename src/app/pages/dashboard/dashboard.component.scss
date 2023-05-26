@@ -282,7 +282,7 @@
     display:initial!important;
 }
 
-.mat-tab-group {
+.mat-mdc-tab-group {
     height: 90%;
 }
 
@@ -429,15 +429,15 @@
     margin: 0 auto;
 }
 
-::ng-deep .task-list-container .tasks-tabs .mat-tab-header {
+::ng-deep .task-list-container .tasks-tabs .mat-mdc-tab-header {
     width: fit-content!important;
 }
 
-::ng-deep .task-list-container .tasks-tabs .mat-tab-body-content {
+::ng-deep .task-list-container .tasks-tabs .mat-mdc-tab-body-content {
     overflow: hidden;
 }
 
-::ng-deep .task-list-container .tasks-tabs .mat-tab-body-wrapper {
+::ng-deep .task-list-container .tasks-tabs .mat-mdc-tab-body-wrapper {
     padding-top: 5px;
 }
 

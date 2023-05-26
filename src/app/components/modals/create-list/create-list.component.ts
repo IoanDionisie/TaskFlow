@@ -8,21 +8,21 @@ import { FormsModule } from '@angular/forms';
     templateUrl: './create-list.component.html',
     styleUrls: ['./create-list.component.scss'],
     standalone: true,
-    imports: [FormsModule, AutosizeModule]
+    imports: [FormsModule]
 })
 export class CreateListComponent  {
 
   @Output() createListConfirmation: EventEmitter<any> = new EventEmitter();
-  
+
   name: string | undefined;
   description: string | undefined;
 
-  
+
   constructor(private modal: NgbActiveModal) {}
-  
+
   confirm() {
     let list = {
-      confirmation: true, 
+      confirmation: true,
       title: this.name,
       description: this.description,
       dateCreated: new Date()

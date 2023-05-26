@@ -3,7 +3,7 @@
   <div class="error-too-many-tags" [ngClass]="this.tooManyTags == false ? 'display-none' : ''">
     You cannot add more than 3 tags!
   </div>
-    <mat-chip-list #tagList aria-label="Tags">
+    <mat-chip-listbox #tagList aria-label="Tags">
       <mat-chip
         *ngFor="let tag of tags"
         (removed)="remove(tag)">
@@ -12,8 +12,8 @@
           <mat-icon>cancel</mat-icon>
         </button>
       </mat-chip>
-
       <input
+        matInput
         placeholder="Add tag..."
         #tagInput
         [disabled]="this.taskCompleted == ITEM_STATUS.completed"
@@ -22,8 +22,8 @@
         [matChipInputFor]="tagList"
         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
         (matChipInputTokenEnd)="add($event)">
-    </mat-chip-list>
-    
+    </mat-chip-listbox>
+
     <mat-autocomplete #autocomplete class="autocomplete-dropdown" #auto="matAutocomplete" (optionSelected)="selected($event)">
       <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
         {{tag.title}}

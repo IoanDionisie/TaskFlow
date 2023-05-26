@@ -12,10 +12,10 @@ import { FormsModule } from '@angular/forms';
     templateUrl: './modify-item.component.html',
     styleUrls: ['./modify-item.component.scss'],
     standalone: true,
-    imports: [FormsModule, AutosizeModule, NgIf, NgForOf, TagsComponent]
+    imports: [FormsModule, NgIf, NgForOf, TagsComponent]
 })
 export class ModifyItemComponent implements OnInit {
-  
+
   @Input() public elementName: any;
   @Input() public title: string = "";
   @Input() public description: string = "";
@@ -43,7 +43,7 @@ export class ModifyItemComponent implements OnInit {
 
   confirm() {
     let obj = {
-      confirmation: true, 
+      confirmation: true,
       title: this.title,
       description: this.description,
       status: this.status,
@@ -55,7 +55,7 @@ export class ModifyItemComponent implements OnInit {
     this.modifyItemConfirmation.emit(obj);
     this.closeModal();
   }
-  
+
   closeModal() {
     this.modal.close();
   }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FacadeService } from '../services/facade.service';
 
@@ -8,7 +8,7 @@ import { FacadeService } from '../services/facade.service';
     providedIn: 'root'
 })
 
-export class AuthGuard  implements CanActivate {
+export class AuthGuard   {
 
 constructor(private facadeService: FacadeService, private router: Router) {}
 
